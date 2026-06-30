@@ -52,10 +52,6 @@
   width: 100%;
   max-width: 480px;
   padding: 24px;
-  background: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border, #e8e7e2);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(21, 20, 17, 0.06);
   text-align: left;
 }
 
@@ -66,6 +62,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  background: var(--color-card-bg, #fff);
 }
 
 .uninstall-legend {
@@ -105,7 +102,7 @@
 
 .uninstall-reason:has(input:checked) {
   border-color: var(--color-yellow, #ffd52b);
-  background: var(--color-hero-bg, #fffbea);
+  background: var(--color-toast-border, #FFF2BD);
 }
 
 .uninstall-field {
@@ -238,7 +235,6 @@
 @media (max-width: 520px) {
   .uninstall-hero { padding: 112px 16px 56px; }
   .uninstall-title { font-size: 30px; line-height: 38px; }
-  .uninstall-card { padding: 18px; }
   .uninstall-actions { flex-direction: column; gap: 14px; }
   .uninstall-action--primary { width: 100%; justify-content: center; }
 }
