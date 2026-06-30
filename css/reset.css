@@ -159,7 +159,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   height: 28px;
   padding: 4px 10px;
   background: #FFFDF5;
@@ -185,13 +185,14 @@
   transition: width 0.15s ease, opacity 0.15s ease;
 }
 
-.reset-rule__check svg { width: 20px; height: 20px; }
+.reset-rule__check img { width: 20px; height: 20px; }
 
 /* met state */
 .reset-rule.is-met {
-  background: #F1FAF1;
-  border-color: #CBEBCB;
-  color: #1f7a34;
+  padding: 4px 4px 4px 10px;
+  background: #FFD52B;
+  border-color: #E8C227;
+  color: #38362E;
 }
 
 .reset-rule.is-met .reset-rule__check {
