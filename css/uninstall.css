@@ -175,6 +175,41 @@
 /* ---- success popup: reuse the design-system reset overlay + modal ---- */
 .uninstall-hero[data-state="success"] .reset-overlay { display: flex; }
 
+/* No bee here: tighten the modal and center the action button (scoped to this page) */
+.uninstall-hero .reset-modal {
+  min-height: 0;
+  padding: 48px 24px;
+  justify-content: center;
+}
+
+.uninstall-hero .reset-modal__body {
+  margin-top: 16px;
+}
+
+.uninstall-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.uninstall-hero .reset-modal__btn {
+  position: static;
+  margin-top: 0;
+}
+
+.uninstall-hero .reset-modal__btn--dark {
+  background: #38362E;
+  border: 1px solid #000000;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.34),
+    inset 0 -3px 2px rgba(0, 0, 0, 0.78),
+    inset 0 0 1px 2px rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
 /* ---- next actions ---- */
 .uninstall-actions {
   display: flex;
