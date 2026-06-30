@@ -101,6 +101,27 @@
 .status-btn:hover { filter: brightness(1.02); transform: translateY(-1px); }
 .status-btn:active { transform: translateY(1px); }
 
+/* row of actions (e.g. Open Luzora + Go Home) */
+.status-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* dark / secondary action button */
+.status-btn--dark {
+  background: #38362E;
+  border: 1px solid #000000;
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.34),
+    inset 0 -3px 2px rgba(0, 0, 0, 0.78),
+    inset 0 0 1px 2px rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
 /* ===================================================================
    Responsive
    =================================================================== */

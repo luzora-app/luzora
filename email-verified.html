@@ -1,23 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Page not found - Luzora</title>
+  <meta name="robots" content="noindex" />
+  <title>You're all set - Luzora</title>
   <link rel="icon" href="assets/icons/Logo Icon.svg" type="image/svg+xml" />
-  <meta name="description" content="This link doesn't exist in Luzora. Get back to a familiar page." />
+  <meta name="description" content="Your email is confirmed. You can continue using the Luzora extension." />
   <meta name="keywords" content="luzora, recurring tasks, task management, browser extension, productivity, reminders, natural language processing, task scheduling, task tracking, task organization" />
   <meta name="author" content="Luzora" />
-  <meta property="og:title" content="Page not found - Luzora" />
-  <meta property="og:description" content="This link doesn't exist in Luzora. Get back to a familiar page." />
+  <meta property="og:title" content="You're all set - Luzora" />
+  <meta property="og:description" content="Your email is confirmed. You can continue using the Luzora extension." />
   <meta property="og:image" content="https://luzora-pi.vercel.app/assets/images/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Luzora browser extension preview" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Page not found - Luzora" />
-  <meta name="twitter:description" content="This link doesn't exist in Luzora. Get back to a familiar page." />
+  <meta name="twitter:title" content="You're all set - Luzora" />
+  <meta name="twitter:description" content="Your email is confirmed. You can continue using the Luzora extension." />
   <meta name="twitter:image" content="https://luzora-pi.vercel.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -28,13 +29,19 @@
   <div data-site-nav></div>
 
   <!-- ============ HERO ============ -->
-  <section class="status-hero" style="gap: 16px;">
-    <img class="status-illustration" src="assets/images/404 bee.avif" width="706" height="397" alt="A confused Luzora bee standing next to a 404 road sign" />
+  <section class="status-hero">
+    <span class="hex-badge hex-badge--lg" aria-hidden="true">
+      <svg class="hex-badge__shape" viewBox="0 0 42 42"><polygon points="40,21 30.5,37.45 11.5,37.45 2,21 11.5,4.55 30.5,4.55" fill="#FFD52B" stroke="#FFD52B" stroke-width="3.5" stroke-linejoin="round" /></svg>
+      <svg class="hex-badge__glyph" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#000" stroke-width="2.2" stroke-linejoin="round" />
+        <path d="M4 7.5l8 5.5 8-5.5" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
 
-    <div class="status-copy status-copy--sm">
+    <div class="status-copy">
       <div class="status-head">
-        <h1 class="status-title">You landed on a wrong page</h1>
-        <p class="status-text">This link doesn't exist in Luzora, get back to a familiar page</p>
+        <h1 class="status-title">You're all set</h1>
+        <p class="status-text">Thank you for confirming your email address. You can continue using Luzora Extension.</p>
       </div>
       <a class="status-btn" href="index.html">Go Home</a>
     </div>
