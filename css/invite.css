@@ -1,0 +1,130 @@
+﻿/* ===================================================================
+   Invite / referral landing (/r/<username>) - builds on status.css
+   =================================================================== */
+
+.invite-bee {
+  width: 248px;
+  max-width: 70%;
+  height: auto;
+  display: block;
+}
+
+.invite-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 440px;
+  padding: 20px 24px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e8e7e2);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(21, 20, 17, 0.06);
+}
+
+.invite-card__label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted, #706c5c);
+}
+
+.invite-code-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.invite-code {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  background: var(--color-hero-bg, #fffbea);
+  border: 1px dashed var(--color-yellow, #ffd52b);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--color-ink, #151411);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.invite-copy {
+  flex: none;
+  height: 48px;
+  padding: 0 18px;
+  background: var(--color-yellow, #ffd52b);
+  border: 1px solid var(--color-btn-border, #e0b800);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-btn-ink, #151411);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.invite-copy:hover { filter: brightness(1.03); transform: translateY(-1px); }
+.invite-copy:active { transform: translateY(1px); }
+.invite-copy.is-copied { background: #d6f3df; border-color: #9bd9ad; }
+
+.invite-card__hint {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--color-muted, #706c5c);
+}
+
+.invite-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 440px;
+  text-align: left;
+}
+
+.invite-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--color-body, #38362e);
+}
+
+.invite-step__num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  background: var(--color-yellow, #ffd52b);
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-ink, #151411);
+}
+
+/* Generic state when no valid code is present */
+.invite-hero.is-generic .invite-card { display: none; }
+
+@media (max-width: 520px) {
+  .invite-bee { width: 200px; }
+  .invite-code { font-size: 16px; }
+  .invite-copy { padding: 0 14px; }
+}
