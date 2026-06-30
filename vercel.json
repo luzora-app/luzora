@@ -9,6 +9,7 @@
     { "source": "/reset-password.html", "destination": "/reset-password", "permanent": true },
     { "source": "/link-expired.html", "destination": "/link-expired", "permanent": true },
     { "source": "/email-verified.html", "destination": "/email-verified", "permanent": true },
+    { "source": "/uninstalled.html", "destination": "/uninstalled", "permanent": true },
     { "source": "/404.html", "destination": "/404", "permanent": true }
   ],
   "rewrites": [
@@ -20,6 +21,7 @@
     { "source": "/reset-password", "destination": "/reset-password.html" },
     { "source": "/link-expired", "destination": "/link-expired.html" },
     { "source": "/email-verified", "destination": "/email-verified.html" },
+    { "source": "/uninstalled", "destination": "/uninstalled.html" },
     { "source": "/404", "destination": "/404.html" },
     { "source": "/r/:code", "destination": "/r.html" }
   ]

@@ -1,0 +1,249 @@
+/* ===================================================================
+   Uninstall feedback page (/uninstalled) - builds on styles.css tokens
+   =================================================================== */
+
+.uninstall-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 160px 24px 88px;
+  background: var(--color-hero-bg);
+  min-height: 60vh;
+}
+
+.uninstall-bee {
+  width: 168px;
+  max-width: 50%;
+  height: auto;
+  display: block;
+}
+
+.uninstall-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 560px;
+}
+
+.uninstall-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.167;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--color-ink);
+}
+
+.uninstall-text {
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+  color: var(--color-body);
+}
+
+/* ---- form card ---- */
+.uninstall-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e8e7e2);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(21, 20, 17, 0.06);
+  text-align: left;
+}
+
+.uninstall-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.uninstall-legend {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 6px;
+  padding: 0;
+}
+
+.uninstall-reason {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border, #e8e7e2);
+  border-radius: 12px;
+  font-size: 15px;
+  color: var(--color-body);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.uninstall-reason:hover {
+  border-color: #c2c0b6;
+}
+
+.uninstall-reason input {
+  accent-color: var(--color-yellow, #ffd52b);
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin: 0;
+  cursor: pointer;
+}
+
+.uninstall-reason:has(input:checked) {
+  border-color: var(--color-yellow, #ffd52b);
+  background: var(--color-hero-bg, #fffbea);
+}
+
+.uninstall-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.uninstall-field-label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.uninstall-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 96px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border, #e8e7e2);
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--color-ink);
+  background: #fff;
+}
+
+.uninstall-field textarea:focus {
+  outline: none;
+  border-color: var(--color-yellow, #ffd52b);
+  box-shadow: 0 0 0 3px rgba(255, 213, 43, 0.25);
+}
+
+.uninstall-privacy {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--color-muted, #706c5c);
+}
+
+.uninstall-error {
+  margin: 0;
+  font-size: 14px;
+  color: #c83e2d;
+}
+
+.uninstall-submit {
+  height: 44px;
+  padding: 0 16px;
+  background: var(--color-yellow, #ffd52b);
+  border: 1px solid var(--color-btn-border, #b5971f);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(170, 119, 5, 0.3), inset 0 -3px 2px #bd8915, inset 0 0 2px 2px #fff2bd;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--color-btn-ink, #473c0c);
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.12s ease;
+}
+
+.uninstall-submit:hover { filter: brightness(1.02); transform: translateY(-1px); }
+.uninstall-submit:active { transform: translateY(1px); }
+.uninstall-submit:disabled { cursor: default; opacity: 0.7; transform: none; }
+
+/* ---- success state ---- */
+.uninstall-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+  padding: 8px 0;
+}
+
+.uninstall-success-text {
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+  color: var(--color-ink);
+}
+
+.uninstall-hero[data-state="success"] .uninstall-card { display: none; }
+.uninstall-hero[data-state="success"] .uninstall-success { display: flex; }
+
+/* ---- next actions ---- */
+.uninstall-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 20px;
+}
+
+.uninstall-action {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.uninstall-action--primary {
+  text-decoration: none;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 18px;
+  background: var(--color-yellow, #ffd52b);
+  border: 1px solid var(--color-btn-border, #b5971f);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(170, 119, 5, 0.3), inset 0 -3px 2px #bd8915, inset 0 0 2px 2px #fff2bd;
+  color: var(--color-btn-ink, #473c0c);
+  transition: filter 0.15s ease, transform 0.12s ease;
+}
+
+.uninstall-action--primary:hover { filter: brightness(1.02); transform: translateY(-1px); }
+.uninstall-action--primary:active { transform: translateY(1px); }
+
+@media (max-width: 880px) {
+  .uninstall-hero { padding: 128px 20px 64px; }
+}
+
+@media (max-width: 520px) {
+  .uninstall-hero { padding: 112px 16px 56px; }
+  .uninstall-title { font-size: 30px; line-height: 38px; }
+  .uninstall-card { padding: 18px; }
+  .uninstall-actions { flex-direction: column; gap: 14px; }
+  .uninstall-action--primary { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uninstall-submit,
+  .uninstall-action--primary { transition: none; }
+}
