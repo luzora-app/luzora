@@ -3,7 +3,7 @@
 //
 // Flow: the recovery email (sent by Supabase, delivered via Resend SMTP)
 // links back here with a short-lived recovery session in the URL hash, e.g.
-//   .../reset-password.html#access_token=...&refresh_token=...&type=recovery
+//   ...//reset-password#access_token=...&refresh_token=...&type=recovery
 // We read that token, let the user set a new password, and PUT it to
 // Supabase GoTrue (/auth/v1/user). No secrets live in this file, only the
 // public (publishable) anon key, exactly like the extension's supabase.js.

@@ -1,5 +1,26 @@
 {
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/download.html", "destination": "/download", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/data-deletion.html", "destination": "/data-deletion", "permanent": true },
+    { "source": "/delete-confirmed.html", "destination": "/delete-confirmed", "permanent": true },
+    { "source": "/reset-password.html", "destination": "/reset-password", "permanent": true },
+    { "source": "/link-expired.html", "destination": "/link-expired", "permanent": true },
+    { "source": "/email-verified.html", "destination": "/email-verified", "permanent": true },
+    { "source": "/404.html", "destination": "/404", "permanent": true }
+  ],
   "rewrites": [
+    { "source": "/download", "destination": "/download.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/data-deletion", "destination": "/data-deletion.html" },
+    { "source": "/delete-confirmed", "destination": "/delete-confirmed.html" },
+    { "source": "/reset-password", "destination": "/reset-password.html" },
+    { "source": "/link-expired", "destination": "/link-expired.html" },
+    { "source": "/email-verified", "destination": "/email-verified.html" },
+    { "source": "/404", "destination": "/404.html" },
     { "source": "/r/:code", "destination": "/r.html" }
   ]
 }

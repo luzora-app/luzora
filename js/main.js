@@ -11,14 +11,14 @@
     var mount = document.querySelector("[data-site-nav]");
     if (!mount) return;
 
-    var path = window.location.pathname.split("/").pop().toLowerCase();
-    var isHome = path === "" || path === "index.html";
-    var isDownload = path === "download.html";
+    var path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+    var isHome = path === "" || path === "/index.html";
+    var isDownload = path === "/download" || path === "/download.html";
 
-    var homeHref = isHome ? "#hero" : "index.html#hero";
-    var featuresHref = isHome ? "#features" : "index.html#features";
-    var faqHref = isHome ? "#faq" : "index.html#faq";
-    var downloadHref = isDownload ? "#dl-top" : "download.html";
+    var homeHref = isHome ? "#hero" : "/#hero";
+    var featuresHref = isHome ? "#features" : "/#features";
+    var faqHref = isHome ? "#faq" : "/#faq";
+    var downloadHref = isDownload ? "#dl-top" : "/download";
     var installHref = isHome ? "#install" : downloadHref;
 
     mount.outerHTML =
@@ -271,7 +271,7 @@
 
       var newsletter = document.getElementById("newsletter");
       if (!newsletter) {
-        window.location.href = "index.html#newsletter";
+        window.location.href = "/#newsletter";
         return;
       }
 

@@ -3,7 +3,7 @@
 // Validates the form, drives the custom "what to delete" dropdown, and on
 // submit shows the "Verify your request" modal. The real request should be
 // POSTed to a backend that emails a verification link (which lands on
-// delete-confirmed.html). Hook that up where marked TODO.
+// /delete-confirmed). Hook that up where marked TODO.
 // =====================================================================
 (function () {
   "use strict";
