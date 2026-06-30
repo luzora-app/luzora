@@ -23,6 +23,7 @@
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/status.css" />
+  <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/uninstall.css" />
 </head>
 <body>
@@ -63,13 +64,23 @@
       <button class="uninstall-submit" id="uninstall-submit" type="submit">Send feedback</button>
     </form>
 
-    <!-- Success state -->
-    <div class="uninstall-success" id="uninstall-success">
-      <span class="hex-badge hex-badge--lg" aria-hidden="true">
-        <svg class="hex-badge__shape" viewBox="0 0 42 42"><polygon points="40,21 30.5,37.45 11.5,37.45 2,21 11.5,4.55 30.5,4.55" fill="#FFD52B" stroke="#FFD52B" stroke-width="3.5" stroke-linejoin="round" /></svg>
-        <svg class="hex-badge__glyph" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-11" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
-      </span>
-      <p class="uninstall-success-text">Thanks for the feedback. It helps us improve Luzora.</p>
+    <!-- Success popup (design-system overlay + modal, blurred background) -->
+    <div class="reset-overlay" role="dialog" aria-modal="true" aria-labelledby="uninstall-success-title">
+      <div class="reset-modal">
+        <span class="hex-badge hex-badge--sm" aria-hidden="true">
+          <svg class="hex-badge__shape" viewBox="0 0 42 42"><polygon points="40,21 30.5,37.45 11.5,37.45 2,21 11.5,4.55 30.5,4.55" fill="#FFD52B" stroke="#FFD52B" stroke-width="3.5" stroke-linejoin="round" /></svg>
+          <svg class="hex-badge__glyph" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10.5" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </span>
+
+        <img class="reset-modal__bee" src="/assets/images/elite-bee.avif" alt="" aria-hidden="true" />
+
+        <div class="reset-modal__body">
+          <h2 class="reset-modal__title" id="uninstall-success-title">Thanks for the feedback.</h2>
+          <p class="reset-modal__text">It helps us improve Luzora.</p>
+        </div>
+
+        <a class="reset-modal__btn" href="/download">Reinstall Luzora</a>
+      </div>
     </div>
 
     <!-- Helpful next actions -->

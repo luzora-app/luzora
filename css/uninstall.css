@@ -172,26 +172,8 @@
 .uninstall-submit:active { transform: translateY(1px); }
 .uninstall-submit:disabled { cursor: default; opacity: 0.7; transform: none; }
 
-/* ---- success state ---- */
-.uninstall-success {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 480px;
-  padding: 8px 0;
-}
-
-.uninstall-success-text {
-  font-size: 18px;
-  line-height: 28px;
-  text-align: center;
-  color: var(--color-ink);
-}
-
-.uninstall-hero[data-state="success"] .uninstall-card { display: none; }
-.uninstall-hero[data-state="success"] .uninstall-success { display: flex; }
+/* ---- success popup: reuse the design-system reset overlay + modal ---- */
+.uninstall-hero[data-state="success"] .reset-overlay { display: flex; }
 
 /* ---- next actions ---- */
 .uninstall-actions {
