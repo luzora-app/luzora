@@ -25,7 +25,7 @@
       '<header class="nav" id="nav">' +
         '<div class="nav__inner">' +
           '<a class="nav__logo" href="' + homeHref + '" aria-label="Luzora home">' +
-            '<img src="assets/icons/Logo.svg" height="40" alt="Luzora" />' +
+            '<img src="/assets/icons/Logo.svg" height="40" alt="Luzora" />' +
           '</a>' +
           '<nav class="nav__links" aria-label="Primary">' +
             '<a href="' + featuresHref + '">Features</a>' +
@@ -34,7 +34,7 @@
             '<a href="' + downloadHref + '">Download</a>' +
           '</nav>' +
           '<a class="nav__cta" href="' + installHref + '" data-install-coming-soon>' +
-            '<img src="assets/icons/Download-White.svg" width="18" height="18" alt="" aria-hidden="true" />' +
+            '<img src="/assets/icons/Download-White.svg" width="18" height="18" alt="" aria-hidden="true" />' +
             '<span>Install Extension</span>' +
           '</a>' +
           '<button class="nav__toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">' +
@@ -49,7 +49,7 @@
           '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="' + downloadHref + '">Download</a>' +
           '<a class="nav__cta nav__cta--menu" href="' + installHref + '" data-install-coming-soon>' +
-            '<img src="assets/icons/Download-White.svg" width="18" height="18" alt="" aria-hidden="true" />' +
+            '<img src="/assets/icons/Download-White.svg" width="18" height="18" alt="" aria-hidden="true" />' +
             '<span>Install Extension</span>' +
           '</a>' +
         '</div>' +
@@ -236,7 +236,7 @@
           '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
         '</button>' +
         '<span class="install-modal__badge" aria-hidden="true">' +
-          '<img src="assets/icons/Logo Icon.svg" alt="" />' +
+          '<img src="/assets/icons/Logo Icon.svg" alt="" />' +
         '</span>' +
         '<div class="install-modal__copy">' +
           '<h2 class="install-modal__title" id="install-modal-title">Installation is coming soon.</h2>' +
