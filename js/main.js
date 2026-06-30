@@ -4,6 +4,8 @@
 
   var SUPABASE_URL = "https://wtunedbjhpxnmlsvssiw.supabase.co";
   var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
+  var GOOGLE_ANALYTICS_ID = "G-XXXXXXXXXX";
+  var VERCEL_ANALYTICS_SCRIPT_PATH = "/_vercel/insights/script.js";
 
   function renderNav() {
     var mount = document.querySelector("[data-site-nav]");
@@ -302,6 +304,54 @@
     });
   }
 
+  function initGoogleAnalytics() {
+    var tagId = GOOGLE_ANALYTICS_ID;
+    var hasRealTagId = /^G-[A-Z0-9]+$/i.test(tagId) && tagId !== "G-XXXXXXXXXX";
+    if (!hasRealTagId) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () {
+      window.dataLayer.push(arguments);
+    };
+
+    window.gtag("consent", "default", {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "granted"
+    });
+
+    window.gtag("js", new Date());
+    window.gtag("config", tagId, {
+      anonymize_ip: true,
+      send_page_view: true
+    });
+
+    var script = document.createElement("script");
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(tagId);
+    document.head.appendChild(script);
+  }
+
+  function initVercelAnalytics() {
+    var host = window.location.hostname || "";
+    var isHosted = host === "luzora.app" ||
+      host.endsWith(".luzora.app") ||
+      host.endsWith(".vercel.app");
+
+    if (!isHosted || window.__luzoraVercelAnalyticsLoaded) return;
+    window.__luzoraVercelAnalyticsLoaded = true;
+
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+
+    var script = document.createElement("script");
+    script.defer = true;
+    script.src = VERCEL_ANALYTICS_SCRIPT_PATH;
+    document.head.appendChild(script);
+  }
+
   function initNav() {
     var nav = document.getElementById("nav");
     if (!nav) return;
@@ -379,6 +429,8 @@
 
   function start() {
     renderNav();
+    initGoogleAnalytics();
+    initVercelAnalytics();
 
     // Next frame so initial styles are committed before animating.
     requestAnimationFrame(function () {

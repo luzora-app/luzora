@@ -10,12 +10,16 @@
   <meta name="author" content="Luzora" />
   <meta property="og:title" content="Privacy Policy - Luzora" />
   <meta property="og:description" content="Luzora's Privacy Policy: how we collect, use, and protect your personal information." />
-  <meta property="og:image" content="assets/icons/Logo Icon.svg" />
+  <meta property="og:image" content="https://luzora.app/assets/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Luzora browser extension preview" />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Privacy Policy - Luzora" />
   <meta name="twitter:description" content="Luzora's Privacy Policy: how we collect, use, and protect your personal information." />
-  <meta name="twitter:image" content="assets/icons/Logo Icon.svg" />
+  <meta name="twitter:image" content="https://luzora.app/assets/images/og-image.png" />
+  <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/legal.css" />
 </head>
@@ -159,8 +163,8 @@
       </ol>
 
       <h3>9. Product analytics</h3>
-      <p>Luzora uses PostHog for product analytics. Analytics help us understand how features are used, whether sync and reminders are reliable, which screens need improvement, and how to make Luzora more useful.</p>
-      <p>We design analytics to avoid sending sensitive task content. Our analytics wrapper filters property names and values that look like emails, passwords, tokens, secrets, API keys, private keys, task titles, task links, URLs, folder names, project names, website names, or domains. We may still collect event names, timestamps, extension version, screen names, feature usage, task counts, completion counts, settings changes, session duration, and sync status.</p>
+      <p>Luzora may use PostHog, Google Analytics, and Vercel Web Analytics for product and website analytics. Analytics help us understand how features are used, whether sync and reminders are reliable, which pages people visit, which screens need improvement, and how to make Luzora more useful.</p>
+      <p>We design analytics to avoid sending sensitive task content. Our analytics wrapper filters property names and values that look like emails, passwords, tokens, secrets, API keys, private keys, task titles, task links, URLs, folder names, project names, website names, or domains. We may still collect event names, timestamps, extension version, screen names, page paths, feature usage, task counts, completion counts, settings changes, session duration, and sync status.</p>
       <p>If you contact us about analytics deletion or privacy choices, we will review your request based on the information available to us and the capabilities of our analytics provider.</p>
 
       <h3>10. Cookies and similar technologies</h3>
@@ -215,23 +219,31 @@
           <p>PostHog provides product analytics that help us understand feature usage and improve Luzora. We use filtering to reduce the chance that task content or sensitive information is included in analytics.</p>
         </li>
         <li>
-          <h4>13.4 Resend or email providers</h4>
+          <h4>13.4 Google Analytics</h4>
+          <p>Google Analytics may provide website analytics that help us understand page views, traffic sources, browser information, approximate region, device type, and basic site usage. We do not use Google Analytics to intentionally collect task content, passwords, saved task links, or private form values.</p>
+        </li>
+        <li>
+          <h4>13.5 Vercel Web Analytics</h4>
+          <p>Vercel Web Analytics may provide privacy-focused website analytics for pages hosted on Vercel, including page views, referrers, device information, browser information, and approximate region. We do not use Vercel Web Analytics to intentionally collect task content, passwords, saved task links, or private form values.</p>
+        </li>
+        <li>
+          <h4>13.6 Resend or email providers</h4>
           <p>We may use Resend or similar providers to send account-related emails, security emails, deletion confirmations, and other transactional messages.</p>
         </li>
         <li>
-          <h4>13.5 Browser vendors and extension stores</h4>
+          <h4>13.7 Browser vendors and extension stores</h4>
           <p>Your browser vendor or extension store may process information related to extension installation, updates, permissions, browser APIs, and store interactions under their own policies.</p>
         </li>
         <li>
-          <h4>13.6 Favicon and website icon services</h4>
+          <h4>13.8 Favicon and website icon services</h4>
           <p>Luzora may display favicons or website icons, including through browser data, stored icon URLs, or services such as Google's favicon service. When an icon is loaded from a third-party service, that service may receive the icon request from your browser.</p>
         </li>
         <li>
-          <h4>13.7 Legal, safety, and enforcement</h4>
+          <h4>13.9 Legal, safety, and enforcement</h4>
           <p>We may disclose information if we believe disclosure is required by law, legal process, regulation, security needs, fraud prevention, protection of users, enforcement of our Terms, or protection of our rights and property.</p>
         </li>
         <li>
-          <h4>13.8 Business transfers</h4>
+          <h4>13.10 Business transfers</h4>
           <p>If Luzora is involved in a merger, acquisition, financing, reorganization, sale of assets, or similar transaction, personal information may be transferred as part of that transaction, subject to appropriate confidentiality and legal safeguards.</p>
         </li>
       </ol>
@@ -366,6 +378,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260630-install-modal"></script>
+  <script src="js/main.js?v=20260630-vercel-analytics"></script>
 </body>
 </html>

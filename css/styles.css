@@ -277,7 +277,7 @@ img {
 .hero {
   display: flex;
   justify-content: center;
-  padding: 128px 100px 88px;
+  padding: 148px 100px 88px;
   background: var(--color-hero-bg);
   overflow: hidden;             /* clip the bleeding product image */
 }
@@ -661,14 +661,14 @@ img {
 
 /* Tablet - tighten padding, shrink image bleed */
 @media (max-width: 1100px) {
-  .hero { padding: 112px 56px 72px; }
+  .hero { padding: 148px 56px 72px; }
   .hero__inner { gap: 32px; }
   .hero__media-img { left: -10%; width: 150%; }
 }
 
 /* Stack - single centered column, image last */
 @media (max-width: 880px) {
-  .hero { padding: 96px 32px 64px; }
+  .hero { padding: 148px 32px 64px; }
 
   .hero__inner {
     flex-direction: column;
@@ -712,7 +712,7 @@ img {
 }
 
 @media (max-width: 480px) {
-  .hero { padding: 80px 20px 56px; }
+  .hero { padding: 148px 16px 56px; }
   .hero__toast-label { font-size: 14px; }
   .hero__title { font-size: clamp(2.25rem, 11vw, 3rem); }
   .hero__media-img {
