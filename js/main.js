@@ -31,11 +31,12 @@
             '<a href="' + featuresHref + '">Features</a>' +
             '<a href="' + featuresHref + '">Bolt</a>' +
             '<a href="' + faqHref + '">FAQs</a>' +
+            '<a href="/manifesto">Manifesto</a>' +
             '<a href="' + downloadHref + '">Download</a>' +
           '</nav>' +
-          '<a class="nav__cta" href="' + installHref + '" data-install-coming-soon>' +
-            '<img src="/assets/icons/Download-White.svg" width="18" height="18" alt="" aria-hidden="true" />' +
-            '<span>Install Extension</span>' +
+          '<a class="nav__cta" href="/manifesto">' +
+            '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
+            '<span>Sign the manifesto</span>' +
           '</a>' +
           '<button class="nav__toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">' +
             '<span class="nav__toggle-bar"></span>' +
@@ -47,10 +48,11 @@
           '<a href="' + featuresHref + '">Features</a>' +
           '<a href="' + featuresHref + '">Bolt</a>' +
           '<a href="' + faqHref + '">FAQs</a>' +
+          '<a href="/manifesto">Manifesto</a>' +
           '<a href="' + downloadHref + '">Download</a>' +
-          '<a class="nav__cta nav__cta--menu" href="' + installHref + '" data-install-coming-soon>' +
-            '<img src="/assets/icons/Download-White.svg" width="18" height="18" alt="" aria-hidden="true" />' +
-            '<span>Install Extension</span>' +
+          '<a class="nav__cta nav__cta--menu" href="/manifesto">' +
+            '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
+            '<span>Sign the manifesto</span>' +
           '</a>' +
         '</div>' +
       '</header>';
