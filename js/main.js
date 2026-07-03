@@ -2,8 +2,7 @@
 (function () {
   "use strict";
 
-  var SUPABASE_URL = "https://wtunedbjhpxnmlsvssiw.supabase.co";
-  var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
+  var NEWSLETTER_ENDPOINT = "/api/newsletter";
   var GOOGLE_ANALYTICS_ID = "G-XXXXXXXXXX";
   var VERCEL_ANALYTICS_SCRIPT_PATH = "/_vercel/insights/script.js";
 
@@ -147,13 +146,10 @@
     }
 
     async function saveSubscriber(email) {
-      var response = await fetch(SUPABASE_URL + "/rest/v1/newsletter_subscribers", {
+      var response = await fetch(NEWSLETTER_ENDPOINT, {
         method: "POST",
         headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: "Bearer " + SUPABASE_ANON_KEY,
-          "Content-Type": "application/json",
-          Prefer: "return=minimal"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           email: email,
@@ -164,18 +160,16 @@
         })
       });
 
-      if (response.ok) return { ok: true };
-
-      var message = "";
+      var data = null;
       try {
-        var data = await response.json();
-        message = data && (data.message || data.details || data.hint || data.code) || "";
+        data = await response.json();
       } catch (error) {}
 
-      if (response.status === 409 || /duplicate|unique/i.test(message)) {
-        return { ok: true, duplicate: true };
+      if (response.ok && data && data.ok) {
+        return { ok: true, duplicate: Boolean(data.duplicate) };
       }
 
+      var message = data && (data.message || data.details || data.hint || data.code) || "";
       throw new Error(message || "Could not subscribe right now.");
     }
 

@@ -9,10 +9,18 @@ create table if not exists public.newsletter_subscribers (
   page_url text,
   referrer text,
   user_agent text,
+  resend_contact_id text,
+  resend_topic_id text,
+  resend_synced_at timestamptz,
   subscribed_at timestamptz not null default now(),
   unsubscribed_at timestamptz,
   created_at timestamptz not null default now()
 );
+
+alter table public.newsletter_subscribers
+  add column if not exists resend_contact_id text,
+  add column if not exists resend_topic_id text,
+  add column if not exists resend_synced_at timestamptz;
 
 create unique index if not exists newsletter_subscribers_email_normalized_key
   on public.newsletter_subscribers (email_normalized);
