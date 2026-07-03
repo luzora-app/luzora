@@ -397,7 +397,12 @@
   }
 
   function initImageProtection() {
+    function canProtectImage(img) {
+      return !img.closest("[data-downloadable-image]");
+    }
+
     function protectImage(img) {
+      if (!canProtectImage(img)) return;
       img.setAttribute("draggable", "false");
       img.setAttribute("oncontextmenu", "return false;");
     }
@@ -405,13 +410,15 @@
     document.querySelectorAll("img").forEach(protectImage);
 
     document.addEventListener("dragstart", function (e) {
-      if (e.target && e.target.closest && e.target.closest("img")) {
+      var img = e.target && e.target.closest && e.target.closest("img");
+      if (img && canProtectImage(img)) {
         e.preventDefault();
       }
     }, true);
 
     document.addEventListener("contextmenu", function (e) {
-      if (e.target && e.target.closest && e.target.closest("img")) {
+      var img = e.target && e.target.closest && e.target.closest("img");
+      if (img && canProtectImage(img)) {
         e.preventDefault();
       }
     }, true);

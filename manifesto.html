@@ -81,9 +81,9 @@
         <form class="m-form" id="m-form" novalidate>
           <div class="m-follow">
             <span class="m-follow-label">Follow Luzora on X</span>
-            <a class="m-follow-btn" href="https://x.com/LuzoraHQ" target="_blank" rel="noopener noreferrer">
+            <a class="m-follow-btn" href="https://x.com/LuzoraHQ" target="_blank" rel="noopener noreferrer" data-follow-x aria-pressed="false">
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8-9.2L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z" fill="#000"/></svg>
-              <span>Follow</span>
+              <span data-follow-label>Follow</span>
             </a>
           </div>
 
@@ -106,15 +106,20 @@
 
       <!-- LOADING STATE -->
       <div class="m-note-loading">
-        <video class="m-loading-video" src="/assets/images/logo loading.gif" autoplay loop muted playsinline aria-hidden="true"></video>
+        <img class="m-loading-video" src="/assets/images/logo%20loading.gif" width="42" height="42" alt="" aria-hidden="true" />
         <p class="m-loading-text">Signing the manifesto...</p>
       </div>
 
       <!-- SUCCESS STATE -->
       <div class="m-note-success">
         <h2 class="m-note-title">You manifested!</h2>
-        <img class="m-card" id="m-card" src="" alt="You is CONSISTENT. #ShowUp" draggable="true" />
-        <button class="m-share" type="button" data-share>Share it</button>
+        <img class="m-card" id="m-card" src="" alt="You is CONSISTENT. #ShowUp" draggable="true" data-downloadable-image />
+        <div class="m-card-actions">
+          <button class="m-download" type="button" data-download-card aria-label="Download card">
+            <img src="/assets/icons/Download-White.svg" width="20" height="20" alt="" aria-hidden="true" />
+          </button>
+          <button class="m-share" type="button" data-share>Share your proof</button>
+        </div>
       </div>
     </div>
   </div>
@@ -175,7 +180,7 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=20260702-manifesto"></script>
-  <script src="/js/manifesto.js?v=20260703-card-image-hover"></script>
+  <script src="/js/main.js?v=20260703-downloadable-card"></script>
+  <script src="/js/manifesto.js?v=20260703-follow-card-lock"></script>
 </body>
 </html>

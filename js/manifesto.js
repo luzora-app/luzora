@@ -25,7 +25,12 @@
   var errorEl = document.getElementById("m-form-error");
   var nameHint = document.getElementById("m-name-hint");
   var form = document.getElementById("m-form");
+  var followBtn = document.querySelector("[data-follow-x]");
+  var followLabel = document.querySelector("[data-follow-label]");
+  var downloadBtn = document.querySelector("[data-download-card]");
   var lastName = "";
+  var followConfirmed = false;
+  var cardBlob = null;
 
   function openModal() {
     overlay.hidden = false;
@@ -60,7 +65,7 @@
   function refresh() {
     var nameOk = NAME_RE.test(nameInput.value.trim());
     var emailOk = EMAIL_RE.test(emailInput.value.trim());
-    submit.disabled = !(nameOk && emailOk);
+    submit.disabled = !(nameOk && emailOk && followConfirmed);
   }
 
   nameInput.addEventListener("input", function () {
@@ -73,6 +78,20 @@
   });
   emailInput.addEventListener("input", function () { setError(""); refresh(); });
 
+  if (followBtn) {
+    followBtn.addEventListener("click", function () {
+      if (followConfirmed) return;
+      if (followLabel) followLabel.textContent = "Checking...";
+      window.setTimeout(function () {
+        followConfirmed = true;
+        followBtn.classList.add("is-followed");
+        followBtn.setAttribute("aria-pressed", "true");
+        if (followLabel) followLabel.textContent = "Followed";
+        refresh();
+      }, 5000);
+    });
+  }
+
   // --- submit ---
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -84,6 +103,10 @@
       return;
     }
     if (!EMAIL_RE.test(email)) { setError("Enter a valid email address."); return; }
+    if (!followConfirmed) {
+      setError("Follow Luzora on X before signing the manifesto.");
+      return;
+    }
 
     setError("");
     submit.disabled = true;
@@ -127,6 +150,7 @@
       } else {
         var reason = data && data.reason;
         if (reason === "name_taken") backToForm("That name is already reserved. Try another.", true);
+        else if (reason === "email_taken") backToForm("That email has already signed the manifesto.", false);
         else if (reason === "invalid_name") backToForm("Use 3 to 24 letters, numbers or underscores. No spaces.", true);
         else if (reason === "invalid_email") backToForm("Enter a valid email address.", false);
         else backToForm("Could not sign right now. Please try again.", false);
@@ -157,45 +181,83 @@
   }
 
   async function buildCardBlob(name) {
-    var W = 1200, H = 680;
+    var S = 2;
+    var W = 575, H = 326;
     var canvas = document.createElement("canvas");
-    canvas.width = W;
-    canvas.height = H;
+    canvas.width = W * S;
+    canvas.height = H * S;
     var ctx = canvas.getContext("2d");
+    ctx.scale(S, S);
 
-    ctx.fillStyle = "#FFD52B";
-    roundRect(ctx, 0, 0, W, H, 48);
+    ctx.fillStyle = "#ffd52b";
+    roundRect(ctx, 0, 0, W, H, 16);
     ctx.fill();
 
     try {
-      await document.fonts.load("700 54px Figtree");
-      await document.fonts.load("italic 30px 'DM Sans'");
+      await document.fonts.load("700 32px Figtree");
+      await document.fonts.load("500 32px Figtree");
+      await document.fonts.load("italic 16px 'DM Sans'");
       await document.fonts.ready;
     } catch (e) { /* fall back to system fonts */ }
 
+    var safeName = String(name || "You").slice(0, 24);
+    var nameFontSize = 32;
+    ctx.font = "700 " + nameFontSize + "px Figtree, sans-serif";
+    var maxNameText = 328;
+    while (ctx.measureText(safeName).width > maxNameText && nameFontSize > 20) {
+      nameFontSize -= 1;
+      ctx.font = "700 " + nameFontSize + "px Figtree, sans-serif";
+    }
+    var nameTextWidth = Math.ceil(ctx.measureText(safeName).width);
+    var namePillWidth = Math.max(188, Math.min(360, nameTextWidth + 32));
+    var isWidth = 23;
+    var groupGap = 10;
+    var groupWidth = namePillWidth + groupGap + isWidth;
+    var groupX = (W - groupWidth) / 2 + 0.5;
+    var pillY = 88;
+
+    ctx.save();
+    ctx.shadowColor = "rgba(0, 0, 0, 0.12)";
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = "#ffe371";
+    roundRect(ctx, groupX, pillY, namePillWidth, 56, 12);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.shadowColor = "rgba(0, 0, 0, 0.06)";
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetY = 2;
+    ctx.fillStyle = "#ffe371";
+    roundRect(ctx, groupX, pillY, namePillWidth, 56, 12);
+    ctx.fill();
+    ctx.restore();
+
     ctx.fillStyle = "#151411";
     ctx.textAlign = "center";
-    ctx.textBaseline = "alphabetic";
-    ctx.font = "700 54px Figtree, sans-serif";
-    ctx.fillText(name + " is", W / 2, H * 0.36);
+    ctx.textBaseline = "middle";
+    ctx.font = "700 " + nameFontSize + "px Figtree, sans-serif";
+    ctx.fillText(safeName, groupX + namePillWidth / 2, pillY + 28);
+
+    ctx.font = "500 32px Figtree, sans-serif";
+    ctx.fillText("is", groupX + namePillWidth + groupGap + isWidth / 2, pillY + 28);
 
     try {
       var word = await loadImage("/assets/icons/CONSISTENT.svg");
-      var ratio = word.naturalWidth && word.naturalHeight ? word.naturalHeight / word.naturalWidth : 77 / 482;
-      var ww = W * 0.82;
-      var wh = ww * ratio;
-      ctx.drawImage(word, (W - ww) / 2, H * 0.45, ww, wh);
+      ctx.drawImage(word, (W - 482) / 2 - 0.5, 159, 482, 77);
     } catch (e) { /* skip wordmark if it fails */ }
 
     try {
       var logo = await loadImage("/assets/icons/Logo Icon.svg");
-      ctx.drawImage(logo, 44, H - 44 - 52, 52, 52);
+      ctx.drawImage(logo, 16, 286, 24, 24);
     } catch (e) { /* skip logo */ }
 
-    ctx.font = "italic 30px 'DM Sans', sans-serif";
+    ctx.font = "italic 16px 'DM Sans', sans-serif";
     ctx.fillStyle = "#151411";
     ctx.textAlign = "right";
-    ctx.fillText("#ShowUp", W - 44, H - 52);
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("#ShowUp", 559, 307);
 
     return new Promise(function (resolve) { canvas.toBlob(function (b) { resolve(b); }, "image/png"); });
   }
@@ -212,6 +274,7 @@
     var safeName = name || "You";
     var blob = await buildCardBlob(safeName);
     if (!blob) return null;
+    cardBlob = blob;
     if (cardImageUrl) URL.revokeObjectURL(cardImageUrl);
     cardImageUrl = URL.createObjectURL(blob);
     cardImage.src = cardImageUrl;
@@ -221,6 +284,20 @@
   }
 
   renderCardImage("You");
+
+  if (downloadBtn) {
+    downloadBtn.addEventListener("click", async function () {
+      var name = lastName || "You";
+      if (!cardBlob) await renderCardImage(name);
+      if (!cardImageUrl) return;
+      var link = document.createElement("a");
+      link.href = cardImageUrl;
+      link.download = cardFileName(name);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+  }
 
   var shareBtn = document.querySelector("[data-share]");
   if (shareBtn) {
