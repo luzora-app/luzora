@@ -6,6 +6,38 @@
   var GOOGLE_ANALYTICS_ID = "G-XXXXXXXXXX";
   var VERCEL_ANALYTICS_SCRIPT_PATH = "/_vercel/insights/script.js";
 
+  function initAuthRedirectFallback() {
+    var path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+    var isHome = path === "" || path === "/index.html";
+    var hash = window.location.hash || "";
+    var search = window.location.search || "";
+    var raw = hash ? hash.slice(1) : search.slice(1);
+
+    if (!isHome || !raw) return false;
+
+    var params = new URLSearchParams(raw);
+    var hasAuthPayload =
+      params.has("access_token") ||
+      params.has("refresh_token") ||
+      params.has("error") ||
+      params.has("error_code") ||
+      params.has("error_description");
+
+    if (!hasAuthPayload) return false;
+
+    var type = (params.get("type") || "").toLowerCase();
+    var target = "/email-verified";
+
+    if (params.has("error") || params.has("error_code") || params.has("error_description")) {
+      target = "/link-expired";
+    } else if (type === "recovery") {
+      target = "/reset-password";
+    }
+
+    window.location.replace(target + (hash || search));
+    return true;
+  }
+
   function renderNav() {
     var mount = document.querySelector("[data-site-nav]");
     if (!mount) return;
@@ -431,6 +463,8 @@
   }
 
   function start() {
+    if (initAuthRedirectFallback()) return;
+
     renderNav();
     initGoogleAnalytics();
     initVercelAnalytics();
