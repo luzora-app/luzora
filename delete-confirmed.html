@@ -29,7 +29,7 @@
   <div data-site-nav></div>
 
   <!-- ============ HERO ============ -->
-  <section class="del-hero" style="gap: 24px;">
+  <section class="del-hero" id="delete-confirmation" style="gap: 24px;">
     <span class="hex-badge hex-badge--lg" aria-hidden="true">
       <svg class="hex-badge__shape" viewBox="0 0 42 42"><polygon points="40,21 30.5,37.45 11.5,37.45 2,21 11.5,4.55 30.5,4.55" fill="#FFD52B" stroke="#FFD52B" stroke-width="3.5" stroke-linejoin="round" /></svg>
       <svg class="hex-badge__glyph" viewBox="0 0 24 24" fill="none">
@@ -39,13 +39,13 @@
 
     <div class="del-head" style="gap: 64px;">
       <div class="del-head" style="gap: 8px;">
-        <h1 class="del-title">Data Deletion request confirmed</h1>
-        <p class="del-intro" style="max-width: 560px;">You successfully verified your request, we will work on your request immediately. We are legally required to delete your data within 45 days. Your account still remains so, data created from here on will not be deleted. You'll get an email notification when your data is finally deleted.</p>
+        <h1 class="del-title" data-confirm-title>Verifying your request</h1>
+        <p class="del-intro" data-confirm-text style="max-width: 560px;">Please wait while we confirm that this deletion request came from you.</p>
       </div>
 
       <div class="del-actions">
-        <a class="del-btn-primary" href="/download">Open Luzora Extension</a>
-        <a class="del-btn-dark" href="/">Go Home</a>
+        <a class="del-btn-primary" href="/download" data-confirm-primary>Open Luzora Extension</a>
+        <a class="del-btn-dark" href="/" data-confirm-secondary>Go Home</a>
       </div>
     </div>
   </section>
@@ -103,5 +103,6 @@
   </footer>
 
   <script src="js/main.js?v=20260701-manifesto"></script>
+  <script src="js/delete-confirmed.js"></script>
 </body>
 </html>

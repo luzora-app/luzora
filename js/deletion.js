@@ -1,9 +1,8 @@
 ﻿// =====================================================================
 // Luzora - Data Deletion request form
 // Validates the form, drives the custom "what to delete" dropdown, and on
-// submit shows the "Verify your request" modal. The real request should be
-// POSTed to a backend that emails a verification link (which lands on
-// /delete-confirmed). Hook that up where marked TODO.
+// submit sends a verification email. The request becomes actionable only
+// after the user opens the verification link.
 // =====================================================================
 (function () {
   "use strict";
@@ -17,6 +16,10 @@
   var scopeInput = document.getElementById("del-scope");
   var submit = document.getElementById("del-submit");
   var modal = document.getElementById("del-modal");
+  var error = document.createElement("p");
+  error.className = "del-error";
+  error.setAttribute("role", "alert");
+  submit.insertAdjacentElement("beforebegin", error);
 
   // ---- custom dropdown ----
   var selectRoot = form.querySelector("[data-select]");
@@ -71,30 +74,58 @@
   agree.addEventListener("change", refresh);
 
   // ---- submit ----
-  form.addEventListener("submit", function (e) {
+  async function sendRequest(payload) {
+    var response = await fetch("/api/data-deletion-request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    var data = null;
+    try {
+      data = await response.json();
+    } catch (err) {}
+
+    if (response.ok && data && data.ok) return data;
+
+    var message = data && data.message || "Could not send the verification email.";
+    throw new Error(message);
+  }
+
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
     if (!valid()) { refresh(); return; }
 
     submit.disabled = true;
     submit.classList.add("is-busy");
     submit.textContent = "Sending...";
+    error.textContent = "";
 
-    // TODO: POST { email, scope, reason } to the deletion endpoint, which
-    // emails a verification link. For now we just show the verify modal.
     var payload = {
       email: email.value.trim(),
       scope: scopeInput.value,
-      reason: reason.value.trim()
+      reason: reason.value.trim(),
+      page_url: window.location.href,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent || null
     };
-    void payload;
 
-    setTimeout(function () {
+    try {
+      await sendRequest(payload);
       modal.classList.add("is-open");
       document.body.style.overflow = "hidden";
+      form.reset();
+      scopeInput.value = "";
+      valueEl.textContent = "Select an option";
+      trigger.classList.remove("has-value");
+      options.forEach(function (o) { o.classList.remove("is-active"); });
+    } catch (err) {
+      error.textContent = err && err.message ? err.message : "Could not send the verification email.";
+    } finally {
       submit.classList.remove("is-busy");
       submit.textContent = "Delete Data";
       refresh();
-    }, 400);
+    }
   });
 
   refresh();

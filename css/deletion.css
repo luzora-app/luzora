@@ -298,6 +298,15 @@
 .del-submit.is-enabled:active { transform: translateY(1px); }
 .del-submit.is-busy { cursor: progress; opacity: 0.8; }
 
+.del-error {
+  min-height: 20px;
+  margin-top: -16px;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #E5484D;
+}
+
 /* ---------- Confirmed page actions ---------- */
 .del-actions {
   display: flex;
