@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://luzora-pi.vercel.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/manifesto.css?v=20260704-card-hover-3" />
+  <link rel="stylesheet" href="/css/manifesto.css?v=20260703-card-image-hover" />
 </head>
 <body>
   <div data-site-nav></div>
@@ -106,19 +106,14 @@
 
       <!-- LOADING STATE -->
       <div class="m-note-loading">
-        <video class="m-loading-video" src="/assets/images/Logo loading animation.gif" autoplay loop muted playsinline aria-hidden="true"></video>
+        <video class="m-loading-video" src="/assets/images/logo loading.gif" autoplay loop muted playsinline aria-hidden="true"></video>
         <p class="m-loading-text">Signing the manifesto...</p>
       </div>
 
       <!-- SUCCESS STATE -->
       <div class="m-note-success">
         <h2 class="m-note-title">You manifested!</h2>
-        <div class="m-card" id="m-card">
-          <p class="m-card-line"><span id="m-card-name">You</span> is</p>
-          <img class="m-card-word" src="/assets/icons/CONSISTENT.svg" alt="CONSISTENT" />
-          <img class="m-card-logo" src="/assets/icons/Logo Icon.svg" width="24" height="24" alt="" aria-hidden="true" />
-          <span class="m-card-tag">#ShowUp</span>
-        </div>
+        <img class="m-card" id="m-card" src="" alt="You is CONSISTENT. #ShowUp" draggable="true" />
         <button class="m-share" type="button" data-share>Share it</button>
       </div>
     </div>
@@ -181,6 +176,6 @@
   </footer>
 
   <script src="/js/main.js?v=20260702-manifesto"></script>
-  <script src="/js/manifesto.js?v=20260704-card-hover-3"></script>
+  <script src="/js/manifesto.js?v=20260703-card-image-hover"></script>
 </body>
 </html>

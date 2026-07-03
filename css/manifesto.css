@@ -26,57 +26,6 @@
   box-shadow: 0 24px 60px rgba(167, 137, 16, 0.22);
 }
 
-.m-paper[data-anim].is-in {
-  transform:
-    perspective(1000px)
-    translate3d(var(--tx, 0px), var(--ty, 0px), var(--lift, 0px))
-    rotateX(var(--rx, 0deg))
-    rotateY(var(--ry, 0deg))
-    scale(var(--scale, 1));
-  transform-style: preserve-3d;
-  transition:
-    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.28s ease,
-    filter 0.28s ease;
-  will-change: transform;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.m-paper::before {
-  content: "";
-  position: absolute;
-  inset: -42%;
-  z-index: 0;
-  opacity: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      circle at var(--mx, 50%) var(--my, 50%),
-      rgba(255, 255, 255, 0.42),
-      rgba(255, 255, 255, 0.14) 18%,
-      transparent 44%
-    );
-  transform: translateZ(34px);
-  transition: opacity 0.22s ease;
-}
-
-.m-paper.is-hovered {
-  --lift: 16px;
-  --scale: 1.012;
-  box-shadow:
-    0 36px 84px rgba(167, 137, 16, 0.34),
-    0 12px 28px rgba(21, 20, 17, 0.12);
-  filter: saturate(1.03);
-}
-
-.m-paper.is-hovered::before { opacity: 1; }
-
-.m-paper > * {
-  position: relative;
-  z-index: 1;
-}
-
 .m-paper-logo { width: 88px; height: 88px; display: block; margin: 0 auto; }
 
 .m-paper-title {
@@ -324,9 +273,10 @@
 .m-note-success { display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
 
 .m-card {
-  position: relative;
   width: 100%;
   aspect-ratio: 575 / 326;
+  display: block;
+  object-fit: cover;
   background: #ffd52b;
   border-radius: 16px;
   box-shadow:
@@ -345,42 +295,13 @@
     filter 0.26s ease;
   will-change: transform;
   touch-action: none;
-  cursor: grab;
+  cursor: default;
   overflow: hidden;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 24px;
   box-sizing: border-box;
-}
-.m-card::before {
-  content: "";
-  position: absolute;
-  inset: -45%;
-  z-index: 0;
-  opacity: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      circle at var(--mx, 50%) var(--my, 50%),
-      rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0.18) 18%,
-      transparent 42%
-    );
-  transform: translateZ(38px);
-  transition: opacity 0.22s ease;
-}
-.m-card::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  z-index: 0;
-  border-radius: 15px;
-  pointer-events: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  pointer-events: auto;
+  user-select: auto;
+  -webkit-user-drag: auto;
+  -webkit-touch-callout: default;
 }
 .m-card.is-hovered {
   --lift: 18px;
@@ -391,38 +312,6 @@
     0 2px 0 rgba(107, 89, 18, 0.18);
   filter: saturate(1.04);
 }
-.m-card.is-hovered::before { opacity: 1; }
-.m-card.is-hovered { cursor: grabbing; }
-
-.m-card-line {
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(1.2rem, 4vw, 2rem);
-  color: #151411;
-}
-.m-card-word {
-  position: relative;
-  z-index: 1;
-  width: min(82%, 460px);
-  height: auto;
-  display: block;
-  transform: translateZ(28px);
-}
-.m-card-logo { position: absolute; z-index: 1; left: 16px; bottom: 16px; width: 24px; height: 24px; }
-.m-card-tag {
-  position: absolute;
-  z-index: 1;
-  right: 18px;
-  bottom: 16px;
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: 15px;
-  color: #151411;
-}
-
 .m-share {
   height: 44px;
   padding: 0 20px;
@@ -455,7 +344,7 @@
 @media (max-width: 640px) {
   .m-stage { padding: 132px 16px 72px; }
   .m-paper { padding: 36px 22px 30px; }
-  .m-note { padding: 48px 22px; }
+  .m-note { padding: 48px 16px; }
   .m-follow { flex-direction: column; align-items: stretch; gap: 10px; }
 }
 

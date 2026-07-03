@@ -121,8 +121,9 @@
 
       if (data && data.ok) {
         lastName = data.username || name;
-        document.getElementById("m-card-name").textContent = lastName;
-        afterMinLoad(function () { overlay.setAttribute("data-state", "success"); });
+        renderCardImage(lastName).finally(function () {
+          afterMinLoad(function () { overlay.setAttribute("data-state", "success"); });
+        });
       } else {
         var reason = data && data.reason;
         if (reason === "name_taken") backToForm("That name is already reserved. Try another.", true);
@@ -199,6 +200,28 @@
     return new Promise(function (resolve) { canvas.toBlob(function (b) { resolve(b); }, "image/png"); });
   }
 
+  var cardImage = document.getElementById("m-card");
+  var cardImageUrl = "";
+
+  function cardFileName(name) {
+    return "luzora-" + name.toLowerCase().replace(/[^a-z0-9_]/g, "") + "-consistent.png";
+  }
+
+  async function renderCardImage(name) {
+    if (!cardImage) return null;
+    var safeName = name || "You";
+    var blob = await buildCardBlob(safeName);
+    if (!blob) return null;
+    if (cardImageUrl) URL.revokeObjectURL(cardImageUrl);
+    cardImageUrl = URL.createObjectURL(blob);
+    cardImage.src = cardImageUrl;
+    cardImage.alt = safeName + " is CONSISTENT. #ShowUp";
+    cardImage.title = "Right click to save this image";
+    return blob;
+  }
+
+  renderCardImage("You");
+
   var shareBtn = document.querySelector("[data-share]");
   if (shareBtn) {
     shareBtn.addEventListener("click", async function () {
@@ -214,7 +237,7 @@
       shareBtn.textContent = "Share it";
 
       if (blob) {
-        var file = new File([blob], "luzora-" + name.toLowerCase().replace(/[^a-z0-9_]/g, "") + "-consistent.png", { type: "image/png" });
+        var file = new File([blob], cardFileName(name), { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({ files: [file], text: text, url: shareUrl });
@@ -259,7 +282,6 @@
   var reduceTilt = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduceTilt) {
     var tiltTargets = [
-      { el: document.querySelector(".m-paper"), maxRotate: 5, maxMove: 6 },
       { el: document.getElementById("m-card"), maxRotate: 16, maxMove: 13 }
     ];
 
