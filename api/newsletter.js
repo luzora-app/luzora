@@ -55,17 +55,15 @@ async function callResend(path, options) {
 
 async function syncResendContact(email, source, pageUrl) {
   var topicId = process.env.RESEND_NEWSLETTER_TOPIC_ID || process.env.RESEND_TOPIC_ID;
-  if (!topicId) {
-    throw new Error("RESEND_NEWSLETTER_TOPIC_ID is not configured.");
-  }
+  var hasTopic = Boolean(topicId);
 
-  var topics = [{ id: topicId, subscription: "opt_in" }];
+  var topics = hasTopic ? [{ id: topicId, subscription: "opt_in" }] : [];
   var createResult = await callResend("/contacts", {
     method: "POST",
     body: {
       email,
       unsubscribed: false,
-      topics,
+      topics: hasTopic ? topics : undefined,
       properties: {
         source,
         page_url: pageUrl || ""
@@ -81,6 +79,29 @@ async function syncResendContact(email, source, pageUrl) {
     };
   }
 
+  if (createResult.status !== 409 && hasTopic) {
+    var fallbackResult = await callResend("/contacts", {
+      method: "POST",
+      body: {
+        email,
+        unsubscribed: false,
+        properties: {
+          source,
+          page_url: pageUrl || ""
+        }
+      }
+    });
+
+    if (fallbackResult.ok) {
+      return {
+        duplicate: false,
+        contactId: fallbackResult.data && fallbackResult.data.id,
+        topicId: null,
+        topicWarning: true
+      };
+    }
+  }
+
   if (createResult.status !== 409) {
     var message =
       createResult.data && (createResult.data.message || createResult.data.name || createResult.data.error);
@@ -89,7 +110,7 @@ async function syncResendContact(email, source, pageUrl) {
 
   var topicResult = await callResend("/contacts/" + encodeURIComponent(email) + "/topics", {
     method: "PATCH",
-    body: { topics }
+    body: topics
   });
 
   if (!topicResult.ok) {
@@ -199,18 +220,23 @@ module.exports = async function handler(req, res) {
 
     var source = String(body.source || "website").slice(0, 80);
     var pageUrl = body.page_url ? String(body.page_url).slice(0, 1000) : null;
-    var resend = await syncResendContact(email, source, pageUrl);
-
     var supabase = await saveToSupabase({
       email,
       source,
       page_url: pageUrl,
       referrer: body.referrer ? String(body.referrer).slice(0, 1000) : null,
-      user_agent: req.headers["user-agent"] || body.user_agent || null,
-      resend_contact_id: resend.contactId || null,
-      resend_topic_id: resend.topicId,
-      resend_synced_at: new Date().toISOString()
+      user_agent: req.headers["user-agent"] || body.user_agent || null
     });
+
+    var resend = { duplicate: false };
+    try {
+      resend = await syncResendContact(email, source, pageUrl);
+      if (resend.topicWarning) {
+        console.error("Luzora newsletter topic sync warning: check RESEND_NEWSLETTER_TOPIC_ID.");
+      }
+    } catch (error) {
+      console.error("Luzora newsletter Resend sync failed:", error);
+    }
 
     var welcomeEmailId = null;
     try {
@@ -221,7 +247,7 @@ module.exports = async function handler(req, res) {
 
     return json(res, 200, {
       ok: true,
-      duplicate: resend.duplicate || supabase.duplicate,
+      duplicate: Boolean(resend.duplicate || supabase.duplicate),
       welcome_email_id: welcomeEmailId
     });
   } catch (error) {
