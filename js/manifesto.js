@@ -4,7 +4,7 @@
 
   var SUPABASE_URL = "https://wtunedbjhpxnmlsvssiw.supabase.co";
   var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
-  var SITE = "https://luzora-pi.vercel.app";
+  var SITE = "https://luzora.app";
   var NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 

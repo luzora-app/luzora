@@ -97,7 +97,7 @@ async function callResend(path, options) {
 
 async function notifyLuzora(request) {
   var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
-  var notifyTo = process.env.DATA_DELETION_NOTIFY_TO || "hello.luzora@gmail.com";
+  var notifyTo = process.env.DATA_DELETION_NOTIFY_TO || "hello@luzora.app";
   var scopeLabel = request.scope === "account" ? "Account and data" : "Task data";
   var safeEmail = escapeHtml(request.email);
   var safeScope = escapeHtml(scopeLabel);
