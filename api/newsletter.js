@@ -29,6 +29,24 @@ async function readJson(req) {
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
+function publicErrorMessage(error) {
+  var raw = String(error && error.message || "");
+
+  if (/SUPABASE_SERVICE_ROLE_KEY|SUPABASE_ANON_KEY|SUPABASE_URL|RESEND_API_KEY/i.test(raw)) {
+    return "Newsletter setup is missing a server setting.";
+  }
+
+  if (/newsletter_subscribers|schema cache|Could not find|column|relation|permission denied|row-level security|violates row-level security/i.test(raw)) {
+    return "Newsletter database setup needs attention.";
+  }
+
+  if (/invalid input syntax|violates check constraint|duplicate key/i.test(raw)) {
+    return "Newsletter database rejected this submission.";
+  }
+
+  return "Subscription failed. Please try again.";
+}
+
 async function callResend(path, options) {
   var apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -220,22 +238,40 @@ module.exports = async function handler(req, res) {
 
     var source = String(body.source || "website").slice(0, 80);
     var pageUrl = body.page_url ? String(body.page_url).slice(0, 1000) : null;
-    var supabase = await saveToSupabase({
-      email,
-      source,
-      page_url: pageUrl,
-      referrer: body.referrer ? String(body.referrer).slice(0, 1000) : null,
-      user_agent: req.headers["user-agent"] || body.user_agent || null
-    });
+    var supabase = { duplicate: false, ok: false };
+    var supabaseError = null;
+    try {
+      supabase = await saveToSupabase({
+        email,
+        source,
+        page_url: pageUrl,
+        referrer: body.referrer ? String(body.referrer).slice(0, 1000) : null,
+        user_agent: req.headers["user-agent"] || body.user_agent || null
+      });
+      supabase.ok = true;
+    } catch (error) {
+      supabaseError = error;
+      console.error("Luzora newsletter Supabase save failed:", error);
+    }
 
     var resend = { duplicate: false };
+    var resendError = null;
     try {
       resend = await syncResendContact(email, source, pageUrl);
       if (resend.topicWarning) {
         console.error("Luzora newsletter topic sync warning: check RESEND_NEWSLETTER_TOPIC_ID.");
       }
     } catch (error) {
+      resendError = error;
       console.error("Luzora newsletter Resend sync failed:", error);
+    }
+
+    if (!supabase.ok && resendError) {
+      throw new Error(
+        (supabaseError && supabaseError.message ? supabaseError.message : "Supabase save failed.") +
+          " " +
+          (resendError && resendError.message ? resendError.message : "Resend sync failed.")
+      );
     }
 
     var welcomeEmailId = null;
@@ -254,7 +290,7 @@ module.exports = async function handler(req, res) {
     console.error("Luzora newsletter signup failed:", error);
     return json(res, 500, {
       ok: false,
-      message: "Subscription failed. Please try again."
+      message: publicErrorMessage(error)
     });
   }
 };
