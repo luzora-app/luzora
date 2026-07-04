@@ -209,7 +209,7 @@
       ctx.font = "700 " + nameFontSize + "px Figtree, sans-serif";
     }
     var nameTextWidth = Math.ceil(ctx.measureText(safeName).width);
-    var namePillWidth = Math.max(188, Math.min(360, nameTextWidth + 32));
+    var namePillWidth = Math.min(360, nameTextWidth + 32);
     var isWidth = 23;
     var groupGap = 10;
     var groupWidth = namePillWidth + groupGap + isWidth;
