@@ -44,13 +44,9 @@
 
     var path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
     var isHome = path === "" || path === "/index.html";
-    var isDownload = path === "/download" || path === "/download.html";
-
     var homeHref = isHome ? "#hero" : "/#hero";
     var featuresHref = isHome ? "#features" : "/#features";
     var faqHref = isHome ? "#faq" : "/#faq";
-    var downloadHref = isDownload ? "#dl-top" : "/download";
-    var installHref = isHome ? "#install" : downloadHref;
 
     mount.outerHTML =
       '<header class="nav" id="nav">' +
@@ -60,10 +56,8 @@
           '</a>' +
           '<nav class="nav__links" aria-label="Primary">' +
             '<a href="' + featuresHref + '">Features</a>' +
-            '<a href="' + featuresHref + '">Bolt</a>' +
             '<a href="' + faqHref + '">FAQs</a>' +
             '<a href="/manifesto">Manifesto</a>' +
-            '<a href="' + downloadHref + '">Download</a>' +
           '</nav>' +
           '<a class="nav__cta" href="/manifesto">' +
             '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
@@ -77,16 +71,33 @@
         '</div>' +
         '<div class="nav__menu" id="nav-menu">' +
           '<a href="' + featuresHref + '">Features</a>' +
-          '<a href="' + featuresHref + '">Bolt</a>' +
           '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="/manifesto">Manifesto</a>' +
-          '<a href="' + downloadHref + '">Download</a>' +
           '<a class="nav__cta nav__cta--menu" href="/manifesto">' +
             '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
             '<span>Sign the manifesto</span>' +
           '</a>' +
         '</div>' +
       '</header>';
+  }
+
+  function initWordReveal() {
+    var title = document.querySelector(".what-luzora__title");
+    if (!title || title.dataset.wordsSplit === "1") return;
+
+    var words = title.textContent.trim().split(/\s+/);
+    title.textContent = "";
+    words.forEach(function (word, i) {
+      var span = document.createElement("span");
+      span.className = "wl-word";
+      span.style.setProperty("--wi", i);
+      span.textContent = word;
+      title.appendChild(span);
+      if (i < words.length - 1) {
+        title.appendChild(document.createTextNode(" "));
+      }
+    });
+    title.dataset.wordsSplit = "1";
   }
 
   function initScrollReveal() {
@@ -473,6 +484,7 @@
     requestAnimationFrame(function () {
       document.body.classList.add("is-ready");
     });
+    initWordReveal();
     initScrollReveal();
     initFaq();
     initCopy();

@@ -101,7 +101,7 @@ img {
 }
 
 /* keep anchored sections clear of the floating nav */
-#hero, #features, #install, #faq, #newsletter {
+#hero, #features, #install, #faq, #newsletter, .what-luzora {
   scroll-margin-top: 120px;
 }
 
@@ -299,7 +299,7 @@ img {
   align-items: flex-start;
   gap: 32px;
   flex: 1 1 580px;
-  max-width: 580px;
+  max-width: 595px;
 }
 
 /* Toast */
@@ -341,10 +341,17 @@ img {
 .hero__title {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(2.75rem, 5.4vw, 4.5rem);   /* 44 -> 72 */
-  line-height: 0.9;
+  font-size: clamp(2.75rem, 5vw, 3.75rem);
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--color-ink);
+}
+
+.hero__title-highlight {
+  display: inline-block;
+  padding: 0 8px 2px;
+  background: var(--color-yellow);
+  color: inherit;
 }
 
 .hero__subtitle {
@@ -381,6 +388,27 @@ img {
   font-size: 20px;
   line-height: 32px;
   color: var(--color-btn-ink);
+}
+
+.hero__cta-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 2px 8px;
+  background: #FFFFFF;
+  border: 2px solid var(--yellow, #FFD52B);
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: #555245;
+  white-space: nowrap;
+  position: absolute;
+  top: -12px;
+  right: 12px;
+  z-index: 20;
 }
 
 .hero__cta:hover {
@@ -631,18 +659,31 @@ img {
    =================================================================== */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(26px) scale(0.94);
+  filter: blur(6px);
 }
 
 .is-ready [data-reveal] {
-  animation: hero-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: hero-pop 0.72s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   animation-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
 }
 
-@keyframes hero-reveal {
-  to {
+/* Rise + focus-in with a gentle overshoot, so each item pops into place */
+@keyframes hero-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+    filter: blur(6px);
+  }
+  55% {
     opacity: 1;
-    transform: translateY(0);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
@@ -650,6 +691,7 @@ img {
   [data-reveal] {
     opacity: 1;
     transform: none;
+    filter: none;
     animation: none !important;
   }
   html { scroll-behavior: auto; }
@@ -684,7 +726,7 @@ img {
     order: 0;
   }
 
-  .hero__title { letter-spacing: -0.025em; }
+  .hero__title { letter-spacing: -0.025em; text-align: center; align-items: center; }
 
   .hero__subtitle { max-width: 480px; }
 
@@ -726,6 +768,111 @@ img {
 }
 
 /* ===================================================================
+   What Luzora Does
+   =================================================================== */
+.what-luzora {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 100px 80px;
+  gap: 48px;
+  isolation: isolate;
+  background: var(--color-hero-bg);
+}
+
+.what-luzora__content {
+  position: relative;
+  width: 100%;
+  max-width: 710px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  isolation: isolate;
+  text-align: center;
+}
+
+.what-luzora__eyebrow {
+  position: relative;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--color-body);
+  text-align: center;
+}
+
+.what-luzora__eyebrow span {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+  font-weight: 800;
+}
+
+.what-luzora__eyebrow span::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  top: 3px;
+  height: 25px;
+  background: var(--color-yellow);
+  z-index: -1;
+}
+
+.what-luzora__title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.167;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  text-align: center;
+}
+
+/* Word-by-word reveal on scroll */
+.what-luzora__title .wl-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(120ms + var(--wi, 0) * 60ms);
+  will-change: opacity, transform;
+}
+
+.what-luzora__content.in-view .what-luzora__title .wl-word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .what-luzora__title .wl-word {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .what-luzora { padding: 20px 56px 72px; }
+}
+
+@media (max-width: 880px) {
+  .what-luzora { padding: 8px 32px 64px; }
+  .what-luzora__content { max-width: 620px; }
+}
+
+@media (max-width: 480px) {
+  .what-luzora { padding: 0 20px 56px; }
+  .what-luzora__content { gap: 18px; }
+  .what-luzora__eyebrow {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+/* ===================================================================
    Features (Section 2)
    =================================================================== */
 .features {
@@ -743,13 +890,13 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 33px;
+  gap: 64px;
 }
 
 .features__title {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: clamp(2rem, 4vw, 3rem);    /* 32 -> 48 */
+  font-size: clamp(2rem, 4vw, 3.5rem);    /* 32 -> 48 */
   line-height: 1.167;
   letter-spacing: -0.02em;
   text-align: center;
@@ -1292,7 +1439,7 @@ img {
 }
 
 .faq__contact-text {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.02em;
   text-align: center;
@@ -1307,7 +1454,7 @@ img {
 
 .faq__email {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.01em;
   text-decoration: underline;
@@ -1394,7 +1541,7 @@ img {
 
 .newsletter__inner {
   width: 100%;
-  max-width: 571px;
+  max-width: 606px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -1405,14 +1552,15 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 }
 
 .newsletter__title {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(1.75rem, 2.6vw, 2rem);   /* up to 32 */
-  line-height: 1.25;
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.167;
+  letter-spacing: -0.02em;
   text-align: center;
   color: var(--color-ink);
 }
@@ -1499,10 +1647,67 @@ img {
   line-height: 24px;
   letter-spacing: -0.02em;
   text-align: center;
-  color: var(--color-body);
+  color: #706C5C;
 }
 
 .newsletter__note.is-success { color: #1f9d55; font-weight: 600; }
+
+.newsletter__social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 19px;
+  margin-top: 18px;
+}
+
+.newsletter__divider {
+  width: 100%;
+  max-width: 606px;
+  height: 1px;
+  background: #E8E7E2;
+}
+
+.newsletter__social-text {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--color-body);
+}
+
+.newsletter__social-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.newsletter__social-link {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #000000;
+  text-decoration: none;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.newsletter__social-link:hover {
+  background: #FAF9F8;
+  transform: translateY(-1px);
+}
+
+.newsletter__social-link:active {
+  transform: translateY(1px);
+}
+
+.newsletter__social-link svg {
+  width: 18px;
+  height: 18px;
+}
 
 /* ===================================================================
    Footer (Section 7)
@@ -1641,17 +1846,11 @@ img {
   .footer { padding: 48px 20px 28px; }
 }
 
-/* ===== Hero: wordmark title + two actions (Sign / Install) ===== */
+/* ===== Hero: stacked headline and beta CTA ===== */
 .hero__title {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-}
-.hero__title-word {
-  width: min(476px, 100%);
-  height: auto;
-  display: block;
+  gap: 0;
 }
 .hero__title-rest { color: var(--color-ink); }
 
@@ -1659,6 +1858,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  position: relative;
   gap: 16px;
 }
 

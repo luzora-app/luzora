@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Local scratch / generated output
+outputs/
+
+# Agent + editor tooling
+.agents/
+.codex/
+.claude/
+.DS_Store
+Thumbs.db
+
+# Env / secrets (never commit)
+.env
+.env.*
+*.key
+*.pem
+
+# Vercel
+.vercel/
