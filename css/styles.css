@@ -756,7 +756,7 @@ img {
 @media (max-width: 480px) {
   .hero { padding: 148px 16px 56px; }
   .hero__toast-label { font-size: 14px; }
-  .hero__title { font-size: clamp(2.25rem, 11vw, 3rem); }
+  .hero__title { font-size: clamp(2.25rem, 11vw, 2rem); }
   .hero__media-img {
     top: -109px;     /* -182 / 766 */
     left: -20%;       /* -147 / 580 */
