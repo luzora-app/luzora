@@ -774,7 +774,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 100px 80px;
+  padding: 80px 100px 80px;
   gap: 48px;
   isolation: isolate;
   background: var(--color-hero-bg);
@@ -855,16 +855,16 @@ img {
 }
 
 @media (max-width: 1100px) {
-  .what-luzora { padding: 20px 56px 72px; }
+  .what-luzora { padding: 72px 56px 72px; }
 }
 
 @media (max-width: 880px) {
-  .what-luzora { padding: 8px 32px 64px; }
+  .what-luzora { padding: 64px 32px 64px; }
   .what-luzora__content { max-width: 620px; }
 }
 
 @media (max-width: 480px) {
-  .what-luzora { padding: 0 20px 56px; }
+  .what-luzora { padding: 60px 20px 56px; }
   .what-luzora__content { gap: 18px; }
   .what-luzora__eyebrow {
     font-size: 18px;
