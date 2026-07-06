@@ -104,11 +104,7 @@
     var items = document.querySelectorAll("[data-reveal-scroll]");
     if (!items.length) return;
 
-    var reduce =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduce || !("IntersectionObserver" in window)) {
+    if (!("IntersectionObserver" in window)) {
       items.forEach(function (el) {
         el.classList.add("in-view");
       });

@@ -356,89 +356,86 @@
   }
 
   // --- magnetic hover: visible manifesto paper and share card ---
-  var reduceTilt = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduceTilt) {
-    var tiltTargets = [
-      { el: document.getElementById("m-card"), maxRotate: 16, maxMove: 13 }
-    ];
+  var tiltTargets = [
+    { el: document.getElementById("m-card"), maxRotate: 16, maxMove: 13 }
+  ];
 
-    function initMagneticHover(targetConfig) {
-      var targetEl = targetConfig.el;
-      if (!targetEl) return;
+  function initMagneticHover(targetConfig) {
+    var targetEl = targetConfig.el;
+    if (!targetEl) return;
 
-      var maxRotate = targetConfig.maxRotate;
-      var maxMove = targetConfig.maxMove;
-      var raf = 0;
-      var target = {
-        rx: 0,
-        ry: 0,
-        tx: 0,
-        ty: 0,
-        mx: 50,
-        my: 50
-      };
+    var maxRotate = targetConfig.maxRotate;
+    var maxMove = targetConfig.maxMove;
+    var raf = 0;
+    var target = {
+      rx: 0,
+      ry: 0,
+      tx: 0,
+      ty: 0,
+      mx: 50,
+      my: 50
+    };
 
-      function applyTilt() {
-        raf = 0;
-        targetEl.style.setProperty("--rx", target.rx.toFixed(2) + "deg");
-        targetEl.style.setProperty("--ry", target.ry.toFixed(2) + "deg");
-        targetEl.style.setProperty("--tx", target.tx.toFixed(2) + "px");
-        targetEl.style.setProperty("--ty", target.ty.toFixed(2) + "px");
-        targetEl.style.setProperty("--mx", target.mx.toFixed(2) + "%");
-        targetEl.style.setProperty("--my", target.my.toFixed(2) + "%");
-      }
-
-      function scheduleTilt() {
-        if (!raf) raf = window.requestAnimationFrame(applyTilt);
-      }
-
-      function setTilt(e) {
-        var rect = targetEl.getBoundingClientRect();
-        if (!rect.width || !rect.height) return;
-        var x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        var y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-        var px = x - 0.5;
-        var py = y - 0.5;
-
-        target.ry = px * maxRotate;
-        target.rx = -py * maxRotate;
-        target.tx = px * maxMove;
-        target.ty = py * maxMove;
-        target.mx = x * 100;
-        target.my = y * 100;
-        scheduleTilt();
-      }
-
-      function resetTilt() {
-        targetEl.classList.remove("is-hovered");
-        target.rx = 0;
-        target.ry = 0;
-        target.tx = 0;
-        target.ty = 0;
-        target.mx = 50;
-        target.my = 50;
-        scheduleTilt();
-      }
-
-      targetEl.addEventListener("pointerenter", function (e) {
-        if (e.pointerType === "touch") return;
-        targetEl.classList.add("is-hovered");
-        setTilt(e);
-      });
-      targetEl.addEventListener("pointermove", function (e) {
-        if (e.pointerType === "touch" && !targetEl.classList.contains("is-hovered")) return;
-        targetEl.classList.add("is-hovered");
-        setTilt(e);
-      });
-      targetEl.addEventListener("pointerdown", function (e) {
-        targetEl.classList.add("is-hovered");
-        setTilt(e);
-      });
-      targetEl.addEventListener("pointerup", resetTilt);
-      targetEl.addEventListener("pointercancel", resetTilt);
-      targetEl.addEventListener("pointerleave", resetTilt);
+    function applyTilt() {
+      raf = 0;
+      targetEl.style.setProperty("--rx", target.rx.toFixed(2) + "deg");
+      targetEl.style.setProperty("--ry", target.ry.toFixed(2) + "deg");
+      targetEl.style.setProperty("--tx", target.tx.toFixed(2) + "px");
+      targetEl.style.setProperty("--ty", target.ty.toFixed(2) + "px");
+      targetEl.style.setProperty("--mx", target.mx.toFixed(2) + "%");
+      targetEl.style.setProperty("--my", target.my.toFixed(2) + "%");
     }
 
-    tiltTargets.forEach(initMagneticHover);
+    function scheduleTilt() {
+      if (!raf) raf = window.requestAnimationFrame(applyTilt);
+    }
+
+    function setTilt(e) {
+      var rect = targetEl.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      var y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+      var px = x - 0.5;
+      var py = y - 0.5;
+
+      target.ry = px * maxRotate;
+      target.rx = -py * maxRotate;
+      target.tx = px * maxMove;
+      target.ty = py * maxMove;
+      target.mx = x * 100;
+      target.my = y * 100;
+      scheduleTilt();
+    }
+
+    function resetTilt() {
+      targetEl.classList.remove("is-hovered");
+      target.rx = 0;
+      target.ry = 0;
+      target.tx = 0;
+      target.ty = 0;
+      target.mx = 50;
+      target.my = 50;
+      scheduleTilt();
+    }
+
+    targetEl.addEventListener("pointerenter", function (e) {
+      if (e.pointerType === "touch") return;
+      targetEl.classList.add("is-hovered");
+      setTilt(e);
+    });
+    targetEl.addEventListener("pointermove", function (e) {
+      if (e.pointerType === "touch" && !targetEl.classList.contains("is-hovered")) return;
+      targetEl.classList.add("is-hovered");
+      setTilt(e);
+    });
+    targetEl.addEventListener("pointerdown", function (e) {
+      targetEl.classList.add("is-hovered");
+      setTilt(e);
+    });
+    targetEl.addEventListener("pointerup", resetTilt);
+    targetEl.addEventListener("pointercancel", resetTilt);
+    targetEl.addEventListener("pointerleave", resetTilt);
   }
+
+  tiltTargets.forEach(initMagneticHover);
 })();

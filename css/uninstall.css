@@ -255,8 +255,3 @@
   .uninstall-actions { flex-direction: column; gap: 14px; }
   .uninstall-action--primary { width: 100%; justify-content: center; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .uninstall-submit,
-  .uninstall-action--primary { transition: none; }
-}

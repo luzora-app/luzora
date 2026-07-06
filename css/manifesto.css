@@ -425,10 +425,3 @@
   .m-follow-btn { width: 100%; text-align: center; }
   .m-follow-btn.is-followed { width: 98px; align-self: flex-start; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  [data-anim], .m-paper.is-in .m-list li { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
-  .m-overlay, .m-note { animation: none; }
-  .m-card { transform: none; transition: none; }
-  .m-card::before { display: none; }
-}

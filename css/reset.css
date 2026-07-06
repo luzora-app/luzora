@@ -404,10 +404,6 @@
 .reset-hero[data-state="invalid"] .reset-form,
 .reset-hero[data-state="invalid"] .reset-sub { display: none; }
 
-@media (prefers-reduced-motion: reduce) {
-  .reset-overlay, .reset-modal { animation: none; }
-}
-
 /* ===================================================================
    Responsive
    =================================================================== */

@@ -40,7 +40,7 @@
           <h1 class="hero__title" data-reveal style="--reveal-delay: 80ms">
             <span>Turn any webpage</span>
             <span>into a recurring task,</span>
-            <span>Set when &amp; <mark class="hero__title-highlight">#ShowUp.</mark></span>
+            <span>Set when &amp; <mark class="hero__title-highlight">#ShowUp</mark></span>
           </h1>
           <p class="hero__subtitle" data-reveal style="--reveal-delay: 160ms">
             Luzora helps you show up on the websites you use every day. Small
@@ -183,31 +183,177 @@
     </div>
   </section>
 
-  <!-- ============ INSTALL ============ -->
-  <section class="install" id="install">
-    <div class="install__card" data-reveal-scroll>
-      <div class="install__top">
-        <h2 class="install__title">Luzora is free to install and use</h2>
-        <p class="install__sub">No credit card. No hidden cost. Your tasks are securely synced to your account and remain private to you.</p>
-      </div>
+  <!-- ============ VERSATILITY / USE CASES ============ -->
+  <section class="usecases" id="usecases" aria-labelledby="usecases-title">
+    <div class="usecases__head" data-reveal-scroll>
+      <span class="usecases__badge">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2z"/></svg>
+        Made for the websites you already use
+      </span>
+      <h2 class="usecases__title" id="usecases-title">Use Luzora anywhere your work happens</h2>
+      <p class="usecases__sub">From research tabs to job applications, crypto dashboards, design boards, and client follow-ups, Luzora helps you come back to the right page at the right time.</p>
+    </div>
 
-      <div class="install__browsers">
-        <p class="install__label">Install from your preferred extension store</p>
-        <div class="install__list">
-          <a class="store-card" href="#newsletter" data-install-coming-soon>
-            <img src="assets/icons/Google Chrome.svg" width="42" height="42" alt="" aria-hidden="true" />
-            <span>Chrome Web Store</span>
-          </a>
-          <a class="store-card" href="#newsletter" data-install-coming-soon>
-            <img src="assets/icons/Microsoft Edge.svg" width="42" height="42" alt="" aria-hidden="true" />
-            <span>Microsoft Edge Add-ons</span>
-          </a>
-          <a class="store-card" href="#newsletter" data-install-coming-soon>
-            <img src="assets/icons/Opera.svg" width="42" height="42" alt="" aria-hidden="true" />
-            <span>Opera add-ons</span>
-          </a>
+    <div class="usecases__grid">
+      <!-- Web3 -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 0ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--web3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Web3</h3>
         </div>
-        <p class="install__note">It works on all chromium browsers</p>
+        <p class="usecase-card__text">Track wallets, dashboards, governance votes, airdrop pages, and DeFi tasks without relying on memory.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Check staking rewards every Friday
+          </span>
+        </div>
+      </article>
+
+      <!-- Study -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 60ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--study">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.1 2.7 2.5 6 2.5s6-1.4 6-2.5v-4.5"/><path d="M22 9v5"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Study</h3>
+        </div>
+        <p class="usecase-card__text">Return to courses, lecture notes, practice portals, and assignment pages when it is time to keep learning.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Revise this module every evening
+          </span>
+        </div>
+      </article>
+
+      <!-- Research -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 120ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--research">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h4"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Research</h3>
+        </div>
+        <p class="usecase-card__text">Save papers, docs, references, and investigation tabs so useful links do not disappear into tab chaos.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Review this paper next Monday
+          </span>
+        </div>
+      </article>
+
+      <!-- Social Media -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 180ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3v4l4-4h9a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/><path d="M12 12.6s-2.5-1.4-2.5-3.1c0-1.6 2-1.6 2.5-.4.5-1.2 2.5-1.2 2.5.4 0 1.7-2.5 3.1-2.5 3.1z"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Social Media</h3>
+        </div>
+        <p class="usecase-card__text">Remember to post, reply, check analytics, follow up on comments, or return to important creator tools.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Check YouTube analytics tomorrow
+          </span>
+        </div>
+      </article>
+
+      <!-- Web Development -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 0ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--dev">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Web Development</h3>
+        </div>
+        <p class="usecase-card__text">Come back to bug reports, deployment dashboards, documentation, pull requests, and monitoring pages.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Check Vercel logs in 2 hours
+          </span>
+        </div>
+      </article>
+
+      <!-- Design -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 60ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--design">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l3.5-.8L18 8.7 15.3 6 4.8 16.5 4 20z"/><path d="M14 7l3 3"/><path d="M13 21h7"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Design</h3>
+        </div>
+        <p class="usecase-card__text">Track design reviews, client boards, inspiration pages, asset libraries, and feedback threads.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Continue this client design tomorrow
+          </span>
+        </div>
+      </article>
+
+      <!-- Job Applications -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 120ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--job">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Job Applications</h3>
+        </div>
+        <p class="usecase-card__text">Save job posts, application portals, recruiter messages, and follow-up dates in one browser-based flow.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Follow up on this application next week
+          </span>
+        </div>
+      </article>
+
+      <!-- Everyday Admin -->
+      <article class="usecase-card" data-reveal-scroll style="--reveal-delay: 180ms">
+        <div class="usecase-card__top">
+          <span class="usecase-icon usecase-icon--admin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><circle cx="9" cy="14" r=".6" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r=".6" fill="currentColor" stroke="none"/><path d="M9 16.6c.8.6 1.9 1 3 1s2.2-.4 3-1"/></svg>
+          </span>
+          <h3 class="usecase-card__title">Everyday Admin</h3>
+        </div>
+        <p class="usecase-card__text">Remember bills, forms, portals, renewals, bookings, and websites you only remember after it is too late.</p>
+        <div class="usecase-card__task">
+          <span class="usecase-card__label">Example task</span>
+          <span class="usecase-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Renew this subscription next month
+          </span>
+        </div>
+      </article>
+    </div>
+
+    <div class="usecases__cta" data-reveal-scroll>
+      <span class="usecases__cta-bee">
+        <img src="assets/images/Elite bee.png" width="64" height="64" alt="Luzora bee mascot" />
+      </span>
+      <div class="usecases__cta-copy">
+        <h3 class="usecases__cta-title">Ready to build your consistency?</h3>
+        <p class="usecases__cta-text">Sign the manifesto for early access and updates.</p>
+      </div>
+      <div class="hero__actions usecases__cta-action">
+        <span class="hero__cta-badge">Beta Access</span>
+        <a class="hero__cta hero__cta--sign" href="/manifesto">
+          <img class="hero__cta-icon" src="assets/icons/fi_feather-Black.svg" width="24" height="24" alt="" aria-hidden="true" />
+          <span class="hero__cta-label">Sign the manifesto</span>
+        </a>
       </div>
     </div>
   </section>
