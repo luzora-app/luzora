@@ -871,6 +871,14 @@ img {
   gap: 64px;
 }
 
+.features__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
 .features__title {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -879,6 +887,30 @@ img {
   letter-spacing: -0.02em;
   text-align: center;
   color: var(--color-body);
+}
+
+.features__badge,
+.usecases__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--color-yellow);
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-btn-ink);
+}
+
+.features__badge svg,
+.usecases__badge svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
 }
 
 .features__grid {
@@ -1122,24 +1154,6 @@ img {
   max-width: 780px;
   text-align: center;
 }
-
-.usecases__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: var(--color-yellow);
-  border-radius: 100px;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-btn-ink);
-}
-
-.usecases__badge svg { width: 15px; height: 15px; flex: none; }
 
 .usecases__title {
   font-family: var(--font-heading);

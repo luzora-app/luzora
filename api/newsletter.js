@@ -1,3 +1,4 @@
+const { luzoraEmail } = require("./_email.js");
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY || "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
@@ -196,6 +197,15 @@ async function sendWelcomeEmail(email) {
   var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
   var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
 
+  var branded = luzoraEmail({
+    preheader: "You're on the Luzora list.",
+    heading: "You're on the list",
+    lines: [
+      "Thanks for joining Luzora. You will be first to know the moment it is ready for your browser.",
+      "We only send when there is something useful: launch news, beta invites, and short notes on staying consistent. No noise."
+    ]
+  });
+
   var result = await callResend("/emails", {
     method: "POST",
     body: {
@@ -203,14 +213,8 @@ async function sendWelcomeEmail(email) {
       to: [email],
       reply_to: replyTo,
       subject: "You're on the Luzora list",
-      html:
-        "<p>Thanks for joining the Luzora list.</p>" +
-        "<p>We will send product updates, beta notes, and launch news when there is something useful to share.</p>" +
-        "<p>With care,<br />Luzora</p>",
-      text:
-        "Thanks for joining the Luzora list.\n\n" +
-        "We will send product updates, beta notes, and launch news when there is something useful to share.\n\n" +
-        "With care,\nLuzora"
+      html: branded.html,
+      text: branded.text
     }
   });
 
