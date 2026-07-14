@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luzora - Turn any webpage into a task reminder</title>
+  <link rel="canonical" href="https://luzora.app/" />
   <link rel="icon" href="assets/icons/Logo Icon.svg" type="image/svg+xml" />
   <meta name="description" content="Luzora helps you turn webpages into recurring task reminders, right inside your browser. Sign the manifesto for beta access." />
   <meta name="keywords" content="luzora, recurring tasks, task management, browser extension, productivity, reminders, natural language processing, task scheduling, task tracking, task organization" />
@@ -21,6 +22,51 @@
   <meta name="twitter:image" content="https://luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="css/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://luzora.app/#organization",
+        "name": "Luzora",
+        "url": "https://luzora.app/",
+        "logo": "https://luzora.app/assets/icons/Logo.svg",
+        "email": "support@luzora.app",
+        "description": "Luzora turns the websites you keep coming back to into recurring task reminders, right inside your browser.",
+        "sameAs": [
+          "https://x.com/LuzoraHQ",
+          "https://www.reddit.com/user/LuzoraHQ/",
+          "https://www.youtube.com/@LuzoraHQ",
+          "https://www.linkedin.com/company/luzorahq"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://luzora.app/#website",
+        "url": "https://luzora.app/",
+        "name": "Luzora",
+        "publisher": { "@id": "https://luzora.app/#organization" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Luzora",
+        "url": "https://luzora.app/",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome, Edge, Opera, Brave, and all Chromium browsers",
+        "description": "Turn any webpage into a recurring task, set when, and show up. Luzora helps you stay consistent on the websites you use every day, right inside your browser.",
+        "image": "https://luzora.app/assets/images/og-image.png",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "publisher": { "@id": "https://luzora.app/#organization" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- ============ NAVBAR ============ -->
@@ -50,11 +96,18 @@
         </div>
 
         <div class="hero__actions" data-reveal style="--reveal-delay: 240ms">
-          <span class="hero__cta-badge">Beta Access</span>
-          <a class="hero__cta hero__cta--sign" href="/manifesto">
-            <img class="hero__cta-icon" src="assets/icons/fi_feather-Black.svg" width="24" height="24" alt="" aria-hidden="true" />
-            <span class="hero__cta-label">Sign the manifesto</span>
-          </a>
+          <div class="hero__primary-action">
+            <span class="hero__cta-badge">Beta Access</span>
+            <a class="hero__cta hero__cta--sign" href="/manifesto">
+              <img class="hero__cta-icon" src="assets/icons/fi_feather-Black.svg" width="24" height="24" alt="" aria-hidden="true" />
+              <span class="hero__cta-label">Sign the manifesto</span>
+            </a>
+          </div>
+          <div class="hero__secondary-action">
+            <a class="hero__sub-cta" href="/blog/help-shape-luzora-private-testing-is-opening">
+              <span>Join private test</span>
+            </a>
+          </div>
         </div>
 
         <div class="hero__browsers" data-reveal style="--reveal-delay: 320ms">
@@ -522,6 +575,7 @@
             <a class="footer__link" href="#hero">Home</a>
             <a class="footer__link" href="/manifesto">Manifesto</a>
             <a class="footer__link" href="#faq">FAQs</a>
+            <a class="footer__link" href="/brand">Brand Assets</a>
             <a class="footer__link" href="mailto:support@luzora.app">Contact Us</a>
           </div>
 

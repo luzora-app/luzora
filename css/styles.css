@@ -424,6 +424,37 @@ img {
     inset 0 0 3px 3px #FFF5DF;
 }
 
+.hero__sub-cta {
+  width: 205px;
+  height: 56px;
+  padding: 0 24px;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  border-radius: 16px;
+  background: #ffec9d;
+  color: #38362e;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+  text-decoration: none;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.hero__sub-cta:hover,
+.hero__sub-cta:focus-visible {
+  background: #ffe371;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.hero__sub-cta:active {
+  transform: translateY(1px);
+}
+
 /* ===================================================================
    Install availability modal
    =================================================================== */
@@ -1950,8 +1981,14 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  position: relative;
   gap: 16px;
+}
+
+.hero__primary-action,
+.hero__secondary-action {
+  position: relative;
+  display: inline-flex;
+  flex: none;
 }
 
 .hero__cta--dark {
@@ -1979,7 +2016,16 @@ img {
     align-items: stretch;
   }
 
+  .hero__primary-action,
+  .hero__secondary-action {
+    width: 100%;
+  }
+
   .hero__cta {
+    width: 100%;
+  }
+
+  .hero__sub-cta {
     width: 100%;
   }
 }
