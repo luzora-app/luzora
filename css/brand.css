@@ -429,7 +429,7 @@
   text-align: center;
 }
 
-.color-card__swatch { grid-column: 1 / -1; height: 84px; border-radius: 16px; background: var(--swatch); }
+.color-card__swatch { grid-column: 1 / -1; height: 84px; width: 100%; border-radius: 16px; background: var(--swatch); }
 .color-card__swatch--border { border: 1px solid #ffe49a; }
 .color-card__name { font-size: 16px; line-height: 24px; font-weight: 500; }
 .color-card__value { font-size: 14px; line-height: 20px; color: #706c5c; }
