@@ -25,12 +25,18 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://www.luzora.app"
+          "value": "https://luzora.app"
         }
       ]
     }
   ],
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.luzora.app" }],
+      "destination": "https://luzora.app/:path*",
+      "permanent": true
+    },
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/download.html", "destination": "/download", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
@@ -42,6 +48,8 @@
     { "source": "/email-verified.html", "destination": "/email-verified", "permanent": true },
     { "source": "/uninstalled.html", "destination": "/uninstalled", "permanent": true },
     { "source": "/manifesto.html", "destination": "/manifesto", "permanent": true },
+    { "source": "/brand.html", "destination": "/brand", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog", "permanent": true },
     { "source": "/404.html", "destination": "/404", "permanent": true }
   ],
   "rewrites": [
@@ -55,6 +63,9 @@
     { "source": "/email-verified", "destination": "/email-verified.html" },
     { "source": "/uninstalled", "destination": "/uninstalled.html" },
     { "source": "/manifesto", "destination": "/manifesto.html" },
+    { "source": "/brand", "destination": "/brand.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog/:slug", "destination": "/blog-article.html" },
     { "source": "/404", "destination": "/404.html" },
     { "source": "/r/:code", "destination": "/r.html" }
   ]
