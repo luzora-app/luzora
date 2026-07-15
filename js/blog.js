@@ -10,7 +10,7 @@
       date: "July 14, 2026",
       readTime: "5 min read",
       author: "Luzora Team",
-      cardImage: "/assets/brand-kit/other%20assets/worker-bee-in-private-test.png",
+      cardImage: "/assets/brand-kit/other%20assets/worker-bee-in-private-test.avif",
       cardImageAlt: "Worker Bee preparing Luzora private testing",
       sections: [
         {
@@ -325,6 +325,43 @@
     }
   }
 
+  function initPrivateTestJump(article) {
+    var button = document.querySelector("[data-private-test-jump]");
+    if (!button) return;
+
+    var target = document.getElementById("how-to-join");
+    if (!target || article.slug !== "help-shape-luzora-private-testing-is-opening") {
+      button.hidden = true;
+      return;
+    }
+
+    button.hidden = false;
+
+    button.addEventListener("click", function () {
+      var top = target.getBoundingClientRect().top + window.pageYOffset - 120;
+      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+    });
+
+    function setButtonVisibility() {
+      var rect = target.getBoundingClientRect();
+      var isAtSection = rect.top <= window.innerHeight * 0.45 && rect.bottom >= 120;
+      button.classList.toggle("is-hidden", isAtSection);
+    }
+
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          button.classList.toggle("is-hidden", entry.isIntersecting);
+        });
+      }, { rootMargin: "-12% 0px -52%", threshold: 0.01 });
+      observer.observe(target);
+    }
+
+    setButtonVisibility();
+    window.addEventListener("scroll", setButtonVisibility, { passive: true });
+    window.addEventListener("resize", setButtonVisibility);
+  }
+
   function initArticlePage() {
     var body = document.querySelector("[data-article-body]");
     if (!body) return;
@@ -355,6 +392,7 @@
     initArticleReveals();
     revealCards();
     initShareButtons(article);
+    initPrivateTestJump(article);
   }
 
   function start() {
