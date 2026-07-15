@@ -58,7 +58,6 @@
             '<a href="' + featuresHref + '">Features</a>' +
             '<a href="' + faqHref + '">FAQs</a>' +
             '<a href="/manifesto">Manifesto</a>' +
-            '<a href="/blog">Blog</a>' +
           '</nav>' +
           '<a class="nav__cta" href="/manifesto">' +
             '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
@@ -74,7 +73,6 @@
           '<a href="' + featuresHref + '">Features</a>' +
           '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="/manifesto">Manifesto</a>' +
-          '<a href="/blog">Blog</a>' +
           '<a class="nav__cta nav__cta--menu" href="/manifesto">' +
             '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
             '<span>Sign the manifesto</span>' +
