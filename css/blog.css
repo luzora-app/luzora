@@ -697,7 +697,7 @@
 }
 
 .founding-bee-badge {
-  width: 164px;
+  width: auto;
   height: 32px;
   padding: 0 8px;
   display: inline-flex;
@@ -854,6 +854,12 @@
   .article-section li {
     font-size: 18px;
     line-height: 28px;
+  }
+
+  .founding-bee-badge {
+    font-size: 18px;
+    line-height: 28px;
+    height: 28px;
   }
 
   .article-actions {
