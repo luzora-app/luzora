@@ -31,12 +31,6 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.luzora.app" }],
-      "destination": "https://luzora.app/:path*",
-      "permanent": true
-    },
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/download.html", "destination": "/download", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
