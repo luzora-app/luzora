@@ -203,7 +203,8 @@ async function sendWelcomeEmail(email) {
     lines: [
       "Thanks for joining Luzora. You will be first to know the moment it is ready for your browser.",
       "We only send when there is something useful: launch news, beta invites, and short notes on staying consistent. No noise."
-    ]
+    ],
+    footerNote: "You have received this email because you subscribed to Luzora updates."
   });
 
   var result = await callResend("/emails", {

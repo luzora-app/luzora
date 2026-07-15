@@ -122,7 +122,8 @@
       var label = escapeHtml(match[1]);
       var href = escapeHtml(match[2]);
       var isExternal = /^https?:\/\//.test(match[2]);
-      output += '<a href="' + href + '"' + (isExternal ? ' target="_blank" rel="noopener noreferrer"' : "") + ">" + label + "</a>";
+      var opensNewTab = isExternal || match[2] === "/manifesto";
+      output += '<a href="' + href + '"' + (opensNewTab ? ' target="_blank" rel="noopener noreferrer"' : "") + ">" + label + "</a>";
       lastIndex = pattern.lastIndex;
     }
     output += escapeHtml(source.slice(lastIndex));

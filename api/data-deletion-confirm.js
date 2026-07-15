@@ -1,4 +1,5 @@
 const crypto = require("crypto");
+const { luzoraEmail } = require("./_email.js");
 
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const RESEND_API_URL = "https://api.resend.com";
@@ -130,6 +131,17 @@ async function notifyLuzora(request) {
 async function sendUserConfirmation(request) {
   var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
   var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
+  var branded = luzoraEmail({
+    preheader: "Your Luzora deletion request is confirmed.",
+    heading: "Your request is confirmed",
+    lines: [
+      "Your Luzora deletion request has been verified.",
+      "We will review and process it according to our data deletion policy. Deletion can take up to 45 days where required."
+    ],
+    ctaLabel: "Go to Luzora",
+    ctaUrl: "https://www.luzora.app",
+    footerNote: "You received this email because a deletion request was verified for this Luzora account."
+  });
 
   return callResend("/emails", {
     method: "POST",
@@ -138,14 +150,8 @@ async function sendUserConfirmation(request) {
       to: [request.email],
       reply_to: replyTo,
       subject: "Your Luzora deletion request is confirmed",
-      html:
-        "<p>Your Luzora deletion request has been verified.</p>" +
-        "<p>We will review and process it according to our data deletion policy. Deletion can take up to 45 days where required.</p>" +
-        "<p>Luzora</p>",
-      text:
-        "Your Luzora deletion request has been verified.\n\n" +
-        "We will review and process it according to our data deletion policy. Deletion can take up to 45 days where required.\n\n" +
-        "Luzora"
+      html: branded.html,
+      text: branded.text
     }
   });
 }

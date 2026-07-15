@@ -1,4 +1,5 @@
 const crypto = require("crypto");
+const { luzoraEmail } = require("./_email.js");
 
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const RESEND_API_URL = "https://api.resend.com";
@@ -17,15 +18,6 @@ function cleanEmail(value) {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254;
-}
-
-function escapeHtml(value) {
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 function getSiteOrigin(req) {
@@ -106,6 +98,17 @@ async function sendVerificationEmail(email, verifyUrl, scope) {
   var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
   var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
   var scopeLabel = scope === "account" ? "account and data" : "task data";
+  var branded = luzoraEmail({
+    preheader: "Verify your Luzora data deletion request.",
+    heading: "Verify your request",
+    lines: [
+      "We received a request to delete your Luzora " + scopeLabel + ".",
+      "If this was you, tap the button below to confirm the request."
+    ],
+    ctaLabel: "Verify Delete",
+    ctaUrl: verifyUrl,
+    note: "This link expires in 24 hours. If you did not request this, you can safely ignore this email."
+  });
 
   return callResend("/emails", {
     method: "POST",
@@ -114,18 +117,8 @@ async function sendVerificationEmail(email, verifyUrl, scope) {
       to: [email],
       reply_to: replyTo,
       subject: "Verify your Luzora data deletion request",
-      html:
-        "<p>We received a request to delete your Luzora " + escapeHtml(scopeLabel) + ".</p>" +
-        "<p>If this was you, confirm the request here:</p>" +
-        '<p><a href="' + escapeHtml(verifyUrl) + '">Verify Delete</a></p>' +
-        "<p>This link expires in 24 hours. If you did not request this, you can ignore this email.</p>" +
-        "<p>Luzora</p>",
-      text:
-        "We received a request to delete your Luzora " + scopeLabel + ".\n\n" +
-        "If this was you, confirm the request here:\n" +
-        verifyUrl + "\n\n" +
-        "This link expires in 24 hours. If you did not request this, you can ignore this email.\n\n" +
-        "Luzora"
+      html: branded.html,
+      text: branded.text
     }
   });
 }
