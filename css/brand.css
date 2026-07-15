@@ -456,11 +456,11 @@
 .scale-card__core::after { content: ""; position: absolute; inset: 50% auto auto 50%; width: 18px; height: 18px; transform: translate(-50%, -50%); border-radius: 50%; background: #fff; }
 .scale-card strong { font-size: 14px; line-height: 18px; font-weight: 500; color: #151411; }
 .scale-card small { max-width: 100%; font-size: 10px; line-height: 12px; color: #706c5c; overflow: hidden; text-overflow: ellipsis; }
-.copy-status { position: fixed; left: 50%; bottom: 24px; z-index: 120; padding: 10px 16px; border-radius: 8px; background: #151411; color: #fff; opacity: 0; transform: translate(-50%, 12px); pointer-events: none; transition: opacity 160ms ease, transform 160ms ease; }
+.copy-status { position: fixed; left: 50%; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 9999; padding: 10px 16px; border-radius: 8px; background: #151411; color: #fff; opacity: 0; transform: translate3d(-50%, 12px, 0); pointer-events: none; transition: opacity 160ms ease, transform 160ms ease; }
 .copy-status.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
 .type-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.type-card { min-height: 296px; padding: 24px; display: flex; flex-direction: column; align-items: flex-start; background: #fff; border-radius: 24px; box-shadow: 0 12px 20px rgba(255, 241, 184, 0.49), 0 10px 28px rgba(0, 0, 0, 0.06); color: #151411; }
+.type-card { padding: 24px; display: flex; flex-direction: column; align-items: flex-start; background: #fff; border-radius: 24px; box-shadow: 0 12px 20px rgba(255, 241, 184, 0.49), 0 10px 28px rgba(0, 0, 0, 0.06); color: #151411; }
 .type-card--figtree { font-family: var(--font-heading); }
 .type-card--dm { font-family: var(--font-body); }
 .type-card__label { color: #f2a50c; font-size: 14px; line-height: 20px; font-weight: 600; text-transform: uppercase; }

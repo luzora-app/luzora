@@ -313,6 +313,10 @@
   function initColorCopy() {
     var status = document.querySelector("[data-copy-status]");
     var timer;
+    if (status && status.parentElement !== document.body) {
+      document.body.appendChild(status);
+    }
+
     document.querySelectorAll("[data-copy-color]").forEach(function (button) {
       button.addEventListener("click", function () {
         var color = button.getAttribute("data-copy-color");
