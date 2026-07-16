@@ -1,18 +1,5 @@
--- Luzora manifesto signatures
--- Run this in the Supabase SQL editor for the Luzora project.
-
-create table if not exists public.manifesto_signatures (
-  id uuid primary key default gen_random_uuid(),
-  public_id uuid not null default gen_random_uuid(),
-  signer_number bigint,
-  username text not null,
-  username_normalized text generated always as (lower(trim(username))) stored,
-  email text not null,
-  email_normalized text generated always as (lower(trim(email))) stored,
-  share_url text,
-  signed_at timestamptz not null default now(),
-  created_at timestamptz not null default now()
-);
+-- Public Luzora manifesto cards
+-- Run this once in the Supabase SQL editor after manifesto_signatures.sql.
 
 alter table public.manifesto_signatures
   add column if not exists public_id uuid default gen_random_uuid(),
@@ -89,29 +76,6 @@ where share_url is null
 
 alter table public.manifesto_signatures
   alter column share_url set not null;
-
-create unique index if not exists manifesto_signatures_username_normalized_key
-  on public.manifesto_signatures (username_normalized);
-
-create unique index if not exists manifesto_signatures_email_normalized_key
-  on public.manifesto_signatures (email_normalized);
-
-alter table public.manifesto_signatures enable row level security;
-
-drop policy if exists "Deny direct public reads" on public.manifesto_signatures;
-drop policy if exists "Deny direct public inserts" on public.manifesto_signatures;
-
-create policy "Deny direct public reads"
-  on public.manifesto_signatures
-  for select
-  to anon
-  using (false);
-
-create policy "Deny direct public inserts"
-  on public.manifesto_signatures
-  for insert
-  to anon
-  with check (false);
 
 create or replace function public.sign_manifesto(p_name text, p_email text)
 returns jsonb

@@ -42,6 +42,7 @@
     { "source": "/email-verified.html", "destination": "/email-verified", "permanent": true },
     { "source": "/uninstalled.html", "destination": "/uninstalled", "permanent": true },
     { "source": "/manifesto.html", "destination": "/manifesto", "permanent": true },
+    { "source": "/manifesto-signed.html", "destination": "/manifesto", "permanent": true },
     { "source": "/brand.html", "destination": "/brand", "permanent": true },
     { "source": "/blog.html", "destination": "/blog", "permanent": true },
     { "source": "/404.html", "destination": "/404", "permanent": true }
@@ -57,6 +58,7 @@
     { "source": "/email-verified", "destination": "/email-verified.html" },
     { "source": "/uninstalled", "destination": "/uninstalled.html" },
     { "source": "/manifesto", "destination": "/manifesto.html" },
+    { "source": "/manifesto/s/:id", "destination": "/manifesto-signed.html" },
     { "source": "/brand", "destination": "/brand.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/blog/:slug", "destination": "/blog-article.html" },

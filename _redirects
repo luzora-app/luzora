@@ -20,5 +20,6 @@
 /email-verified    /email-verified.html   200
 /uninstalled    /uninstalled.html   200
 /manifesto    /manifesto.html   200
+/manifesto/s/*    /manifesto-signed.html   200
 /404    /404.html   200
 /r/*    /r.html   200
