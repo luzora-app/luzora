@@ -6,6 +6,7 @@
   var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   var PNG_FRAME_URL = "/assets/brand-kit/other%20assets/Private/card-frame.png";
+  var MANIFESTO_URL = "https://luzora.app/manifesto/";
 
   var loading = document.querySelector("[data-signed-loading]");
   var errorState = document.querySelector("[data-signed-error]");
@@ -139,16 +140,24 @@
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillStyle = "#FFD52B";
-    fitCanvasText(context, signer.signerNumber, 370, 88, 48);
-    context.fillText(signer.signerNumber, 1044, 214);
+    var numberCenterX = canvas.width * 0.744;
+    var numberCenterY = canvas.height * 0.1215;
+    fitCanvasText(context, signer.signerNumber, canvas.width * 0.264, canvas.width * 0.0629, canvas.width * 0.0343);
+    context.fillText(signer.signerNumber, numberCenterX, numberCenterY);
 
-    var nameSize = fitCanvasText(context, signer.username, 650, 74, 38);
+    var nameSize = fitCanvasText(
+      context,
+      signer.username,
+      canvas.width * 0.464,
+      canvas.width * 0.0529,
+      canvas.width * 0.0271
+    );
     context.font = "700 " + nameSize + "px 'DM Sans', Arial, sans-serif";
     var textWidth = context.measureText(signer.username).width;
-    var pillWidth = Math.max(390, Math.min(740, textWidth + 110));
-    var pillHeight = Math.max(118, nameSize + 54);
+    var pillWidth = Math.max(canvas.width * 0.279, Math.min(canvas.width * 0.529, textWidth + canvas.width * 0.079));
+    var pillHeight = Math.max(canvas.height * 0.0668, nameSize + canvas.height * 0.0306);
     var pillX = (canvas.width - pillWidth) / 2;
-    var pillY = 612;
+    var pillY = canvas.height * 0.354;
     context.fillStyle = "#0E0E0C";
     context.fillRect(pillX, pillY, pillWidth, pillHeight);
     context.fillStyle = "#FFD52B";
@@ -191,20 +200,20 @@
       var blob = await makeCardBlob();
       var file = new File([blob], "luzora-" + safeFilename(signer.username) + "-manifesto-" + signer.signerNumber + ".png", { type: "image/png" });
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ title: "Luzora Manifesto", text: shareText, url: signer.shareUrl, files: [file] });
+        await navigator.share({ title: "Luzora Manifesto", text: shareText, url: MANIFESTO_URL, files: [file] });
         setStatus("Card shared.");
       } else if (navigator.share) {
-        await navigator.share({ title: "Luzora Manifesto", text: shareText, url: signer.shareUrl });
+        await navigator.share({ title: "Luzora Manifesto", text: shareText, url: MANIFESTO_URL });
         setStatus("Signature shared.");
       } else {
-        await navigator.clipboard.writeText(signer.shareUrl);
-        setStatus("Signature link copied.");
+        await navigator.clipboard.writeText(MANIFESTO_URL);
+        setStatus("Manifesto link copied.");
       }
     } catch (error) {
       if (error && error.name !== "AbortError") {
         try {
-          await navigator.clipboard.writeText(signer.shareUrl);
-          setStatus("Signature link copied.");
+          await navigator.clipboard.writeText(MANIFESTO_URL);
+          setStatus("Manifesto link copied.");
         } catch (copyError) {
           setStatus("Sharing is unavailable in this browser.");
         }
