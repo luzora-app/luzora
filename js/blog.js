@@ -17,7 +17,7 @@
           id: "what-luzora-is",
           title: "What Luzora is",
           body: [
-            "Luzora is a browser extension that helps you turn any webpage into a task reminder. Instead of saving a link and hoping you remember why it mattered, you can save the page, add what you need to do, set when you want to return, and let Luzora bring it back at the right time.",
+            "Luzora is a browser extension that helps you turn any webpage into a recurring task. Instead of saving a link and hoping you remember why it mattered, you can save the page, add what you need to do, set when you want to return, and let Luzora bring it back at the right time.",
             "It is for students, researchers, designers, developers, job seekers, Web3 users, creators, and anyone whose work happens across websites.",
             "If the page is part of the task, Luzora helps you come back to it with purpose."
           ]
