@@ -45,6 +45,7 @@
     { "source": "/manifesto-signed.html", "destination": "/manifesto", "permanent": true },
     { "source": "/brand.html", "destination": "/brand", "permanent": true },
     { "source": "/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/welcome.html", "destination": "/welcome", "permanent": true },
     { "source": "/404.html", "destination": "/404", "permanent": true }
   ],
   "rewrites": [
@@ -62,6 +63,7 @@
     { "source": "/brand", "destination": "/brand.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/blog/:slug", "destination": "/blog-article.html" },
+    { "source": "/welcome", "destination": "/welcome.html" },
     { "source": "/404", "destination": "/404.html" },
     { "source": "/r/:code", "destination": "/r.html" }
   ]

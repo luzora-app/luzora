@@ -9,6 +9,7 @@
 /email-verified.html    /email-verified   301
 /uninstalled.html    /uninstalled   301
 /manifesto.html    /manifesto   301
+/welcome.html    /welcome   301
 /404.html    /404   301
 /download    /download.html   200
 /privacy    /privacy.html   200
@@ -20,6 +21,7 @@
 /email-verified    /email-verified.html   200
 /uninstalled    /uninstalled.html   200
 /manifesto    /manifesto.html   200
+/welcome    /welcome.html   200
 /manifesto/s/*    /manifesto-signed.html   200
 /404    /404.html   200
 /r/*    /r.html   200
