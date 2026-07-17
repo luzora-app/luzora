@@ -10,6 +10,10 @@ create table if not exists public.manifesto_signatures (
   email text not null,
   email_normalized text generated always as (lower(trim(email))) stored,
   share_url text,
+  confirmation_email_attempted_at timestamptz,
+  confirmation_email_sent_at timestamptz,
+  confirmation_email_id text,
+  confirmation_email_error text,
   signed_at timestamptz not null default now(),
   created_at timestamptz not null default now()
 );
@@ -17,7 +21,11 @@ create table if not exists public.manifesto_signatures (
 alter table public.manifesto_signatures
   add column if not exists public_id uuid default gen_random_uuid(),
   add column if not exists signer_number bigint,
-  add column if not exists share_url text;
+  add column if not exists share_url text,
+  add column if not exists confirmation_email_attempted_at timestamptz,
+  add column if not exists confirmation_email_sent_at timestamptz,
+  add column if not exists confirmation_email_id text,
+  add column if not exists confirmation_email_error text;
 
 update public.manifesto_signatures
 set public_id = gen_random_uuid()

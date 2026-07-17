@@ -2,8 +2,6 @@
 (function () {
   "use strict";
 
-  var SUPABASE_URL = "https://wtunedbjhpxnmlsvssiw.supabase.co";
-  var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
   var NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -142,14 +140,12 @@
     }
 
     try {
-      var response = await fetch(SUPABASE_URL + "/rest/v1/rpc/sign_manifesto", {
+      var response = await fetch("/api/manifesto-sign", {
         method: "POST",
         headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: "Bearer " + SUPABASE_ANON_KEY,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ p_name: name, p_email: email })
+        body: JSON.stringify({ name: name, email: email })
       });
 
       var data = null;

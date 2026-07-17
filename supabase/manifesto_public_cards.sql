@@ -4,7 +4,11 @@
 alter table public.manifesto_signatures
   add column if not exists public_id uuid default gen_random_uuid(),
   add column if not exists signer_number bigint,
-  add column if not exists share_url text;
+  add column if not exists share_url text,
+  add column if not exists confirmation_email_attempted_at timestamptz,
+  add column if not exists confirmation_email_sent_at timestamptz,
+  add column if not exists confirmation_email_id text,
+  add column if not exists confirmation_email_error text;
 
 update public.manifesto_signatures
 set public_id = gen_random_uuid()
