@@ -5,6 +5,7 @@ const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY || "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
 const RESEND_API_URL = "https://api.resend.com";
 const USER_AGENT = "luzora-website/1.0";
+const MANIFESTO_EMAIL_VERSION = "v2";
 const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -50,13 +51,12 @@ async function sendConfirmationEmail(email, signature) {
   var apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY is not configured.");
 
-  var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
+  var from = process.env.RESEND_MANIFESTO_FROM || "Luzora <notifications@luzora.app>";
   var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
   var branded = manifestoSignedEmail({
     username: signature.username,
     signerNumber: signature.signer_number,
-    cardUrl: signature.share_url,
-    privateTestUrl: "https://www.luzora.app/blog/help-shape-luzora-private-testing-is-opening"
+    cardUrl: signature.share_url
   });
 
   var response = await fetch(RESEND_API_URL + "/emails", {
@@ -65,7 +65,7 @@ async function sendConfirmationEmail(email, signature) {
       Authorization: "Bearer " + apiKey,
       "Content-Type": "application/json",
       "User-Agent": USER_AGENT,
-      "Idempotency-Key": "manifesto-confirmation/" + signature.public_id
+      "Idempotency-Key": "manifesto-confirmation-" + MANIFESTO_EMAIL_VERSION + "/" + signature.public_id
     },
     body: JSON.stringify({
       from,
