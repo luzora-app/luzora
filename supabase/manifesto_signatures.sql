@@ -9,6 +9,7 @@ create table if not exists public.manifesto_signatures (
   username_normalized text generated always as (lower(trim(username))) stored,
   email text not null,
   email_normalized text generated always as (lower(trim(email))) stored,
+  claimed_by uuid references auth.users(id) on delete set null,
   share_url text,
   confirmation_email_attempted_at timestamptz,
   confirmation_email_sent_at timestamptz,
@@ -21,6 +22,7 @@ create table if not exists public.manifesto_signatures (
 alter table public.manifesto_signatures
   add column if not exists public_id uuid default gen_random_uuid(),
   add column if not exists signer_number bigint,
+  add column if not exists claimed_by uuid references auth.users(id) on delete set null,
   add column if not exists share_url text,
   add column if not exists confirmation_email_attempted_at timestamptz,
   add column if not exists confirmation_email_sent_at timestamptz,
@@ -104,6 +106,9 @@ create unique index if not exists manifesto_signatures_username_normalized_key
 create unique index if not exists manifesto_signatures_email_normalized_key
   on public.manifesto_signatures (email_normalized);
 
+create index if not exists manifesto_signatures_claimed_by_idx
+  on public.manifesto_signatures (claimed_by);
+
 alter table public.manifesto_signatures enable row level security;
 
 drop policy if exists "Deny direct public reads" on public.manifesto_signatures;
@@ -135,6 +140,7 @@ declare
   v_public_id uuid;
   v_signer_number bigint;
   v_share_url text;
+  v_account_id uuid;
 begin
   if v_name !~ '^[A-Za-z0-9_]{3,24}$' then
     return jsonb_build_object('ok', false, 'reason', 'invalid_name');
@@ -162,10 +168,46 @@ begin
     return jsonb_build_object('ok', false, 'reason', 'name_taken');
   end if;
 
+  select id into v_account_id
+  from auth.users
+  where lower(email) = v_email
+  limit 1;
+
+  if exists (
+    select 1
+    from public.profiles
+    where lower(username) = lower(v_name)
+      and id is distinct from v_account_id
+  ) then
+    return jsonb_build_object('ok', false, 'reason', 'name_taken');
+  end if;
+
   insert into public.manifesto_signatures (username, email)
   values (v_name, v_email)
   returning public_id, signer_number, share_url
   into v_public_id, v_signer_number, v_share_url;
+
+  if v_account_id is not null then
+    update public.profiles
+    set username = v_name
+    where id = v_account_id
+      and (
+        username is null
+        or username ~* '^luzora_[a-z0-9]{5}$'
+        or lower(username) = lower(v_name)
+      );
+
+    if exists (
+      select 1
+      from public.profiles
+      where id = v_account_id
+        and lower(username) = lower(v_name)
+    ) then
+      update public.manifesto_signatures
+      set claimed_by = v_account_id
+      where public_id = v_public_id;
+    end if;
+  end if;
 
   return jsonb_build_object(
     'ok', true,

@@ -19,7 +19,10 @@ function manifestoSignedEmail(options) {
   var opts = options || {};
   var username = String(opts.username || "Luzora signer");
   var signerNumber = String(opts.signerNumber || "");
-  var cardUrl = String(opts.cardUrl || "https://www.luzora.app/manifesto");
+  var cardUrl = String(opts.cardUrl || "").trim();
+  if (!/^https:\/\/(?:www\.)?luzora\.app\/manifesto\/s\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(cardUrl)) {
+    throw new Error("A unique Luzora manifesto card URL is required.");
+  }
   var privateTestUrl = "https://www.luzora.app/blog/help-shape-luzora-private-testing-is-opening";
   var headerImage = "https://www.luzora.app/assets/brand-kit/other%20assets/Private/emaill-header-manifesto-signature.png";
   var preheader = "You are Luzora manifesto signer #" + signerNumber + ".";
