@@ -1,7 +1,7 @@
 (function () {
   var confirmButton = document.querySelector("[data-confirm-pin]");
   var modal = document.querySelector("[data-success-modal]");
-  var closeTargets = document.querySelectorAll("[data-success-close], [data-success-done]");
+  var closeTargets = document.querySelectorAll("[data-success-close]");
   var doneButton = document.querySelector("[data-success-done]");
   var previousFocus = null;
 
@@ -37,6 +37,12 @@
   closeTargets.forEach(function (target) {
     target.addEventListener("click", closeModal);
   });
+
+  if (doneButton) {
+    doneButton.addEventListener("click", function () {
+      window.location.assign("/");
+    });
+  }
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && modal && !modal.hidden) {
