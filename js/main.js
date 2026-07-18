@@ -512,6 +512,8 @@
     var frame = 0;
     var trailFrame = 0;
     var idleTimer = 0;
+    var clickBlinkUntil = 0;
+    var clickBlinkFrame = 0;
     var points = [];
     var trailDuration = reducedMotion ? 900 : 1400;
     var isCursorVisible = false;
@@ -630,11 +632,17 @@
       var y = currentY;
       if (x < -50 || y < -50) return;
 
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate((isCursorIdle ? 0 : renderedAngle + 90) * Math.PI / 180);
+      var now = performance.now();
+      var isClickBlinking = now < clickBlinkUntil;
+      var shouldDrawStatic = isCursorIdle || isClickBlinking;
+      var hoverY = isCursorIdle && !reducedMotion ? Math.sin(now / 360) * 2.4 : 0;
+      var hoverTilt = isCursorIdle && !reducedMotion ? Math.sin(now / 620) * 0.08 : 0;
 
-      if (isCursorIdle && drawStaticCursorImage()) {
+      ctx.save();
+      ctx.translate(x, y + hoverY);
+      ctx.rotate(shouldDrawStatic ? hoverTilt : (renderedAngle + 90) * Math.PI / 180);
+
+      if (shouldDrawStatic && drawStaticCursorImage(now, isClickBlinking)) {
         ctx.restore();
         return;
       }
@@ -691,13 +699,13 @@
       ctx.restore();
     }
 
-    function drawStaticCursorImage() {
+    function drawStaticCursorImage(now, isClickBlinking) {
       if (!cursorImages.staticBody.ready) return false;
 
       ctx.drawImage(cursorImages.staticBody, -21, -20, 42, 40);
 
-      var blinkPhase = Math.floor(performance.now() / 1400) % 5;
-      var eyeImage = blinkPhase === 4 ? cursorImages.eyeClosed : cursorImages.eyeOpen;
+      var blinkPhase = Math.floor(now / 1400) % 5;
+      var eyeImage = isClickBlinking || blinkPhase === 4 ? cursorImages.eyeClosed : cursorImages.eyeOpen;
       if (eyeImage.ready) {
         ctx.drawImage(eyeImage, -7, -13, 14, 10);
       }
@@ -707,6 +715,20 @@
 
     function requestTrailUpdate() {
       if (!trailFrame) trailFrame = requestAnimationFrame(drawTrail);
+    }
+
+    function blinkOnPress(event) {
+      if (event.pointerType && event.pointerType !== "mouse") return;
+      if (!isCursorVisible || isCursorSuspended) return;
+
+      clickBlinkUntil = performance.now() + 150;
+      requestTrailUpdate();
+
+      if (clickBlinkFrame) window.clearTimeout(clickBlinkFrame);
+      clickBlinkFrame = window.setTimeout(function () {
+        clickBlinkFrame = 0;
+        requestTrailUpdate();
+      }, 170);
     }
 
     function suspendCursor() {
@@ -756,6 +778,7 @@
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas, { passive: true });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("pointerdown", blinkOnPress, { passive: true });
     document.addEventListener("pointerleave", function () {
       setVisible(false);
     });
