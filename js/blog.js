@@ -41,7 +41,7 @@
           ],
           list: [
             "Use a laptop browser regularly to work, study, build, apply, research, trade, design, or manage tasks.",
-            "Have access to a browser on laptop, tablet, or mobile that supports browser extensions.",
+            "Have access to a browser that supports extensions.",
             "Save tabs because you plan to come back later.",
             "Use bookmarks but rarely revisit them.",
             "Work across tools like Notion, Gmail, GitHub, Canva, ChatGPT, YouTube, job boards, dashboards, Web3 apps, or research sites.",
