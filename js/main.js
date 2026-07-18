@@ -512,6 +512,7 @@
     var frame = 0;
     var trailFrame = 0;
     var idleTimer = 0;
+    var idleStartedAt = 0;
     var clickBlinkUntil = 0;
     var clickBlinkFrame = 0;
     var points = [];
@@ -561,6 +562,7 @@
     }
 
     function setIdle(isIdle) {
+      if (isIdle && !isCursorIdle) idleStartedAt = performance.now();
       isCursorIdle = isIdle;
       cursor.classList.toggle("is-idle", isIdle);
       requestTrailUpdate();
@@ -600,24 +602,7 @@
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       if (points.length > 1) {
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        for (var i = 1; i < points.length; i += 1) {
-          var from = points[i - 1];
-          var to = points[i];
-          var age = now - to.time;
-          var ageAlpha = Math.max(0, 1 - age / trailDuration);
-          var headAlpha = Math.min(1, i / Math.max(points.length - 1, 1));
-          var alpha = ageAlpha * headAlpha * (reducedMotion ? 0.18 : 0.26);
-          if (alpha <= 0.01) continue;
-
-          ctx.beginPath();
-          ctx.moveTo(from.x, from.y);
-          ctx.lineTo(to.x, to.y);
-          ctx.strokeStyle = "rgba(21, 20, 17, " + alpha + ")";
-          ctx.lineWidth = 2 + (ageAlpha * 3);
-          ctx.stroke();
-        }
+        drawSmoothDashedTrail(now);
       }
 
       if (isCursorVisible && !isCursorSuspended) {
@@ -625,6 +610,43 @@
       }
 
       if (points.length || isCursorVisible) trailFrame = requestAnimationFrame(drawTrail);
+    }
+
+    function drawSmoothDashedTrail(now) {
+      var first = points[0];
+      var last = points[points.length - 1];
+      var gradient = ctx.createLinearGradient(first.x, first.y, last.x, last.y);
+      var alpha = reducedMotion ? 0.2 : 0.34;
+
+      gradient.addColorStop(0, "rgba(21, 20, 17, 0)");
+      gradient.addColorStop(0.24, "rgba(21, 20, 17, " + (alpha * 0.55) + ")");
+      gradient.addColorStop(1, "rgba(21, 20, 17, " + alpha + ")");
+
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.setLineDash([5, 11]);
+      ctx.lineDashOffset = reducedMotion ? 0 : -now / 90;
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = reducedMotion ? 2 : 2.6;
+      ctx.beginPath();
+      ctx.moveTo(first.x, first.y);
+
+      if (points.length === 2) {
+        ctx.lineTo(last.x, last.y);
+      } else {
+        for (var i = 1; i < points.length - 1; i += 1) {
+          var current = points[i];
+          var next = points[i + 1];
+          var midX = (current.x + next.x) / 2;
+          var midY = (current.y + next.y) / 2;
+          ctx.quadraticCurveTo(current.x, current.y, midX, midY);
+        }
+        ctx.quadraticCurveTo(points[points.length - 2].x, points[points.length - 2].y, last.x, last.y);
+      }
+
+      ctx.stroke();
+      ctx.restore();
     }
 
     function drawCanvasCursor() {
@@ -635,12 +657,16 @@
       var now = performance.now();
       var isClickBlinking = now < clickBlinkUntil;
       var shouldDrawStatic = isCursorIdle || isClickBlinking;
-      var hoverY = isCursorIdle && !reducedMotion ? Math.sin(now / 360) * 2.4 : 0;
-      var hoverTilt = isCursorIdle && !reducedMotion ? Math.sin(now / 620) * 0.08 : 0;
+      var idleRamp = isCursorIdle && !reducedMotion ? Math.min(1, (now - idleStartedAt) / 420) : 0;
+      var hoverY = idleRamp ? Math.sin(now / 300) * 7 * idleRamp : 0;
+      var hoverX = idleRamp ? Math.sin(now / 720) * 1.8 * idleRamp : 0;
+      var hoverTilt = idleRamp ? Math.sin(now / 560) * 0.16 * idleRamp : 0;
+      var hoverScale = idleRamp ? 1 + Math.sin(now / 430) * 0.025 * idleRamp : 1;
 
       ctx.save();
-      ctx.translate(x, y + hoverY);
+      ctx.translate(x + hoverX, y + hoverY);
       ctx.rotate(shouldDrawStatic ? hoverTilt : (renderedAngle + 90) * Math.PI / 180);
+      ctx.scale(hoverScale, hoverScale);
 
       if (shouldDrawStatic && drawStaticCursorImage(now, isClickBlinking)) {
         ctx.restore();
@@ -702,7 +728,13 @@
     function drawStaticCursorImage(now, isClickBlinking) {
       if (!cursorImages.staticBody.ready) return false;
 
+      ctx.shadowColor = "rgba(122, 100, 12, 0.26)";
+      ctx.shadowBlur = 7;
+      ctx.shadowOffsetY = 3;
       ctx.drawImage(cursorImages.staticBody, -21, -20, 42, 40);
+      ctx.shadowColor = "transparent";
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
 
       var blinkPhase = Math.floor(now / 1400) % 5;
       var eyeImage = isClickBlinking || blinkPhase === 4 ? cursorImages.eyeClosed : cursorImages.eyeOpen;
