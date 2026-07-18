@@ -484,13 +484,12 @@
     var canvas = document.createElement("canvas");
     var cursor = document.createElement("div");
     var fallback = document.createElement("div");
-    var moving = document.createElement("div");
-    var staticWrap = document.createElement("div");
-    var staticBody = document.createElement("div");
-    var eyeOpen = document.createElement("div");
-    var eyeClosed = document.createElement("div");
+    var moving = document.createElement("img");
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
+    var assetBase = window.location.protocol === "file:"
+      ? "assets/icons/bee-cursor/"
+      : "/assets/icons/bee-cursor/";
 
     canvas.className = "bee-cursor-trail";
     canvas.setAttribute("aria-hidden", "true");
@@ -501,20 +500,19 @@
     fallback.className = "bee-cursor__fallback";
 
     moving.className = "bee-cursor__moving";
+    moving.alt = "";
+    moving.decoding = "async";
+    moving.draggable = false;
+    moving.src = assetBase + "bee-cursor-moving.svg";
+    moving.addEventListener("load", function () {
+      cursor.classList.add("has-art");
+    });
+    moving.addEventListener("error", function () {
+      cursor.classList.remove("has-art");
+    });
 
-    staticWrap.className = "bee-cursor__static";
-    staticBody.className = "bee-cursor__static-body";
-
-    eyeOpen.className = "bee-cursor__eye bee-cursor__eye--open";
-
-    eyeClosed.className = "bee-cursor__eye bee-cursor__eye--closed";
-
-    staticWrap.appendChild(staticBody);
-    staticWrap.appendChild(eyeOpen);
-    staticWrap.appendChild(eyeClosed);
     cursor.appendChild(fallback);
     cursor.appendChild(moving);
-    cursor.appendChild(staticWrap);
     document.body.appendChild(canvas);
     document.body.appendChild(cursor);
     root.classList.add("has-bee-cursor");
@@ -558,7 +556,7 @@
       frame = 0;
       currentX += (targetX - currentX) * (reducedMotion ? 1 : 0.26);
       currentY += (targetY - currentY) * (reducedMotion ? 1 : 0.26);
-      cursor.style.transform = "translate3d(" + (currentX - 16) + "px, " + (currentY - 16) + "px, 0)";
+      cursor.style.transform = "translate3d(" + (currentX - 21) + "px, " + (currentY - 21) + "px, 0)";
       moving.style.transform = "rotate(" + (angle + 90) + "deg)";
 
       if (Math.abs(targetX - currentX) > 0.15 || Math.abs(targetY - currentY) > 0.15) {

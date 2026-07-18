@@ -2059,8 +2059,8 @@ img {
 
 .bee-cursor {
   position: fixed;
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   left: 0;
   top: 0;
   inset: auto;
@@ -2092,8 +2092,8 @@ img {
 .bee-cursor__fallback {
   position: absolute;
   inset: 0;
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
 }
 
 .bee-cursor__moving,
@@ -2106,9 +2106,9 @@ img {
 }
 
 .bee-cursor__fallback {
-  width: 28px;
-  height: 24px;
-  inset: 4px 2px;
+  width: 34px;
+  height: 30px;
+  inset: 6px 4px;
   border: 1.5px solid #151411;
   border-radius: 50%;
   background:
@@ -2146,36 +2146,14 @@ img {
 }
 
 .bee-cursor__moving {
-  background: url("../assets/icons/bee-cursor/bee-cursor-moving.svg") center / contain no-repeat;
   opacity: 1;
   transform-origin: 50% 50%;
   transition: opacity 120ms ease;
   z-index: 3;
+  object-fit: contain;
 }
 
-.bee-cursor__static {
-  opacity: 0;
-  transition: opacity 160ms ease;
-  z-index: 3;
-}
-
-.bee-cursor__static-body {
-  background: url("../assets/icons/bee-cursor/Bee-cursor-static-body.svg") center / contain no-repeat;
-}
-
-.bee-cursor__eye {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 25% auto;
-  transition: opacity 80ms ease;
-}
-
-.bee-cursor__eye--open {
-  background-image: url("../assets/icons/bee-cursor/bee-eye-open.svg");
-}
-
-.bee-cursor__eye--closed {
-  background-image: url("../assets/icons/bee-cursor/bee-eye-closed.svg");
+.bee-cursor.has-art .bee-cursor__fallback {
   opacity: 0;
 }
 
@@ -2183,35 +2161,9 @@ img {
   animation: beeCursorHover 2400ms ease-in-out infinite;
 }
 
-.bee-cursor.is-idle .bee-cursor__moving {
-  opacity: 0;
-}
-
-.bee-cursor.is-idle .bee-cursor__static {
-  opacity: 1;
-}
-
-.bee-cursor.is-idle .bee-cursor__eye--open {
-  animation: beeCursorEyeOpen 3600ms ease-in-out infinite;
-}
-
-.bee-cursor.is-idle .bee-cursor__eye--closed {
-  animation: beeCursorEyeClosed 3600ms ease-in-out infinite;
-}
-
 @keyframes beeCursorHover {
   0%, 100% { margin-top: 0; }
   50% { margin-top: -3px; }
-}
-
-@keyframes beeCursorEyeOpen {
-  0%, 88%, 100% { opacity: 1; }
-  91%, 94% { opacity: 0; }
-}
-
-@keyframes beeCursorEyeClosed {
-  0%, 88%, 100% { opacity: 0; }
-  91%, 94% { opacity: 1; }
 }
 
 @media (pointer: coarse), (hover: none) {
@@ -2230,8 +2182,4 @@ img {
     animation: none;
   }
 
-  .bee-cursor.is-idle .bee-cursor__eye--open,
-  .bee-cursor.is-idle .bee-cursor__eye--closed {
-    animation: none;
-  }
 }
