@@ -471,6 +471,123 @@
     }
   }
 
+  function initWeightedScroll() {
+    if (document.documentElement.dataset.weightedScroll === "off") return;
+
+    var isCoarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    if (isCoarsePointer) return;
+
+    var root = document.documentElement;
+    var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var ease = reducedMotion ? 0.16 : 0.038;
+    var wheelScale = reducedMotion ? 0.85 : 0.95;
+    var currentY = window.scrollY || 0;
+    var targetY = currentY;
+    var frame = 0;
+    var isAnimating = false;
+    var isProgrammatic = false;
+
+    function maxScrollY() {
+      return Math.max(0, root.scrollHeight - window.innerHeight);
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function deltaToPixels(event) {
+      if (event.deltaMode === 1) return event.deltaY * 18;
+      if (event.deltaMode === 2) return event.deltaY * window.innerHeight;
+      return event.deltaY;
+    }
+
+    function canNativeScroll(element, deltaY) {
+      var node = element;
+      while (node && node !== document.body && node !== root) {
+        if (node.nodeType === 1) {
+          var style = window.getComputedStyle(node);
+          var overflowY = style.overflowY;
+          var canScroll = /(auto|scroll|overlay)/.test(overflowY) && node.scrollHeight > node.clientHeight + 1;
+          if (canScroll) {
+            var atTop = node.scrollTop <= 0;
+            var atBottom = node.scrollTop + node.clientHeight >= node.scrollHeight - 1;
+            if ((deltaY < 0 && !atTop) || (deltaY > 0 && !atBottom)) return true;
+          }
+        }
+        node = node.parentNode;
+      }
+      return false;
+    }
+
+    function shouldIgnoreWheel(event, deltaY) {
+      if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) return true;
+      if (document.body.classList.contains("install-modal-open")) return true;
+      if (event.target && event.target.closest) {
+        if (event.target.closest("input, textarea, select, [data-native-scroll]")) return true;
+      }
+      return canNativeScroll(event.target, deltaY);
+    }
+
+    function setScrollInstantly(y) {
+      var previousBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      isProgrammatic = true;
+      window.scrollTo(0, y);
+      isProgrammatic = false;
+      root.style.scrollBehavior = previousBehavior;
+    }
+
+    function stopAnimation() {
+      if (frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
+      isAnimating = false;
+    }
+
+    function tick() {
+      var distance = targetY - currentY;
+      currentY += distance * ease;
+
+      if (Math.abs(distance) < 0.35) {
+        currentY = targetY;
+        setScrollInstantly(currentY);
+        stopAnimation();
+        return;
+      }
+
+      setScrollInstantly(currentY);
+      frame = requestAnimationFrame(tick);
+    }
+
+    function startAnimation() {
+      if (isAnimating) return;
+      isAnimating = true;
+      frame = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener("wheel", function (event) {
+      var deltaY = deltaToPixels(event);
+      if (!deltaY || shouldIgnoreWheel(event, deltaY)) return;
+
+      event.preventDefault();
+      targetY = clamp(targetY + deltaY * wheelScale, 0, maxScrollY());
+      startAnimation();
+    }, { passive: false });
+
+    window.addEventListener("scroll", function () {
+      if (isProgrammatic || isAnimating) return;
+      currentY = window.scrollY || 0;
+      targetY = currentY;
+      stopAnimation();
+    }, { passive: true });
+
+    window.addEventListener("resize", function () {
+      targetY = clamp(targetY, 0, maxScrollY());
+      currentY = clamp(window.scrollY || 0, 0, maxScrollY());
+    }, { passive: true });
+  }
+
   function start() {
     if (initAuthRedirectFallback()) return;
 
@@ -490,6 +607,7 @@
     initNav();
     initInstallComingSoon();
     initImageProtection();
+    initWeightedScroll();
   }
 
   if (document.readyState === "loading") {
