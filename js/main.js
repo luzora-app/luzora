@@ -483,8 +483,6 @@
     var root = document.documentElement;
     var canvas = document.createElement("canvas");
     var cursor = document.createElement("div");
-    var fallback = document.createElement("div");
-    var moving = document.createElement("img");
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
     var assetBase = window.location.protocol === "file:"
@@ -496,23 +494,8 @@
 
     cursor.className = "bee-cursor";
     cursor.setAttribute("aria-hidden", "true");
+    cursor.style.display = "none";
 
-    fallback.className = "bee-cursor__fallback";
-
-    moving.className = "bee-cursor__moving";
-    moving.alt = "";
-    moving.decoding = "async";
-    moving.draggable = false;
-    moving.src = assetBase + "bee-cursor-moving.svg";
-    moving.addEventListener("load", function () {
-      cursor.classList.add("has-art");
-    });
-    moving.addEventListener("error", function () {
-      cursor.classList.remove("has-art");
-    });
-
-    cursor.appendChild(fallback);
-    cursor.appendChild(moving);
     document.body.appendChild(canvas);
     document.body.appendChild(cursor);
     root.classList.add("has-bee-cursor");
@@ -525,6 +508,7 @@
     var lastX = -100;
     var lastY = -100;
     var angle = 0;
+    var renderedAngle = 0;
     var frame = 0;
     var trailFrame = 0;
     var idleTimer = 0;
@@ -532,18 +516,28 @@
     var trailDuration = reducedMotion ? 900 : 1400;
     var isCursorVisible = false;
     var isCursorSuspended = false;
-    var cursorImageReady = false;
-    var cursorImage = new Image();
+    var isCursorIdle = false;
+    var cursorImages = {
+      moving: loadCursorImage("bee-cursor-moving.svg"),
+      staticBody: loadCursorImage("Bee-cursor-static-body.svg"),
+      eyeOpen: loadCursorImage("bee-eye-open.svg"),
+      eyeClosed: loadCursorImage("bee-eye-closed.svg")
+    };
 
-    cursorImage.onload = function () {
-      cursorImageReady = true;
-      requestTrailUpdate();
-    };
-    cursorImage.onerror = function () {
-      cursorImageReady = false;
-      requestTrailUpdate();
-    };
-    cursorImage.src = assetBase + "bee-cursor-moving.svg";
+    function loadCursorImage(filename) {
+      var image = new Image();
+      image.ready = false;
+      image.onload = function () {
+        image.ready = true;
+        requestTrailUpdate();
+      };
+      image.onerror = function () {
+        image.ready = false;
+        requestTrailUpdate();
+      };
+      image.src = assetBase + filename;
+      return image;
+    }
 
     function resizeCanvas() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -565,17 +559,27 @@
     }
 
     function setIdle(isIdle) {
+      isCursorIdle = isIdle;
       cursor.classList.toggle("is-idle", isIdle);
+      requestTrailUpdate();
+    }
+
+    function smoothAngle(current, target, amount) {
+      var delta = ((target - current + 540) % 360) - 180;
+      return current + delta * amount;
     }
 
     function updateCursor() {
       frame = 0;
       currentX += (targetX - currentX) * (reducedMotion ? 1 : 0.26);
       currentY += (targetY - currentY) * (reducedMotion ? 1 : 0.26);
-      cursor.style.transform = "translate3d(" + (currentX - 21) + "px, " + (currentY - 21) + "px, 0)";
-      moving.style.transform = "rotate(" + (angle + 90) + "deg)";
+      renderedAngle = smoothAngle(renderedAngle, angle, reducedMotion ? 1 : 0.18);
 
-      if (Math.abs(targetX - currentX) > 0.15 || Math.abs(targetY - currentY) > 0.15) {
+      if (
+        Math.abs(targetX - currentX) > 0.15 ||
+        Math.abs(targetY - currentY) > 0.15 ||
+        Math.abs(((angle - renderedAngle + 540) % 360) - 180) > 0.35
+      ) {
         frame = requestAnimationFrame(updateCursor);
       }
     }
@@ -628,7 +632,18 @@
 
       ctx.save();
       ctx.translate(x, y);
-      ctx.rotate((angle + 90) * Math.PI / 180);
+      ctx.rotate((isCursorIdle ? 0 : renderedAngle + 90) * Math.PI / 180);
+
+      if (isCursorIdle && drawStaticCursorImage()) {
+        ctx.restore();
+        return;
+      }
+
+      if (!isCursorIdle && cursorImages.moving.ready) {
+        ctx.drawImage(cursorImages.moving, -21, -20, 42, 40);
+        ctx.restore();
+        return;
+      }
 
       ctx.rotate(-0.18);
       ctx.shadowColor = "rgba(122, 100, 12, 0.28)";
@@ -673,12 +688,21 @@
       ctx.arc(14, -20, 2.2, 0, Math.PI * 2);
       ctx.fill();
 
-      if (cursorImageReady) {
-        ctx.globalAlpha = 0.96;
-        ctx.drawImage(cursorImage, -21, -21, 42, 42);
+      ctx.restore();
+    }
+
+    function drawStaticCursorImage() {
+      if (!cursorImages.staticBody.ready) return false;
+
+      ctx.drawImage(cursorImages.staticBody, -21, -20, 42, 40);
+
+      var blinkPhase = Math.floor(performance.now() / 1400) % 5;
+      var eyeImage = blinkPhase === 4 ? cursorImages.eyeClosed : cursorImages.eyeOpen;
+      if (eyeImage.ready) {
+        ctx.drawImage(eyeImage, -7, -13, 14, 10);
       }
 
-      ctx.restore();
+      return true;
     }
 
     function requestTrailUpdate() {
