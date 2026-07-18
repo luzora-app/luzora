@@ -616,7 +616,7 @@
       var first = points[0];
       var last = points[points.length - 1];
       var gradient = ctx.createLinearGradient(first.x, first.y, last.x, last.y);
-      var alpha = reducedMotion ? 0.2 : 0.34;
+      var alpha = reducedMotion ? 0.34 : 0.52;
 
       gradient.addColorStop(0, "rgba(21, 20, 17, 0)");
       gradient.addColorStop(0.24, "rgba(21, 20, 17, " + (alpha * 0.55) + ")");
@@ -625,10 +625,10 @@
       ctx.save();
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.setLineDash([5, 11]);
-      ctx.lineDashOffset = reducedMotion ? 0 : -now / 90;
+      ctx.setLineDash([10, 16]);
+      ctx.lineDashOffset = 0;
       ctx.strokeStyle = gradient;
-      ctx.lineWidth = reducedMotion ? 2 : 2.6;
+      ctx.lineWidth = reducedMotion ? 4 : 5.2;
       ctx.beginPath();
       ctx.moveTo(first.x, first.y);
 
@@ -658,10 +658,10 @@
       var isClickBlinking = now < clickBlinkUntil;
       var shouldDrawStatic = isCursorIdle || isClickBlinking;
       var idleRamp = isCursorIdle && !reducedMotion ? Math.min(1, (now - idleStartedAt) / 420) : 0;
-      var hoverY = idleRamp ? Math.sin(now / 300) * 7 * idleRamp : 0;
-      var hoverX = idleRamp ? Math.sin(now / 720) * 1.8 * idleRamp : 0;
-      var hoverTilt = idleRamp ? Math.sin(now / 560) * 0.16 * idleRamp : 0;
-      var hoverScale = idleRamp ? 1 + Math.sin(now / 430) * 0.025 * idleRamp : 1;
+      var hoverY = idleRamp ? Math.sin(now / 280) * 12 * idleRamp : 0;
+      var hoverX = idleRamp ? Math.sin(now / 680) * 3.2 * idleRamp : 0;
+      var hoverTilt = idleRamp ? Math.sin(now / 520) * 0.22 * idleRamp : 0;
+      var hoverScale = idleRamp ? 1 + Math.sin(now / 390) * 0.045 * idleRamp : 1;
 
       ctx.save();
       ctx.translate(x + hoverX, y + hoverY);
