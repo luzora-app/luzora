@@ -530,6 +530,20 @@
     var idleTimer = 0;
     var points = [];
     var trailDuration = reducedMotion ? 900 : 1400;
+    var isCursorVisible = false;
+    var isCursorSuspended = false;
+    var cursorImageReady = false;
+    var cursorImage = new Image();
+
+    cursorImage.onload = function () {
+      cursorImageReady = true;
+      requestTrailUpdate();
+    };
+    cursorImage.onerror = function () {
+      cursorImageReady = false;
+      requestTrailUpdate();
+    };
+    cursorImage.src = assetBase + "bee-cursor-moving.svg";
 
     function resizeCanvas() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -545,7 +559,9 @@
     }
 
     function setVisible(isVisible) {
+      isCursorVisible = isVisible;
       cursor.classList.toggle("is-visible", isVisible);
+      if (isVisible) requestTrailUpdate();
     }
 
     function setIdle(isIdle) {
@@ -598,7 +614,71 @@
         }
       }
 
-      if (points.length) trailFrame = requestAnimationFrame(drawTrail);
+      if (isCursorVisible && !isCursorSuspended) {
+        drawCanvasCursor();
+      }
+
+      if (points.length || isCursorVisible) trailFrame = requestAnimationFrame(drawTrail);
+    }
+
+    function drawCanvasCursor() {
+      var x = currentX;
+      var y = currentY;
+      if (x < -50 || y < -50) return;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate((angle + 90) * Math.PI / 180);
+
+      ctx.rotate(-0.18);
+      ctx.shadowColor = "rgba(122, 100, 12, 0.28)";
+      ctx.shadowBlur = 9;
+      ctx.shadowOffsetY = 3;
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.82)";
+      ctx.strokeStyle = "rgba(21, 20, 17, 0.42)";
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.ellipse(-13, -2, 9, 13, -0.78, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(13, -2, 9, 13, 0.78, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.shadowBlur = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.fillStyle = "#FFD52B";
+      ctx.strokeStyle = "#151411";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.ellipse(0, 1, 13, 17, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = "#151411";
+      ctx.fillRect(-8, -5, 16, 3);
+      ctx.fillRect(-8, 4, 16, 3);
+
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(-5, -15);
+      ctx.quadraticCurveTo(-9, -24, -14, -20);
+      ctx.moveTo(5, -15);
+      ctx.quadraticCurveTo(9, -24, 14, -20);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(-14, -20, 2.2, 0, Math.PI * 2);
+      ctx.arc(14, -20, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (cursorImageReady) {
+        ctx.globalAlpha = 0.96;
+        ctx.drawImage(cursorImage, -21, -21, 42, 42);
+      }
+
+      ctx.restore();
     }
 
     function requestTrailUpdate() {
@@ -606,11 +686,13 @@
     }
 
     function suspendCursor() {
+      isCursorSuspended = true;
       cursor.classList.add("is-suspended");
       setIdle(true);
     }
 
     function resumeCursor() {
+      isCursorSuspended = false;
       cursor.classList.remove("is-suspended");
     }
 
