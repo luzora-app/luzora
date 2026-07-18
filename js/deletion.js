@@ -60,7 +60,7 @@
   function valid() {
     var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email.value || "").trim());
     var scopeOk = Boolean(scopeInput.value);
-    var reasonOk = (reason.value || "").trim().length > 10;
+    var reasonOk = (reason.value || "").trim().length <= 2000;
     return emailOk && scopeOk && reasonOk && agree.checked;
   }
 

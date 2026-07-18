@@ -7,6 +7,18 @@
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   var PNG_FRAME_URL = "/assets/brand-kit/other%20assets/Private/card-frame.png";
   var MANIFESTO_URL = "https://luzora.app/manifesto/";
+  var CARD_DESIGN_WIDTH = 366.12;
+  var CARD_DESIGN_HEIGHT = 460;
+  var CARD_NAME_MAX_WIDTH = 273;
+  var CARD_NAME_TOP = 154.43;
+  var CARD_NAME_HEIGHT = 63;
+  var CARD_NAME_BASE_SIZE = 42;
+  var CARD_NAME_MIN_SIZE = 22;
+  var CARD_NUMBER_RIGHT = 34;
+  var CARD_NUMBER_TOP = 38.72;
+  var CARD_NUMBER_WIDTH = 122;
+  var CARD_NUMBER_HEIGHT = 37;
+  var CARD_NUMBER_SIZE = 24.4082;
 
   var loading = document.querySelector("[data-signed-loading]");
   var errorState = document.querySelector("[data-signed-error]");
@@ -38,23 +50,38 @@
     errorState.hidden = false;
   }
 
+  function formatSignerNumber(value) {
+    var numeric = Number(String(value || "").replace(/,/g, ""));
+    if (!Number.isFinite(numeric) || numeric <= 0) return String(value || "1");
+    return new Intl.NumberFormat("en-US").format(numeric);
+  }
+
+  function measureTextWidth(text, size) {
+    var canvas = measureTextWidth.canvas || (measureTextWidth.canvas = document.createElement("canvas"));
+    var context = canvas.getContext("2d");
+    context.font = "700 " + size + "px Figtree, Arial, sans-serif";
+    return context.measureText(text).width;
+  }
+
   function fitName(name) {
-    var length = name.length;
-    if (length > 19) nameElement.style.fontSize = "14px";
-    else if (length > 15) nameElement.style.fontSize = "16px";
-    else if (length > 11) nameElement.style.fontSize = "18px";
+    var size = CARD_NAME_BASE_SIZE;
+    while (size > CARD_NAME_MIN_SIZE && measureTextWidth(name, size) > CARD_NAME_MAX_WIDTH) size -= 1;
+    nameElement.style.setProperty("--signed-name-size", size + "px");
   }
 
   function render(data) {
     signer = {
       username: String(data.username || "LuzoraBee"),
-      signerNumber: String(data.signer_number || "1"),
+      signerNumber: formatSignerNumber(data.signer_number || "1"),
       shareUrl: data.share_url || window.location.href.split("?")[0]
     };
 
     nameElement.textContent = signer.username;
     numberElement.textContent = signer.signerNumber;
     fitName(signer.username);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { fitName(signer.username); });
+    }
     document.title = signer.username + " signed the Luzora Manifesto";
     loading.hidden = true;
     errorState.hidden = true;
@@ -120,11 +147,22 @@
   function fitCanvasText(context, text, maxWidth, startSize, minimumSize) {
     var size = startSize;
     do {
-      context.font = "700 " + size + "px 'DM Sans', Arial, sans-serif";
+      context.font = "700 " + size + "px Figtree, Arial, sans-serif";
       if (context.measureText(text).width <= maxWidth) return size;
-      size -= 2;
+      size -= 1;
     } while (size >= minimumSize);
     return minimumSize;
+  }
+
+  function makeNameGradient(context, x, width) {
+    var gradient = context.createLinearGradient(x, 0, x + width, 0);
+    gradient.addColorStop(0, "#000000");
+    gradient.addColorStop(0.2263, "#000000");
+    gradient.addColorStop(0.3674, "#0a0905");
+    gradient.addColorStop(0.5951, "#5d4d12");
+    gradient.addColorStop(0.7322, "#000000");
+    gradient.addColorStop(1, "#000000");
+    return gradient;
   }
 
   async function makeCardBlob() {
@@ -136,32 +174,32 @@
     canvas.height = frame.naturalHeight || 1767;
     var context = canvas.getContext("2d");
     context.drawImage(frame, 0, 0, canvas.width, canvas.height);
+    var scaleX = canvas.width / CARD_DESIGN_WIDTH;
+    var scaleY = canvas.height / CARD_DESIGN_HEIGHT;
+    var textScale = Math.min(scaleX, scaleY);
 
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillStyle = "#FFD52B";
-    var numberCenterX = canvas.width * 0.744;
-    var numberCenterY = canvas.height * 0.1215;
-    fitCanvasText(context, signer.signerNumber, canvas.width * 0.264, canvas.width * 0.0629, canvas.width * 0.0343);
+    var numberCenterX = canvas.width - ((CARD_NUMBER_RIGHT + CARD_NUMBER_WIDTH / 2) * scaleX);
+    var numberCenterY = (CARD_NUMBER_TOP + CARD_NUMBER_HEIGHT / 2) * scaleY;
+    var numberSize = fitCanvasText(context, signer.signerNumber, CARD_NUMBER_WIDTH * scaleX, CARD_NUMBER_SIZE * textScale, 16 * textScale);
+    context.font = "700 " + numberSize + "px Figtree, Arial, sans-serif";
     context.fillText(signer.signerNumber, numberCenterX, numberCenterY);
 
     var nameSize = fitCanvasText(
       context,
       signer.username,
-      canvas.width * 0.464,
-      canvas.width * 0.0529,
-      canvas.width * 0.0271
+      CARD_NAME_MAX_WIDTH * scaleX,
+      CARD_NAME_BASE_SIZE * textScale,
+      CARD_NAME_MIN_SIZE * textScale
     );
-    context.font = "700 " + nameSize + "px 'DM Sans', Arial, sans-serif";
-    var textWidth = context.measureText(signer.username).width;
-    var pillWidth = Math.max(canvas.width * 0.279, Math.min(canvas.width * 0.529, textWidth + canvas.width * 0.079));
-    var pillHeight = Math.max(canvas.height * 0.0668, nameSize + canvas.height * 0.0306);
-    var pillX = (canvas.width - pillWidth) / 2;
-    var pillY = canvas.height * 0.354;
-    context.fillStyle = "#0E0E0C";
-    context.fillRect(pillX, pillY, pillWidth, pillHeight);
-    context.fillStyle = "#FFD52B";
-    context.fillText(signer.username, canvas.width / 2, pillY + pillHeight / 2 + 2);
+    var nameBoxWidth = CARD_NAME_MAX_WIDTH * scaleX;
+    var nameBoxX = (canvas.width - nameBoxWidth) / 2;
+    var nameCenterY = (CARD_NAME_TOP + CARD_NAME_HEIGHT / 2) * scaleY;
+    context.font = "700 " + nameSize + "px Figtree, Arial, sans-serif";
+    context.fillStyle = makeNameGradient(context, nameBoxX, nameBoxWidth);
+    context.fillText(signer.username, canvas.width / 2, nameCenterY);
 
     return new Promise(function (resolve, reject) {
       canvas.toBlob(function (blob) {

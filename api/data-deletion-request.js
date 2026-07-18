@@ -143,8 +143,8 @@ module.exports = async function handler(req, res) {
       return json(res, 400, { ok: false, message: "Please choose what you want to delete." });
     }
 
-    if (reason.length < 10 || reason.length > 2000) {
-      return json(res, 400, { ok: false, message: "Please share a short reason for the request." });
+    if (reason.length > 2000) {
+      return json(res, 400, { ok: false, message: "Please keep the optional reason under 2,000 characters." });
     }
 
     var token = crypto.randomBytes(32).toString("hex");

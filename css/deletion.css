@@ -115,6 +115,11 @@
   color: var(--color-ink);
 }
 
+.del-label__optional {
+  font-weight: 400;
+  color: var(--color-body);
+}
+
 .del-input {
   box-sizing: border-box;
   display: flex;

@@ -101,9 +101,10 @@
   --card-ry: 0deg;
   --card-lift: 0px;
   --card-scale: 1;
+  --signed-name-size: 42px;
   position: relative;
   width: 100%;
-  aspect-ratio: 1400 / 1767;
+  height: 460px;
   transform-style: preserve-3d;
   transform: translateY(var(--card-lift)) rotateX(var(--card-rx)) rotateY(var(--card-ry)) scale(var(--card-scale));
   transform-origin: center;
@@ -146,7 +147,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-family: var(--font-heading, "Figtree", sans-serif);
   font-weight: 700;
   text-align: center;
   white-space: nowrap;
@@ -154,29 +155,33 @@
 }
 
 .signed-card__number {
-  left: 55.8%;
-  top: 5.85%;
-  width: 37.2%;
-  height: 12.6%;
+  right: 34px;
+  top: 38.72px;
+  width: 122px;
+  height: 37px;
   color: #ffd52b;
-  font-size: 28px;
-  line-height: 1;
+  font-size: 24.4082px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
 }
 
 .signed-card__name {
   left: 50%;
-  top: 35.4%;
-  min-width: 37%;
-  max-width: 72%;
-  min-height: 44px;
+  top: 154.43px;
+  width: 273px;
+  height: 63px;
   box-sizing: border-box;
-  padding: 6px 14px;
   transform: translateX(-50%) translateZ(1px);
   border-radius: 0;
-  background: #0e0e0c;
-  color: #ffd52b;
-  font-size: 22px;
-  line-height: 28px;
+  background: linear-gradient(95.04deg, rgba(0, 0, 0, 0) 22.63%, rgba(0, 0, 0, 0.6) 36.74%, rgba(162, 134, 21, 0.6) 59.51%, rgba(153, 153, 153, 0) 73.22%), #000000;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #000000;
+  background-blend-mode: plus-lighter, normal;
+  font-size: var(--signed-name-size);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -349,8 +354,6 @@
   }
 
   .signed-action span { display: none; }
-  .signed-card__number { font-size: clamp(21px, 7vw, 28px); }
-  .signed-card__name { min-height: 42px; font-size: clamp(18px, 5.7vw, 22px); line-height: 26px; }
 }
 
 @media (max-width: 390px) {

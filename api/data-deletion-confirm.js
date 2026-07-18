@@ -102,7 +102,8 @@ async function notifyLuzora(request) {
   var scopeLabel = request.scope === "account" ? "Account and data" : "Task data";
   var safeEmail = escapeHtml(request.email);
   var safeScope = escapeHtml(scopeLabel);
-  var safeReason = escapeHtml(request.reason);
+  var reasonLabel = request.reason || "No reason provided";
+  var safeReason = escapeHtml(reasonLabel);
   var safeId = escapeHtml(request.id);
 
   return callResend("/emails", {
@@ -122,7 +123,7 @@ async function notifyLuzora(request) {
         "A user has verified a Luzora data deletion request.\n\n" +
         "Email: " + request.email + "\n" +
         "Scope: " + scopeLabel + "\n" +
-        "Reason: " + request.reason + "\n" +
+        "Reason: " + reasonLabel + "\n" +
         "Request ID: " + request.id
     }
   });
@@ -136,7 +137,7 @@ async function sendUserConfirmation(request) {
     heading: "Your request is confirmed",
     lines: [
       "Your Luzora deletion request has been verified.",
-      "We will review and process it according to our data deletion policy. Deletion can take up to 45 days where required."
+      "We aim to complete verified deletion requests promptly and no later than 30 days after verification. If additional time is legally permitted because your request is complex, we will notify you within the initial 30-day period."
     ],
     ctaLabel: "Go to Luzora",
     ctaUrl: "https://www.luzora.app",
