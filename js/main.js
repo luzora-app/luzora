@@ -471,6 +471,195 @@
     }
   }
 
+  function initBeeCursor() {
+    if (document.documentElement.dataset.beeCursor === "off") return;
+    if (!window.matchMedia) return;
+
+    var isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    var isHoverless = window.matchMedia("(hover: none)").matches;
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isCoarsePointer || isHoverless) return;
+
+    var root = document.documentElement;
+    var canvas = document.createElement("canvas");
+    var cursor = document.createElement("div");
+    var fallback = document.createElement("div");
+    var moving = document.createElement("div");
+    var staticWrap = document.createElement("div");
+    var staticBody = document.createElement("div");
+    var eyeOpen = document.createElement("div");
+    var eyeClosed = document.createElement("div");
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.className = "bee-cursor-trail";
+    canvas.setAttribute("aria-hidden", "true");
+
+    cursor.className = "bee-cursor";
+    cursor.setAttribute("aria-hidden", "true");
+
+    fallback.className = "bee-cursor__fallback";
+
+    moving.className = "bee-cursor__moving";
+
+    staticWrap.className = "bee-cursor__static";
+    staticBody.className = "bee-cursor__static-body";
+
+    eyeOpen.className = "bee-cursor__eye bee-cursor__eye--open";
+
+    eyeClosed.className = "bee-cursor__eye bee-cursor__eye--closed";
+
+    staticWrap.appendChild(staticBody);
+    staticWrap.appendChild(eyeOpen);
+    staticWrap.appendChild(eyeClosed);
+    cursor.appendChild(fallback);
+    cursor.appendChild(moving);
+    cursor.appendChild(staticWrap);
+    document.body.appendChild(canvas);
+    document.body.appendChild(cursor);
+    root.classList.add("has-bee-cursor");
+
+    var dpr = 1;
+    var targetX = -100;
+    var targetY = -100;
+    var currentX = -100;
+    var currentY = -100;
+    var lastX = -100;
+    var lastY = -100;
+    var angle = 0;
+    var frame = 0;
+    var trailFrame = 0;
+    var idleTimer = 0;
+    var points = [];
+    var trailDuration = reducedMotion ? 900 : 1400;
+
+    function resizeCanvas() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.ceil(window.innerWidth * dpr);
+      canvas.height = Math.ceil(window.innerHeight * dpr);
+      canvas.style.width = "100vw";
+      canvas.style.height = "100vh";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function isTypingTarget(target) {
+      return target && target.closest && target.closest("input, textarea, select, [contenteditable='true']");
+    }
+
+    function setVisible(isVisible) {
+      cursor.classList.toggle("is-visible", isVisible);
+    }
+
+    function setIdle(isIdle) {
+      cursor.classList.toggle("is-idle", isIdle);
+    }
+
+    function updateCursor() {
+      frame = 0;
+      currentX += (targetX - currentX) * (reducedMotion ? 1 : 0.26);
+      currentY += (targetY - currentY) * (reducedMotion ? 1 : 0.26);
+      cursor.style.transform = "translate3d(" + (currentX - 16) + "px, " + (currentY - 16) + "px, 0)";
+      moving.style.transform = "rotate(" + (angle + 90) + "deg)";
+
+      if (Math.abs(targetX - currentX) > 0.15 || Math.abs(targetY - currentY) > 0.15) {
+        frame = requestAnimationFrame(updateCursor);
+      }
+    }
+
+    function requestCursorUpdate() {
+      if (!frame) frame = requestAnimationFrame(updateCursor);
+    }
+
+    function drawTrail() {
+      trailFrame = 0;
+      var now = performance.now();
+      points = points.filter(function (point) {
+        return now - point.time < trailDuration;
+      });
+
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      if (points.length > 1) {
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        for (var i = 1; i < points.length; i += 1) {
+          var from = points[i - 1];
+          var to = points[i];
+          var age = now - to.time;
+          var ageAlpha = Math.max(0, 1 - age / trailDuration);
+          var headAlpha = Math.min(1, i / Math.max(points.length - 1, 1));
+          var alpha = ageAlpha * headAlpha * (reducedMotion ? 0.18 : 0.26);
+          if (alpha <= 0.01) continue;
+
+          ctx.beginPath();
+          ctx.moveTo(from.x, from.y);
+          ctx.lineTo(to.x, to.y);
+          ctx.strokeStyle = "rgba(21, 20, 17, " + alpha + ")";
+          ctx.lineWidth = 2 + (ageAlpha * 3);
+          ctx.stroke();
+        }
+      }
+
+      if (points.length) trailFrame = requestAnimationFrame(drawTrail);
+    }
+
+    function requestTrailUpdate() {
+      if (!trailFrame) trailFrame = requestAnimationFrame(drawTrail);
+    }
+
+    function suspendCursor() {
+      cursor.classList.add("is-suspended");
+      setIdle(true);
+    }
+
+    function resumeCursor() {
+      cursor.classList.remove("is-suspended");
+    }
+
+    function onPointerMove(event) {
+      if (event.pointerType && event.pointerType !== "mouse") return;
+
+      if (isTypingTarget(event.target)) {
+        suspendCursor();
+        return;
+      }
+
+      resumeCursor();
+      setVisible(true);
+      setIdle(false);
+
+      targetX = event.clientX;
+      targetY = event.clientY;
+
+      var dx = targetX - lastX;
+      var dy = targetY - lastY;
+      if (Math.abs(dx) + Math.abs(dy) > 0.5) {
+        angle = Math.atan2(dy, dx) * 180 / Math.PI;
+        lastX = targetX;
+        lastY = targetY;
+        points.push({ x: targetX, y: targetY, time: performance.now() });
+        if (points.length > 80) points.shift();
+        requestTrailUpdate();
+      }
+
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(function () {
+        setIdle(true);
+      }, 190);
+      requestCursorUpdate();
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.addEventListener("pointerleave", function () {
+      setVisible(false);
+    });
+    document.addEventListener("pointerenter", function () {
+      setVisible(true);
+    });
+  }
+
   function initWeightedScroll() {
     if (document.documentElement.dataset.weightedScroll === "off") return;
 
@@ -566,6 +755,12 @@
       frame = requestAnimationFrame(tick);
     }
 
+    window.luzoraSmoothScrollTo = function (y) {
+      currentY = window.scrollY || 0;
+      targetY = clamp(y, 0, maxScrollY());
+      startAnimation();
+    };
+
     window.addEventListener("wheel", function (event) {
       var deltaY = deltaToPixels(event);
       if (!deltaY || shouldIgnoreWheel(event, deltaY)) return;
@@ -607,6 +802,7 @@
     initNav();
     initInstallComingSoon();
     initImageProtection();
+    initBeeCursor();
     initWeightedScroll();
   }
 

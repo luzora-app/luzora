@@ -29,7 +29,9 @@
             "Before Luzora goes public, we want to test it with people who care about consistency, focus, and finishing the small things that quietly move life forward.",
             "The private test is not just about finding bugs, although bug reports are very welcome. It is about learning how Luzora fits into real browsing habits.",
             "We want to understand where Luzora feels useful, where the experience feels confusing, what reminders people actually create, what workflows Luzora should support better, what needs to be clearer before public launch, and what features should come next.",
-            "This stage is about building with real users, not guessing in silence."
+            "This stage is about building with real users, not guessing in silence.",
+            "The Hive opens for private testing on July 28, 2026. Applications are open now and close on July 26, 2026.",
+            "Apply now for a chance to test Luzora early, earn the Founding bee role, and help shape what comes before beta access."
           ]
         },
         {
@@ -62,7 +64,8 @@
             "If approved, join the private test channel with the Founding bee badge."
           ],
           afterList: [
-            "The Founding bee badge gives you access to the private test channel, where you will find the test guide, setup instructions, feedback threads, and updates from the Luzora team."
+            "The Founding bee badge gives you access to the private test channel, where you will find the test guide, setup instructions, feedback threads, and updates from the Luzora team.",
+            "Applications are open now and close on July 26, 2026. Selected testers will be contacted before private testing begins on July 28, 2026."
           ]
         },
         {
@@ -338,15 +341,48 @@
 
     button.hidden = false;
 
+    function animateScrollTo(y) {
+      var start = window.scrollY || window.pageYOffset || 0;
+      var distance = y - start;
+      var duration = 900;
+      var startedAt = null;
+      var root = document.documentElement;
+      var previousBehavior = root.style.scrollBehavior;
+
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      root.style.scrollBehavior = "auto";
+
+      requestAnimationFrame(function step(timestamp) {
+        if (!startedAt) startedAt = timestamp;
+        var progress = Math.min((timestamp - startedAt) / duration, 1);
+        window.scrollTo(0, start + distance * easeInOutCubic(progress));
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          root.style.scrollBehavior = previousBehavior;
+        }
+      });
+    }
+
     button.addEventListener("click", function () {
       var top = target.getBoundingClientRect().top + window.pageYOffset - 120;
-      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+      var y = Math.max(top, 0);
+      if (typeof window.luzoraSmoothScrollTo === "function") {
+        window.luzoraSmoothScrollTo(y);
+      } else {
+        animateScrollTo(y);
+      }
     });
 
     function setButtonVisibility() {
       var rect = target.getBoundingClientRect();
       var isAtSection = rect.top <= window.innerHeight * 0.45 && rect.bottom >= 120;
+      var hasPassedSection = rect.bottom < 120;
       button.classList.toggle("is-hidden", isAtSection);
+      button.classList.toggle("is-past-target", hasPassedSection);
     }
 
     if ("IntersectionObserver" in window) {
