@@ -718,6 +718,6 @@
   .m-follow-btn.is-followed { width: 98px; align-self: flex-start; }
   .m-progress { gap: 8px; }
   .m-step-pill.is-active { width: auto; }
-  .m-step-pill strong { max-width: 149px; }
+  .m-step-pill strong { width: auto; }
   .m-task-row { gap: 12px; }
 }
