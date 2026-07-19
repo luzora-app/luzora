@@ -388,6 +388,7 @@
   cursor: pointer;
   background: #f0f0f1;
   color: #bab7aa;
+  margin-top: 16px;
   transition: filter 0.15s ease, transform 0.12s ease;
 }
 .m-submit:not(:disabled) {
@@ -716,7 +717,7 @@
   .m-follow-btn { width: 100%; text-align: center; }
   .m-follow-btn.is-followed { width: 98px; align-self: flex-start; }
   .m-progress { gap: 8px; }
-  .m-step-pill.is-active { width: min(195px, calc(100vw - 104px)); }
+  .m-step-pill.is-active { width: auto; }
   .m-step-pill strong { max-width: 149px; }
   .m-task-row { gap: 12px; }
 }
