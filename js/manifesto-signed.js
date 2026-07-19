@@ -240,21 +240,43 @@
 
   async function shareCard() {
     shareButton.disabled = true;
-    setStatus("Opening X...");
+    setStatus("Preparing your card...");
     var shareText = getXShareText();
     try {
-      var intentUrl = "https://x.com/intent/tweet?text=" + encodeURIComponent(shareText);
-      var opened = window.open(intentUrl, "_blank", "noopener,noreferrer");
-      if (!opened && navigator.clipboard) {
+      var blob = await makeCardBlob();
+      var file = new File([blob], "luzora-" + safeFilename(signer.username) + "-manifesto-" + signer.signerNumber + ".png", {
+        type: "image/png"
+      });
+      var fileShare = {
+        title: signer.username + " signed the Luzora Manifesto",
+        text: shareText,
+        files: [file]
+      };
+      var textShare = {
+        title: signer.username + " signed the Luzora Manifesto",
+        text: shareText
+      };
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share(fileShare);
+        setStatus("Card shared.");
+      } else if (navigator.share) {
+        await navigator.share(textShare);
+        setStatus("Share text sent.");
+      } else if (navigator.clipboard) {
         await navigator.clipboard.writeText(shareText);
-        setStatus("Share text copied.");
+        setStatus("Share text copied. Download the card to attach it.");
+      } else {
+        throw new Error("share_unavailable");
+      }
+    } catch (error) {
+      if (error && error.name === "AbortError") {
+        setStatus("");
         return;
       }
-      setStatus("X opened.");
-    } catch (error) {
       try {
         await navigator.clipboard.writeText(shareText);
-        setStatus("Share text copied.");
+        setStatus("Share text copied. Download the card to attach it.");
       } catch (copyError) {
         setStatus("Sharing is unavailable in this browser.");
       }
