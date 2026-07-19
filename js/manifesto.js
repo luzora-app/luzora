@@ -8,7 +8,7 @@
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
   var NAME_CHECK_DELAY = 1000;
   var LUZORA_X_URL = "https://x.com/LuzoraHQ";
-  var RETWEET_URL = "https://x.com/LuzoraHQ";
+  var RETWEET_URL = "https://x.com/LuzoraHQ/status/2078934615356547126?s=20";
 
   document.querySelectorAll(".m-list li").forEach(function (item, index) {
     item.style.setProperty("--i", index);
