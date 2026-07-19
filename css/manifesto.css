@@ -490,15 +490,14 @@
 
 .m-step-pill.is-complete span {
   font-size: 0;
+  background-image: url("../assets/icons/Check-2.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 22px;
 }
 
 .m-step-pill.is-complete span::before {
-  content: "";
-  width: 14px;
-  height: 8px;
-  border-left: 2.3px solid #1e1e1e;
-  border-bottom: 2.3px solid #1e1e1e;
-  transform: rotate(-45deg) translateY(-1px);
+  content: none;
 }
 
 .m-step-pill:disabled {
@@ -646,6 +645,11 @@
   border-radius: 16px;
   background: #ffd52b;
   box-shadow: none;
+}
+
+.m-task-button.is-confirmed > svg,
+.m-task-button.is-confirmed > img {
+  display: none;
 }
 
 .m-task-button.is-confirmed::after {
