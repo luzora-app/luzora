@@ -216,7 +216,7 @@
 
 .signed-card-actions {
   order: 1;
-  width: 197px;
+  width: auto;
   height: 44px;
   display: flex;
   align-items: center;
