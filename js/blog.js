@@ -7,7 +7,7 @@
       title: "Help shape Luzora: Private testing is opening",
       dek: "We are inviting a small group of early users to test Luzora, give honest feedback, and help shape the browser extension before launch.",
       category: "Announcements",
-      date: "July 14, 2026",
+      date: "July 18, 2026",
       readTime: "5 min read",
       author: "Luzora Team",
       cardImage: "/assets/brand-kit/other%20assets/worker-bee-in-private-test.avif",
