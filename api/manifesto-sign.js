@@ -10,6 +10,7 @@ const MANIFESTO_CARD_BASE_URL = "https://luzora.app/manifesto/s/";
 const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const X_HANDLE_RE = /^@?[A-Za-z0-9_]{1,15}$/;
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -47,6 +48,10 @@ async function signManifesto(name, email) {
   }
 
   return data;
+}
+
+function normalizeXHandle(value) {
+  return String(value || "").trim().replace(/^@+/, "").toLowerCase();
 }
 
 function manifestoCardUrl(signature) {
@@ -145,6 +150,9 @@ module.exports = async function handler(req, res) {
     var body = await readJson(req);
     var name = String(body.name || "").trim();
     var email = String(body.email || "").trim().toLowerCase();
+    var xHandle = normalizeXHandle(body.xHandle);
+    var followConfirmed = body.followConfirmed === true;
+    var retweetConfirmed = body.retweetConfirmed === true;
 
     if (!NAME_RE.test(name)) {
       return json(res, 400, { ok: false, reason: "invalid_name" });
@@ -154,10 +162,25 @@ module.exports = async function handler(req, res) {
       return json(res, 400, { ok: false, reason: "invalid_email" });
     }
 
+    if (!X_HANDLE_RE.test(xHandle)) {
+      return json(res, 400, { ok: false, reason: "invalid_x_handle" });
+    }
+
+    if (!followConfirmed || !retweetConfirmed) {
+      return json(res, 400, { ok: false, reason: "social_tasks_incomplete" });
+    }
+
     var signature = await signManifesto(name, email);
     if (!signature || !signature.ok) {
       return json(res, 200, signature || { ok: false, reason: "request_failed" });
     }
+
+    await recordDelivery(signature.public_id, {
+      x_handle: xHandle,
+      x_follow_confirmed: true,
+      x_retweet_confirmed: true,
+      x_tasks_confirmed_at: new Date().toISOString()
+    });
 
     var attemptedAt = new Date().toISOString();
     var emailId = null;

@@ -7,15 +7,15 @@
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   var PNG_FRAME_URL = "/assets/brand-kit/other%20assets/Private/card-frame.png";
   var MANIFESTO_URL = "https://luzora.app/manifesto/";
-  var CARD_DESIGN_WIDTH = 366.12;
+  var CARD_DESIGN_WIDTH = 366;
   var CARD_DESIGN_HEIGHT = 460;
-  var CARD_NAME_MAX_WIDTH = 273;
-  var CARD_NAME_TOP = 154.43;
-  var CARD_NAME_HEIGHT = 63;
-  var CARD_NAME_BASE_SIZE = 42;
-  var CARD_NAME_MIN_SIZE = 22;
-  var CARD_NUMBER_RIGHT = 34;
-  var CARD_NUMBER_TOP = 38.72;
+  var CARD_NAME_MAX_WIDTH = 261.31;
+  var CARD_NAME_TOP = 281.4;
+  var CARD_NAME_HEIGHT = 53;
+  var CARD_NAME_BASE_SIZE = 35.0726;
+  var CARD_NAME_MIN_SIZE = 18;
+  var CARD_NUMBER_LEFT = (CARD_DESIGN_WIDTH - 122) / 2 + 88;
+  var CARD_NUMBER_TOP = (CARD_DESIGN_HEIGHT - 37) / 2 - 174.18;
   var CARD_NUMBER_WIDTH = 122;
   var CARD_NUMBER_HEIGHT = 37;
   var CARD_NUMBER_SIZE = 24.4082;
@@ -181,7 +181,7 @@
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillStyle = "#FFD52B";
-    var numberCenterX = canvas.width - ((CARD_NUMBER_RIGHT + CARD_NUMBER_WIDTH / 2) * scaleX);
+    var numberCenterX = (CARD_NUMBER_LEFT + CARD_NUMBER_WIDTH / 2) * scaleX;
     var numberCenterY = (CARD_NUMBER_TOP + CARD_NUMBER_HEIGHT / 2) * scaleY;
     var numberSize = fitCanvasText(context, signer.signerNumber, CARD_NUMBER_WIDTH * scaleX, CARD_NUMBER_SIZE * textScale, 16 * textScale);
     context.font = "700 " + numberSize + "px Figtree, Arial, sans-serif";
@@ -230,33 +230,33 @@
     }
   }
 
+  function getXShareText() {
+    return [
+      "I got my Hive access card #" + signer.signerNumber + ".",
+      "I, " + signer.username + " promise to be consistent and #showup.",
+      "luzora.app/manifesto"
+    ].join("\n\n");
+  }
+
   async function shareCard() {
     shareButton.disabled = true;
-    setStatus("Preparing your card...");
-    var shareText = signer.username + " is CONSISTENT. Luzora manifesto signer #" + signer.signerNumber + ". #ShowUp";
+    setStatus("Opening X...");
+    var shareText = getXShareText();
     try {
-      var blob = await makeCardBlob();
-      var file = new File([blob], "luzora-" + safeFilename(signer.username) + "-manifesto-" + signer.signerNumber + ".png", { type: "image/png" });
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ title: "Luzora Manifesto", text: shareText, url: MANIFESTO_URL, files: [file] });
-        setStatus("Card shared.");
-      } else if (navigator.share) {
-        await navigator.share({ title: "Luzora Manifesto", text: shareText, url: MANIFESTO_URL });
-        setStatus("Signature shared.");
-      } else {
-        await navigator.clipboard.writeText(MANIFESTO_URL);
-        setStatus("Manifesto link copied.");
+      var intentUrl = "https://x.com/intent/tweet?text=" + encodeURIComponent(shareText);
+      var opened = window.open(intentUrl, "_blank", "noopener,noreferrer");
+      if (!opened && navigator.clipboard) {
+        await navigator.clipboard.writeText(shareText);
+        setStatus("Share text copied.");
+        return;
       }
+      setStatus("X opened.");
     } catch (error) {
-      if (error && error.name !== "AbortError") {
-        try {
-          await navigator.clipboard.writeText(MANIFESTO_URL);
-          setStatus("Manifesto link copied.");
-        } catch (copyError) {
-          setStatus("Sharing is unavailable in this browser.");
-        }
-      } else {
-        setStatus("");
+      try {
+        await navigator.clipboard.writeText(shareText);
+        setStatus("Share text copied.");
+      } catch (copyError) {
+        setStatus("Sharing is unavailable in this browser.");
       }
     } finally {
       shareButton.disabled = false;
@@ -265,12 +265,21 @@
 
   function setupCardMotion() {
     if (!card) return;
+    var scene = card.parentElement;
     var pointerId = null;
     var startX = 0;
     var startY = 0;
     var frameRequest = 0;
     var pendingX = 0;
     var pendingY = 0;
+
+    function updateCardFit() {
+      if (!scene) return;
+      var availableWidth = scene.clientWidth || CARD_DESIGN_WIDTH;
+      var fitScale = Math.min(1, availableWidth / CARD_DESIGN_WIDTH);
+      card.style.setProperty("--card-fit-scale", fitScale);
+      scene.style.height = (CARD_DESIGN_HEIGHT * fitScale) + "px";
+    }
 
     function drawTilt() {
       frameRequest = 0;
@@ -348,6 +357,9 @@
         card.classList.toggle("is-elevated");
       }
     });
+
+    updateCardFit();
+    window.addEventListener("resize", updateCardFit, { passive: true });
   }
 
   if (shareButton) shareButton.addEventListener("click", shareCard);

@@ -28,28 +28,71 @@
   <div data-site-nav></div>
 
   <section class="m-stage">
-    <article class="m-paper" data-anim>
-      <img class="m-paper-logo" src="/assets/icons/Logo Icon.svg" width="88" height="88" alt="Luzora" />
+    <article class="m-paper m-scroll" data-anim data-manifesto-scroll aria-labelledby="hive-manifesto-title">
+      <div class="m-scroll-roll m-scroll-roll--top" aria-hidden="true">
+        <svg viewBox="0 0 900 86" preserveAspectRatio="none" focusable="false">
+          <path d="M42 12h816c18 0 32 14 32 32s-14 32-32 32H42C24 76 10 62 10 44S24 12 42 12Z" fill="#F6B936"/>
+          <path d="M42 12h816c18 0 32 14 32 32s-14 32-32 32H42C24 76 10 62 10 44S24 12 42 12Z" fill="url(#roll-shine-top)"/>
+          <path d="M44 25h812" stroke="#8B6D12" stroke-opacity=".22" stroke-width="2"/>
+          <path d="M44 63h812" stroke="#6F560B" stroke-opacity=".22" stroke-width="2"/>
+          <defs>
+            <linearGradient id="roll-shine-top" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#D98A0A"/>
+              <stop offset=".14" stop-color="#FFE986"/>
+              <stop offset=".5" stop-color="#FFD52B"/>
+              <stop offset=".86" stop-color="#F2A50C"/>
+              <stop offset="1" stop-color="#8D5E06"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
 
-      <h1 class="m-paper-title">
-        The Hive Manifesto
-        <img class="m-feather" src="/assets/icons/fi_feather-Black.svg" width="26" height="26" alt="" aria-hidden="true" />
-      </h1>
+      <div class="m-scroll-sheet">
+        <div class="m-paper-logo-wrap" aria-hidden="true">
+          <img class="m-paper-logo" src="/assets/icons/Logo Icon.svg" width="88" height="88" alt="" />
+        </div>
 
-      <ol class="m-list">
-        <li>Consistency beats talent, timing, and luck. Every single time.</li>
-        <li>You do not need another productivity app. You need to show up again tomorrow.</li>
-        <li>Streaks that shame you are a scam. Miss a day? Show up the next.</li>
-        <li>Water tears the rock. Not with force. With consistency.</li>
-        <li>The giants sold you dashboards, backlogs, and guilt. We are handing you the habit.</li>
-        <li>Small and daily beats big and never.</li>
-        <li>We live in your browser, where the work already happens. No new home to move into.</li>
-        <li>We would rather be loved by a few who stay than downloaded by thousands who forget.</li>
-        <li>Motivation is a tourist. Consistency lives here.</li>
-        <li>This was never about tasks. It is about becoming someone who follows through.</li>
-      </ol>
+        <p class="m-scroll-kicker">Royal order of the Hive</p>
 
-      <p class="m-paper-sign">We are the bees. We show up. 🐝</p>
+        <h1 class="m-paper-title" id="hive-manifesto-title">
+          The Hive Manifesto
+          <img class="m-feather" src="/assets/icons/fi_feather-Black.svg" width="26" height="26" alt="" aria-hidden="true" />
+        </h1>
+
+        <ol class="m-list">
+          <li>Consistency beats talent, timing, and luck. Every single time.</li>
+          <li>You do not need another productivity app. You need to show up again tomorrow.</li>
+          <li>Streaks that shame you are a scam. Miss a day? Show up the next.</li>
+          <li>Water tears the rock. Not with force. With consistency.</li>
+          <li>The giants sold you dashboards, backlogs, and guilt. We are handing you the habit.</li>
+          <li>Small and daily beats big and never.</li>
+          <li>We live in your browser, where the work already happens. No new home to move into.</li>
+          <li>We would rather be loved by a few who stay than downloaded by thousands who forget.</li>
+          <li>Motivation is a tourist. Consistency lives here.</li>
+          <li>This was never about tasks. It is about becoming someone who follows through.</li>
+        </ol>
+
+        <p class="m-paper-sign">We are the bees. We show up.</p>
+      </div>
+
+      <div class="m-scroll-roll m-scroll-roll--bottom" aria-hidden="true">
+        <svg viewBox="0 0 900 86" preserveAspectRatio="none" focusable="false">
+          <path d="M42 10h816c18 0 32 14 32 32s-14 32-32 32H42C24 74 10 60 10 42S24 10 42 10Z" fill="#F6B936"/>
+          <path d="M42 10h816c18 0 32 14 32 32s-14 32-32 32H42C24 74 10 60 10 42S24 10 42 10Z" fill="url(#roll-shine-bottom)"/>
+          <path d="M44 24h812" stroke="#8B6D12" stroke-opacity=".22" stroke-width="2"/>
+          <path d="M44 61h812" stroke="#6F560B" stroke-opacity=".22" stroke-width="2"/>
+          <defs>
+            <linearGradient id="roll-shine-bottom" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stop-color="#8D5E06"/>
+              <stop offset=".14" stop-color="#F2A50C"/>
+              <stop offset=".5" stop-color="#FFD52B"/>
+              <stop offset=".86" stop-color="#FFE986"/>
+              <stop offset="1" stop-color="#D98A0A"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
     </article>
 
     <div class="m-join" data-anim style="--d:120ms">
@@ -75,33 +118,67 @@
       <!-- FORM STATE -->
       <div class="m-note-form">
         <div class="m-note-head">
-          <h2 class="m-note-title" id="m-note-title">You're making a bold proclamation</h2>
-          <p class="m-note-sub">Let's tell the world that you've promised to show up.</p>
+          <h2 class="m-note-title" id="m-note-title">Sign the Manifesto</h2>
+          <p class="m-note-sub">Reserve your hivename and claim access to Luzora Beta</p>
         </div>
 
         <form class="m-form" id="m-form" novalidate>
-          <div class="m-follow">
-            <span class="m-follow-label">Follow Luzora on X</span>
-            <a class="m-follow-btn" href="https://x.com/LuzoraHQ" target="_blank" rel="noopener noreferrer" data-follow-x aria-pressed="false">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8-9.2L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z" fill="#000"/></svg>
-              <span data-follow-label>Follow</span>
-            </a>
+          <div class="m-progress" aria-label="Manifesto signing steps">
+            <button class="m-step-pill is-active" type="button" data-step-go="1" aria-current="step">
+              <span>1</span>
+              <strong>Reserve your Hive name</strong>
+            </button>
+            <button class="m-step-pill" type="button" data-step-go="2" disabled>
+              <span>2</span>
+              <strong>Sign the Manifesto</strong>
+            </button>
           </div>
 
-          <div class="m-divider"></div>
+          <section class="m-step-panel is-active" data-step-panel="1">
+            <label class="m-field">
+              <input type="text" id="m-name" name="name" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Enter your name" maxlength="24" />
+              <span class="m-field-check" data-name-check role="button" tabindex="-1" aria-label="Clear Hive name"></span>
+            </label>
+            <p class="m-field-hint" id="m-name-hint">Letters, numbers and underscores. This becomes your Hive name.</p>
 
-          <label class="m-field">
-            <input type="text" id="m-name" name="name" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Enter your name" maxlength="24" />
-          </label>
-          <p class="m-field-hint" id="m-name-hint">Letters, numbers and underscores. This becomes your Hive name.</p>
+            <label class="m-field">
+              <input type="email" id="m-email" name="email" autocomplete="email" placeholder="Enter your email address" />
+            </label>
 
-          <label class="m-field">
-            <input type="email" id="m-email" name="email" autocomplete="email" placeholder="Enter your email address" />
-          </label>
+            <p class="m-form-error" id="m-step-one-error" role="alert" hidden></p>
 
-          <p class="m-form-error" id="m-form-error" role="alert" hidden></p>
+            <button class="m-submit" id="m-proceed" type="button" disabled>Proceed</button>
+          </section>
 
-          <button class="m-submit" id="m-submit" type="submit" disabled>Sign the manifesto</button>
+          <section class="m-step-panel" data-step-panel="2" hidden>
+            <div class="m-task-list">
+              <div class="m-task-row">
+                <span class="m-task-label">Follow Luzora on X</span>
+                <button class="m-task-button" type="button" data-social-task="follow">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8-9.2L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z" fill="currentColor"/></svg>
+                  <span>Follow</span>
+                </button>
+              </div>
+
+              <div class="m-task-row">
+                <span class="m-task-label">Retweet this post</span>
+                <button class="m-task-button" type="button" data-social-task="retweet">
+                  <img src="/assets/icons/garden_arrow-retweet-stroke-12.svg" width="16" height="16" alt="" aria-hidden="true" />
+                  <span>Retweet</span>
+                </button>
+              </div>
+            </div>
+
+            <label class="m-field m-field--with-icon">
+              <img class="m-x-mark" src="/assets/icons/tabler_at.svg" width="22" height="22" alt="" aria-hidden="true" />
+              <input type="text" id="m-x-handle" name="xHandle" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Enter your X Handle" maxlength="16" />
+            </label>
+            <p class="m-field-hint">For manual review only</p>
+
+            <p class="m-form-error" id="m-form-error" role="alert" hidden></p>
+
+            <button class="m-submit" id="m-submit" type="submit" disabled>Sign Manifesto</button>
+          </section>
         </form>
       </div>
 
@@ -172,6 +249,6 @@
   </footer>
 
   <script src="/js/main.js?v=20260718-bee-cursor"></script>
-  <script src="/js/manifesto.js?v=20260716-signed-page"></script>
+  <script src="/js/manifesto.js?v=20260719-manual-x-tasks"></script>
 </body>
 </html>

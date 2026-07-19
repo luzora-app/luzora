@@ -4,11 +4,64 @@
 
   var NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  var X_HANDLE_RE = /^@?[A-Za-z0-9_]{1,15}$/;
+  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
+  var NAME_CHECK_DELAY = 1000;
+  var LUZORA_X_URL = "https://x.com/LuzoraHQ";
+  var RETWEET_URL = "https://x.com/LuzoraHQ";
 
   document.querySelectorAll(".m-list li").forEach(function (item, index) {
     item.style.setProperty("--i", index);
   });
+
+  var manifestoScroll = document.querySelector("[data-manifesto-scroll]");
+
+  function setupManifestoScrollTilt() {
+    if (!manifestoScroll) return;
+
+    var activePointer = null;
+
+    function setTilt(event) {
+      var rect = manifestoScroll.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      var localX = event.clientX - rect.left;
+      var localY = event.clientY - rect.top;
+      var x = localX / rect.width - 0.5;
+      var y = localY / rect.height - 0.5;
+      var tiltY = Math.max(-8, Math.min(8, x * 11));
+      var tiltX = Math.max(-7, Math.min(7, -y * 9));
+
+      manifestoScroll.style.setProperty("--tilt-y", tiltY.toFixed(2) + "deg");
+      manifestoScroll.style.setProperty("--tilt-x", tiltX.toFixed(2) + "deg");
+      manifestoScroll.classList.add("is-tilting");
+    }
+
+    function resetTilt() {
+      activePointer = null;
+      manifestoScroll.classList.remove("is-tilting");
+      manifestoScroll.style.setProperty("--tilt-y", "0deg");
+      manifestoScroll.style.setProperty("--tilt-x", "0deg");
+    }
+
+    manifestoScroll.addEventListener("pointerenter", setTilt);
+    manifestoScroll.addEventListener("pointermove", function (event) {
+      if (activePointer === null || activePointer === event.pointerId) setTilt(event);
+    });
+    manifestoScroll.addEventListener("pointerleave", function () {
+      if (activePointer === null) resetTilt();
+    });
+    manifestoScroll.addEventListener("pointerdown", function (event) {
+      activePointer = event.pointerId;
+      manifestoScroll.setPointerCapture(event.pointerId);
+      setTilt(event);
+    });
+    manifestoScroll.addEventListener("pointerup", resetTilt);
+    manifestoScroll.addEventListener("pointercancel", resetTilt);
+    manifestoScroll.addEventListener("lostpointercapture", resetTilt);
+  }
+
+  setupManifestoScrollTilt();
 
   window.requestAnimationFrame(function () {
     document.querySelectorAll("[data-anim]").forEach(function (element) {
@@ -19,13 +72,28 @@
   var overlay = document.getElementById("m-overlay");
   var nameInput = document.getElementById("m-name");
   var emailInput = document.getElementById("m-email");
+  var proceedButton = document.getElementById("m-proceed");
   var submit = document.getElementById("m-submit");
+  var stepOneError = document.getElementById("m-step-one-error");
   var errorElement = document.getElementById("m-form-error");
   var nameHint = document.getElementById("m-name-hint");
+  var nameCheck = document.querySelector("[data-name-check]");
   var form = document.getElementById("m-form");
-  var followButton = document.querySelector("[data-follow-x]");
-  var followLabel = document.querySelector("[data-follow-label]");
-  var followConfirmed = false;
+  var xHandleInput = document.getElementById("m-x-handle");
+  var stepButtons = Array.prototype.slice.call(document.querySelectorAll("[data-step-go]"));
+  var stepPanels = Array.prototype.slice.call(document.querySelectorAll("[data-step-panel]"));
+  var socialButtons = Array.prototype.slice.call(document.querySelectorAll("[data-social-task]"));
+  var state = {
+    currentStep: "1",
+    checkedName: "",
+    nameStatus: "idle",
+    nameTimer: 0,
+    checkToken: 0,
+    follow: false,
+    retweet: false
+  };
+
+  if (!overlay || !nameInput || !emailInput || !form) return;
 
   function openModal() {
     overlay.hidden = false;
@@ -57,69 +125,242 @@
     if (event.key === "Escape" && !overlay.hidden) closeModal();
   });
 
-  function setError(message) {
-    if (!errorElement) return;
-    errorElement.textContent = message || "";
-    errorElement.hidden = !message;
+  function cleanName(value) {
+    return value.replace(/\s+/g, "").replace(/[^A-Za-z0-9_]/g, "").slice(0, 24);
   }
 
-  function refreshSubmitState() {
-    var nameIsValid = NAME_RE.test(nameInput.value.trim());
-    var emailIsValid = EMAIL_RE.test(emailInput.value.trim());
-    submit.disabled = !(nameIsValid && emailIsValid && followConfirmed);
+  function cleanHandle(value) {
+    return value.replace(/\s+/g, "").replace(/^@+/, "").replace(/[^A-Za-z0-9_]/g, "").slice(0, 15);
+  }
+
+  function setError(element, message) {
+    if (!element) return;
+    element.textContent = message || "";
+    element.hidden = !message;
+  }
+
+  function setNameStatus(status, message) {
+    state.nameStatus = status;
+    if (nameCheck) {
+      nameCheck.classList.remove("is-checking", "is-available", "is-unavailable");
+      if (status === "checking") nameCheck.classList.add("is-checking");
+      if (status === "available") nameCheck.classList.add("is-available");
+      if (status === "unavailable" || status === "error") nameCheck.classList.add("is-unavailable");
+      nameCheck.tabIndex = status === "unavailable" || status === "error" ? 0 : -1;
+    }
+    if (nameHint) {
+      nameHint.textContent = message || "Letters, numbers and underscores. This becomes your Hive name.";
+      nameHint.classList.toggle("is-success", status === "available");
+      nameHint.classList.toggle("is-error", status === "unavailable" || status === "error");
+    }
+    refreshControls();
+  }
+
+  function isStepOneValid() {
+    var name = nameInput.value.trim();
+    return (
+      NAME_RE.test(name) &&
+      EMAIL_RE.test(emailInput.value.trim()) &&
+      state.nameStatus === "available" &&
+      state.checkedName.toLowerCase() === name.toLowerCase()
+    );
+  }
+
+  function isStepTwoValid() {
+    return isStepOneValid() && state.follow && state.retweet && X_HANDLE_RE.test(xHandleInput.value.trim());
+  }
+
+  function refreshControls() {
+    var stepOneValid = isStepOneValid();
+    if (proceedButton) proceedButton.disabled = !stepOneValid;
+    if (submit) submit.disabled = !isStepTwoValid();
+    stepButtons.forEach(function (button) {
+      if (button.getAttribute("data-step-go") === "2") button.disabled = !stepOneValid;
+    });
+  }
+
+  function setStep(step) {
+    state.currentStep = step;
+    stepButtons.forEach(function (button) {
+      var buttonStep = button.getAttribute("data-step-go");
+      var active = buttonStep === step;
+      var complete = Number(buttonStep) < Number(step);
+      button.classList.toggle("is-active", active);
+      button.classList.toggle("is-complete", complete);
+      if (active) button.setAttribute("aria-current", "step");
+      else button.removeAttribute("aria-current");
+    });
+    stepPanels.forEach(function (panel) {
+      var active = panel.getAttribute("data-step-panel") === step;
+      panel.hidden = !active;
+      panel.classList.toggle("is-active", active);
+    });
+    setError(stepOneError, "");
+    setError(errorElement, "");
+    refreshControls();
+  }
+
+  async function checkNameAvailability(name, token) {
+    setNameStatus("checking", "Checking...");
+    try {
+      var response = await fetch("/api/manifesto-name", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name })
+      });
+      var data = await response.json();
+      if (token !== state.checkToken || nameInput.value.trim().toLowerCase() !== name.toLowerCase()) return;
+      if (!response.ok || !data || data.ok === false) {
+        setNameStatus("error", "We could not check this name. Try again.");
+        return;
+      }
+      if (data.available) {
+        state.checkedName = name;
+        setNameStatus("available", "Name available");
+      } else {
+        state.checkedName = "";
+        setNameStatus("unavailable", "This Hive name is already reserved.");
+      }
+    } catch (error) {
+      if (token !== state.checkToken) return;
+      setNameStatus("error", "We could not check this name. Try again.");
+    }
+  }
+
+  function scheduleNameCheck() {
+    window.clearTimeout(state.nameTimer);
+    state.checkedName = "";
+    var name = nameInput.value.trim();
+    if (!name) {
+      setNameStatus("idle", "Letters, numbers and underscores. This becomes your Hive name.");
+      return;
+    }
+    if (!NAME_RE.test(name)) {
+      setNameStatus("unavailable", "Use 3 to 24 letters, numbers or underscores. No spaces.");
+      return;
+    }
+    setNameStatus("idle", "Letters, numbers and underscores. This becomes your Hive name.");
+    state.nameTimer = window.setTimeout(function () {
+      state.checkToken += 1;
+      checkNameAvailability(name, state.checkToken);
+    }, NAME_CHECK_DELAY);
+  }
+
+  function clearNameField() {
+    window.clearTimeout(state.nameTimer);
+    state.checkedName = "";
+    state.checkToken += 1;
+    nameInput.value = "";
+    setError(stepOneError, "");
+    setNameStatus("idle", "Letters, numbers and underscores. This becomes your Hive name.");
+    nameInput.focus();
+  }
+
+  function confirmTask(button, type) {
+    if (button.classList.contains("is-confirmed") || button.classList.contains("is-loading")) return;
+    var url = type === "follow" ? LUZORA_X_URL : RETWEET_URL;
+    window.open(url, "_blank", "noopener,noreferrer");
+    var label = button.querySelector("span");
+    button.classList.add("is-loading");
+    button.disabled = true;
+    if (label) label.textContent = "Confirming...";
+
+    window.setTimeout(function () {
+      button.classList.remove("is-loading");
+      button.classList.add("is-confirmed");
+      button.disabled = false;
+      button.setAttribute("aria-pressed", "true");
+      if (label) label.textContent = type === "follow" ? "Followed" : "Retweeted";
+      state[type] = true;
+      setError(errorElement, "");
+      refreshControls();
+    }, 1400);
   }
 
   nameInput.addEventListener("input", function () {
-    var cleaned = nameInput.value.replace(/\s+/g, "");
+    var cleaned = cleanName(nameInput.value);
     if (cleaned !== nameInput.value) nameInput.value = cleaned;
-    nameHint.classList.remove("is-error");
-    setError("");
-    refreshSubmitState();
+    setError(stepOneError, "");
+    scheduleNameCheck();
   });
 
-  emailInput.addEventListener("input", function () {
-    setError("");
-    refreshSubmitState();
-  });
+  if (nameCheck) {
+    nameCheck.addEventListener("click", function () {
+      if (nameCheck.classList.contains("is-unavailable")) clearNameField();
+    });
 
-  if (followButton) {
-    followButton.addEventListener("click", function () {
-      if (followConfirmed) return;
-      if (followLabel) followLabel.textContent = "Checking...";
-
-      window.setTimeout(function () {
-        followConfirmed = true;
-        followButton.classList.add("is-followed");
-        followButton.setAttribute("aria-pressed", "true");
-        if (followLabel) followLabel.textContent = "Followed";
-        refreshSubmitState();
-      }, 5000);
+    nameCheck.addEventListener("keydown", function (event) {
+      if (!nameCheck.classList.contains("is-unavailable")) return;
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        clearNameField();
+      }
     });
   }
+
+  emailInput.addEventListener("input", function () {
+    setError(stepOneError, "");
+    refreshControls();
+  });
+
+  if (xHandleInput) {
+    xHandleInput.addEventListener("input", function () {
+      var cleaned = cleanHandle(xHandleInput.value);
+      if (cleaned !== xHandleInput.value) xHandleInput.value = cleaned;
+      setError(errorElement, "");
+      refreshControls();
+    });
+  }
+
+  if (proceedButton) {
+    proceedButton.addEventListener("click", function () {
+      if (!isStepOneValid()) {
+        setError(stepOneError, "Enter an available Hive name and a valid email address.");
+        return;
+      }
+      setStep("2");
+      if (xHandleInput) window.setTimeout(function () { xHandleInput.focus(); }, 60);
+    });
+  }
+
+  stepButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var step = button.getAttribute("data-step-go");
+      if (step === "2" && !isStepOneValid()) return;
+      setStep(step);
+    });
+  });
+
+  socialButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      confirmTask(button, button.getAttribute("data-social-task"));
+    });
+  });
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     var name = nameInput.value.trim();
     var email = emailInput.value.trim();
+    var xHandle = cleanHandle(xHandleInput.value.trim());
 
-    if (!NAME_RE.test(name)) {
-      nameHint.classList.add("is-error");
-      setError("Use 3 to 24 letters, numbers or underscores. No spaces.");
+    if (!isStepOneValid()) {
+      setStep("1");
+      setError(stepOneError, "Enter an available Hive name and a valid email address.");
       return;
     }
 
-    if (!EMAIL_RE.test(email)) {
-      setError("Enter a valid email address.");
+    if (!state.follow || !state.retweet) {
+      setError(errorElement, "Complete the X tasks before signing the manifesto.");
       return;
     }
 
-    if (!followConfirmed) {
-      setError("Follow Luzora on X before signing the manifesto.");
+    if (!X_HANDLE_RE.test(xHandle)) {
+      setError(errorElement, "Enter a valid X handle.");
       return;
     }
 
-    setError("");
+    setError(errorElement, "");
     submit.disabled = true;
     overlay.setAttribute("data-state", "loading");
 
@@ -132,30 +373,31 @@
     function returnToForm(message, markName) {
       afterMinimumLoad(function () {
         overlay.setAttribute("data-state", "form");
-        if (markName) nameHint.classList.add("is-error");
-        setError(message);
+        setStep(markName ? "1" : "2");
+        if (markName) setNameStatus("unavailable", message);
+        else setError(errorElement, message);
         submit.disabled = false;
-        refreshSubmitState();
+        refreshControls();
       });
     }
 
     try {
       var response = await fetch("/api/manifesto-sign", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name: name, email: email })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          xHandle: xHandle,
+          followConfirmed: state.follow,
+          retweetConfirmed: state.retweet
+        })
       });
 
       var data = null;
       var responseText = await response.text();
       if (responseText) {
-        try {
-          data = JSON.parse(responseText);
-        } catch (error) {
-          data = null;
-        }
+        try { data = JSON.parse(responseText); } catch (error) { data = null; }
       }
 
       if (!response.ok) throw new Error("request_failed");
@@ -173,13 +415,18 @@
       }
 
       var reason = data && data.reason;
-      if (reason === "name_taken") returnToForm("That name is already reserved. Try another.", true);
+      if (reason === "name_taken") returnToForm("That Hive name is already reserved. Try another.", true);
       else if (reason === "email_taken") returnToForm("That email has already signed the manifesto.", false);
       else if (reason === "invalid_name") returnToForm("Use 3 to 24 letters, numbers or underscores. No spaces.", true);
       else if (reason === "invalid_email") returnToForm("Enter a valid email address.", false);
+      else if (reason === "invalid_x_handle") returnToForm("Enter a valid X handle.", false);
+      else if (reason === "social_tasks_incomplete") returnToForm("Complete the X tasks before signing the manifesto.", false);
       else returnToForm("Could not sign right now. Please try again.", false);
     } catch (error) {
       returnToForm("Could not sign right now. Check your connection and try again.", false);
     }
   });
+
+  setNameStatus("idle", "Letters, numbers and underscores. This becomes your Hive name.");
+  refreshControls();
 })();
