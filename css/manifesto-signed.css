@@ -245,7 +245,7 @@
 .signed-action:active { transform: translateY(1px); }
 
 .signed-action--share {
-  width: 135px;
+  width: auto;
   min-width: 135px;
   border: 1px solid #000;
   background: #38362e;
