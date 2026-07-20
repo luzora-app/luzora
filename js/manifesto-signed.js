@@ -5,20 +5,16 @@
   var SUPABASE_URL = "https://wtunedbjhpxnmlsvssiw.supabase.co";
   var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  var PNG_FRAME_URL = "/assets/brand-kit/other%20assets/Private/card-frame.png";
   var MANIFESTO_URL = "https://luzora.app/manifesto/";
   var CARD_DESIGN_WIDTH = 366;
   var CARD_DESIGN_HEIGHT = 460;
   var CARD_NAME_MAX_WIDTH = 261.31;
-  var CARD_NAME_TOP = 281.4;
-  var CARD_NAME_HEIGHT = 53;
   var CARD_NAME_BASE_SIZE = 35.0726;
-  var CARD_NAME_MIN_SIZE = 18;
-  var CARD_NUMBER_LEFT = (CARD_DESIGN_WIDTH - 122) / 2 + 88;
-  var CARD_NUMBER_TOP = (CARD_DESIGN_HEIGHT - 37) / 2 - 174.18;
-  var CARD_NUMBER_WIDTH = 122;
-  var CARD_NUMBER_HEIGHT = 37;
-  var CARD_NUMBER_SIZE = 24.4082;
+  var CARD_NAME_MIN_SIZE = 14;
+  var CARD_NUMBER_MAX_WIDTH = 122;
+  var CARD_NUMBER_BASE_SIZE = 24.4082;
+  var CARD_NUMBER_MIN_SIZE = 14;
+  var CARD_TEXT_SAFETY_MARGIN = 8;
 
   var loading = document.querySelector("[data-signed-loading]");
   var errorState = document.querySelector("[data-signed-error]");
@@ -26,11 +22,14 @@
   var card = document.querySelector("[data-signed-card]");
   var nameElement = document.querySelector("[data-signer-name]");
   var numberElement = document.querySelector("[data-signer-number]");
-  var shareButton = document.querySelector("[data-share-card]");
-  var downloadButton = document.querySelector("[data-download-card]");
+  var shareButton = document.querySelector("[data-share-referral]");
+  var copyButton = document.querySelector("[data-copy-referral]");
+  var referralCountElement = document.querySelector("[data-referral-count]");
+  var referralLabelElement = document.querySelector("[data-referral-label]");
   var statusElement = document.querySelector("[data-action-status]");
   var signer = null;
   var statusTimer = 0;
+  var refreshCardFit = function () {};
 
   function getPublicId() {
     var parts = window.location.pathname.split("/").filter(Boolean);
@@ -63,30 +62,59 @@
     return context.measureText(text).width;
   }
 
-  function fitName(name) {
-    var size = CARD_NAME_BASE_SIZE;
-    while (size > CARD_NAME_MIN_SIZE && measureTextWidth(name, size) > CARD_NAME_MAX_WIDTH) size -= 1;
-    nameElement.style.setProperty("--signed-name-size", size + "px");
+  function fitCardText(element, text, baseSize, minimumSize, maximumWidth, propertyName) {
+    var size = baseSize;
+    var safeWidth = maximumWidth - CARD_TEXT_SAFETY_MARGIN;
+    while (size > minimumSize && measureTextWidth(text, size) > safeWidth) size -= 1;
+    element.style.setProperty(propertyName, Math.max(size, minimumSize) + "px");
+  }
+
+  function fitCardLabels() {
+    fitCardText(nameElement, signer.username, CARD_NAME_BASE_SIZE, CARD_NAME_MIN_SIZE, CARD_NAME_MAX_WIDTH, "--signed-name-size");
+    fitCardText(numberElement, signer.signerNumber, CARD_NUMBER_BASE_SIZE, CARD_NUMBER_MIN_SIZE, CARD_NUMBER_MAX_WIDTH, "--signed-number-size");
   }
 
   function render(data) {
     signer = {
       username: String(data.username || "LuzoraBee"),
       signerNumber: formatSignerNumber(data.signer_number || "1"),
-      shareUrl: data.share_url || window.location.href.split("?")[0]
+      shareUrl: data.share_url || window.location.href.split("?")[0],
+      referralUrl: "https://luzora.app/manifesto?ref=" + encodeURIComponent(String(data.username || "LuzoraBee").toLowerCase())
     };
 
     nameElement.textContent = signer.username;
     numberElement.textContent = signer.signerNumber;
-    fitName(signer.username);
+    fitCardLabels();
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { fitName(signer.username); });
+      document.fonts.ready.then(fitCardLabels);
     }
     document.title = signer.username + " signed the Luzora Manifesto";
     loading.hidden = true;
     errorState.hidden = true;
     content.hidden = false;
-    window.requestAnimationFrame(function () { content.classList.add("is-ready"); });
+    window.requestAnimationFrame(function () {
+      content.classList.add("is-ready");
+      refreshCardFit();
+    });
+  }
+
+  function renderReferralCount(value) {
+    var count = Math.max(0, Number(value) || 0);
+    if (referralCountElement) referralCountElement.textContent = new Intl.NumberFormat("en-US").format(count);
+    if (referralLabelElement) referralLabelElement.textContent = count === 1 ? "Bee" : "Bees";
+  }
+
+  async function loadReferralCount(publicId) {
+    try {
+      var response = await fetch("/api/manifesto-referral-count?id=" + encodeURIComponent(publicId), {
+        headers: { Accept: "application/json" }
+      });
+      if (!response.ok) throw new Error("referral_count_failed");
+      var data = await response.json();
+      if (data && data.ok) renderReferralCount(data.count);
+    } catch (error) {
+      renderReferralCount(0);
+    }
   }
 
   async function loadSigner() {
@@ -97,6 +125,7 @@
         signer_number: params.get("number") || "1232",
         share_url: "https://luzora.app/manifesto/s/00000000-0000-4000-8000-000000000000"
       });
+      renderReferralCount(params.get("referrals") || "0");
       return;
     }
 
@@ -120,6 +149,7 @@
       var data = await response.json();
       if (!data || !data.ok) throw new Error("not_found");
       render(data);
+      loadReferralCount(publicId);
     } catch (error) {
       showError();
     }
@@ -131,155 +161,41 @@
     if (message) statusTimer = window.setTimeout(function () { statusElement.textContent = ""; }, 3200);
   }
 
-  function safeFilename(value) {
-    return value.toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "") || "signer";
+  function getReferralShareText() {
+    return "Join me in signing the Luzora Manifesto and take your first step toward consistency.";
   }
 
-  function loadImage(url) {
-    return new Promise(function (resolve, reject) {
-      var image = new Image();
-      image.onload = function () { resolve(image); };
-      image.onerror = reject;
-      image.src = url;
-    });
-  }
-
-  function fitCanvasText(context, text, maxWidth, startSize, minimumSize) {
-    var size = startSize;
-    do {
-      context.font = "700 " + size + "px Figtree, Arial, sans-serif";
-      if (context.measureText(text).width <= maxWidth) return size;
-      size -= 1;
-    } while (size >= minimumSize);
-    return minimumSize;
-  }
-
-  function makeNameGradient(context, x, width) {
-    var gradient = context.createLinearGradient(x, 0, x + width, 0);
-    gradient.addColorStop(0, "#000000");
-    gradient.addColorStop(0.2263, "#000000");
-    gradient.addColorStop(0.3674, "#0a0905");
-    gradient.addColorStop(0.5951, "#5d4d12");
-    gradient.addColorStop(0.7322, "#000000");
-    gradient.addColorStop(1, "#000000");
-    return gradient;
-  }
-
-  async function makeCardBlob() {
-    if (!signer) throw new Error("signer_not_ready");
-    if (document.fonts && document.fonts.ready) await document.fonts.ready;
-    var frame = await loadImage(PNG_FRAME_URL);
-    var canvas = document.createElement("canvas");
-    canvas.width = frame.naturalWidth || 1400;
-    canvas.height = frame.naturalHeight || 1767;
-    var context = canvas.getContext("2d");
-    context.drawImage(frame, 0, 0, canvas.width, canvas.height);
-    var scaleX = canvas.width / CARD_DESIGN_WIDTH;
-    var scaleY = canvas.height / CARD_DESIGN_HEIGHT;
-    var textScale = Math.min(scaleX, scaleY);
-
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "#FFD52B";
-    var numberCenterX = (CARD_NUMBER_LEFT + CARD_NUMBER_WIDTH / 2) * scaleX;
-    var numberCenterY = (CARD_NUMBER_TOP + CARD_NUMBER_HEIGHT / 2) * scaleY;
-    var numberSize = fitCanvasText(context, signer.signerNumber, CARD_NUMBER_WIDTH * scaleX, CARD_NUMBER_SIZE * textScale, 16 * textScale);
-    context.font = "700 " + numberSize + "px Figtree, Arial, sans-serif";
-    context.fillText(signer.signerNumber, numberCenterX, numberCenterY);
-
-    var nameSize = fitCanvasText(
-      context,
-      signer.username,
-      CARD_NAME_MAX_WIDTH * scaleX,
-      CARD_NAME_BASE_SIZE * textScale,
-      CARD_NAME_MIN_SIZE * textScale
-    );
-    var nameBoxWidth = CARD_NAME_MAX_WIDTH * scaleX;
-    var nameBoxX = (canvas.width - nameBoxWidth) / 2;
-    var nameCenterY = (CARD_NAME_TOP + CARD_NAME_HEIGHT / 2) * scaleY;
-    context.font = "700 " + nameSize + "px Figtree, Arial, sans-serif";
-    context.fillStyle = makeNameGradient(context, nameBoxX, nameBoxWidth);
-    context.fillText(signer.username, canvas.width / 2, nameCenterY);
-
-    return new Promise(function (resolve, reject) {
-      canvas.toBlob(function (blob) {
-        if (blob) resolve(blob);
-        else reject(new Error("card_render_failed"));
-      }, "image/png", 1);
-    });
-  }
-
-  async function downloadCard() {
-    downloadButton.disabled = true;
-    setStatus("Preparing your card...");
+  async function copyReferralLink(successMessage) {
+    if (!signer) return;
+    if (copyButton) copyButton.disabled = true;
     try {
-      var blob = await makeCardBlob();
-      var url = URL.createObjectURL(blob);
-      var link = document.createElement("a");
-      link.href = url;
-      link.download = "luzora-" + safeFilename(signer.username) + "-manifesto-" + signer.signerNumber + ".png";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-      setStatus("Card downloaded.");
+      if (!navigator.clipboard) throw new Error("clipboard_unavailable");
+      await navigator.clipboard.writeText(signer.referralUrl);
+      setStatus(successMessage || "Referral link copied.");
     } catch (error) {
-      setStatus("The card could not be downloaded. Please try again.");
+      setStatus("The link could not be copied. Please try again.");
     } finally {
-      downloadButton.disabled = false;
+      if (copyButton) copyButton.disabled = false;
     }
   }
 
-  function getXShareText() {
-    return [
-      "I got my Hive access card #" + signer.signerNumber + ".",
-      "I, " + signer.username + " promise to be consistent and #showup.",
-      "luzora.app/manifesto"
-    ].join("\n\n");
-  }
-
-  async function shareCard() {
+  async function shareReferralLink() {
+    if (!signer) return;
     shareButton.disabled = true;
-    setStatus("Preparing your card...");
-    var shareText = getXShareText();
     try {
-      var blob = await makeCardBlob();
-      var file = new File([blob], "luzora-" + safeFilename(signer.username) + "-manifesto-" + signer.signerNumber + ".png", {
-        type: "image/png"
+      if (!navigator.share) throw new Error("share_unavailable");
+      await navigator.share({
+        title: "Sign the Luzora Manifesto",
+        text: getReferralShareText(),
+        url: signer.referralUrl
       });
-      var fileShare = {
-        title: signer.username + " signed the Luzora Manifesto",
-        text: shareText,
-        files: [file]
-      };
-      var textShare = {
-        title: signer.username + " signed the Luzora Manifesto",
-        text: shareText
-      };
-
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share(fileShare);
-        setStatus("Card shared.");
-      } else if (navigator.share) {
-        await navigator.share(textShare);
-        setStatus("Share text sent.");
-      } else if (navigator.clipboard) {
-        await navigator.clipboard.writeText(shareText);
-        setStatus("Share text copied. Download the card to attach it.");
-      } else {
-        throw new Error("share_unavailable");
-      }
+      setStatus("Referral link shared.");
     } catch (error) {
       if (error && error.name === "AbortError") {
         setStatus("");
         return;
       }
-      try {
-        await navigator.clipboard.writeText(shareText);
-        setStatus("Share text copied. Download the card to attach it.");
-      } catch (copyError) {
-        setStatus("Sharing is unavailable in this browser.");
-      }
+      await copyReferralLink("Sharing is unavailable here, so the link was copied.");
     } finally {
       shareButton.disabled = false;
     }
@@ -302,6 +218,8 @@
       card.style.setProperty("--card-fit-scale", fitScale);
       scene.style.height = (CARD_DESIGN_HEIGHT * fitScale) + "px";
     }
+
+    refreshCardFit = updateCardFit;
 
     function drawTilt() {
       frameRequest = 0;
@@ -384,8 +302,8 @@
     window.addEventListener("resize", updateCardFit, { passive: true });
   }
 
-  if (shareButton) shareButton.addEventListener("click", shareCard);
-  if (downloadButton) downloadButton.addEventListener("click", downloadCard);
+  if (shareButton) shareButton.addEventListener("click", shareReferralLink);
+  if (copyButton) copyButton.addEventListener("click", function () { copyReferralLink(); });
   setupCardMotion();
   loadSigner();
 })();

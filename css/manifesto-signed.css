@@ -9,11 +9,11 @@
 }
 
 .signed-hero {
-  min-height: 1013px;
+  min-height: 1002px;
   box-sizing: border-box;
   display: grid;
   place-items: center;
-  padding: 250px 24px 150px;
+  padding: 200px 24px 78px;
   background: #fffbea;
 }
 
@@ -21,12 +21,17 @@
   width: min(100%, 1090px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  grid-template-rows: 576px auto;
+  align-items: center;
+  row-gap: 32px;
 }
 
 .signed-copy {
-  max-width: 390px;
-  padding-left: 46px;
+  width: 423px;
+  max-width: calc(100% - 28px);
+  justify-self: start;
+  align-self: start;
+  margin-left: 14px;
 }
 
 .signed-copy h1,
@@ -36,21 +41,110 @@
   font-size: 48px;
   font-weight: 600;
   line-height: 56px;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 .signed-copy__body {
-  margin-top: 24px;
-  max-width: 384px;
+  margin-top: 21px;
+  max-width: 423px;
   font-family: var(--font-body, "DM Sans", sans-serif);
   font-size: 16px;
   line-height: 24px;
-  color: #555245;
+  letter-spacing: -0.02em;
+  color: #38362e;
 }
 
 .signed-copy__body p {
   margin: 0 0 16px;
 }
+
+.signed-copy__body p:last-child { margin-bottom: 0; }
+
+.signed-referrals {
+  width: 348px;
+  max-width: 100%;
+  margin-top: 21px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  color: #38362e;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+}
+
+.signed-referrals__count {
+  min-height: 44px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.signed-referrals__count strong {
+  min-width: 55px;
+  height: 44px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid #e8e7e2;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+}
+
+.signed-referrals__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.signed-referral-button {
+  height: 44px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 12px;
+  color: #38362e;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.signed-referral-button img { width: 18px; height: 18px; }
+.signed-referral-button:hover { transform: translateY(-2px); }
+.signed-referral-button:active { transform: translateY(1px); }
+.signed-referral-button:disabled { cursor: wait; opacity: 0.72; }
+
+.signed-referral-button--share {
+  min-width: 132px;
+  border: 1px solid #b5971f;
+  background: #ffd52b;
+  color: #000;
+  box-shadow: 0 2px 4px rgba(170, 119, 5, 0.3), inset 0 -3px 2px #bd8915, inset 0 0 2px 2px #fff2bd;
+}
+
+.signed-referral-button--share:hover { background: #ffe371; }
+
+.signed-referral-button--copy {
+  min-width: 128px;
+  background: #ffec9d;
+}
+
+.signed-referral-button--copy:hover { background: #fff2bd; }
+.signed-referral-button__mobile-label { display: none; }
 
 .signed-primary-button {
   width: max-content;
@@ -88,6 +182,8 @@
 .signed-card-column {
   width: 366px;
   justify-self: center;
+  align-self: start;
+  margin-top: 10px;
 }
 
 .signed-card-scene {
@@ -103,6 +199,7 @@
   --card-scale: 1;
   --card-fit-scale: 1;
   --signed-name-size: 35.0726px;
+  --signed-number-size: 24.4082px;
   position: relative;
   left: 50%;
   width: 366px;
@@ -164,7 +261,7 @@
   width: 122px;
   height: 37px;
   color: #ffd52b;
-  font-size: 24.4082px;
+  font-size: var(--signed-number-size);
   line-height: 1.5;
   letter-spacing: -0.02em;
 }
@@ -206,89 +303,64 @@
   opacity: 1;
 }
 
-.signed-card-meta {
-  margin-top: 24px;
+.signed-private-test {
+  grid-column: 1 / -1;
+  width: min(100%, 676px);
+  justify-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
+  color: #38362e;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: center;
 }
 
-.signed-card-actions {
-  order: 1;
-  width: auto;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-}
+.signed-private-test p { width: 100%; margin: 0; }
+.signed-private-test__actions { display: flex; align-items: center; gap: 18px; }
 
-.signed-action {
+.signed-private-test__join,
+.signed-private-test__learn {
   height: 44px;
   box-sizing: border-box;
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
   padding: 0 16px;
   border-radius: 12px;
-  font-family: var(--font-body, "DM Sans", sans-serif);
-  font-size: 16px;
+  color: #38362e;
   font-weight: 600;
-  line-height: 24px;
-  cursor: pointer;
-  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease;
 }
 
-.signed-action:hover { transform: translateY(-2px); }
-.signed-action:active { transform: translateY(1px); }
-
-.signed-action--share {
-  width: auto;
-  min-width: 135px;
+.signed-private-test__join {
+  min-width: 156px;
   border: 1px solid #000;
   background: #38362e;
   color: #fff;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.34), inset 0 -3px 2px rgba(0, 0, 0, 0.78), inset 0 0 1px 2px rgba(255, 255, 255, 0.25);
 }
 
-.signed-action--share img { filter: brightness(0) invert(1); }
-
-.signed-action--download {
-  width: 44px;
-  min-width: 44px;
-  padding: 0;
-  border: 0;
-  background: #fff2bd;
-  color: #38362e;
-}
-
-.signed-action--download span {
-  display: none;
-}
-
-.signed-action--download img { filter: brightness(0) saturate(100%) invert(29%) sepia(9%) saturate(813%) hue-rotate(9deg) brightness(91%); }
-
-.signed-card-note {
-  order: 2;
-  width: 366px;
-  margin: 0;
-  color: #38362e;
-  font-family: var(--font-body, "DM Sans", sans-serif);
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-}
+.signed-private-test__learn { min-width: 117px; background: #ffec9d; }
+.signed-private-test__join:hover,
+.signed-private-test__learn:hover { transform: translateY(-2px); }
+.signed-private-test__join:hover { background: #4a483e; }
+.signed-private-test__learn:hover { background: #fff2bd; }
 
 .signed-action-status {
-  min-height: 20px;
-  margin: 8px 0 0;
+  width: 100%;
+  min-height: 18px;
+  margin: -8px 0 -10px;
   color: #555245;
   font-family: var(--font-body, "DM Sans", sans-serif);
   font-size: 14px;
   line-height: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 .signed-status {
@@ -310,18 +382,23 @@
 @media (max-width: 760px) {
   .signed-hero {
     min-height: 0;
-    padding: 144px 16px 32px;
+    padding: 124px 16px 56px;
   }
 
   .signed-content {
     grid-template-columns: 1fr;
-    gap: 48px;
+    grid-template-rows: auto;
+    row-gap: 0;
+    min-width: 0;
   }
 
   .signed-copy {
+    width: 100%;
     max-width: 370px;
     justify-self: center;
-    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 46px 14px 22px;
     text-align: center;
   }
 
@@ -337,44 +414,46 @@
     line-height: 24px;
   }
 
-  .signed-primary-button { margin-top: 4px; }
+  .signed-referrals {
+    width: 100%;
+    margin-top: 21px;
+    align-items: center;
+  }
+
+  .signed-referrals__count,
+  .signed-referrals__actions { justify-content: center; }
+
+  .signed-referral-button--share { min-width: 0; }
+  .signed-referral-button__desktop-label { display: none; }
+  .signed-referral-button__mobile-label { display: inline; }
+  .signed-action-status { text-align: center; }
 
   .signed-card-column,
   .signed-card-scene {
-    width: min(100%, 366px);
+    width: 100%;
+    max-width: 366px;
+    min-width: 0;
   }
 
-  .signed-card-column { justify-self: center; }
-
-  .signed-card-meta {
-    min-height: 44px;
-    margin-top: 16px;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 16px;
+  .signed-card-column {
+    justify-self: center;
+    margin-top: 0;
+    padding: 26px 2px;
+    box-sizing: border-box;
   }
 
-  .signed-card-note {
-    order: 0;
-    width: min(220px, calc(100% - 104px));
-    margin: 0;
-    text-align: left;
+  .signed-private-test {
+    grid-column: 1;
+    padding-top: 0;
   }
-
-  .signed-card-actions { gap: 12px; }
-
-  .signed-action {
-    width: 44px;
-    min-width: 44px;
-    padding: 0;
-  }
-
-  .signed-action span { display: none; }
 }
 
 @media (max-width: 390px) {
   .signed-hero { padding-inline: 12px; }
-  .signed-content { gap: 40px; }
   .signed-copy__body { padding-inline: 4px; }
-  .signed-card-meta { padding-inline: 4px; }
+  .signed-referrals__actions { gap: 12px; }
+  .signed-referral-button { padding-inline: 13px; }
+  .signed-private-test__actions { gap: 12px; }
+  .signed-private-test__join,
+  .signed-private-test__learn { padding-inline: 13px; }
 }
