@@ -1,9 +1,11 @@
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const USER_AGENT = "luzora-website/1.0";
+const MANIFESTO_CARD_BASE_URL = "https://luzora.app/manifesto/s/";
 const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const UUID_FRAGMENT_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
+const SHARE_URL_RE = /^https?:\/\/[^/\s]+\/manifesto\/s\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -36,28 +38,63 @@ function extractPublicId(signature) {
   return match ? match[0] : "";
 }
 
-async function findSavedSignature(name, email) {
+function publicCardUrlFromPublicId(publicId) {
+  var value = String(publicId || "").trim();
+  return UUID_RE.test(value) ? MANIFESTO_CARD_BASE_URL + encodeURIComponent(value) : "";
+}
+
+function normalizeShareUrl(signature) {
+  var shareUrl = String(signature && signature.share_url || "").trim();
+  if (SHARE_URL_RE.test(shareUrl)) return shareUrl;
+  return publicCardUrlFromPublicId(extractPublicId(signature));
+}
+
+function normalizePublicSignature(row) {
+  if (!row) return null;
+
+  var shareUrl = normalizeShareUrl(row);
+  var publicId = extractPublicId(row);
+  if (!UUID_RE.test(publicId)) {
+    var match = shareUrl.match(UUID_FRAGMENT_RE);
+    publicId = match ? match[0] : "";
+  }
+
+  if (!shareUrl || !UUID_RE.test(publicId)) return null;
+
+  return {
+    ok: true,
+    username: row.username,
+    public_id: publicId,
+    signer_number: row.signer_number,
+    share_url: shareUrl
+  };
+}
+
+async function fetchSignatureRows(filters, limit) {
   var serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!serviceKey) {
     throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
   }
 
-  var response = await fetch(
+  var query =
     SUPABASE_URL +
-      "/rest/v1/manifesto_signatures?select=username,public_id,signer_number,share_url" +
-      "&email_normalized=eq." + encodeURIComponent(email) +
-      "&username_normalized=eq." + encodeURIComponent(name.toLowerCase()) +
-      "&order=signed_at.desc&limit=1",
-    {
-      method: "GET",
-      headers: {
-        apikey: serviceKey,
-        Authorization: "Bearer " + serviceKey,
-        "Content-Type": "application/json",
-        "User-Agent": USER_AGENT
-      }
+    "/rest/v1/manifesto_signatures?select=username,email,public_id,signer_number,share_url,signed_at";
+
+  filters.forEach(function (filter) {
+    query += "&" + filter.key + "=eq." + encodeURIComponent(filter.value);
+  });
+
+  query += "&order=signed_at.desc&limit=" + encodeURIComponent(String(limit || 1));
+
+  var response = await fetch(query, {
+    method: "GET",
+    headers: {
+      apikey: serviceKey,
+      Authorization: "Bearer " + serviceKey,
+      "Content-Type": "application/json",
+      "User-Agent": USER_AGENT
     }
-  );
+  });
 
   if (!response.ok) {
     var details = "";
@@ -72,18 +109,33 @@ async function findSavedSignature(name, email) {
     rows = await response.json();
   } catch (error) {}
 
-  if (!Array.isArray(rows) || !rows[0]) return null;
+  return Array.isArray(rows) ? rows : [];
+}
 
-  var publicId = extractPublicId(rows[0]);
-  if (!UUID_RE.test(publicId)) return null;
+async function findSavedSignature(name, email) {
+  var normalizedName = name.toLowerCase();
+  var rows = await fetchSignatureRows([
+    { key: "email_normalized", value: email },
+    { key: "username_normalized", value: normalizedName }
+  ], 1);
 
-  return {
-    ok: true,
-    username: rows[0].username,
-    public_id: publicId,
-    signer_number: rows[0].signer_number,
-    share_url: rows[0].share_url || null
-  };
+  var row = rows[0] || null;
+
+  if (!row) {
+    rows = await fetchSignatureRows([{ key: "email_normalized", value: email }], 5);
+    row = rows.find(function (candidate) {
+      return String(candidate && candidate.username || "").trim().toLowerCase() === normalizedName;
+    }) || rows[0] || null;
+  }
+
+  if (!row) {
+    rows = await fetchSignatureRows([{ key: "username_normalized", value: normalizedName }], 5);
+    row = rows.find(function (candidate) {
+      return String(candidate && candidate.email || "").trim().toLowerCase() === email;
+    }) || rows[0] || null;
+  }
+
+  return normalizePublicSignature(row);
 }
 
 module.exports = async function handler(req, res) {

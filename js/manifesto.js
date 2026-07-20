@@ -5,7 +5,8 @@
   var NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   var X_HANDLE_RE = /^@?[A-Za-z0-9_]{1,15}$/;
-  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
+  var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  var SHARE_URL_RE = /^https?:\/\/[^/\s]+\/manifesto\/s\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   var NAME_CHECK_DELAY = 1000;
   var LUZORA_X_URL = "https://x.com/LuzoraHQ";
   var RETWEET_URL = "https://x.com/LuzoraHQ/status/2078934615356547126?s=20";
@@ -149,6 +150,14 @@
     return "/manifesto/s/" + encodeURIComponent(publicId);
   }
 
+  function publicCardUrlFromData(data) {
+    var shareUrl = String(data && data.share_url || "").trim();
+    if (SHARE_URL_RE.test(shareUrl)) return shareUrl;
+
+    var publicId = String(data && data.public_id || "").trim();
+    return UUID_RE.test(publicId) ? manifestoCardPath(publicId) : "";
+  }
+
   async function waitForManifestoCardLink(name, email) {
     var index = 0;
 
@@ -157,7 +166,8 @@
         var response = await fetch("/api/manifesto-card-link", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: name, email: email })
+          body: JSON.stringify({ name: name, email: email }),
+          cache: "no-store"
         });
         var data = null;
         var responseText = await response.text();
@@ -165,8 +175,9 @@
           try { data = JSON.parse(responseText); } catch (error) { data = null; }
         }
 
-        if (response.ok && data && UUID_RE.test(String(data.public_id || ""))) {
-          return data.public_id;
+        if (response.ok) {
+          var cardUrl = publicCardUrlFromData(data);
+          if (cardUrl) return cardUrl;
         }
       } catch (error) {}
 
@@ -417,15 +428,15 @@
       });
     }
 
-    function redirectToPublicCard(publicId) {
+    function redirectToPublicCard(cardUrl) {
       afterMinimumLoad(function () {
-        window.location.assign(manifestoCardPath(publicId));
+        window.location.assign(cardUrl);
       });
     }
 
     async function recoverAndRedirectToPublicCard() {
-      var recoveredPublicId = await waitForManifestoCardLink(name, email);
-      redirectToPublicCard(recoveredPublicId);
+      var recoveredCardUrl = await waitForManifestoCardLink(name, email);
+      redirectToPublicCard(recoveredCardUrl);
       return true;
     }
 
@@ -449,7 +460,7 @@
       }
 
       if (!response.ok) {
-        if (data && data.reason === "card_missing") {
+        if (data && (data.reason === "card_missing" || data.reason === "card_pending")) {
           if (await recoverAndRedirectToPublicCard()) return;
           returnToForm("Your signature was saved, but we could not open your public card yet. Please refresh and try again.", false);
           return;
@@ -459,18 +470,21 @@
       }
 
       if (data && data.ok) {
-        if (!UUID_RE.test(String(data.public_id || ""))) {
+        var publicCardUrl = publicCardUrlFromData(data);
+        if (!publicCardUrl) {
           if (await recoverAndRedirectToPublicCard()) return;
           returnToForm("Your signature was saved, but we could not open your public card yet. Please refresh and try again.", false);
           return;
         }
 
-        redirectToPublicCard(data.public_id);
+        redirectToPublicCard(publicCardUrl);
         return;
       }
 
       var reason = data && data.reason;
-      if (reason === "name_taken") returnToForm("That Hive name is already reserved. Try another.", true);
+      if (reason === "card_pending") {
+        if (await recoverAndRedirectToPublicCard()) return;
+      } else if (reason === "name_taken") returnToForm("That Hive name is already reserved. Try another.", true);
       else if (reason === "email_taken") returnToForm("That email has already signed the manifesto.", false);
       else if (reason === "invalid_name") returnToForm("Use 3 to 24 letters, numbers or underscores. No spaces.", true);
       else if (reason === "invalid_email") returnToForm("Enter a valid email address.", false);
