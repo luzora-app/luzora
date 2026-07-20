@@ -10,6 +10,7 @@ const MANIFESTO_CARD_BASE_URL = "https://luzora.app/manifesto/s/";
 const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const UUID_FRAGMENT_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
 const X_HANDLE_RE = /^@?[A-Za-z0-9_]{1,15}$/;
 
 function json(res, status, body) {
@@ -59,8 +60,23 @@ function normalizeXHandle(value) {
   return String(value || "").trim().replace(/^@+/, "").toLowerCase();
 }
 
+function extractPublicId(signature) {
+  var direct = String(signature && signature.public_id || "").trim();
+  if (UUID_RE.test(direct)) return direct;
+
+  var shareUrl = String(signature && signature.share_url || "");
+  var match = shareUrl.match(UUID_FRAGMENT_RE);
+  return match ? match[0] : "";
+}
+
 function hasPublicCard(signature) {
-  return UUID_RE.test(String(signature && signature.public_id || ""));
+  return UUID_RE.test(extractPublicId(signature));
+}
+
+function delay(ms) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, ms);
+  });
 }
 
 async function findSavedSignature(name, email) {
@@ -96,14 +112,24 @@ async function findSavedSignature(name, email) {
   return {
     ok: true,
     username: rows[0].username,
-    public_id: rows[0].public_id,
+    public_id: extractPublicId(rows[0]),
     signer_number: rows[0].signer_number,
     share_url: rows[0].share_url
   };
 }
 
+async function waitForSavedSignature(name, email, attempts, delayMs) {
+  for (var index = 0; index < attempts; index += 1) {
+    var signature = await findSavedSignature(name, email);
+    if (hasPublicCard(signature)) return signature;
+    if (index < attempts - 1) await delay(delayMs);
+  }
+
+  return null;
+}
+
 function manifestoCardUrl(signature) {
-  var publicId = String(signature && signature.public_id || "").trim();
+  var publicId = extractPublicId(signature);
   if (!UUID_RE.test(publicId)) {
     throw new Error("Manifesto signature is missing a valid public card id.");
   }
@@ -224,7 +250,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (!hasPublicCard(signature)) {
-      var recoveredSignature = await findSavedSignature(name, email);
+      var recoveredSignature = await waitForSavedSignature(name, email, 8, 500);
       if (hasPublicCard(recoveredSignature)) {
         signature = recoveredSignature;
       }

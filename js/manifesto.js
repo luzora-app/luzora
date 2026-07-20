@@ -139,6 +139,42 @@
     element.hidden = !message;
   }
 
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, ms);
+    });
+  }
+
+  function manifestoCardPath(publicId) {
+    return "/manifesto/s/" + encodeURIComponent(publicId);
+  }
+
+  async function waitForManifestoCardLink(name, email) {
+    var index = 0;
+
+    while (true) {
+      try {
+        var response = await fetch("/api/manifesto-card-link", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: name, email: email })
+        });
+        var data = null;
+        var responseText = await response.text();
+        if (responseText) {
+          try { data = JSON.parse(responseText); } catch (error) { data = null; }
+        }
+
+        if (response.ok && data && UUID_RE.test(String(data.public_id || ""))) {
+          return data.public_id;
+        }
+      } catch (error) {}
+
+      await wait(index < 8 ? 750 : 1500);
+      index += 1;
+    }
+  }
+
   function setNameStatus(status, message) {
     state.nameStatus = status;
     if (nameCheck) {
@@ -381,6 +417,18 @@
       });
     }
 
+    function redirectToPublicCard(publicId) {
+      afterMinimumLoad(function () {
+        window.location.assign(manifestoCardPath(publicId));
+      });
+    }
+
+    async function recoverAndRedirectToPublicCard() {
+      var recoveredPublicId = await waitForManifestoCardLink(name, email);
+      redirectToPublicCard(recoveredPublicId);
+      return true;
+    }
+
     try {
       var response = await fetch("/api/manifesto-sign", {
         method: "POST",
@@ -402,7 +450,8 @@
 
       if (!response.ok) {
         if (data && data.reason === "card_missing") {
-          returnToForm("Your signature was saved, but we could not open your public card yet. Please contact Luzora support.", false);
+          if (await recoverAndRedirectToPublicCard()) return;
+          returnToForm("Your signature was saved, but we could not open your public card yet. Please refresh and try again.", false);
           return;
         }
 
@@ -411,13 +460,12 @@
 
       if (data && data.ok) {
         if (!UUID_RE.test(String(data.public_id || ""))) {
-          returnToForm("Your signature was saved, but we could not open your public card yet. Please contact Luzora support.", false);
+          if (await recoverAndRedirectToPublicCard()) return;
+          returnToForm("Your signature was saved, but we could not open your public card yet. Please refresh and try again.", false);
           return;
         }
 
-        afterMinimumLoad(function () {
-          window.location.assign("/manifesto/s/" + encodeURIComponent(data.public_id));
-        });
+        redirectToPublicCard(data.public_id);
         return;
       }
 
