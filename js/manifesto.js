@@ -23,12 +23,42 @@
   var QUOTE_URL = "https://x.com/intent/post?text=" + encodeURIComponent(QUOTE_TEXT);
   var SOCIAL_ACTION_DELAY = 3000;
   var SOCIAL_VERIFY_DELAY = 3000;
+  var REFERRER_STORAGE_KEY = "luzora_manifesto_referrer";
   var SOCIAL_TASKS = {
     follow: { url: LUZORA_X_URL, completeLabel: "Followed" },
     retweet: { url: RETWEET_URL, completeLabel: "Retweeted" },
     quote: { url: QUOTE_URL, completeLabel: "Quoted" },
     comment: { url: COMMENT_URL, completeLabel: "Commented" }
   };
+
+  function normalizeReferralCode(value) {
+    var code = String(value || "").trim().replace(/^@+/, "");
+    return NAME_RE.test(code) ? code.toLowerCase() : "";
+  }
+
+  function referralCodeFromLocation() {
+    var params = new URLSearchParams(window.location.search);
+    var code = params.get("ref");
+
+    if (!code) {
+      var match = window.location.pathname.match(/\/manifesto\/ref(?:=|\/)([A-Za-z0-9_]{3,24})\/?$/i);
+      code = match ? match[1] : "";
+    }
+
+    return normalizeReferralCode(code);
+  }
+
+  function captureManifestoReferrer() {
+    var fromUrl = referralCodeFromLocation();
+    try {
+      if (fromUrl) localStorage.setItem(REFERRER_STORAGE_KEY, fromUrl);
+      return fromUrl || normalizeReferralCode(localStorage.getItem(REFERRER_STORAGE_KEY));
+    } catch (error) {
+      return fromUrl;
+    }
+  }
+
+  var manifestoReferrerCode = captureManifestoReferrer();
 
   document.querySelectorAll(".m-list li").forEach(function (item, index) {
     item.style.setProperty("--i", index);
@@ -492,6 +522,7 @@
           name: name,
           email: email,
           xHandle: xHandle,
+          referrerCode: manifestoReferrerCode === name.toLowerCase() ? "" : manifestoReferrerCode,
           followConfirmed: state.follow,
           retweetConfirmed: state.retweet
         })
@@ -521,6 +552,7 @@
           return;
         }
 
+        try { localStorage.removeItem(REFERRER_STORAGE_KEY); } catch (error) {}
         redirectToPublicCard(publicCardUrl);
         return;
       }

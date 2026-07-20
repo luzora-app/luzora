@@ -61,6 +61,11 @@ function normalizeXHandle(value) {
   return String(value || "").trim().replace(/^@+/, "").toLowerCase();
 }
 
+function normalizeReferralCode(value) {
+  var code = String(value || "").trim().replace(/^@+/, "");
+  return NAME_RE.test(code) ? code.toLowerCase() : "";
+}
+
 function extractPublicId(signature) {
   var direct = String(signature && signature.public_id || "").trim();
   if (UUID_RE.test(direct)) return direct;
@@ -263,6 +268,36 @@ async function recordDelivery(publicId, values) {
   }
 }
 
+async function recordManifestoReferral(publicId, referrerCode) {
+  var serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceKey || !publicId || !referrerCode) return null;
+
+  var response = await fetch(SUPABASE_URL + "/rest/v1/rpc/record_manifesto_referral", {
+    method: "POST",
+    headers: {
+      apikey: serviceKey,
+      Authorization: "Bearer " + serviceKey,
+      "Content-Type": "application/json",
+      "User-Agent": USER_AGENT
+    },
+    body: JSON.stringify({
+      p_referred_public_id: publicId,
+      p_referrer_code: referrerCode
+    })
+  });
+
+  var data = null;
+  try {
+    data = await response.json();
+  } catch (error) {}
+
+  if (!response.ok) {
+    throw new Error("Manifesto referral recording failed with status " + response.status + ".");
+  }
+
+  return data;
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -274,6 +309,7 @@ module.exports = async function handler(req, res) {
     var name = String(body.name || "").trim();
     var email = String(body.email || "").trim().toLowerCase();
     var xHandle = normalizeXHandle(body.xHandle);
+    var referrerCode = normalizeReferralCode(body.referrerCode);
     var followConfirmed = body.followConfirmed === true;
     var retweetConfirmed = body.retweetConfirmed === true;
 
@@ -292,6 +328,8 @@ module.exports = async function handler(req, res) {
     if (!followConfirmed || !retweetConfirmed) {
       return json(res, 400, { ok: false, reason: "social_tasks_incomplete" });
     }
+
+    if (referrerCode === name.toLowerCase()) referrerCode = "";
 
     var signature = normalizeSignatureResponse(await signManifesto(name, email));
     if (!signature || !signature.ok) {
@@ -326,6 +364,15 @@ module.exports = async function handler(req, res) {
       x_tasks_confirmed_at: new Date().toISOString()
     });
 
+    var referralAttribution = null;
+    if (referrerCode) {
+      try {
+        referralAttribution = await recordManifestoReferral(signature.public_id, referrerCode);
+      } catch (error) {
+        console.error("Luzora manifesto referral attribution failed:", error);
+      }
+    }
+
     var attemptedAt = new Date().toISOString();
     var emailId = null;
     var emailError = null;
@@ -349,6 +396,11 @@ module.exports = async function handler(req, res) {
 
     return json(res, 200, {
       ...signature,
+      referral_code: String(signature.username || name).toLowerCase(),
+      referral_url:
+        "https://luzora.app/manifesto?ref=" +
+        encodeURIComponent(String(signature.username || name).toLowerCase()),
+      referral_attribution: referralAttribution,
       confirmation_email_sent: Boolean(emailId),
       confirmation_email_id: emailId || null
     });
