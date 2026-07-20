@@ -400,11 +400,18 @@
         try { data = JSON.parse(responseText); } catch (error) { data = null; }
       }
 
-      if (!response.ok) throw new Error("request_failed");
+      if (!response.ok) {
+        if (data && data.reason === "card_missing") {
+          returnToForm("Your signature was saved, but we could not open your public card yet. Please contact Luzora support.", false);
+          return;
+        }
+
+        throw new Error("request_failed");
+      }
 
       if (data && data.ok) {
         if (!UUID_RE.test(String(data.public_id || ""))) {
-          returnToForm("Your signature was saved, but its public card could not be created. Please contact Luzora support.", false);
+          returnToForm("Your signature was saved, but we could not open your public card yet. Please contact Luzora support.", false);
           return;
         }
 

@@ -50,8 +50,56 @@ async function signManifesto(name, email) {
   return data;
 }
 
+function normalizeSignatureResponse(value) {
+  if (Array.isArray(value)) return value[0] || null;
+  return value || null;
+}
+
 function normalizeXHandle(value) {
   return String(value || "").trim().replace(/^@+/, "").toLowerCase();
+}
+
+function hasPublicCard(signature) {
+  return UUID_RE.test(String(signature && signature.public_id || ""));
+}
+
+async function findSavedSignature(name, email) {
+  var serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceKey) return null;
+
+  var response = await fetch(
+    SUPABASE_URL +
+      "/rest/v1/manifesto_signatures?select=username,public_id,signer_number,share_url" +
+      "&email_normalized=eq." + encodeURIComponent(email) +
+      "&username_normalized=eq." + encodeURIComponent(name.toLowerCase()) +
+      "&order=signed_at.desc&limit=1",
+    {
+      method: "GET",
+      headers: {
+        apikey: serviceKey,
+        Authorization: "Bearer " + serviceKey,
+        "Content-Type": "application/json",
+        "User-Agent": USER_AGENT
+      }
+    }
+  );
+
+  if (!response.ok) return null;
+
+  var rows = null;
+  try {
+    rows = await response.json();
+  } catch (error) {}
+
+  if (!Array.isArray(rows) || !rows[0]) return null;
+
+  return {
+    ok: true,
+    username: rows[0].username,
+    public_id: rows[0].public_id,
+    signer_number: rows[0].signer_number,
+    share_url: rows[0].share_url
+  };
 }
 
 function manifestoCardUrl(signature) {
@@ -170,9 +218,28 @@ module.exports = async function handler(req, res) {
       return json(res, 400, { ok: false, reason: "social_tasks_incomplete" });
     }
 
-    var signature = await signManifesto(name, email);
+    var signature = normalizeSignatureResponse(await signManifesto(name, email));
     if (!signature || !signature.ok) {
       return json(res, 200, signature || { ok: false, reason: "request_failed" });
+    }
+
+    if (!hasPublicCard(signature)) {
+      var recoveredSignature = await findSavedSignature(name, email);
+      if (hasPublicCard(recoveredSignature)) {
+        signature = recoveredSignature;
+      }
+    }
+
+    if (!hasPublicCard(signature)) {
+      console.error("Manifesto signature saved without a public card id:", {
+        username: signature.username,
+        signer_number: signature.signer_number
+      });
+      return json(res, 500, {
+        ok: false,
+        reason: "card_missing",
+        message: "Your signature was saved, but we could not open your public card yet."
+      });
     }
 
     await recordDelivery(signature.public_id, {
