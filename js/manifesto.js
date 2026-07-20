@@ -9,7 +9,26 @@
   var SHARE_URL_RE = /^https?:\/\/[^/\s]+\/manifesto\/s\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   var NAME_CHECK_DELAY = 1000;
   var LUZORA_X_URL = "https://x.com/LuzoraHQ";
-  var RETWEET_URL = "https://x.com/LuzoraHQ/status/2078934615356547126?s=20";
+  var RETWEET_URL = "https://x.com/intent/retweet?tweet_id=2078934615356547126";
+  var COMMENT_URL = "https://x.com/intent/post?in_reply_to=2079215775215227310";
+  var QUOTE_TEXT = [
+    "I'm signing the Luzora Manifesto with a commitment to be consistent.",
+    "",
+    "@luzorahq - The consistency layer for your browser",
+    "",
+    "luzora.app",
+    "",
+    "https://x.com/LuzoraHQ/status/2079215775215227310"
+  ].join("\n");
+  var QUOTE_URL = "https://x.com/intent/post?text=" + encodeURIComponent(QUOTE_TEXT);
+  var SOCIAL_ACTION_DELAY = 3000;
+  var SOCIAL_VERIFY_DELAY = 3000;
+  var SOCIAL_TASKS = {
+    follow: { url: LUZORA_X_URL, completeLabel: "Followed" },
+    retweet: { url: RETWEET_URL, completeLabel: "Retweeted" },
+    quote: { url: QUOTE_URL, completeLabel: "Quoted" },
+    comment: { url: COMMENT_URL, completeLabel: "Commented" }
+  };
 
   document.querySelectorAll(".m-list li").forEach(function (item, index) {
     item.style.setProperty("--i", index);
@@ -91,7 +110,9 @@
     nameTimer: 0,
     checkToken: 0,
     follow: false,
-    retweet: false
+    retweet: false,
+    quote: false,
+    comment: false
   };
 
   if (!overlay || !nameInput || !emailInput || !form) return;
@@ -214,7 +235,14 @@
   }
 
   function isStepTwoValid() {
-    return isStepOneValid() && state.follow && state.retweet && X_HANDLE_RE.test(xHandleInput.value.trim());
+    return (
+      isStepOneValid() &&
+      state.follow &&
+      state.retweet &&
+      state.quote &&
+      state.comment &&
+      X_HANDLE_RE.test(xHandleInput.value.trim())
+    );
   }
 
   function refreshControls() {
@@ -303,25 +331,41 @@
     nameInput.focus();
   }
 
-  function confirmTask(button, type) {
-    if (button.classList.contains("is-confirmed") || button.classList.contains("is-loading")) return;
-    var url = type === "follow" ? LUZORA_X_URL : RETWEET_URL;
-    window.open(url, "_blank", "noopener,noreferrer");
+  function updateTaskButton(button, phase, labelText) {
     var label = button.querySelector("span");
-    button.classList.add("is-loading");
-    button.disabled = true;
-    if (label) label.textContent = "Confirming...";
+    button.setAttribute("data-task-phase", phase);
+    button.classList.toggle("is-action-waiting", phase === "waiting");
+    button.classList.toggle("is-verify", phase === "verify" || phase === "verifying");
+    button.classList.toggle("is-loading", phase === "waiting" || phase === "verifying");
+    button.classList.toggle("is-confirmed", phase === "confirmed");
+    button.disabled = phase === "waiting" || phase === "verifying" || phase === "confirmed";
+    if (label) label.textContent = labelText;
+  }
+
+  function handleTaskAction(button, type) {
+    var task = SOCIAL_TASKS[type];
+    var phase = button.getAttribute("data-task-phase") || "action";
+    if (!task || phase === "waiting" || phase === "verifying" || phase === "confirmed") return;
+
+    if (phase === "action") {
+      window.open(task.url, "_blank", "noopener,noreferrer");
+      updateTaskButton(button, "waiting", button.querySelector("span").textContent);
+
+      window.setTimeout(function () {
+        updateTaskButton(button, "verify", "Verify");
+      }, SOCIAL_ACTION_DELAY);
+      return;
+    }
+
+    updateTaskButton(button, "verifying", "Verifying...");
 
     window.setTimeout(function () {
-      button.classList.remove("is-loading");
-      button.classList.add("is-confirmed");
-      button.disabled = false;
+      updateTaskButton(button, "confirmed", task.completeLabel);
       button.setAttribute("aria-pressed", "true");
-      if (label) label.textContent = type === "follow" ? "Followed" : "Retweeted";
       state[type] = true;
       setError(errorElement, "");
       refreshControls();
-    }, 1400);
+    }, SOCIAL_VERIFY_DELAY);
   }
 
   nameInput.addEventListener("input", function () {
@@ -380,7 +424,7 @@
 
   socialButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      confirmTask(button, button.getAttribute("data-social-task"));
+      handleTaskAction(button, button.getAttribute("data-social-task"));
     });
   });
 
@@ -397,8 +441,8 @@
       return;
     }
 
-    if (!state.follow || !state.retweet) {
-      setError(errorElement, "Complete the X tasks before signing the manifesto.");
+    if (!state.follow || !state.retweet || !state.quote || !state.comment) {
+      setError(errorElement, "Complete and verify all X tasks before signing the manifesto.");
       return;
     }
 
