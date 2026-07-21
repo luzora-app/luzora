@@ -24,11 +24,18 @@
   var numberElement = document.querySelector("[data-signer-number]");
   var shareButton = document.querySelector("[data-share-referral]");
   var copyButton = document.querySelector("[data-copy-referral]");
+  var shareCardButton = document.querySelector("[data-share-card]");
+  var downloadCardButton = document.querySelector("[data-download-card]");
   var referralCountElement = document.querySelector("[data-referral-count]");
   var referralLabelElement = document.querySelector("[data-referral-label]");
   var statusElement = document.querySelector("[data-action-status]");
+  var cardStatusElement = document.querySelector("[data-card-action-status]");
   var signer = null;
   var statusTimer = 0;
+  var cardStatusTimer = 0;
+  var cachedCardBlob = null;
+  var cardExportPromise = null;
+  var cardDownloadUrl = "";
   var refreshCardFit = function () {};
 
   function getPublicId() {
@@ -95,6 +102,7 @@
     window.requestAnimationFrame(function () {
       content.classList.add("is-ready");
       refreshCardFit();
+      prepareCardExport().catch(function () {});
     });
   }
 
@@ -159,6 +167,150 @@
     window.clearTimeout(statusTimer);
     statusElement.textContent = message || "";
     if (message) statusTimer = window.setTimeout(function () { statusElement.textContent = ""; }, 3200);
+  }
+
+  function setCardStatus(message) {
+    window.clearTimeout(cardStatusTimer);
+    if (!cardStatusElement) return;
+    cardStatusElement.textContent = message || "";
+    if (message) cardStatusTimer = window.setTimeout(function () { cardStatusElement.textContent = ""; }, 4200);
+  }
+
+  function waitForImage(image) {
+    if (image.complete && image.naturalWidth > 0) return Promise.resolve();
+    return new Promise(function (resolve, reject) {
+      image.addEventListener("load", resolve, { once: true });
+      image.addEventListener("error", reject, { once: true });
+    });
+  }
+
+  function getCardFileName() {
+    var safeName = String(signer && signer.username || "LuzoraBee")
+      .trim()
+      .replace(/[^a-z0-9_-]+/gi, "-")
+      .replace(/^-+|-+$/g, "") || "LuzoraBee";
+    return "luzora-manifesto-" + safeName.toLowerCase() + ".png";
+  }
+
+  async function createCardBlob() {
+    if (!signer || !card) throw new Error("card_unavailable");
+    var frame = card.querySelector(".signed-card__frame");
+    if (!frame) throw new Error("card_frame_unavailable");
+    await waitForImage(frame);
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
+    var exportScale = 3;
+    var canvas = document.createElement("canvas");
+    canvas.width = CARD_DESIGN_WIDTH * exportScale;
+    canvas.height = CARD_DESIGN_HEIGHT * exportScale;
+    var context = canvas.getContext("2d");
+    if (!context) throw new Error("canvas_unavailable");
+    context.scale(exportScale, exportScale);
+    context.drawImage(frame, 0, 0, CARD_DESIGN_WIDTH, CARD_DESIGN_HEIGHT);
+
+    var numberSize = parseFloat(window.getComputedStyle(numberElement).fontSize) || CARD_NUMBER_BASE_SIZE;
+    context.save();
+    context.font = "700 " + numberSize + "px Figtree, Arial, sans-serif";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "#ffd52b";
+    context.fillText(signer.signerNumber, 271, 55.82, CARD_NUMBER_MAX_WIDTH - CARD_TEXT_SAFETY_MARGIN);
+    context.restore();
+
+    var nameSize = parseFloat(window.getComputedStyle(nameElement).fontSize) || CARD_NAME_BASE_SIZE;
+    var nameGradient = context.createLinearGradient(52.5, 0, 313.5, 0);
+    nameGradient.addColorStop(0, "#000000");
+    nameGradient.addColorStop(0.42, "#000000");
+    nameGradient.addColorStop(0.62, "#806a11");
+    nameGradient.addColorStop(0.78, "#000000");
+    nameGradient.addColorStop(1, "#000000");
+    context.save();
+    context.font = "700 " + nameSize + "px Figtree, Arial, sans-serif";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = nameGradient;
+    context.fillText(signer.username, 183.18, 307.9, CARD_NAME_MAX_WIDTH - CARD_TEXT_SAFETY_MARGIN);
+    context.restore();
+
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(function (blob) {
+        if (blob) resolve(blob);
+        else reject(new Error("card_export_failed"));
+      }, "image/png");
+    });
+  }
+
+  function prepareCardExport() {
+    if (cachedCardBlob) return Promise.resolve(cachedCardBlob);
+    if (cardExportPromise) return cardExportPromise;
+    cardExportPromise = createCardBlob().then(function (blob) {
+      cachedCardBlob = blob;
+      if (shareCardButton) shareCardButton.disabled = false;
+      if (downloadCardButton) {
+        cardDownloadUrl = URL.createObjectURL(blob);
+        downloadCardButton.href = cardDownloadUrl;
+        downloadCardButton.download = getCardFileName();
+        downloadCardButton.setAttribute("data-export-type", blob.type);
+        downloadCardButton.setAttribute("data-export-size", String(blob.size));
+        downloadCardButton.setAttribute("data-export-width", String(CARD_DESIGN_WIDTH * 3));
+        downloadCardButton.setAttribute("data-export-height", String(CARD_DESIGN_HEIGHT * 3));
+        downloadCardButton.setAttribute("aria-disabled", "false");
+      }
+      return blob;
+    }).catch(function (error) {
+      cardExportPromise = null;
+      setCardStatus("The card image could not be prepared. Please reload and try again.");
+      throw error;
+    });
+    return cardExportPromise;
+  }
+
+  function downloadBlob(blob) {
+    var objectUrl = URL.createObjectURL(blob);
+    var anchor = document.createElement("a");
+    anchor.href = objectUrl;
+    anchor.download = getCardFileName();
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1000);
+  }
+
+  async function shareCard() {
+    if (!signer || !shareCardButton) return;
+    shareCardButton.disabled = true;
+    try {
+      var blob = cachedCardBlob || await prepareCardExport();
+      var file = new File([blob], getCardFileName(), { type: "image/png" });
+      var shareData = {
+        files: [file],
+        title: "I signed the Luzora Manifesto",
+        text: "I signed the Luzora Manifesto and committed to showing up consistently."
+      };
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share(shareData);
+        setCardStatus("Manifesto card shared.");
+      } else if (navigator.share) {
+        await navigator.share({
+          title: shareData.title,
+          text: shareData.text,
+          url: signer.shareUrl
+        });
+        setCardStatus("The public Manifesto card link was shared.");
+      } else {
+        downloadBlob(blob);
+        setCardStatus("Sharing is unavailable here, so the card was downloaded instead.");
+      }
+    } catch (error) {
+      if (error && error.name === "AbortError") {
+        setCardStatus("");
+      } else {
+        setCardStatus("The card could not be shared. Please try again.");
+      }
+    } finally {
+      shareCardButton.disabled = false;
+    }
   }
 
   function getReferralShareText() {
@@ -304,6 +456,18 @@
 
   if (shareButton) shareButton.addEventListener("click", shareReferralLink);
   if (copyButton) copyButton.addEventListener("click", function () { copyReferralLink(); });
+  if (shareCardButton) shareCardButton.addEventListener("click", shareCard);
+  if (downloadCardButton) downloadCardButton.addEventListener("click", function (event) {
+    if (downloadCardButton.getAttribute("aria-disabled") === "true") {
+      event.preventDefault();
+      setCardStatus("Preparing your Manifesto card...");
+      return;
+    }
+    setCardStatus("Your Manifesto card was downloaded.");
+  });
+  window.addEventListener("pagehide", function () {
+    if (cardDownloadUrl) URL.revokeObjectURL(cardDownloadUrl);
+  }, { once: true });
   setupCardMotion();
   loadSigner();
 })();

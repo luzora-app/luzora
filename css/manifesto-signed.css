@@ -120,6 +120,7 @@
   line-height: 24px;
   letter-spacing: -0.01em;
   cursor: pointer;
+  text-decoration: none;
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
 
@@ -127,6 +128,7 @@
 .signed-referral-button:hover { transform: translateY(-2px); }
 .signed-referral-button:active { transform: translateY(1px); }
 .signed-referral-button:disabled { cursor: wait; opacity: 0.72; }
+.signed-referral-button[aria-disabled="true"] { cursor: wait; opacity: 0.72; pointer-events: none; }
 
 .signed-referral-button--share {
   min-width: 132px;
@@ -190,6 +192,29 @@
   width: 366px;
   perspective: 1100px;
   perspective-origin: center;
+}
+
+.signed-card-actions {
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.signed-card-actions .signed-referral-button--share { min-width: 132px; }
+.signed-card-actions .signed-referral-button--copy { min-width: 124px; }
+
+.signed-card-action-status {
+  width: 100%;
+  min-height: 20px;
+  margin: 8px 0 0;
+  color: #555245;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
 }
 
 .signed-card {
@@ -440,6 +465,11 @@
     margin-top: 0;
     padding: 26px 2px;
     box-sizing: border-box;
+  }
+
+  .signed-card-actions {
+    margin-top: 14px;
+    flex-wrap: wrap;
   }
 
   .signed-private-test {
