@@ -3,6 +3,124 @@
 
   var ARTICLES = [
     {
+      slug: "referral-system-is-live-invite-your-hive",
+      title: "Referral System Is Live: Invite Your Hive",
+      dek: "You can now share your unique Luzora referral link, invite others to sign the Manifesto, and watch your Hive grow.",
+      metaDescription: "The Luzora referral system is live. Sign the Manifesto, share your unique referral link, and invite your community to join the Hive.",
+      category: "Announcements",
+      date: "July 21, 2026",
+      readTime: "4 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/brand-kit/social/referral-system-article-preview.png",
+      cardImageAlt: "Elite Bee offering a Luzora invite beside the words Invite Your Hive",
+      lead: [
+        "Consistency may begin with one person, but it grows stronger when people show up together.",
+        "Today, we are making that easier.",
+        "The Luzora referral system is now live. Everyone who signs the Luzora Manifesto receives a unique referral link they can share with friends, teammates, and their wider community.",
+        "When someone signs through your link, they become part of your Hive."
+      ],
+      sections: [
+        {
+          id: "your-invitation-to-the-hive",
+          title: "Your invitation to the Hive",
+          body: [
+            "The Luzora Manifesto is a commitment to something simple:"
+          ],
+          listType: "ul",
+          list: [
+            "To return to what matters.",
+            "To follow through on the small tasks that move life forward.",
+            "To keep showing up, even when motivation changes."
+          ],
+          afterList: [
+            "Thousands of important activities happen inside the browser. We start courses, save research, discover opportunities, open applications, find useful tools, and promise ourselves that we will return later.",
+            "Too often, later never comes.",
+            "Luzora is being built to change that. It turns webpages into scheduled or recurring tasks, helping you return with a clear purpose at the right time.",
+            "Now, you can invite others to make that commitment with you."
+          ]
+        },
+        {
+          id: "how-the-referral-system-works",
+          title: "How the referral system works",
+          body: [],
+          listIntro: "Getting started takes only a few steps:",
+          list: [
+            "Visit the [Luzora Manifesto](/manifesto).",
+            "Sign the Manifesto and claim your unique Hive name.",
+            "Open your signed Manifesto card.",
+            "Select Share link or Copy link.",
+            "Send your referral link to your community."
+          ],
+          afterList: [
+            "When someone opens your link and signs the Manifesto, your referral count increases.",
+            "You can return to your signed Manifesto card at any time to see how many Bees you have invited."
+          ]
+        },
+        {
+          id: "your-referrals-stay-connected",
+          title: "Your referrals stay connected",
+          body: [
+            "Every referral link contains your unique Hive name. This lets Luzora remember who sent the invitation.",
+            "When someone signs through your link, the referral is recorded immediately. If they create their Luzora account using the same email address, the referral remains connected when Luzora launches.",
+            "They get their own Hive identity, and your growing community stays connected to you.",
+            "No codes to enter. No complicated steps. Just share your link and invite people to join."
+          ]
+        },
+        {
+          id: "who-should-you-invite",
+          title: "Who should you invite?",
+          body: [],
+          listIntro: "Invite the people who are always trying to return to something important online.",
+          listType: "ul",
+          list: [
+            "A student working through an online course",
+            "A developer keeping up with documentation",
+            "A job seeker returning to applications and job boards",
+            "A creator managing publishing routines",
+            "A researcher reviewing saved papers",
+            "A designer following project feedback",
+            "A Web3 user tracking governance and community activities",
+            "A friend who has far too many tabs open"
+          ],
+          afterList: [
+            "If their browser is part of the task, Luzora is being built for them."
+          ]
+        },
+        {
+          id: "share-with-purpose",
+          title: "Share with purpose",
+          body: [
+            "A referral is more than a number.",
+            "It is an invitation to build better follow-through together. It is a way to bring people into Luzora early and give them a place in the Hive before the public launch.",
+            "You do not need a huge audience. Start with one person who would genuinely benefit from remembering what to do on a webpage and returning when it matters.",
+            "One thoughtful invitation is worth more than a hundred empty clicks."
+          ]
+        },
+        {
+          id: "private-testing-begins-july-28",
+          title: "Private testing begins July 28",
+          body: [
+            "Luzora's private test begins July 28.",
+            "Selected testers will get the chance to use Luzora before beta access, share feedback, help uncover issues, and shape what comes next. Active participants can also earn the Founding bee role.",
+            "If you want to help build Luzora with us, [learn more about private testing](/blog/help-shape-luzora-private-testing-is-opening)."
+          ]
+        },
+        {
+          id: "invite-your-hive",
+          title: "Invite your Hive",
+          body: [
+            "Your referral link is ready.",
+            "Sign the Manifesto, claim your Hive name, and invite the people you want beside you when Luzora launches."
+          ],
+          cta: {
+            label: "Sign the Luzora Manifesto",
+            href: "/manifesto"
+          },
+          callout: "Consistency starts with showing up. The Hive grows when we show up together."
+        }
+      ]
+    },
+    {
       slug: "help-shape-luzora-private-testing-is-opening",
       title: "Help shape Luzora: Private testing is opening",
       dek: "We are inviting a small group of early users to test Luzora, give honest feedback, and help shape the browser extension before launch.",
@@ -277,20 +395,49 @@
   }
 
   function renderArticleBody(article) {
-    return article.sections.map(function (section) {
+    var lead = article.lead ? '<div class="article-lead" data-article-section>' + article.lead.map(function (paragraph) {
+      return "<p>" + renderInline(paragraph) + "</p>";
+    }).join("") + "</div>" : "";
+
+    return lead + article.sections.map(function (section) {
       var paragraphs = section.body.map(function (paragraph) {
         return "<p>" + renderInline(paragraph) + "</p>";
       }).join("");
       var listIntro = section.listIntro ? '<p class="article-list-intro">' + renderInline(section.listIntro) + "</p>" : "";
-      var list = section.list ? "<ol>" + section.list.map(function (item) {
+      var listTag = section.listType === "ul" ? "ul" : "ol";
+      var list = section.list ? "<" + listTag + ">" + section.list.map(function (item) {
         return "<li>" + renderInline(item) + "</li>";
-      }).join("") + "</ol>" : "";
+      }).join("") + "</" + listTag + ">" : "";
       var afterList = section.afterList ? section.afterList.map(function (paragraph) {
         return "<p>" + renderInline(paragraph) + "</p>";
       }).join("") : "";
+      var cta = section.cta ? '<p class="article-cta"><a href="' + escapeHtml(section.cta.href) + '">' + escapeHtml(section.cta.label) + "</a></p>" : "";
       var callout = section.callout ? '<p class="article-callout">' + renderInline(section.callout) + "</p>" : "";
-      return '<section class="article-section" id="' + section.id + '" data-article-section><h2>' + escapeHtml(section.title) + "</h2>" + paragraphs + listIntro + list + afterList + callout + "</section>";
+      return '<section class="article-section" id="' + section.id + '" data-article-section><h2>' + escapeHtml(section.title) + "</h2>" + paragraphs + listIntro + list + afterList + cta + callout + "</section>";
     }).join("");
+  }
+
+  function updateArticleMetadata(article) {
+    var description = article.metaDescription || article.dek;
+    var canonicalUrl = "https://luzora.app" + getArticleUrl(article);
+    var imageUrl = new URL(article.cardImage || CARD_IMAGE, "https://luzora.app").href;
+
+    function setMeta(selector, value) {
+      var meta = document.querySelector(selector);
+      if (meta) meta.setAttribute("content", value);
+    }
+
+    document.title = article.title + " | The Hive Journal";
+    setMeta('meta[name="description"]', description);
+    setMeta('meta[property="og:title"]', article.title);
+    setMeta('meta[property="og:description"]', description);
+    setMeta('meta[property="og:image"]', imageUrl);
+    setMeta('meta[name="twitter:title"]', article.title);
+    setMeta('meta[name="twitter:description"]', description);
+    setMeta('meta[name="twitter:image"]', imageUrl);
+
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute("href", canonicalUrl);
   }
 
   function initArticleReveals() {
@@ -404,7 +551,7 @@
     if (!body) return;
     var article = articleFromPath();
 
-    document.title = article.title + " | The Hive Journal";
+    updateArticleMetadata(article);
     var title = document.querySelector("[data-article-title]");
     var dek = document.querySelector("[data-article-dek]");
     var breadcrumb = document.querySelector("[data-article-breadcrumb]");

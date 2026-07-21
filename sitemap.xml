@@ -20,9 +20,15 @@
   </url>
   <url>
     <loc>https://luzora.app/blog</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luzora.app/blog/referral-system-is-live-invite-your-hive</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://luzora.app/blog/help-shape-luzora-private-testing-is-opening</loc>

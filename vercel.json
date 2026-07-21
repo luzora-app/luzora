@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/blog-article.js": {
+      "includeFiles": "blog-article.html"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -62,7 +67,7 @@
     { "source": "/manifesto/s/:id", "destination": "/manifesto-signed.html" },
     { "source": "/brand", "destination": "/brand.html" },
     { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/blog/:slug", "destination": "/blog-article.html" },
+    { "source": "/blog/:slug", "destination": "/api/blog-article?slug=:slug" },
     { "source": "/welcome", "destination": "/welcome.html" },
     { "source": "/404", "destination": "/404.html" },
     { "source": "/r/:code", "destination": "/r.html" }
