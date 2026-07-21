@@ -115,8 +115,7 @@
           cta: {
             label: "Sign the Luzora Manifesto",
             href: "/manifesto"
-          },
-          callout: "Consistency starts with showing up. The Hive grows when we show up together."
+          }
         }
       ]
     },
