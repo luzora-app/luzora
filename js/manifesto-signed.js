@@ -24,7 +24,6 @@
   var numberElement = document.querySelector("[data-signer-number]");
   var shareButton = document.querySelector("[data-share-referral]");
   var copyButton = document.querySelector("[data-copy-referral]");
-  var shareCardButton = document.querySelector("[data-share-card]");
   var downloadCardButton = document.querySelector("[data-download-card]");
   var referralCountElement = document.querySelector("[data-referral-count]");
   var referralLabelElement = document.querySelector("[data-referral-label]");
@@ -110,7 +109,7 @@
   function renderReferralCount(value) {
     var count = Math.max(0, Number(value) || 0);
     if (referralCountElement) referralCountElement.textContent = new Intl.NumberFormat("en-US").format(count);
-    if (referralLabelElement) referralLabelElement.textContent = count === 1 ? "Bee" : "Bees";
+    if (referralLabelElement) referralLabelElement.textContent = count === 1 ? "bee" : "bees";
   }
 
   async function loadReferralCount(publicId) {
@@ -247,7 +246,6 @@
     cardExportPromise = createCardBlob().then(function (blob) {
       cachedCardBlob = blob;
       if (shareButton) shareButton.disabled = false;
-      if (shareCardButton) shareCardButton.disabled = false;
       if (downloadCardButton) {
         cardDownloadUrl = URL.createObjectURL(blob);
         downloadCardButton.href = cardDownloadUrl;
@@ -276,43 +274,6 @@
     anchor.click();
     anchor.remove();
     window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1000);
-  }
-
-  async function shareCard() {
-    if (!signer || !shareCardButton) return;
-    shareCardButton.disabled = true;
-    try {
-      var blob = cachedCardBlob || await prepareCardExport();
-      var file = new File([blob], getCardFileName(), { type: "image/png" });
-      var shareData = {
-        files: [file],
-        title: "I signed the Luzora Manifesto",
-        text: "I signed the Luzora Manifesto and committed to showing up consistently."
-      };
-
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share(shareData);
-        setCardStatus("Manifesto card shared.");
-      } else if (navigator.share) {
-        await navigator.share({
-          title: shareData.title,
-          text: shareData.text,
-          url: signer.shareUrl
-        });
-        setCardStatus("The public Manifesto card link was shared.");
-      } else {
-        downloadBlob(blob);
-        setCardStatus("Sharing is unavailable here, so the card was downloaded instead.");
-      }
-    } catch (error) {
-      if (error && error.name === "AbortError") {
-        setCardStatus("");
-      } else {
-        setCardStatus("The card could not be shared. Please try again.");
-      }
-    } finally {
-      shareCardButton.disabled = false;
-    }
   }
 
   function getReferralShareText() {
@@ -507,7 +468,6 @@
 
   if (shareButton) shareButton.addEventListener("click", shareReferralLink);
   if (copyButton) copyButton.addEventListener("click", function () { copyReferralLink(); });
-  if (shareCardButton) shareCardButton.addEventListener("click", shareCard);
   if (downloadCardButton) downloadCardButton.addEventListener("click", function (event) {
     if (downloadCardButton.getAttribute("aria-disabled") === "true") {
       event.preventDefault();

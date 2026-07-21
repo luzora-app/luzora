@@ -21,7 +21,7 @@
   width: min(100%, 1090px);
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: 576px auto;
+  grid-template-rows: 558px auto;
   align-items: center;
   row-gap: 32px;
 }
@@ -64,10 +64,14 @@
   width: 348px;
   max-width: 100%;
   margin-top: 21px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 24px;
+  background: #fff2bd;
   color: #38362e;
   font-family: var(--font-body, "DM Sans", sans-serif);
   font-size: 16px;
@@ -75,29 +79,26 @@
   letter-spacing: -0.02em;
 }
 
-.signed-referrals__count {
-  min-height: 44px;
+.signed-referrals__title,
+.signed-referrals__summary {
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
 }
 
-.signed-referrals__count strong {
-  min-width: 55px;
-  height: 44px;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  border: 1px solid #e8e7e2;
-  border-radius: 12px;
-  background: #fff;
+.signed-referrals__title {
+  font-weight: 500;
+}
+
+.signed-referrals__summary {
+  max-width: 316px;
+}
+
+.signed-referrals__summary strong {
   font: inherit;
+  font-weight: 500;
 }
 
 .signed-referrals__actions {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -131,7 +132,7 @@
 .signed-referral-button[aria-disabled="true"] { cursor: wait; opacity: 0.72; pointer-events: none; }
 
 .signed-referral-button--share {
-  min-width: 132px;
+  min-width: 150px;
   border: 1px solid #b5971f;
   background: #ffd52b;
   color: #000;
@@ -141,8 +142,9 @@
 .signed-referral-button--share:hover { background: #ffe371; }
 
 .signed-referral-button--copy {
-  min-width: 128px;
-  background: #ffec9d;
+  min-width: 150px;
+  background: transparent;
+  color: #85752b;
 }
 
 .signed-referral-button--copy:hover { background: #fff2bd; }
@@ -196,15 +198,18 @@
 
 .signed-card-actions {
   width: 100%;
-  margin-top: 16px;
+  margin-top: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
 }
 
-.signed-card-actions .signed-referral-button--share { min-width: 132px; }
-.signed-card-actions .signed-referral-button--copy { min-width: 124px; }
+.signed-card-actions .signed-referral-button--copy {
+  min-width: 134px;
+  background: #ffec9d;
+  color: #38362e;
+}
 
 .signed-card-action-status {
   width: 100%;
@@ -330,12 +335,17 @@
 
 .signed-private-test {
   grid-column: 1 / -1;
-  width: min(100%, 676px);
+  width: 100%;
+  min-height: 292px;
+  box-sizing: border-box;
   justify-self: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  padding: 56px 24px;
+  border-radius: 32px;
+  background: #fff2bd;
   color: #38362e;
   font-family: var(--font-body, "DM Sans", sans-serif);
   font-size: 16px;
@@ -344,7 +354,17 @@
   text-align: center;
 }
 
-.signed-private-test p { width: 100%; margin: 0; }
+.signed-private-test h2 {
+  margin: 0;
+  color: #151411;
+  font-family: var(--font-heading, "Figtree", sans-serif);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -0.02em;
+}
+
+.signed-private-test p { width: min(100%, 576px); margin: 0; }
 .signed-private-test__actions { display: flex; align-items: center; gap: 18px; }
 
 .signed-private-test__join,
@@ -387,6 +407,8 @@
   line-height: 20px;
   text-align: left;
 }
+
+.signed-action-status:empty { display: none; }
 
 .signed-status {
   width: min(100%, 560px);
@@ -440,13 +462,13 @@
   }
 
   .signed-referrals {
-    width: 100%;
+    width: min(100%, 348px);
     margin-top: 21px;
-    align-items: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
-  .signed-referrals__count,
-  .signed-referrals__actions { justify-content: center; }
+  .signed-referrals__actions { justify-content: flex-start; }
 
   .signed-referral-button--share { min-width: 0; }
   .signed-referral-button__desktop-label { display: none; }
@@ -474,8 +496,14 @@
 
   .signed-private-test {
     grid-column: 1;
-    padding-top: 0;
+    width: 100%;
+    min-height: 0;
+    margin-top: 24px;
+    padding: 40px 20px;
+    border-radius: 24px;
   }
+
+  .signed-private-test h2 { font-size: 28px; line-height: 36px; }
 }
 
 @media (max-width: 390px) {
