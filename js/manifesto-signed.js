@@ -96,6 +96,7 @@
       document.fonts.ready.then(fitCardLabels);
     }
     document.title = signer.username + " signed the Luzora Manifesto";
+    if (shareButton) shareButton.setAttribute("data-share-text", getReferralShareText());
     loading.hidden = true;
     errorState.hidden = true;
     content.hidden = false;
@@ -245,6 +246,7 @@
     if (cardExportPromise) return cardExportPromise;
     cardExportPromise = createCardBlob().then(function (blob) {
       cachedCardBlob = blob;
+      if (shareButton) shareButton.disabled = false;
       if (shareCardButton) shareCardButton.disabled = false;
       if (downloadCardButton) {
         cardDownloadUrl = URL.createObjectURL(blob);
@@ -314,7 +316,39 @@
   }
 
   function getReferralShareText() {
-    return "Join me in signing the Luzora Manifesto and take your first step toward consistency.";
+    if (!signer) return "";
+    return [
+      "I signed the @luzorahq manifesto and got my Hive access card #" + signer.signerNumber + ".",
+      "",
+      "I, " + signer.username + " promise to be consistent and #showup.",
+      "",
+      "Get in early.",
+      "",
+      signer.referralUrl
+    ].join("\n");
+  }
+
+  function copyText(value) {
+    function copyWithTextarea() {
+      return new Promise(function (resolve, reject) {
+        var textarea = document.createElement("textarea");
+        textarea.value = value;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        textarea.setAttribute("readonly", "");
+        document.body.appendChild(textarea);
+        textarea.select();
+        var copied = false;
+        try { copied = document.execCommand("copy"); } catch (error) {}
+        textarea.remove();
+        if (copied) resolve();
+        else reject(new Error("copy_failed"));
+      });
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(value).catch(copyWithTextarea);
+    }
+    return copyWithTextarea();
   }
 
   async function copyReferralLink(successMessage) {
@@ -335,19 +369,36 @@
     if (!signer) return;
     shareButton.disabled = true;
     try {
-      if (!navigator.share) throw new Error("share_unavailable");
-      await navigator.share({
+      var blob = cachedCardBlob || await prepareCardExport();
+      var file = new File([blob], getCardFileName(), { type: "image/png" });
+      var shareData = {
+        files: [file],
         title: "Sign the Luzora Manifesto",
-        text: getReferralShareText(),
-        url: signer.referralUrl
-      });
-      setStatus("Referral link shared.");
+        text: getReferralShareText()
+      };
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share(shareData);
+        setStatus("Share message and Hive card sent.");
+      } else if (navigator.share) {
+        await navigator.share({ title: shareData.title, text: shareData.text });
+        setStatus("Share message sent. Download the card if you want to attach it separately.");
+      } else {
+        await copyText(shareData.text);
+        downloadBlob(blob);
+        setStatus("The share message was copied and your Hive card was downloaded.");
+      }
     } catch (error) {
       if (error && error.name === "AbortError") {
         setStatus("");
         return;
       }
-      await copyReferralLink("Sharing is unavailable here, so the link was copied.");
+      try {
+        await copyText(getReferralShareText());
+        setStatus("Sharing is unavailable here, so the full message was copied.");
+      } catch (copyError) {
+        setStatus("The share message could not be opened. Please try again.");
+      }
     } finally {
       shareButton.disabled = false;
     }
