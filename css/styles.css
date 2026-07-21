@@ -1597,14 +1597,44 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #F3F3F1;
+  background: transparent;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.18s ease;
 }
 
-.faq__copy:hover { background: #E8E7E2; }
+.faq__copy:hover,
+.faq__copy:focus-visible {
+  background: #F3F3F1;
+}
+
+.faq__copy:focus-visible {
+  outline: 2px solid #706c5c;
+  outline-offset: 2px;
+}
+
+.email-link-with-copy {
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  vertical-align: middle;
+}
+
+.email-copy-button {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  color: #555245;
+}
+
+.email-copy-button .faq__copied {
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+}
 
 .faq__copied {
   position: absolute;

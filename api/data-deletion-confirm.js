@@ -97,8 +97,8 @@ async function callResend(path, options) {
 }
 
 async function notifyLuzora(request) {
-  var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
-  var notifyTo = process.env.DATA_DELETION_NOTIFY_TO || "hello@luzora.app";
+  var from = "Luzora <hello@luzora.app>";
+  var notifyTo = "hello@luzora.app";
   var scopeLabel = request.scope === "account" ? "Account and data" : "Task data";
   var safeEmail = escapeHtml(request.email);
   var safeScope = escapeHtml(scopeLabel);
@@ -130,8 +130,8 @@ async function notifyLuzora(request) {
 }
 
 async function sendUserConfirmation(request) {
-  var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
-  var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
+  var from = "Luzora <hello@luzora.app>";
+  var replyTo = "hello@luzora.app";
   var branded = luzoraEmail({
     preheader: "Your Luzora deletion request is confirmed.",
     heading: "Your request is confirmed",

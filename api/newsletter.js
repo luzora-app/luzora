@@ -194,8 +194,8 @@ async function saveToSupabase(payload) {
 async function sendWelcomeEmail(email) {
   if (process.env.RESEND_SEND_WELCOME !== "true") return null;
 
-  var from = process.env.RESEND_FROM || "Luzora <hello@luzora.app>";
-  var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
+  var from = "Luzora <hello@luzora.app>";
+  var replyTo = "hello@luzora.app";
 
   var branded = luzoraEmail({
     preheader: "You're on the Luzora list.",

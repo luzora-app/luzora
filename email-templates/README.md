@@ -33,8 +33,6 @@ records the Resend email ID on the signature row.
 Required Vercel environment variables:
 
 - `RESEND_API_KEY`
-- `RESEND_FROM`, for example `Luzora <hello@luzora.app>`
-- `RESEND_REPLY_TO`, for example `hello@luzora.app`
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`

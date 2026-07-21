@@ -108,7 +108,7 @@ function luzoraEmail(options) {
     + escapeHtml(footerNote) + '<br>'
     + '<a href="https://www.luzora.app" target="_blank" rel="noopener noreferrer" style="color:#38362E;text-decoration:underline;">luzora.app</a>'
     + '&nbsp;&nbsp;'
-    + '<a href="mailto:support@luzora.app" style="color:#38362E;text-decoration:underline;">support@luzora.app</a>'
+    + '<a href="mailto:hello@luzora.app" style="color:#38362E;text-decoration:underline;">hello@luzora.app</a>'
     + "</td></tr></table>"
     + "</td></tr>"
     + "</table></td></tr></table></body></html>";
@@ -122,7 +122,7 @@ function luzoraEmail(options) {
   textParts.push("For the website/tasks you keep coming back to");
   textParts.push(footerNote);
   textParts.push("luzora.app");
-  textParts.push("support@luzora.app");
+  textParts.push("hello@luzora.app");
 
   return { html: html, text: textParts.join("\n\n") };
 }

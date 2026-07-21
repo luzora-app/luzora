@@ -143,32 +143,74 @@
   }
 
   function initCopy() {
-    var buttons = document.querySelectorAll(".faq__copy");
+    var buttons = document.querySelectorAll("[data-copy]");
     buttons.forEach(function (btn) {
       btn.addEventListener("click", function () {
         var text = btn.getAttribute("data-copy") || "";
+        var defaultLabel = btn.getAttribute("aria-label") || "Copy email address";
 
         function flash() {
           btn.classList.add("copied");
+          btn.setAttribute("aria-label", "Copied " + text);
           setTimeout(function () {
             btn.classList.remove("copied");
-          }, 1600);
+            btn.setAttribute("aria-label", defaultLabel);
+          }, 3000);
         }
 
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(flash, flash);
-        } else {
+        function copyWithTextarea() {
           var ta = document.createElement("textarea");
           ta.value = text;
           ta.style.position = "fixed";
+          ta.style.left = "-9999px";
           ta.style.opacity = "0";
+          ta.setAttribute("readonly", "");
           document.body.appendChild(ta);
           ta.select();
           try { document.execCommand("copy"); } catch (e) {}
           document.body.removeChild(ta);
           flash();
         }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(flash, copyWithTextarea);
+        } else {
+          copyWithTextarea();
+        }
       });
+    });
+  }
+
+  function initEmailCopyFallbacks() {
+    var mailLinks = document.querySelectorAll('a[href^="mailto:"]');
+    mailLinks.forEach(function (link) {
+      var parent = link.parentElement;
+      var existingCopyButton = link.nextElementSibling;
+      if (!parent || (existingCopyButton && existingCopyButton.matches("button[data-copy]"))) return;
+
+      var mailto = link.getAttribute("href") || "";
+      var email = mailto.slice(7).split("?")[0];
+      try { email = decodeURIComponent(email); } catch (error) {}
+      if (!email) return;
+
+      var wrapper = document.createElement("span");
+      wrapper.className = "email-link-with-copy";
+
+      var button = document.createElement("button");
+      button.className = "faq__copy email-copy-button";
+      button.type = "button";
+      button.setAttribute("data-copy", email);
+      button.setAttribute("aria-label", "Copy " + email);
+      button.innerHTML =
+        '<svg viewBox="0 0 18 18" width="18" height="18" aria-hidden="true">' +
+          '<rect x="6.75" y="6.75" width="9" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.125"/>' +
+          '<path d="M11.25 6.75V4.5a2 2 0 0 0-2-2H4.5a2 2 0 0 0-2 2v4.75a2 2 0 0 0 2 2h2.25" fill="none" stroke="currentColor" stroke-width="1.125"/>' +
+        '</svg>' +
+        '<span class="faq__copied" role="status" aria-live="polite">Copied!</span>';
+
+      parent.insertBefore(wrapper, link);
+      wrapper.appendChild(link);
+      wrapper.appendChild(button);
     });
   }
 
@@ -956,6 +998,7 @@
     initWordReveal();
     initScrollReveal();
     initFaq();
+    initEmailCopyFallbacks();
     initCopy();
     initNewsletter();
     initNav();

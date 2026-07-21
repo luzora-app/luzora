@@ -195,8 +195,8 @@ async function sendConfirmationEmail(email, signature) {
   var apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("RESEND_API_KEY is not configured.");
 
-  var from = process.env.RESEND_MANIFESTO_FROM || "Luzora <notifications@luzora.app>";
-  var replyTo = process.env.RESEND_REPLY_TO || "hello@luzora.app";
+  var from = "Luzora <hello@luzora.app>";
+  var replyTo = "hello@luzora.app";
   var branded = manifestoSignedEmail({
     username: signature.username,
     signerNumber: signature.signer_number,
