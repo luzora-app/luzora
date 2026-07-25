@@ -5,7 +5,7 @@
   var SUPABASE_URL = "https://wtunedbjhpxnmlsvssiw.supabase.co";
   var SUPABASE_ANON_KEY = "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  var MANIFESTO_URL = "https://luzora.app/manifesto/";
+  var MANIFESTO_URL = "https://www.luzora.app/manifesto/";
   var CARD_DESIGN_WIDTH = 366;
   var CARD_DESIGN_HEIGHT = 460;
   var CARD_NAME_MAX_WIDTH = 261.31;
@@ -85,7 +85,7 @@
       username: String(data.username || "LuzoraBee"),
       signerNumber: formatSignerNumber(data.signer_number || "1"),
       shareUrl: data.share_url || window.location.href.split("?")[0],
-      referralUrl: "https://luzora.app/manifesto?ref=" + encodeURIComponent(String(data.username || "LuzoraBee").toLowerCase())
+      referralUrl: "https://www.luzora.app/manifesto?ref=" + encodeURIComponent(String(data.username || "LuzoraBee").toLowerCase())
     };
 
     nameElement.textContent = signer.username;
@@ -131,7 +131,7 @@
       render({
         username: params.get("name") || "VMorgan",
         signer_number: params.get("number") || "1232",
-        share_url: "https://luzora.app/manifesto/s/00000000-0000-4000-8000-000000000000"
+        share_url: "https://www.luzora.app/manifesto/s/00000000-0000-4000-8000-000000000000"
       });
       renderReferralCount(params.get("referrals") || "0");
       return;

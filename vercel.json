@@ -30,7 +30,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://luzora.app"
+          "value": "https://www.luzora.app"
         }
       ]
     }

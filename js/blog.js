@@ -418,8 +418,8 @@
 
   function updateArticleMetadata(article) {
     var description = article.metaDescription || article.dek;
-    var canonicalUrl = "https://luzora.app" + getArticleUrl(article);
-    var imageUrl = new URL(article.cardImage || CARD_IMAGE, "https://luzora.app").href;
+    var canonicalUrl = "https://www.luzora.app" + getArticleUrl(article);
+    var imageUrl = new URL(article.cardImage || CARD_IMAGE, "https://www.luzora.app").href;
 
     function setMeta(selector, value) {
       var meta = document.querySelector(selector);

@@ -6,7 +6,7 @@ const SUPABASE_ANON_KEY =
 const RESEND_API_URL = "https://api.resend.com";
 const USER_AGENT = "luzora-website/1.0";
 const MANIFESTO_EMAIL_VERSION = "v3";
-const MANIFESTO_CARD_BASE_URL = "https://luzora.app/manifesto/s/";
+const MANIFESTO_CARD_BASE_URL = "https://www.luzora.app/manifesto/s/";
 const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -398,7 +398,7 @@ module.exports = async function handler(req, res) {
       ...signature,
       referral_code: String(signature.username || name).toLowerCase(),
       referral_url:
-        "https://luzora.app/manifesto?ref=" +
+        "https://www.luzora.app/manifesto?ref=" +
         encodeURIComponent(String(signature.username || name).toLowerCase()),
       referral_attribution: referralAttribution,
       confirmation_email_sent: Boolean(emailId),

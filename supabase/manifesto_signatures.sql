@@ -80,7 +80,7 @@ begin
     new.public_id := gen_random_uuid();
   end if;
 
-  new.share_url := 'https://luzora.app/manifesto/s/' || new.public_id::text;
+  new.share_url := 'https://www.luzora.app/manifesto/s/' || new.public_id::text;
   return new;
 end;
 $$;
@@ -93,9 +93,9 @@ for each row
 execute function public.set_manifesto_share_url();
 
 update public.manifesto_signatures
-set share_url = 'https://luzora.app/manifesto/s/' || public_id::text
+set share_url = 'https://www.luzora.app/manifesto/s/' || public_id::text
 where share_url is null
-   or share_url <> 'https://luzora.app/manifesto/s/' || public_id::text;
+   or share_url <> 'https://www.luzora.app/manifesto/s/' || public_id::text;
 
 alter table public.manifesto_signatures
   alter column share_url set not null;

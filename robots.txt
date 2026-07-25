@@ -1,15 +1,8 @@
-# Luzora: https://luzora.app
+# Luzora: https://www.luzora.app
 User-agent: *
 Allow: /
 
-# Utility and transactional pages (also marked noindex in HTML)
-Disallow: /reset-password
-Disallow: /link-expired
-Disallow: /email-verified
-Disallow: /uninstalled
-Disallow: /delete-confirmed
-Disallow: /data-deletion
-Disallow: /r/
+# Let crawlers read page-level noindex directives on utility pages.
 Disallow: /api/
 
-Sitemap: https://luzora.app/sitemap.xml
+Sitemap: https://www.luzora.app/sitemap.xml
