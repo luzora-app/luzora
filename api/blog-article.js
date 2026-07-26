@@ -2,6 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "hive-report-01-luzora-goes-public": {
+    title: "The Hive Report #01: Luzora Goes Public, Gets Smarter, and Learns From You",
+    description: "The first Hive Report covers Luzora's public launch, v1.0.4, Smart Return, community feedback, fixes, and the people helping shape the product.",
+    image: "https://www.luzora.app/assets/brand-kit/social/hive-report-01.png",
+    datePublished: "2026-07-26T18:00:00+01:00",
+    dateModified: "2026-07-26T18:00:00+01:00"
+  },
   "referral-system-is-live-invite-your-hive": {
     title: "Referral System Is Live: Invite Your Hive",
     description: "The Luzora referral system is live. Sign the Manifesto, share your unique referral link, and invite your community to join the Hive.",

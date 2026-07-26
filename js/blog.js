@@ -3,6 +3,253 @@
 
   var ARTICLES = [
     {
+      slug: "hive-report-01-luzora-goes-public",
+      title: "The Hive Report #01: Luzora Goes Public, Gets Smarter, and Learns From You",
+      dek: "Luzora stepped into the public eye, shipped v1.0.4, introduced Smart Return, and learned what real users need from the browser.",
+      metaDescription: "The first Hive Report covers Luzora's public launch, v1.0.4, Smart Return, community feedback, fixes, and the people helping shape the product.",
+      category: "Announcements",
+      date: "July 26, 2026",
+      readTime: "12 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/brand-kit/social/hive-report-01.png",
+      cardImageAlt: "Worker Bee surrounded by Luzora product updates, Smart Return, referral, and task editing cards",
+      lead: [
+        "Hello, you. Welcome to our first Hive Report. 🐝",
+        "Every week, we will share what happened inside the Luzora hive. You will see what we shipped, what we fixed, what we learned, and how your feedback is helping us build a better product.",
+        "This was a big week.",
+        "Luzora stepped into the public eye, launched version 1.0.4, opened applications for private testing, and introduced the Manifesto to the world.",
+        "We also spoke with people across trading, education, design, development, and Web3. Those conversations helped us understand one thing even more clearly:",
+        "People constantly find important things online, but returning to them and following through is still harder than it should be.",
+        "That is the problem Luzora is here to solve.",
+        "If you signed the Manifesto, shared a post, replied to us, tested the extension, or told us about your workflow, you helped shape this week.",
+        "Thank you. Now, let us show you what the hive has been working on."
+      ],
+      sections: [
+        {
+          id: "luzora-stepped-into-the-public-eye",
+          title: "Luzora stepped into the public eye",
+          body: [
+            "This week, we officially introduced Luzora and invited people to join us early.",
+            "We launched the Luzora Manifesto, opened beta access applications, and started welcoming our first private testers.",
+            "Every Manifesto signer now receives a unique referral link, a personalized public page, and a downloadable Manifesto card they can proudly share."
+          ],
+          listType: "ul",
+          listIntro: "We also added:",
+          list: [
+            "Live referral counts",
+            "Referral attribution",
+            "Share and copy actions",
+            "Social verification activities",
+            "Personalized Manifesto cards",
+            "Better referral messaging",
+            "A smoother welcome experience",
+            "New mascot, product, and promotional assets"
+          ],
+          afterList: [
+            "We also published “Referral System Is Live: Invite Your Hive” to explain how referrals work and how early supporters can help the community grow.",
+            "The website received several improvements too. We updated metadata, canonical URLs, structured data, keyboard shortcut information, and search visibility.",
+            "The hive now has a stronger front door."
+          ]
+        },
+        {
+          id: "luzora-v1-0-4-arrived",
+          title: "Luzora v1.0.4 arrived",
+          body: [
+            "While Luzora was making noise in public, the extension was becoming much smarter behind the scenes.",
+            "Version 1.0.4 shipped to the Web Store with major improvements to task creation, scheduling, reminders, navigation, and reliability.",
+            "Luzora can now understand more natural ways of describing when work should happen."
+          ],
+          listType: "ul",
+          listIntro: "Examples include:",
+          list: [
+            "Every 3 hours",
+            "Monday to Friday at 3 PM",
+            "Remind me 10 minutes before",
+            "10 minutes after completion",
+            "Come back in 30 seconds"
+          ],
+          afterList: [
+            "We added live countdowns for seconds, minutes, and hours. We also introduced multiple reminders for important events and support for schedules based on when a task was last completed.",
+            "Task creation received plenty of love too.",
+            "You can now create multiple tasks more smoothly, edit tasks across an entire project, use faster keyboard controls, and work with cleaner project fields, folders, task chips, and notification messages.",
+            "Luzora also became better at recognising websites, favicons, links, projects, and the real identity of the page you are using."
+          ]
+        },
+        {
+          id: "meet-smart-return",
+          title: "Meet Smart Return",
+          body: [
+            "One of our favourite updates this week started with a conversation.",
+            "During a product review, forex trader Vito showed us how he uses TradingView.",
+            "He might analyse EURUSD, draw his setup, and decide to return in two hours. At the same time, he could be monitoring TRXUSDT and need to return in ten minutes.",
+            "Saving the TradingView URL was not enough. Several charts can appear to share the same address, even when the selected pair, interval, layout, and analysis are different.",
+            "Vito did not simply need to remember that he had a task.",
+            "He needed to return to the exact chart where the task began.",
+            "That insight inspired Smart Return.",
+            "Luzora can now remember important TradingView context, including the selected pair, chart layout, and interval. When the reminder arrives, Luzora brings the user back to the intended analysis.",
+            "We also created a reusable adapter structure so other websites and tools can receive similar contextual support in the future.",
+            "One conversation uncovered an entirely new layer of the product.",
+            "This is exactly why we are involving real people early."
+          ]
+        },
+        {
+          id: "what-we-fixed-on-the-website",
+          title: "What we fixed on the website",
+          body: [
+            "Launching publicly helped us catch places where a technically successful action could still feel broken to the person using it.",
+            "The Manifesto flow was our biggest example.",
+            "Sometimes a signature was saved successfully, but the public card was not ready immediately. The database said everything worked. The person waiting for their card saw something very different.",
+            "We rebuilt the experience to recover missing card information, keep checking while the card is being prepared, and only complete the journey when the result is ready to view."
+          ],
+          listType: "ul",
+          listIntro: "We also:",
+          list: [
+            "Restored Manifesto card sharing and downloads",
+            "Added better recovery and retry handling",
+            "Improved copy link and copy email support across browsers",
+            "Standardized our contact email as hello@luzora.app",
+            "Improved the signed Manifesto layout",
+            "Clarified referral messaging",
+            "Added correct 404 and noindex handling for missing articles",
+            "Corrected the verified data deletion timeline to no later than 30 days"
+          ],
+          afterList: [
+            "The lesson was simple:",
+            "A database success message is not the same thing as a successful human experience."
+          ]
+        },
+        {
+          id: "what-we-fixed-inside-the-extension",
+          title: "What we fixed inside the extension",
+          body: [
+            "Reminders are only useful when people can trust them, so reliability received serious attention this week."
+          ],
+          listType: "ul",
+          listIntro: "We fixed cases where:",
+          list: [
+            "Deleted tasks continued to send reminders",
+            "Completed tasks still triggered notifications",
+            "Missed recurring reminders fired repeatedly",
+            "Browser sleep caused reminder failures",
+            "Extension restarts interrupted scheduled reminders",
+            "Ambiguous times such as “at 2” selected the wrong future time",
+            "Daily recurrence was assumed incorrectly",
+            "Timed completion history grew when only daily history was needed"
+          ],
+          afterList: [
+            "We also improved cross device notification coordination. The active or most recently active browser can now take responsibility for delivering notifications, reducing duplicates across devices.",
+            "Task links and projects became more accurate too.",
+            "We fixed Google Meet being identified only as Google, prevented project links from replacing task specific links, and improved how Luzora recognises page identity.",
+            "Folders also received attention. Hidden content now stays hidden when a folder is collapsed, and editing, renaming, hovering, and focusing feel more reliable.",
+            "Finally, we improved remote synchronization, expired refresh token handling, missing database field recovery, and noisy offline alerts.",
+            "Not every fix is flashy, but these are the improvements that make Luzora feel dependable every day."
+          ]
+        },
+        {
+          id: "context-is-the-final-boss",
+          title: "Context is the final boss",
+          body: [
+            "One of our biggest product lessons this week came from natural language.",
+            "Understanding individual words is not enough.",
+            "Consider this sentence:",
+            "“Every week, Monday to Friday, at 3 PM.”",
+            "“Every week” is not one task. “Monday to Friday” is not another. “At 3 PM” is not a separate reminder.",
+            "Together, they describe one complete schedule.",
+            "Luzora must understand the whole sentence before deciding what is an action, date, time, recurrence, reminder, project, or link.",
+            "That idea became one of our guiding rules this week:",
+            "Context is the final boss.",
+            "The better Luzora understands the full intention, the less work you have to do."
+          ]
+        },
+        {
+          id: "built-from-your-feedback",
+          title: "Built from your feedback",
+          body: [
+            "Smart Return was not the only idea shaped by conversations this week."
+          ],
+          listIntro: "Your feedback also inspired:",
+          listType: "ul",
+          list: [
+            "Better multi device reminders",
+            "Project wide task editing",
+            "Faster keyboard controls",
+            "Appointment workflow ideas",
+            "More contextual support for web applications"
+          ],
+          afterList: [
+            "We are learning that the best feature ideas often begin with someone describing a small frustration from their normal day.",
+            "Our job is to listen carefully, find the real problem underneath it, and build something useful.",
+            "One of those conversations was with TimX, a senior product designer with about nine years of experience.",
+            "After installing Luzora and trying it himself, he told us, “If you need any validation of Luzora importance, take my words as that validation.”",
+            "Luzora exceeded his expectations. He was especially impressed by how naturally it understood his task descriptions, and he told us, “I will pay to use this.”",
+            "His feedback also led to a practical improvement. You can now edit folder names directly from the Tasks page without leaving the workflow."
+          ]
+        },
+        {
+          id: "who-we-spoke-with",
+          title: "Who we spoke with",
+          body: [
+            "This week, we connected with people whose work happens heavily inside the browser.",
+            "Vito is an experienced forex trader. He helped us understand chart monitoring workflows and inspired Smart Return.",
+            "Favour is a teacher and UI/UX designer. She is helping us explore online teaching, education, and design workflows.",
+            "Mowo is a frontend developer. He is giving us insight into how Luzora can support developers working across documentation, deployments, tasks, and browser tools.",
+            "Sanera is an active Web3 community member. She clearly explained how Luzora can help with testnets, governance, research, trading routines, and community events.",
+            "TimX is a senior product designer with about nine years of experience. His first hand experience validated Luzora's importance, highlighted the strength of its natural language understanding, and helped us improve folder editing from the Tasks page.",
+            "They work in different fields, but the problem is familiar.",
+            "They find something important online. They intend to return. Other things demand their attention. The page disappears into browser history, bookmarks, open tabs, or memory.",
+            "Luzora helps them come back and show up."
+          ]
+        },
+        {
+          id: "the-hive-is-getting-noticed",
+          title: "The hive is getting noticed",
+          body: [
+            "Our first public week produced encouraging early results.",
+            "The official beta and Manifesto announcement reached 2.1K views and received 14 replies.",
+            "The founder's introduction to Luzora reached 2.2K views, with 15 likes, 4 reposts, and 6 bookmarks.",
+            "Sanera's independent post about Luzora's value for Web3 users reached 9.2K views, with 41 replies and 44 likes.",
+            "Together, these highlighted posts generated at least:"
+          ],
+          listType: "ul",
+          list: [
+            "13.5K displayed views",
+            "57 replies",
+            "63 likes",
+            "5 reposts",
+            "6 bookmarks"
+          ],
+          afterList: [
+            "The official Luzora X account is now verified too. We ended the week with 63 followers and 29 posts.",
+            "These are early numbers, but they tell us something important.",
+            "The problem resonates.",
+            "People understand what Luzora is trying to solve, and they want to see where it goes."
+          ]
+        },
+        {
+          id: "what-happens-next",
+          title: "What happens next",
+          body: [
+            "This week gave us a stronger product, a growing community, and a clearer direction.",
+            "Now we keep listening.",
+            "We will continue bringing private testers into the hive, improving how Luzora understands tasks, strengthening reminder reliability, and expanding Smart Return to more browser based workflows.",
+            "We will also keep sharing the process with you.",
+            "The wins. The bugs. The lessons. The ideas that came from a single conversation and became something real.",
+            "Luzora is being built to help you return to what matters and follow through.",
+            "One webpage at a time.",
+            "One task at a time.",
+            "One week at a time.",
+            "Thank you for being here this early. The hive is only getting started. 🐝",
+            "[Apply for private testing and join the community](https://www.luzora.app).",
+            "Keep buzzing. Keep showing up."
+          ],
+          cta: {
+            label: "Sign the Luzora Manifesto",
+            href: "/manifesto"
+          }
+        }
+      ]
+    },
+    {
       slug: "referral-system-is-live-invite-your-hive",
       title: "Referral System Is Live: Invite Your Hive",
       dek: "You can now share your unique Luzora referral link, invite others to sign the Manifesto, and watch your Hive grow.",
