@@ -58,7 +58,7 @@
       var result = await confirmRequest(token);
       setCopy(
         result.already_confirmed ? "Data deletion request already confirmed" : "Data deletion request confirmed",
-        "You successfully verified your request, we will work on your request immediately. We are legally required to delete your data within 45 days. Your account still remains so, data created from here on will not be deleted. You'll get an email notification when your data is finally deleted."
+        "Your request has been verified. We aim to complete your deletion request promptly and no later than 30 days after verification. Your account will remain active during this process, and any data you create after submitting this request will not be included. We will email you when the deletion is complete."
       );
       setActions(true);
 
