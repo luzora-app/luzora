@@ -236,7 +236,7 @@
 }
 
 .blog-card__image--custom {
-  padding: 12px;
+  padding: 0;
 }
 
 .blog-card__image img {

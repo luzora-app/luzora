@@ -11,7 +11,7 @@
       date: "July 26, 2026",
       readTime: "12 min read",
       author: "Luzora Team",
-      cardImage: "/assets/brand-kit/social/hive-report-01.png",
+      cardImage: "/assets/brand-kit/social/hive-report-01.png?v=20260726-transparent",
       cardImageAlt: "Worker Bee surrounded by Luzora product updates, Smart Return, referral, and task editing cards",
       lead: [
         "Hello, you. Welcome to our first Hive Report. 🐝",

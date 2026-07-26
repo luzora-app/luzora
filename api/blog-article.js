@@ -5,7 +5,7 @@ const ARTICLES = {
   "hive-report-01-luzora-goes-public": {
     title: "The Hive Report #01: Luzora Goes Public, Gets Smarter, and Learns From You",
     description: "The first Hive Report covers Luzora's public launch, v1.0.4, Smart Return, community feedback, fixes, and the people helping shape the product.",
-    image: "https://www.luzora.app/assets/brand-kit/social/hive-report-01.png",
+    image: "https://www.luzora.app/assets/brand-kit/social/hive-report-01.png?v=20260726-transparent",
     datePublished: "2026-07-26T18:00:00+01:00",
     dateModified: "2026-07-26T18:00:00+01:00"
   },
