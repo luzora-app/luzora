@@ -113,6 +113,47 @@
 
   setupManifestoScrollTilt();
 
+  function setupManifestoActionDock() {
+    var stage = document.querySelector(".m-stage");
+    var slot = document.querySelector("[data-manifesto-action-slot]");
+    var action = document.querySelector("[data-manifesto-action]");
+    if (!stage || !slot || !action) return;
+
+    var frame = null;
+
+    function updateActionPosition() {
+      frame = null;
+
+      var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      var stageRect = stage.getBoundingClientRect();
+      var slotRect = slot.getBoundingClientRect();
+      var stageIsVisible = stageRect.top < viewportHeight && stageRect.bottom > 0;
+      var dockHeight = Math.min(slotRect.height, 140);
+      var slotIsBelowDockPoint = slotRect.top > viewportHeight - dockHeight;
+      var shouldFloat = stageIsVisible && slotIsBelowDockPoint;
+
+      if (shouldFloat) {
+        if (action.parentNode !== document.body) document.body.appendChild(action);
+        action.classList.add("is-floating");
+        return;
+      }
+
+      action.classList.remove("is-floating");
+      if (action.parentNode !== slot) slot.appendChild(action);
+    }
+
+    function scheduleActionPosition() {
+      if (frame !== null) return;
+      frame = window.requestAnimationFrame(updateActionPosition);
+    }
+
+    window.addEventListener("scroll", scheduleActionPosition, { passive: true });
+    window.addEventListener("resize", scheduleActionPosition);
+    updateActionPosition();
+  }
+
+  setupManifestoActionDock();
+
   window.requestAnimationFrame(function () {
     document.querySelectorAll("[data-anim]").forEach(function (element) {
       element.classList.add("is-in");

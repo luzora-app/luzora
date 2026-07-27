@@ -22,7 +22,7 @@
   <meta name="twitter:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css?v=20260721-email-copy" />
-  <link rel="stylesheet" href="/css/manifesto.css?v=20260727-short-manifesto" />
+  <link rel="stylesheet" href="/css/manifesto.css?v=20260727-manifesto-action" />
 </head>
 <body>
   <div data-site-nav></div>
@@ -62,7 +62,7 @@
         <div class="m-vows">
           <p class="m-vow">I will start small.</p>
           <p class="m-vow">I will return tomorrow.</p>
-          <p class="m-vow">If I miss a day,<br />I will return again.</p>
+          <p class="m-vow">If I miss a day, I will return again.</p>
           <p class="m-vow">I will turn my intentions into actions.</p>
           <p class="m-vow">I will become someone who follows through.</p>
           <p class="m-vow m-vow--promise">I promise to be consistent.</p>
@@ -96,12 +96,14 @@
 
     </article>
 
-    <div class="m-join" data-anim style="--d:120ms">
-      <p class="m-join-text">To join the beta access ...</p>
-      <button class="m-sign-btn" type="button" data-sign-open>
-        <img src="/assets/icons/fi_feather-Black.svg" width="18" height="18" alt="" aria-hidden="true" />
-        <span>Sign the manifesto</span>
-      </button>
+    <div class="m-join-slot" data-manifesto-action-slot>
+      <div class="m-join" data-manifesto-action>
+        <p class="m-join-text">To join the Beta Access...</p>
+        <button class="m-sign-btn" type="button" data-sign-open>
+          <img src="/assets/icons/fi_feather-Black.svg" width="18" height="18" alt="" aria-hidden="true" />
+          <span>Proceed to sign the manifesto</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -266,6 +268,6 @@
   </footer>
 
   <script src="/js/main.js?v=20260721-email-copy"></script>
-  <script src="/js/manifesto.js?v=20260727-short-manifesto"></script>
+  <script src="/js/manifesto.js?v=20260727-manifesto-action"></script>
 </body>
 </html>
