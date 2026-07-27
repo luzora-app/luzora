@@ -142,32 +142,43 @@
 }
 .m-feather { width: 24px; height: 24px; margin-top: 4px; }
 
-.m-list {
+.m-vows {
   margin: 0 auto;
-  max-width: 620px;
-  padding-left: 30px;
-  text-align: left;
+  max-width: 640px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  gap: 18px;
   color: var(--color-heading, #151411);
   font-family: var(--font-body);
-  font-size: clamp(1.02rem, 1.65vw, 1.28rem);
-  line-height: 1.55;
+  font-size: clamp(1.08rem, 1.8vw, 1.36rem);
+  line-height: 1.5;
   letter-spacing: -0.01em;
 }
-.m-list li { padding-left: 6px; }
-.m-list li::marker { font-weight: 600; color: #151411; }
 
-.m-paper-sign {
-  margin: 34px auto 0;
-  max-width: 420px;
-  padding-top: 22px;
+.m-vow {
+  margin: 0;
+  max-width: 100%;
+}
+
+.m-vow--promise {
+  margin-top: 18px;
+  padding-top: 24px;
+  width: min(100%, 430px);
   border-top: 1px solid rgba(122, 100, 12, .24);
-  font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-size: clamp(1.18rem, 2vw, 1.48rem);
   color: #151411;
+}
+
+.m-vow-signature {
+  display: block;
+  width: min(100%, 390px);
+  height: auto;
+  margin: -26px auto -42px;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* ---- join / sign button ---- */
@@ -413,11 +424,17 @@
   opacity: 1;
   transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translate3d(0, var(--lift), 0);
 }
-.m-paper.is-in .m-list li {
+.m-paper.is-in .m-vow {
   animation: m-rise 0.5s ease both;
   animation-delay: calc(280ms + var(--i, 0) * 55ms);
 }
+
+.m-paper.is-in .m-vow-signature {
+  animation: m-signature-in 0.7s 650ms ease both;
+}
+
 @keyframes m-rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes m-signature-in { from { opacity: 0; transform: translateY(8px) rotate(-1deg); } to { opacity: 1; transform: none; } }
 
 .m-progress {
   display: inline-flex;
@@ -747,13 +764,20 @@
   .m-scroll-kicker { font-size: 11px; letter-spacing: .1em; }
   .m-paper-title { margin-bottom: 24px; }
   .m-feather { width: 20px; height: 20px; }
-  .m-list {
-    gap: 12px;
-    padding-left: 24px;
+  .m-vows {
+    gap: 14px;
     font-size: 1rem;
-    line-height: 1.55;
+    line-height: 1.5;
   }
-  .m-paper-sign { margin-top: 28px; }
+  .m-vow--promise {
+    margin-top: 14px;
+    padding-top: 20px;
+  }
+  .m-vow-signature {
+    width: min(100%, 320px);
+    margin-top: -22px;
+    margin-bottom: -36px;
+  }
   .m-note { padding: 48px 16px; }
   .m-follow { flex-direction: column; align-items: stretch; gap: 10px; }
   .m-follow-btn { width: 100%; text-align: center; }

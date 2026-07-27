@@ -60,7 +60,7 @@
 
   var manifestoReferrerCode = captureManifestoReferrer();
 
-  document.querySelectorAll(".m-list li").forEach(function (item, index) {
+  document.querySelectorAll(".m-vow").forEach(function (item, index) {
     item.style.setProperty("--i", index);
   });
 
