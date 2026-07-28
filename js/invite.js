@@ -25,10 +25,12 @@
   var fromEl = document.getElementById("invite-from");
   var codeEl = document.getElementById("invite-code");
   var copyBtn = document.getElementById("invite-copy");
+  var manifestoLink = document.getElementById("invite-manifesto-link");
 
   if (code && code.length >= 3) {
     if (codeEl) codeEl.textContent = code;
     if (fromEl) fromEl.textContent = "@" + code;
+    if (manifestoLink) manifestoLink.href = "/manifesto?ref=" + encodeURIComponent(code);
     document.title = "@" + code + " invited you to Luzora";
   } else {
     // No valid code: show a generic invite and hide the code card.
