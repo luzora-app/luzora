@@ -85,39 +85,34 @@
   color: var(--color-muted, #706c5c);
 }
 
-.invite-steps {
-  list-style: none;
+.invite-private-test {
   margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  gap: 8px;
   width: 100%;
   max-width: 440px;
-  text-align: left;
+  text-align: center;
 }
 
-.invite-steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.invite-private-test__title {
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color-ink, #151411);
+}
+
+.invite-private-test__text {
+  margin: 0;
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 24px;
   color: var(--color-body, #38362e);
 }
 
-.invite-step__num {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  background: var(--color-yellow, #ffd52b);
-  border-radius: 50%;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--color-ink, #151411);
+.invite-manifesto-action {
+  margin-top: 4px;
 }
 
 /* Generic state when no valid code is present */

@@ -23,7 +23,7 @@
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css?v=20260721-email-copy" />
   <link rel="stylesheet" href="/css/status.css" />
-  <link rel="stylesheet" href="/css/invite.css" />
+  <link rel="stylesheet" href="/css/invite.css?v=20260728-private-test" />
 </head>
 <body>
   <!-- ============ NAVBAR ============ -->
@@ -40,7 +40,7 @@
       </div>
 
       <div class="invite-card" id="invite-card">
-        <span class="invite-card__label">Your invite code</span>
+        <span class="invite-card__label">Invite code</span>
         <div class="invite-code-row">
           <code class="invite-code" id="invite-code">luzora</code>
           <button class="invite-copy" id="invite-copy" type="button" aria-label="Copy invite code">Copy</button>
@@ -48,13 +48,18 @@
         <p class="invite-card__hint">Enter this at sign-up so your friend gets the credit.</p>
       </div>
 
-      <ol class="invite-steps">
-        <li><span class="invite-step__num">1</span><span>Install the Luzora extension for your browser.</span></li>
-        <li><span class="invite-step__num">2</span><span>Open it and create your free account.</span></li>
-        <li><span class="invite-step__num">3</span><span>Paste the code above in the <strong>Referral code</strong> field at sign-up.</span></li>
-      </ol>
+      <div class="invite-private-test">
+        <strong class="invite-private-test__title">Luzora is currently in Private Test.</strong>
+        <p class="invite-private-test__text">To be informed when Beta Access goes live, sign the Manifesto and reserve your Bee Name.</p>
+      </div>
 
-      <a class="status-btn" href="/download">Install Luzora - it's free</a>
+      <div class="hero__primary-action invite-manifesto-action">
+        <span class="hero__cta-badge">For Beta Access</span>
+        <a class="hero__cta hero__cta--sign" href="/manifesto">
+          <img class="hero__cta-icon" src="/assets/icons/fi_feather-Black.svg" width="24" height="24" alt="" aria-hidden="true" />
+          <span class="hero__cta-label">Sign the manifesto</span>
+        </a>
+      </div>
     </div>
   </section>
 
