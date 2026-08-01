@@ -357,6 +357,19 @@ img {
   max-width: 580px;
 }
 
+.hero__supporting-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero__supporting-line {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
 /* CTA button */
 .hero__cta {
   display: inline-flex;
