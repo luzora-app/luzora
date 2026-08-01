@@ -3,6 +3,189 @@
 
   var ARTICLES = [
     {
+      slug: "luzora-v1-0-5-return-to-the-right-page",
+      title: "Luzora v1.0.5: Return to the Right Page at the Right Time",
+      dek: "Smart Return, Auto Return, richer reminders, live countdowns, and better natural-language scheduling make browser tasks far more precise.",
+      metaDescription: "See what is new in Luzora v1.0.5, including Smart Return, Auto Return, live countdowns, multiple reminders, improved scheduling, and more reliable browser tasks.",
+      category: "Product update",
+      date: "August 1, 2026",
+      readTime: "10 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/brand-kit/social/luzora-v1-0-5-product-update.png",
+      cardImageAlt: "A browser task, reminder bell, calendar, countdown, and return arrow representing the Luzora v1.0.5 product update",
+      lead: [
+        "Luzora v1.0.5 is built around one question: when the moment arrives, can Luzora return you to exactly what matters without making you retrace your steps?",
+        "With this release, the answer gets much closer to yes.",
+        "Version 1.0.5 was submitted to the Chrome Web Store on Tuesday, July 28. It introduces Smart Return and Auto Return, expands the ways Luzora understands schedules and reminders, and makes creating and managing browser tasks feel more focused.",
+        "The theme of this release is simple: return to the right task, page, and context at the right time."
+      ],
+      sections: [
+        {
+          id: "smart-return-remembers-the-work",
+          title: "Smart Return remembers the work behind the URL",
+          body: [
+            "A URL does not always tell the whole story. Some web tools use one address for many internal views, which means reopening the saved link may not restore what you were actually doing.",
+            "TradingView made this problem clear. A trader may analyse XAUUSD, change the interval, select a chart layout, and plan to return later. Saving only the generic TradingView address can bring them back to the platform while losing the chart context that made the task useful.",
+            "Smart Return solves this by letting Luzora understand provider-specific page context. TradingView is the first completed adapter."
+          ],
+          listType: "ul",
+          listIntro: "Luzora can now remember:",
+          list: [
+            "The selected market or trading pair",
+            "The chart interval or timeframe",
+            "The active chart layout",
+            "The captured page and resource label"
+          ],
+          afterList: [
+            "When the task opens, Luzora reconstructs the intended destination instead of returning to a generic chart.",
+            "We also built Smart Return as a provider-neutral adapter system. TradingView is the beginning, not a one-off. Other browser tools can receive their own context adapters as we learn what each workflow needs."
+          ]
+        },
+        {
+          id: "auto-return-brings-the-page-back",
+          title: "Auto Return brings the page back when it is time",
+          body: [
+            "Auto Return is an optional preference for timed tasks with a destination.",
+            "Ten seconds before an eligible task is due, Luzora displays a compact countdown notch over the current webpage. It tells you where you are returning and gives you a moment to decide what should happen next."
+          ],
+          listType: "ul",
+          listIntro: "You stay in control throughout the countdown:",
+          list: [
+            "Close notch hides the visual while preserving the scheduled return",
+            "Cancel stops the automatic redirect without cancelling the normal reminder",
+            "Go now opens the task immediately",
+            "Letting the countdown reach zero returns you automatically and keeps the ordinary reminder"
+          ],
+          afterList: [
+            "Auto Return checks for an existing matching tab first. If one exists, Luzora focuses it without an unnecessary reload. If the page is not open, Luzora creates a new tab rather than replacing the unrelated page you are using.",
+            "The notch can follow you as you browse during the countdown, and Luzora can bring the browser forward when another desktop application is in focus."
+          ]
+        },
+        {
+          id: "natural-language-understands-the-complete-instruction",
+          title: "Natural language understands more of the complete instruction",
+          body: [
+            "Scheduling is rarely expressed in one perfect format. People say today, tomorrow, at 7, every three hours, Monday to Friday, twice weekly, or remind me three months before. Luzora now uses more of the complete description before deciding which words describe the action, time, recurrence, reminder, destination, or boundary.",
+            "One-time tasks are now the default unless the user clearly asks for recurrence. A time on its own creates one future occurrence, not an accidental daily task. Bare hours without AM or PM resolve to the next reasonable future time."
+          ],
+          listType: "ul",
+          listIntro: "The updated parser also supports:",
+          list: [
+            "Readable Today and Tomorrow date chips",
+            "Weekday lists and ranges such as Monday to Friday",
+            "Boundaries such as till Friday and till Friday next week",
+            "Occurrence counts such as twice weekly",
+            "Every-N schedules across minutes, hours, days, weeks, months, and years",
+            "Fixed interval schedules and schedules that restart after completion",
+            "Common spelling mistakes without altering URLs, email addresses, or handles",
+            "More precise product identities, such as Google Meet instead of generic Google"
+          ],
+          afterList: [
+            "Preview chips now show only the context Luzora captured. Hidden defaults stay hidden until the user actually states them."
+          ]
+        },
+        {
+          id: "reminders-from-seconds-to-years",
+          title: "Reminders now stretch from seconds to years",
+          body: [
+            "Some tasks need a single alert. Others need a sequence of reminders before one important event.",
+            "A passport renewal five years from now can carry reminders three months, two months, and one month before the due date. A meeting can remind you five minutes beforehand and again when it begins."
+          ],
+          listType: "ul",
+          listIntro: "Version 1.0.5 adds:",
+          list: [
+            "Multiple reminders on one task",
+            "Offsets in seconds, minutes, hours, days, months, and years",
+            "Calendar-aware month calculations for distant events",
+            "Years on distant date chips",
+            "Compact purple reminder chips with full details in a tooltip",
+            "A separate alert at the actual task time"
+          ],
+          afterList: [
+            "Relative phrases such as in 10 seconds or in 36 hours now create countdown tasks instead of misleading clock times. The countdown starts when the task is saved, displays only the units it needs, and changes to Due at zero.",
+            "Recurring intervals cannot run more frequently than every 30 seconds, but one-time countdowns can still be shorter. If several interval occurrences are missed, Luzora surfaces only the most recent one."
+          ]
+        },
+        {
+          id: "projects-keep-related-work-together",
+          title: "Projects keep related work and destinations together",
+          body: [
+            "Projects now behave more like useful destination containers and less like simple labels.",
+            "Recognised websites receive the correct project name and favicon. A project website becomes the default destination for its tasks, while a task-specific link can override that destination for only the task that needs it.",
+            "Add Current website captures the page URL, name, favicon, and available context. Using it on a subtask does not overwrite the shared project."
+          ],
+          afterList: [
+            "Editing one task can now restore the active group of related project tasks. You can add, edit, or remove them together while natural-language capture continues to work. The current task stays prominent, sibling drafts dim, and inactive chips collapse into a cleaner single row."
+          ]
+        },
+        {
+          id: "faster-navigation-and-keyboard-workflows",
+          title: "Faster navigation and keyboard workflows",
+          body: [
+            "Luzora should feel quick enough to use without breaking your train of thought. This release brings smoother day navigation, better folder controls, and faster creation and editing shortcuts."
+          ],
+          listType: "ul",
+          listIntro: "You can now:",
+          list: [
+            "Swipe, drag, or use the arrow buttons to move between days",
+            "Press Shift + Enter to add another task draft",
+            "Press Shift + Delete to remove the focused draft",
+            "Press Ctrl/Cmd + Enter to save a new or edited task",
+            "Press Esc on Add Task to return Home without closing Luzora",
+            "Rename a folder with immediate focus and selected text"
+          ],
+          afterList: [
+            "Luzora Bolt can also be triggered on any eligible page, even if that website is already connected to another task. It captures safe page context to prepare an editable suggestion while avoiding private form controls and protected browser pages."
+          ]
+        },
+        {
+          id: "reminders-you-can-trust",
+          title: "Reminders you can trust",
+          body: [
+            "A reminder product is only useful when its timing and state are dependable, so v1.0.5 includes important reliability work behind the interface."
+          ],
+          listType: "ul",
+          listIntro: "The release improves how Luzora handles:",
+          list: [
+            "Delayed browser wake-ups and missed interval checks",
+            "Deleted, completed, and paused tasks",
+            "Several reminders that occur on the same day",
+            "Durable countdown deadlines across extension restarts",
+            "Duplicate notifications across browsers signed into the same account",
+            "Offline and temporary network failures"
+          ],
+          afterList: [
+            "The active or most recently active Luzora browser takes responsibility for desktop reminders, reducing duplicate alerts across devices. Stale recovery can no longer recreate a deleted task or keep its notifications alive."
+          ]
+        },
+        {
+          id: "control-and-privacy-remain-part-of-the-design",
+          title: "Control and privacy remain part of the design",
+          body: [
+            "Auto Return is off by default. Website access is optional and requested only when the user enables the feature.",
+            "The countdown notch runs in an isolated environment. Task content is inserted safely, the webpage never receives the destination URL, and the service worker revalidates the destination before navigation.",
+            "Natural-language interpretation happens locally in the extension. Product analytics excludes task titles, URLs, project names, folders, email addresses, passwords, tokens, and other sensitive task context."
+          ],
+          afterList: [
+            "Protected browser pages cannot display the Auto Return notch, TradingView is currently the first specialised Smart Return adapter, and recurring intervals cannot be shorter than 30 seconds. These boundaries keep the feature predictable while we expand it carefully."
+          ]
+        },
+        {
+          id: "save-the-page-keep-the-context",
+          title: "Save the page. Keep the context. Show up when it matters.",
+          body: [
+            "Luzora v1.0.5 turns a saved browser task into a more complete return experience.",
+            "It can understand a richer instruction, remember more than the URL, warn you before the moment arrives, and bring you back without disrupting the page you are already using.",
+            "Smart Return begins with TradingView. Auto Return begins with timed tasks. Both point toward the same future: a browser that helps you return with purpose, not just another collection of tabs you meant to revisit."
+          ],
+          cta: {
+            label: "Learn more about Luzora",
+            href: "/#hero"
+          }
+        }
+      ]
+    },
+    {
       slug: "hive-report-01-luzora-goes-public",
       title: "The Hive Report #01: Luzora Goes Public, Gets Smarter, and Learns From You",
       dek: "Luzora stepped into the public eye, shipped v1.0.4, introduced Smart Return, and learned what real users need from the browser.",
@@ -587,12 +770,12 @@
     var empty = document.querySelector("[data-blog-empty]");
     var searchWrap = document.querySelector("[data-blog-search]");
     var searchInput = document.querySelector("[data-blog-search-input]");
-    var activeCategory = "Announcements";
+    var activeCategory = "All";
     var query = "";
 
     function render() {
       var filtered = ARTICLES.filter(function (article) {
-        var inCategory = article.category === activeCategory;
+        var inCategory = activeCategory === "All" || article.category === activeCategory;
         var haystack = (article.title + " " + article.dek + " " + article.category).toLowerCase();
         return inCategory && haystack.indexOf(query.toLowerCase()) !== -1;
       });
@@ -627,11 +810,11 @@
     var reset = document.querySelector("[data-blog-reset]");
     if (reset) {
       reset.addEventListener("click", function () {
-        activeCategory = "Announcements";
+        activeCategory = "All";
         query = "";
         if (searchInput) searchInput.value = "";
         document.querySelectorAll("[data-blog-filter]").forEach(function (item) {
-          item.classList.toggle("is-active", item.getAttribute("data-blog-filter") === "Announcements");
+          item.classList.toggle("is-active", item.getAttribute("data-blog-filter") === "All");
         });
         render();
       });

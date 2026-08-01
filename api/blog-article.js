@@ -2,6 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "luzora-v1-0-5-return-to-the-right-page": {
+    title: "Luzora v1.0.5: Return to the Right Page at the Right Time",
+    description: "See what is new in Luzora v1.0.5, including Smart Return, Auto Return, live countdowns, multiple reminders, improved scheduling, and more reliable browser tasks.",
+    image: "https://www.luzora.app/assets/brand-kit/social/luzora-v1-0-5-product-update.png",
+    datePublished: "2026-08-01T12:00:00+01:00",
+    dateModified: "2026-08-01T12:00:00+01:00"
+  },
   "hive-report-01-luzora-goes-public": {
     title: "The Hive Report #01: Luzora Goes Public, Gets Smarter, and Learns From You",
     description: "The first Hive Report covers Luzora's public launch, v1.0.4, Smart Return, community feedback, fixes, and the people helping shape the product.",

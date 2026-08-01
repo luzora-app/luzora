@@ -20,8 +20,14 @@
   </url>
   <url>
     <loc>https://www.luzora.app/blog</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-01</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.luzora.app/blog/luzora-v1-0-5-return-to-the-right-page</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
