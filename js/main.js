@@ -849,16 +849,120 @@
       requestCursorUpdate();
     }
 
+    function onPointerLeave() {
+      setVisible(false);
+    }
+
+    function onPointerEnter() {
+      setVisible(true);
+    }
+
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas, { passive: true });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("pointerdown", blinkOnPress, { passive: true });
-    document.addEventListener("pointerleave", function () {
-      setVisible(false);
+    document.addEventListener("pointerleave", onPointerLeave);
+    document.addEventListener("pointerenter", onPointerEnter);
+
+    // Turning the cursor off has to stop the work, not just hide the bee, so
+    // every frame, timer, listener and element created above is released here.
+    return function destroy() {
+      if (frame) window.cancelAnimationFrame(frame);
+      if (trailFrame) window.cancelAnimationFrame(trailFrame);
+      window.clearTimeout(clickBlinkFrame);
+      window.clearTimeout(idleTimer);
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerdown", blinkOnPress);
+      document.removeEventListener("pointerleave", onPointerLeave);
+      document.removeEventListener("pointerenter", onPointerEnter);
+      if (canvas.parentNode) canvas.parentNode.removeChild(canvas);
+      if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      root.classList.remove("has-bee-cursor");
+    };
+  }
+
+  // The bee cursor is decorative, and on a low powered machine its trail can
+  // cost more than it gives. The preference is remembered per browser.
+  var BEE_CURSOR_STORAGE_KEY = "luzora:bee-cursor";
+  var beeCursorTeardown = null;
+
+  function readBeeCursorPreference() {
+    if (document.documentElement.dataset.beeCursor === "off") return false;
+    try {
+      return window.localStorage.getItem(BEE_CURSOR_STORAGE_KEY) !== "off";
+    } catch (error) {
+      // Private browsing can block storage. The bee stays on by default.
+      return true;
+    }
+  }
+
+  function writeBeeCursorPreference(isOn) {
+    try {
+      window.localStorage.setItem(BEE_CURSOR_STORAGE_KEY, isOn ? "on" : "off");
+    } catch (error) {
+      // A blocked store only costs the memory of the choice, not the choice.
+    }
+  }
+
+  function setBeeCursorEnabled(isOn) {
+    if (isOn && !beeCursorTeardown) beeCursorTeardown = initBeeCursor() || null;
+    else if (!isOn && beeCursorTeardown) {
+      beeCursorTeardown();
+      beeCursorTeardown = null;
+    }
+  }
+
+  function initBeeCursorToggle() {
+    if (!window.matchMedia) return;
+    // There is no custom cursor to switch off on touch, so no switch is shown.
+    if (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(hover: none)").matches) return;
+    if (document.documentElement.dataset.beeCursor === "off") return;
+    if (document.querySelector("[data-bee-toggle]")) return;
+
+    var base = document.body.dataset.assetBase === "relative"
+      ? "assets/icons/bee-cursor/"
+      : "/assets/icons/bee-cursor/";
+    var icons = {
+      on: base + encodeURIComponent("Bee Mouse - Static - Active bee.svg"),
+      off: base + encodeURIComponent("Bee Mouse - Static - turned off.svg")
+    };
+
+    var isOn = readBeeCursorPreference();
+    var button = document.createElement("button");
+    button.type = "button";
+    button.className = "bee-toggle";
+    button.setAttribute("data-bee-toggle", "");
+
+    var icon = document.createElement("img");
+    icon.className = "bee-toggle__bee";
+    icon.alt = "";
+    icon.setAttribute("aria-hidden", "true");
+    button.appendChild(icon);
+
+    var label = document.createElement("span");
+    label.className = "bee-toggle__label";
+    button.appendChild(label);
+
+    function paint() {
+      icon.src = isOn ? icons.on : icons.off;
+      button.setAttribute("aria-pressed", isOn ? "true" : "false");
+      var text = isOn ? "Bee cursor on. Turn it off" : "Bee cursor off. Turn it on";
+      button.setAttribute("aria-label", text);
+      button.title = text;
+      label.textContent = text;
+      button.classList.toggle("is-off", !isOn);
+    }
+
+    button.addEventListener("click", function () {
+      isOn = !isOn;
+      writeBeeCursorPreference(isOn);
+      setBeeCursorEnabled(isOn);
+      paint();
     });
-    document.addEventListener("pointerenter", function () {
-      setVisible(true);
-    });
+
+    paint();
+    document.body.appendChild(button);
   }
 
   function initWeightedScroll() {
@@ -1004,7 +1108,8 @@
     initNav();
     initInstallComingSoon();
     initImageProtection();
-    initBeeCursor();
+    setBeeCursorEnabled(readBeeCursorPreference());
+    initBeeCursorToggle();
     initWeightedScroll();
   }
 

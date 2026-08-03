@@ -2907,3 +2907,82 @@ img {
   }
 
 }
+
+/* ============ BEE CURSOR TOGGLE ============ */
+/* Fixed rather than absolute: this is a performance escape hatch, so it has to
+   stay reachable instead of scrolling away with the hero. */
+.bee-toggle {
+  position: fixed;
+  left: 60px;
+  bottom: 32px;
+  width: 53px;
+  height: 44px;
+  padding: 0;
+  background: #ffffff;
+  border: 1px solid #fff2bd;
+  border-radius: 40px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09), 0 12px 20px rgba(255, 241, 184, 0.49);
+  cursor: pointer;
+  overflow: visible;
+  transition: transform 220ms ease-in, box-shadow 220ms ease-in;
+  z-index: 60;
+}
+
+.bee-toggle:hover,
+.bee-toggle:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.11), 0 16px 24px rgba(255, 241, 184, 0.55);
+}
+
+.bee-toggle:focus-visible {
+  outline: 2px solid #b5971f;
+  outline-offset: 3px;
+}
+
+/* The bee sits taller than the pill and lifts above its top edge. */
+.bee-toggle__bee {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  width: 47px;
+  height: 47px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Named for screen readers without showing the text beside the bee. */
+.bee-toggle__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The custom cursor is gone once switched off, so the button needs the
+   ordinary pointer back to still feel clickable. */
+.has-bee-cursor .bee-toggle {
+  cursor: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bee-toggle {
+    transition: none;
+  }
+  .bee-toggle:hover,
+  .bee-toggle:focus-visible {
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .bee-toggle {
+    display: none;
+  }
+}
