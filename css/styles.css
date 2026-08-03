@@ -881,8 +881,8 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 100px 80px;
-  gap: 48px;
+  padding: 80px 100px 0;
+  gap: 40px;
   isolation: isolate;
   background: var(--color-hero-bg);
 }
@@ -890,13 +890,36 @@ img {
 .what-luzora__content {
   position: relative;
   width: 100%;
-  max-width: 710px;
+  max-width: 574px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
   isolation: isolate;
   text-align: center;
+  z-index: 1;
+}
+
+/* The scene holds its 1312px ceiling and stays centred, so on a wide display
+   the landscape stops growing rather than stretching across the whole page. */
+.what-luzora__scene {
+  width: 100%;
+  max-width: 1312px;
+  margin: 0 auto;
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+/* Cropped rather than squashed, so the horizon keeps its proportions while the
+   container width changes. */
+.what-luzora__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1312 / 316;
+  object-fit: cover;
+  object-position: center;
 }
 
 .what-luzora__eyebrow {
@@ -929,10 +952,10 @@ img {
 
 .what-luzora__title {
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 1.167;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   color: var(--color-ink);
   text-align: center;
 }
@@ -954,16 +977,22 @@ img {
 }
 
 @media (max-width: 1100px) {
-  .what-luzora { padding: 72px 56px 72px; }
+  .what-luzora { padding: 72px 56px 0; gap: 36px; }
 }
 
 @media (max-width: 880px) {
-  .what-luzora { padding: 64px 32px 64px; }
+  .what-luzora { padding: 64px 32px 0; gap: 32px; }
+  /* A 4:1 strip turns into a sliver on a phone, so the crop grows taller
+     and the corners soften to match the narrower frame. */
+  .what-luzora__scene { border-radius: 0 0 24px 24px; }
+  .what-luzora__image { aspect-ratio: 16 / 9; }
   .what-luzora__content { max-width: 620px; }
 }
 
 @media (max-width: 480px) {
-  .what-luzora { padding: 60px 20px 56px; }
+  .what-luzora { padding: 60px 20px 0; gap: 28px; }
+  .what-luzora__scene { border-radius: 0 0 20px 20px; }
+  .what-luzora__image { aspect-ratio: 4 / 3; }
   .what-luzora__content { gap: 18px; }
   .what-luzora__eyebrow {
     font-size: 18px;
