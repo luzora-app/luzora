@@ -973,7 +973,12 @@
 
     var root = document.documentElement;
     var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var ease = reducedMotion ? 0.16 : 0.038;
+    // Each frame closes this share of the remaining distance, so a smaller
+    // number means a longer glide and more frames of layout work. At 0.038 a
+    // single gesture animated for over three seconds, which is where the
+    // weight came from on slower machines. 0.12 settles in about a second and
+    // still reads as smooth rather than instant.
+    var ease = reducedMotion ? 0.22 : 0.12;
     var wheelScale = reducedMotion ? 0.85 : 0.95;
     var currentY = window.scrollY || 0;
     var targetY = currentY;
@@ -1043,7 +1048,9 @@
       var distance = targetY - currentY;
       currentY += distance * ease;
 
-      if (Math.abs(distance) < 0.35) {
+      // Half a pixel is below what anyone can see, so the loop ends there
+      // instead of spending more frames chasing a difference nobody notices.
+      if (Math.abs(distance) < 0.5) {
         currentY = targetY;
         setScrollInstantly(currentY);
         stopAnimation();
