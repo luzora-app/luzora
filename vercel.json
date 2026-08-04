@@ -36,6 +36,12 @@
     }
   ],
   "redirects": [
+    {
+      "comment": "During the test phase an extension referral link funnels straight to the Manifesto, carrying the referrer so attribution still lands. Temporary on purpose: a permanent redirect would be cached by browsers and could not be undone when /r/:code returns to its own invite page.",
+      "source": "/r/:code",
+      "destination": "/manifesto?ref=:code",
+      "permanent": false
+    },
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/download.html", "destination": "/download", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
@@ -70,6 +76,6 @@
     { "source": "/blog/:slug", "destination": "/api/blog-article?slug=:slug" },
     { "source": "/welcome", "destination": "/welcome.html" },
     { "source": "/404", "destination": "/404.html" },
-    { "source": "/r/:code", "destination": "/r.html" }
+    { "source": "/r-invite/:code", "destination": "/r.html" }
   ]
 }
