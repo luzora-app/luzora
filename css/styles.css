@@ -881,8 +881,8 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 100px 0;
-  gap: 40px;
+  padding: 80px 100px 80px;
+  gap: 0px;
   isolation: isolate;
   background: var(--color-hero-bg);
 }
@@ -905,19 +905,20 @@ img {
 .what-luzora__scene {
   width: 100%;
   max-width: 1312px;
-  margin: 0 auto;
+  margin: -80px auto 0;
   border-radius: 0 0 32px 32px;
   overflow: hidden;
   line-height: 0;
+
 }
 
 /* Cropped rather than squashed, so the horizon keeps its proportions while the
    container width changes. */
 .what-luzora__image {
   display: block;
-  width: 100%;
+  width: 1500px;
   height: auto;
-  aspect-ratio: 1312 / 316;
+  aspect-ratio: 1500 / 347;
   object-fit: cover;
   object-position: center;
 }
@@ -953,7 +954,7 @@ img {
 .what-luzora__title {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-size: clamp(1.25rem, 2.6vw, 2rem);
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--color-ink);
@@ -977,22 +978,23 @@ img {
 }
 
 @media (max-width: 1100px) {
-  .what-luzora { padding: 72px 56px 0; gap: 36px; }
+  .what-luzora { padding: 72px 56px 72px; }
+  .what-luzora__eyebrow { font-size: 20px; line-height: 24px;}
 }
 
 @media (max-width: 880px) {
-  .what-luzora { padding: 64px 32px 0; gap: 32px; }
+  .what-luzora { padding: 64px 24px 64px; gap: 0px; }
   /* A 4:1 strip turns into a sliver on a phone, so the crop grows taller
      and the corners soften to match the narrower frame. */
-  .what-luzora__scene { border-radius: 0 0 24px 24px; }
+  .what-luzora__scene { border-radius: 0 0 24px 24px; margin: -160px auto 0; }
   .what-luzora__image { aspect-ratio: 16 / 9; }
-  .what-luzora__content { max-width: 620px; }
+  .what-luzora__content { max-width: 620px;  padding: 0 16px; gap: 20px; }
 }
 
 @media (max-width: 480px) {
-  .what-luzora { padding: 60px 20px 0; gap: 28px; }
-  .what-luzora__scene { border-radius: 0 0 20px 20px; }
-  .what-luzora__image { aspect-ratio: 4 / 3; }
+  .what-luzora { padding: 60px 20px 0; gap: 0px; }
+  .what-luzora__scene { border-radius: 0 0 20px 20px; margin: -80px auto 0; }
+  .what-luzora__image { aspect-ratio: 16 / 9; }
   .what-luzora__content { gap: 18px; }
   .what-luzora__eyebrow {
     font-size: 18px;
@@ -1046,9 +1048,9 @@ img {
   filter: blur(0);
 }
 
-.why-card:nth-child(1) { --why-pop-delay: 90ms; }
-.why-card:nth-child(2) { --why-pop-delay: 180ms; }
-.why-card:nth-child(3) { --why-pop-delay: 270ms; }
+.why-card:nth-child(1) { --why-pop-delay: 50ms; }
+.why-card:nth-child(2) { --why-pop-delay: 100ms; }
+.why-card:nth-child(3) { --why-pop-delay: 200ms; }
 
 .why-luzora__pill {
   display: inline-flex;
