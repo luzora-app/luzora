@@ -890,10 +890,12 @@
   function readBeeCursorPreference() {
     if (document.documentElement.dataset.beeCursor === "off") return false;
     try {
-      return window.localStorage.getItem(BEE_CURSOR_STORAGE_KEY) !== "off";
+      // Opt in, not opt out. A first visit gets the plain cursor, so nothing
+      // loads the canvas, the SVGs, or the pointer loop until someone asks.
+      return window.localStorage.getItem(BEE_CURSOR_STORAGE_KEY) === "on";
     } catch (error) {
-      // Private browsing can block storage. The bee stays on by default.
-      return true;
+      // Private browsing can block storage. The plain cursor is the safe miss.
+      return false;
     }
   }
 
