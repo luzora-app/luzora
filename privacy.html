@@ -35,7 +35,7 @@
     </div>
     <p class="legal-hero__meta" data-reveal style="--reveal-delay: 80ms">
       <span>Last updated:</span>
-      <span>June 30th, 2026</span>
+      <span>August 5th, 2026</span>
     </p>
   </section>
 
@@ -117,8 +117,8 @@
           <p>Luzora uses active tab access when you interact with the extension or trigger Luzora Bolt. This helps Luzora detect the current page you are choosing to save or use as a task source.</p>
         </li>
         <li>
-          <h4>5.2 Tabs</h4>
-          <p>Luzora may read the active tab's title, URL, favicon, and related metadata where available. Luzora also uses tab access to open saved task links and extension-related pages when you ask it to do so.</p>
+          <h4>5.2 What Luzora reads from the active tab</h4>
+          <p>Luzora does not request standing access to your tabs and cannot see tabs you are not actively using with Luzora. When you use a current-page feature, Luzora reads the active tab's title, address, and icon where the browser provides them. Luzora also opens saved task links and extension pages in a tab when you ask it to.</p>
         </li>
         <li>
           <h4>5.3 Scripting</h4>
@@ -132,194 +132,255 @@
           <h4>5.5 Alarms and notifications</h4>
           <p>Luzora uses alarms and notifications to schedule task reminders, daily task summaries, snoozed reminders, badge counts, and test notifications. Browser notifications may display task titles or reminder text on your device screen.</p>
         </li>
+        <li>
+          <h4>5.6 Optional access to websites</h4>
+          <p>Auto Return is the only feature that asks for access to websites, and it is switched off until you turn it on. Luzora does not request this access when you install the extension. It is requested at the moment you enable Auto Return, and it is withdrawn from Luzora when you turn the feature off. Section 7 explains what the access is used for.</p>
+        </li>
       </ol>
 
       <h3>6. Luzora Bolt and page inspection</h3>
       <p>Luzora Bolt helps create a task from the current page. It may use the active tab title, URL, favicon, page metadata, headings, visible labels, and known page patterns to suggest a task. This is intended to reduce manual copying and typing.</p>
       <p>Page inspection happens for the page you are actively using with Luzora. Luzora does not use Bolt to build a full browsing history, run background surveillance of every website you visit, or sell web browsing activity. Saved links and page details are stored only when they become part of a task, project, or related Luzora record.</p>
 
-      <h3>7. Natural-language task entry</h3>
+      <h3>7. Auto Return</h3>
+      <p>Auto Return brings you back to the page a task belongs to when that task falls due. It is switched off unless you turn it on, and turning it off withdraws everything described here.</p>
+      <ol class="legal-list legal-list--clauses">
+        <li>
+          <h4>7.1 Why it needs access to websites</h4>
+          <p>To return you to a page, Luzora needs to be able to open that page and to show a short countdown on it. Because a task can point at any website, the permission covers websites generally rather than a list we could fix in advance. Luzora asks for it when you enable Auto Return, not when you install the extension.</p>
+        </li>
+        <li>
+          <h4>7.2 What Luzora does with that access</h4>
+          <p>Luzora uses it to open or switch to the page saved on a task, and to display a countdown notice on that page with the task name, so you can go now, cancel, or dismiss it. The countdown notice is rendered in an isolated container so that the content of your task cannot alter the page it appears on.</p>
+        </li>
+        <li>
+          <h4>7.3 What Luzora does not do with it</h4>
+          <p>Luzora does not use this access to read the pages you visit, record your browsing history, collect page content, monitor activity in the background, or build a profile of the sites you use. It is used only to open a page you saved and to show the countdown on it.</p>
+        </li>
+        <li>
+          <h4>7.4 Returning after your browser has been closed</h4>
+          <p>A browser extension cannot run while the browser is closed, so a return that falls due during that time cannot happen at the moment it was scheduled. When you next open your browser, Luzora may open the pages whose time has already passed that day, up to a small limit, and it will not repeat a return you have already been given or cancelled.</p>
+        </li>
+        <li>
+          <h4>7.5 Turning it off</h4>
+          <p>Switching Auto Return off in settings stops the feature and withdraws the website access from Luzora. You can also remove the access at any time through your browser's extension settings.</p>
+        </li>
+      </ol>
+
+      <h3>8. Hive Points, the Manifesto, and referrals</h3>
+      <p>Luzora runs community features on the Luzora website that are separate from the extension. Taking part is voluntary and you can use Luzora without them.</p>
+      <ol class="legal-list legal-list--clauses">
+        <li>
+          <h4>8.1 Signing the Manifesto</h4>
+          <p>When you sign the Manifesto we collect your email address, the username you choose, and the time you signed. We send you a verification email, and verifying is what confirms the address belongs to you. Verification is required before most Hive Points can be earned.</p>
+        </li>
+        <li>
+          <h4>8.2 Hive Points</h4>
+          <p>Hive Points record activity such as signing the Manifesto, verifying your email, confirming social activity, and referring other people. We keep a record of each award so your balance can be explained and audited. Points are a record of participation and carry no monetary value.</p>
+        </li>
+        <li>
+          <h4>8.3 Referrals</h4>
+          <p>If you invite someone with your referral link, we record the connection between your signature and theirs so that the award can be made. This means we hold a record of who invited whom. We use it to award points and to prevent abuse, and we do not sell it or use it to advertise to the people you invite.</p>
+        </li>
+        <li>
+          <h4>8.4 What other people can see</h4>
+          <p>Your signer page and the Hive leaderboard are public. Anyone with the link can see your username, your public identifier, your rank, your points, and the people you have referred as shown on that page. Your email address is never shown publicly and is not included in the leaderboard.</p>
+          <p>There is currently no way to take part in Hive Points while keeping your position off the public leaderboard. If you would prefer not to appear publicly, please do not sign the Manifesto, or contact us to have your signature removed.</p>
+        </li>
+        <li>
+          <h4>8.5 Leaving</h4>
+          <p>You can ask us to remove your signature, your points, and your referral records by contacting us. Removing your signature removes your entry from the public leaderboard.</p>
+        </li>
+      </ol>
+
+      <h3>9. Natural-language task entry</h3>
       <p>Luzora can parse natural-language task text to infer dates, times, recurrence, websites, project names, and related task details. The current natural-language parsing runs locally in the extension bundle. Task text is not sent to an AI provider for parsing in the current product.</p>
       <p>If Luzora later adds cloud AI or third-party AI processing, we will update this Policy before using that feature in a way that changes how personal information is processed.</p>
 
-      <h3>8. Information collected automatically</h3>
+      <h3>10. Information collected automatically</h3>
       <p>When you use Luzora, we may collect limited technical and usage information, including:</p>
       <ol class="legal-list legal-list--clauses">
         <li>
-          <h4>8.1 Device and browser information</h4>
+          <h4>10.1 Device and browser information</h4>
           <p>Browser type, operating system, extension version, language, approximate device information, and other technical information needed to operate, secure, and troubleshoot Luzora.</p>
         </li>
         <li>
-          <h4>8.2 Usage metadata</h4>
+          <h4>10.2 Usage metadata</h4>
           <p>Feature usage, screen views, task count, project count, completion count, last active timestamp, session duration, sync status, first task created timestamp, first completion timestamp, password reset request status, and similar product usage metrics.</p>
         </li>
         <li>
-          <h4>8.3 Logs and security data</h4>
+          <h4>10.3 Logs and security data</h4>
           <p>Server logs, request metadata, authentication events, error reports, and security-related records that help us protect users, detect abuse, debug problems, and maintain the service.</p>
         </li>
         <li>
-          <h4>8.4 Website form metadata</h4>
+          <h4>10.4 Website form metadata</h4>
           <p>For website forms such as newsletter signup, we may collect the email submitted, page URL, referrer, user agent, and submission timestamp.</p>
         </li>
       </ol>
 
-      <h3>9. Product analytics</h3>
+      <h3>11. Product analytics</h3>
       <p>Luzora may use PostHog, Google Analytics, and Vercel Web Analytics for product and website analytics. Analytics help us understand how features are used, whether sync and reminders are reliable, which pages people visit, which screens need improvement, and how to make Luzora more useful.</p>
       <p>We design analytics to avoid sending sensitive task content. Our analytics wrapper filters property names and values that look like emails, passwords, tokens, secrets, API keys, private keys, task titles, task links, URLs, folder names, project names, website names, or domains. We may still collect event names, timestamps, extension version, screen names, page paths, feature usage, task counts, completion counts, settings changes, session duration, and sync status.</p>
+      <p>There is currently no setting to turn product analytics off inside the extension. We would rather say so plainly than imply a choice that does not exist. If analytics matter to you, the filtering described above is what limits them: your task names, links, folders, project names and website addresses are removed before anything is sent, so what we receive describes how the product is used and not what you are using it for.</p>
       <p>If you contact us about analytics deletion or privacy choices, we will review your request based on the information available to us and the capabilities of our analytics provider.</p>
 
-      <h3>10. Cookies and similar technologies</h3>
+      <h3>12. Cookies and similar technologies</h3>
       <p>The Luzora website may use cookies, local storage, or similar technologies for site functionality, security, analytics, or preferences. The browser extension also uses browser storage for extension functionality. You can control browser cookies and storage through your browser settings, but disabling storage may affect website or extension features.</p>
 
-      <h3>11. How we use personal information</h3>
+      <h3>13. How we use personal information</h3>
       <p>We use personal information for the following purposes:</p>
       <ol class="legal-list legal-list--clauses">
         <li>
-          <h4>11.1 Provide Luzora</h4>
+          <h4>13.1 Provide Luzora</h4>
           <p>Create and manage accounts, authenticate users, sync tasks, save projects, store completion history, process task edits, open saved links, maintain preferences, and deliver the extension features you request.</p>
         </li>
         <li>
-          <h4>11.2 Operate browser features</h4>
+          <h4>13.2 Operate browser features</h4>
           <p>Detect the active page when you choose to save it, suggest tasks through Luzora Bolt, store local drafts, show reminders, update badge counts, and open task links.</p>
         </li>
         <li>
-          <h4>11.3 Communicate with you</h4>
+          <h4>13.3 Communicate with you</h4>
           <p>Send account-related messages, password reset emails, security notices, account deletion confirmations, support replies, product updates, and newsletter messages where applicable.</p>
         </li>
         <li>
-          <h4>11.4 Improve the product</h4>
+          <h4>13.4 Improve the product</h4>
           <p>Understand product usage, diagnose bugs, improve reliability, develop new features, measure onboarding, analyze aggregate usage, and evaluate user feedback.</p>
         </li>
         <li>
-          <h4>11.5 Protect Luzora and users</h4>
+          <h4>13.5 Protect Luzora and users</h4>
           <p>Prevent fraud, abuse, spam, unauthorized access, security incidents, policy violations, or misuse of Luzora and related systems.</p>
         </li>
         <li>
-          <h4>11.6 Comply with law</h4>
+          <h4>13.6 Comply with law</h4>
           <p>Meet legal obligations, respond to lawful requests, enforce our Terms, resolve disputes, preserve records where required, and protect our legal rights.</p>
         </li>
       </ol>
 
-      <h3>12. Legal bases for processing</h3>
+      <h3>14. Legal bases for processing</h3>
       <p>Where laws such as the GDPR or UK GDPR apply, we rely on one or more legal bases to process personal information. These may include performance of a contract when we provide Luzora to you, legitimate interests in operating and improving Luzora, consent where required, compliance with legal obligations, and protection of legal rights or safety.</p>
       <p>You may withdraw consent where processing is based on consent. Withdrawing consent does not affect processing that occurred before withdrawal, and some features may no longer work if the information is required to provide them.</p>
 
-      <h3>13. How we share personal information</h3>
+      <h3>15. How we share personal information</h3>
       <p>We do not sell your task data. We may share personal information in the limited circumstances below:</p>
       <ol class="legal-list legal-list--clauses">
         <li>
-          <h4>13.1 Service providers</h4>
+          <h4>15.1 Service providers</h4>
           <p>We use service providers to host, store, process, secure, analyze, and support Luzora. These providers may process personal information only as needed to provide services to us, subject to their terms and policies.</p>
         </li>
         <li>
-          <h4>13.2 Supabase</h4>
+          <h4>15.2 Supabase</h4>
           <p>Supabase provides authentication, account management, database storage, password reset, Edge Functions, and sync infrastructure for Luzora.</p>
         </li>
         <li>
-          <h4>13.3 PostHog</h4>
+          <h4>15.3 PostHog</h4>
           <p>PostHog provides product analytics that help us understand feature usage and improve Luzora. We use filtering to reduce the chance that task content or sensitive information is included in analytics.</p>
         </li>
         <li>
-          <h4>13.4 Google Analytics</h4>
+          <h4>15.4 Google Analytics</h4>
           <p>Google Analytics may provide website analytics that help us understand page views, traffic sources, browser information, approximate region, device type, and basic site usage. We do not use Google Analytics to intentionally collect task content, passwords, saved task links, or private form values.</p>
         </li>
         <li>
-          <h4>13.5 Vercel Web Analytics</h4>
+          <h4>15.5 Vercel Web Analytics</h4>
           <p>Vercel Web Analytics may provide privacy-focused website analytics for pages hosted on Vercel, including page views, referrers, device information, browser information, and approximate region. We do not use Vercel Web Analytics to intentionally collect task content, passwords, saved task links, or private form values.</p>
         </li>
         <li>
-          <h4>13.6 Resend or email providers</h4>
+          <h4>15.6 Resend or email providers</h4>
           <p>We may use Resend or similar providers to send account-related emails, security emails, deletion confirmations, and other transactional messages.</p>
         </li>
         <li>
-          <h4>13.7 Browser vendors and extension stores</h4>
+          <h4>15.7 Browser vendors and extension stores</h4>
           <p>Your browser vendor or extension store may process information related to extension installation, updates, permissions, browser APIs, and store interactions under their own policies.</p>
         </li>
         <li>
-          <h4>13.8 Favicon and website icon services</h4>
+          <h4>15.8 Favicon and website icon services</h4>
           <p>Luzora may display favicons or website icons, including through browser data, stored icon URLs, or services such as Google's favicon service. When an icon is loaded from a third-party service, that service may receive the icon request from your browser.</p>
         </li>
         <li>
-          <h4>13.9 Legal, safety, and enforcement</h4>
+          <h4>15.9 Legal, safety, and enforcement</h4>
           <p>We may disclose information if we believe disclosure is required by law, legal process, regulation, security needs, fraud prevention, protection of users, enforcement of our Terms, or protection of our rights and property.</p>
         </li>
         <li>
-          <h4>13.10 Business transfers</h4>
+          <h4>15.10 Business transfers</h4>
           <p>If Luzora is involved in a merger, acquisition, financing, reorganization, sale of assets, or similar transaction, personal information may be transferred as part of that transaction, subject to appropriate confidentiality and legal safeguards.</p>
         </li>
       </ol>
 
-      <h3>14. Third-party links and social pages</h3>
+      <h3>16. Third-party links and social pages</h3>
       <p>Luzora may link to third-party websites and social platforms, including X, Reddit, YouTube, LinkedIn, browser stores, support tools, and other websites. If you click those links, you leave Luzora and the third party's privacy policy applies. We are not responsible for the privacy practices, security, content, or policies of third-party websites.</p>
 
-      <h3>15. Local browser storage and synced storage</h3>
+      <h3>17. Local browser storage and synced storage</h3>
       <p>Some information is stored locally in your browser. This may include session cache, profile cache, task cache, unsaved draft progress, preferences, notification settings, language, shortcut settings, avatar settings, analytics identifiers, and reminder delivery state. Local data may be removed if you uninstall the extension, clear browser data, reset the browser profile, or use browser tools that delete extension storage.</p>
       <p>Some information is synced to Supabase so you can access your account and task data across supported browsers. Synced data may include profile data, tasks, projects, links, schedules, task versions, completion history, preferences, and usage metadata.</p>
 
-      <h3>16. Notifications and on-device visibility</h3>
+      <h3>18. Notifications and on-device visibility</h3>
       <p>Luzora notifications may show task titles, reminder text, or counts of unfinished tasks on your device screen. Anyone with access to your unlocked device or notification center may be able to see those notifications. You can manage notification preferences in Luzora settings and in your browser or operating system settings.</p>
 
-      <h3>17. Data retention</h3>
+      <h3>19. Data retention</h3>
       <p>We keep personal information for as long as reasonably necessary to provide Luzora, operate our business, comply with legal obligations, resolve disputes, enforce agreements, protect users, prevent abuse, and maintain security.</p>
       <ol class="legal-list legal-list--clauses">
         <li>
-          <h4>17.1 Account and profile data</h4>
+          <h4>19.1 Account and profile data</h4>
           <p>Kept while your account is active, unless deleted earlier or retained for a limited legal, security, or operational reason.</p>
         </li>
         <li>
-          <h4>17.2 Task data</h4>
+          <h4>19.2 Task data</h4>
           <p>Kept until you delete tasks, clear task data, delete your account, or we delete the data according to our retention practices.</p>
         </li>
         <li>
-          <h4>17.3 Local browser data</h4>
+          <h4>19.3 Local browser data</h4>
           <p>Kept in your browser until overwritten, cleared by you, removed by the browser, or removed when the extension is uninstalled.</p>
         </li>
         <li>
-          <h4>17.4 Analytics and usage data</h4>
-          <p>Kept according to our analytics settings and provider retention periods, unless deleted or anonymized earlier where required or practical.</p>
+          <h4>19.4 Analytics and usage data</h4>
+          <p>Kept according to our analytics settings and provider retention periods, unless deleted or anonymized earlier where required or practical. Analytics events never contain task names, links, folder names, project names, or website addresses, because these are removed before anything is sent.</p>
         </li>
         <li>
-          <h4>17.5 Support communications</h4>
+          <h4>19.5 Hive Points, Manifesto and referral records</h4>
+          <p>Kept while your signature stands, so that balances and referrals can be explained. Removed when you ask us to remove your signature.</p>
+        </li>
+        <li>
+          <h4>19.6 Support communications</h4>
           <p>Kept as long as needed to respond, maintain business records, improve support, and protect legal rights.</p>
         </li>
         <li>
-          <h4>17.6 Backups and logs</h4>
-          <p>Information may remain in backups, logs, or security records for a limited period after deletion from active systems. We will not use deleted information for ordinary product purposes after deletion is complete.</p>
+          <h4>19.7 Backups and logs</h4>
+          <p>Deletion removes your information from our live systems straight away. Encrypted backups are kept on a rolling basis and may still contain deleted information for up to 90 days, after which the backup containing it is discarded. We do not restore deleted information from backups for ordinary product purposes, and we do not use it after deletion is complete.</p>
         </li>
       </ol>
 
-      <h3 id="data-deletion-policy">18. Clear task data</h3>
+      <h3 id="data-deletion-policy">20. Clear task data</h3>
       <p>Luzora may offer a Clear tasks and projects feature. Clear task data removes your tasks, projects, folders, saved task links, task versions, and task completion history from Luzora-managed task tables. Your account, profile, preferences, login, and some usage metadata may remain active.</p>
       <p>Clearing task data is different from deleting your account. If you want to delete your account, use the account deletion flow or contact us.</p>
 
-      <h3 id="account-deletion">19. Account deletion</h3>
+      <h3 id="account-deletion">21. Account deletion</h3>
       <p>Deleting your account is intended to permanently remove your Luzora account, profile, tasks, projects, task versions, and task completion records from Luzora-managed active systems. Account deletion may also remove optional usage rows from Luzora-managed tables where implemented.</p>
       <p>We aim to complete verified deletion requests promptly and no later than 30 days after verification. Where additional time is legally permitted because a request is complex or unusually burdensome, we will notify you within the initial 30-day period and explain the reason for the additional time.</p>
-      <p>We may retain limited information where reasonably necessary for security, fraud prevention, legal compliance, dispute resolution, system integrity, backup retention, or anonymous product feedback. For example, anonymous deletion reasons may remain after your account is deleted.</p>
+      <p>Deletion removes your account, profile, tasks, projects, folders, saved links, task versions, completion history, your daily consistency record, and any reminders queued to be sent to you. After removing them, Luzora checks that nothing belonging to you is left behind. If anything remains, the deletion is stopped and reported to us rather than being reported to you as complete.</p>
+      <p>We may retain limited information where reasonably necessary for security, fraud prevention, legal compliance, dispute resolution, system integrity, backup retention, or anonymous product feedback. For example, anonymous deletion reasons may remain after your account is deleted, and they are stored without any link to you.</p>
       <p>You can request deletion through the extension where available or through the data deletion page linked from this website. If you cannot access your account, contact us at <a href="mailto:hello@luzora.app">hello@luzora.app</a>.</p>
 
-      <h3>20. Your privacy choices and rights</h3>
+      <h3>22. Your privacy choices and rights</h3>
       <p>Depending on where you live, you may have rights to access, correct, delete, export, restrict, object to, or withdraw consent for certain processing of your personal information. You may also have the right to complain to a data protection authority.</p>
       <p>You can exercise many choices directly in Luzora by updating your profile, changing notification settings, clearing task data, deleting tasks, logging out, or deleting your account. You can also contact us at <a href="mailto:hello@luzora.app">hello@luzora.app</a>.</p>
       <p>We may need to verify your identity before fulfilling certain requests. We may decline or limit requests where permitted by law, including where a request is fraudulent, harmful to others, technically impossible, conflicts with legal obligations, or affects rights and freedoms of others.</p>
 
-      <h3>21. Security</h3>
+      <h3>23. Security</h3>
       <p>We use reasonable technical and organizational measures designed to protect personal information. These measures may include Supabase Auth, row level security for user-owned data, HTTPS, access controls, service-role key restrictions, password reset flows, current-password checks for sensitive account actions, analytics filtering, and safe page-inspection design.</p>
       <p>No method of transmission or storage is completely secure. We cannot guarantee that Luzora or any third-party provider will be free from unauthorized access, misuse, data loss, vulnerabilities, or interruptions. You are responsible for keeping your account credentials secure and for using a trusted device and browser.</p>
 
-      <h3>22. International transfers</h3>
+      <h3>24. International transfers</h3>
       <p>Luzora and our service providers may process information in countries other than where you live. These countries may have privacy laws that differ from your location. Where required, we rely on appropriate safeguards, contractual protections, service provider terms, or other legal mechanisms for cross-border processing.</p>
 
-      <h3>23. Children</h3>
+      <h3>25. Children</h3>
       <p>Luzora is not intended for children under 16. We do not knowingly collect personal information from children under 16. If you believe a child under 16 has provided personal information to Luzora, contact us at <a href="mailto:hello@luzora.app">hello@luzora.app</a> and we will take appropriate steps to delete it.</p>
 
-      <h3>24. Do not track</h3>
+      <h3>26. Do not track</h3>
       <p>Some browsers offer &quot;Do Not Track&quot; signals. There is no consistent industry standard for responding to those signals, so Luzora does not currently respond to them. You can use browser settings, extension settings, and account controls to manage certain data choices.</p>
 
-      <h3>25. Changes to this Policy</h3>
+      <h3>27. Changes to this Policy</h3>
       <p>We may update this Policy from time to time. When we make changes, we will update the &quot;Last updated&quot; date. If changes are material, we may provide additional notice through the website, extension, email, or other appropriate means. Your continued use of Luzora after an updated Policy becomes effective means you acknowledge the updated Policy.</p>
 
-      <h3>26. Contact us</h3>
+      <h3>28. Contact us</h3>
       <p>If you have questions, requests, or concerns about this Policy or Luzora privacy practices, contact us at <a href="mailto:hello@luzora.app">hello@luzora.app</a>.</p>
     </article>
   </section>
