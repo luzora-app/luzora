@@ -35,7 +35,7 @@
     </div>
     <p class="legal-hero__meta" data-reveal style="--reveal-delay: 80ms">
       <span>Last updated:</span>
-      <span>June 30th, 2026</span>
+      <span>August 6th, 2026</span>
     </p>
   </section>
 
@@ -67,7 +67,9 @@
       <ol class="legal-list legal-list--clauses">
         <li>
           <h4>2.1 Core purpose</h4>
-          <p>Luzora helps you save recurring tasks and website activities from your browser. You can create tasks, add links, choose recurrence rules, set times, organize projects or folders, mark tasks as done, undo certain completions, pause tasks, receive reminders, and use supported shortcuts.</p>
+          <p>Luzora helps you save recurring tasks and website activities from your browser. You can create tasks, add links, choose recurrence rules and how many times a task should happen in a period, set times, set start and end dates, set your own reminder lead times, organize projects or folders, mark tasks as done, undo certain completions, pause tasks, receive reminders, view your consistency over time, and use supported shortcuts.</p>
+          <p>Luzora also offers two optional return features. <strong>Smart Return</strong> saves extra context for supported websites so a saved task can reopen the exact view you were working in rather than a generic page. <strong>Auto Return</strong> is described in section 8.5 and section 9.</p>
+          <p>Separately from the extension, the Luzora website offers optional community features, including signing the Manifesto, Hive Points, and referrals. These are described in section 13. You can use Luzora without taking part in any of them.</p>
         </li>
         <li>
           <h4>2.2 Browser-first features</h4>
@@ -175,7 +177,8 @@
       <ol class="legal-list legal-list--clauses">
         <li>
           <h4>8.1 Permissions</h4>
-          <p>Luzora may request browser permissions such as active tab, tabs, scripting, storage, alarms, notifications, and host permissions for services used by Luzora. Browser stores may describe these permissions in broad language.</p>
+          <p>Luzora requests a small set of browser permissions when you install it: active tab, alarms, notifications, scripting, and storage. Browser stores may describe these permissions in broad language that sounds wider than what Luzora actually does.</p>
+          <p><strong>Luzora does not request access to websites when you install it.</strong> Access to websites is optional, is used only by Auto Return, and is explained in section 8.5.</p>
         </li>
         <li>
           <h4>8.2 Current page and Luzora Bolt</h4>
@@ -189,9 +192,14 @@
           <h4>8.4 Browser and store control</h4>
           <p>Your browser, operating system, and extension store may control installation, updates, permissions, notification delivery, storage behavior, and compatibility. We are not responsible for browser-store decisions, browser bugs, operating-system restrictions, permission prompts, or changes by browser vendors.</p>
         </li>
+        <li>
+          <h4>8.5 Optional website access for Auto Return</h4>
+          <p>Auto Return is the only feature that asks for access to websites, and it is switched off until you turn it on. The access is requested at the moment you enable Auto Return, so that Luzora can display the countdown warning on the page you are currently viewing and find a destination tab that is already open.</p>
+          <p>You can withdraw this access at any time by turning Auto Return off in Luzora, or through your browser's own extension settings. Turning the feature off withdraws the access from Luzora. Withdrawing the access through your browser turns the feature off.</p>
+        </li>
       </ol>
 
-      <h3>9. Natural-language entry, reminders, and sync</h3>
+      <h3>9. Natural-language entry, reminders, returns, and sync</h3>
       <ol class="legal-list legal-list--clauses">
         <li>
           <h4>9.1 Natural-language parsing</h4>
@@ -208,6 +216,20 @@
         <li>
           <h4>9.4 Not for critical deadlines</h4>
           <p><strong>Do not rely on Luzora as your only system for medication, safety, legal filing dates, court dates, financial deadlines, medical appointments, emergency actions, or other critical tasks.</strong></p>
+        </li>
+        <li>
+          <h4>9.5 Auto Return moves your browser</h4>
+          <p>Auto Return is optional and switched off by default. When you turn it on, Luzora may navigate your browser to a saved task page when that task is due. Before it does, Luzora shows a warning on your current page for about ten seconds, and during that warning you can cancel the return, dismiss the warning, or go immediately.</p>
+          <p>By turning Auto Return on, you are asking Luzora to change what your browser is showing at a moment when you may not be watching. <strong>Do not enable Auto Return on a device, browser profile, or screen where an unexpected page change could cause harm, loss, embarrassment, or a breach of someone else's rules</strong> — for example a shared or presenting screen, a monitored or recorded session, a kiosk, or a workflow you must not interrupt. You are responsible for deciding where Auto Return is appropriate, and for any unsaved work in a tab that Luzora navigates.</p>
+          <p>Auto Return depends on the same browser, operating-system, and timing conditions as reminders, and the same reliability limits in 9.2 apply to it. It may not run at all if your browser is closed.</p>
+        </li>
+        <li>
+          <h4>9.6 Missed reminders and catch-up</h4>
+          <p>Reminders and automatic returns cannot happen while your browser is closed. When you next open your browser, Luzora may tell you what was missed earlier that day, and may open pages for returns whose time has already passed. Catch-up is a convenience and is not a guarantee that a missed moment will be recovered.</p>
+        </li>
+        <li>
+          <h4>9.7 Smart Return context</h4>
+          <p>For some supported websites, Luzora saves additional details so a task can reopen the specific view you were in rather than a generic page. Supported websites may change, and a site may change its own behavior at any time, so a restored view may differ from what you saved or may no longer be reachable.</p>
         </li>
       </ol>
 
@@ -276,12 +298,14 @@
         </li>
         <li>
           <h4>12.4 Account deletion</h4>
-          <p>You may request account deletion through available product flows or our <a href="/data-deletion">data deletion page</a>. Deletion may remove your Luzora account, profile, task data, projects, task versions, and completion records from Luzora-managed active systems, subject to legal, security, backup, fraud-prevention, and operational retention described in the Privacy Policy.</p>
+          <p>You may request account deletion through available product flows or our <a href="/data-deletion">data deletion page</a>. Deletion removes your Luzora account, profile, task data, projects, folders, task versions, completion records, and reminder records from our live systems, subject to the legal, security, fraud-prevention, and operational retention described in the Privacy Policy.</p>
+          <p>Deleting your account is permanent. We cannot restore a deleted account or its tasks for you afterwards.</p>
+          <p>Encrypted backups are kept on a rolling basis and may still contain deleted information for up to 90 days, after which the backup containing it is discarded. We do not restore deleted information from backups for ordinary product purposes, and we do not use it after deletion is complete.</p>
           <p>We aim to complete verified deletion requests promptly and no later than 30 days after verification. Where additional time is legally permitted because a request is complex or unusually burdensome, we will notify you within the initial 30-day period and explain the reason for the additional time.</p>
         </li>
       </ol>
 
-      <h3>13. Free features, paid features, referrals, and tips</h3>
+      <h3>13. Free features, paid features, the Manifesto, Hive Points, referrals, and tips</h3>
       <ol class="legal-list legal-list--clauses">
         <li>
           <h4>13.1 Free access</h4>
@@ -294,9 +318,25 @@
         <li>
           <h4>13.3 Referrals and rewards</h4>
           <p>Luzora may offer referral, invite, reward, waitlist, beta, or promotional features. We may set eligibility rules, detect abuse, withhold rewards, modify rewards, end promotions, or correct errors. Unless we expressly state otherwise, referral counts and rewards have no cash value.</p>
+          <p>You must not create fake accounts, use disposable or automated sign-ups, refer yourself, or otherwise inflate referral counts. We may reverse points, remove entries, or close accounts involved in this.</p>
         </li>
         <li>
-          <h4>13.4 Tips and donations</h4>
+          <h4>13.4 Signing the Manifesto</h4>
+          <p>Signing the Manifesto is voluntary and separate from using the extension. When you sign, you choose a username that appears on a public signer page along with your public identifier and the fact that you signed. Your email address is never shown publicly.</p>
+          <p>You must have the right to use the name you choose, and it must not impersonate another person or organization, mislead people, infringe anyone's rights, or be offensive. We may reject, change, or remove a username or a signer entry that breaks this.</p>
+        </li>
+        <li>
+          <h4>13.5 Hive Points</h4>
+          <p><strong>Hive Points are a scorekeeping feature, not money and not property.</strong> They have no cash value, cannot be bought, sold, transferred, exchanged, redeemed, or withdrawn, and confer no ownership, equity, security, token, or financial interest of any kind. Nothing about Hive Points is an investment, and no future value is promised.</p>
+          <p>We may change how points are earned, calculated, weighted, displayed, expired, corrected, or reset, and we may end the programme. We may adjust or remove points that were awarded in error or obtained through abuse.</p>
+        </li>
+        <li>
+          <h4>13.6 What other people can see</h4>
+          <p><strong>Your signer page and the Hive leaderboard are public.</strong> Anyone with the link can see your username, your public identifier, your rank, your points, and the people you have referred as shown on that page. Your email address is never shown publicly and is not part of the leaderboard.</p>
+          <p>There is currently no way to take part in Hive Points while keeping your entry private. If you do not want a public entry, do not take part. Taking part is entirely optional and Luzora works fully without it.</p>
+        </li>
+        <li>
+          <h4>13.7 Tips and donations</h4>
           <p>If tips, donations, or support payments are enabled, they are voluntary support payments and do not buy ownership, equity, control, guaranteed features, guaranteed support, or a right to future services. Unless we state otherwise or the law requires otherwise, voluntary tips and donations are non-refundable.</p>
         </li>
       </ol>
