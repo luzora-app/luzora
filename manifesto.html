@@ -23,6 +23,7 @@
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css?v=20260721-email-copy" />
   <link rel="stylesheet" href="/css/manifesto.css?v=20260727-manifesto-action" />
+  <link rel="stylesheet" href="/css/manifesto-paused.css?v=20260807-paused" />
 </head>
 <body>
   <div data-site-nav></div>
@@ -267,7 +268,60 @@
     </div>
   </footer>
 
+  <!-- ============ SIGNING PAUSED ============ -->
+  <!-- Temporary. Remove this block, the manifesto-paused stylesheet and script,
+       and the data-manifesto-paused flag when Hive Manifesto 2.0 goes live. -->
+  <div class="mp-veil" data-manifesto-paused role="dialog" aria-modal="true" aria-labelledby="mp-title">
+    <div class="mp-window" role="document">
+
+      <div class="mp-panel" data-mp-panel="form">
+        <picture class="mp-art">
+          <source srcset="/assets/brand-kit/other%20assets/worker-bees-constructing-.webp" type="image/webp" />
+          <img src="/assets/brand-kit/other%20assets/Worker-bees-constructing-.png"
+               alt="Worker bees constructing a honeycomb" width="320" height="220" decoding="async" />
+        </picture>
+
+        <p class="mp-eyebrow">We are rebuilding the Hive Manifesto.</p>
+        <h2 class="mp-title" id="mp-title">The Hive Manifesto 2.0 coming soon</h2>
+        <p class="mp-body">
+          You'd be notified once it's live. Stay tuned to our
+          <a href="https://x.com/LuzoraHQ" target="_blank" rel="noopener noreferrer">X page</a>
+          for more info.
+        </p>
+
+        <form class="mp-form" data-mp-form novalidate>
+          <label class="mp-label" for="mp-email">Get informed when it's live</label>
+          <div class="mp-field">
+            <input class="mp-input" id="mp-email" name="email" type="email" inputmode="email"
+                   autocomplete="email" placeholder="you@example.com" required
+                   aria-describedby="mp-error" />
+            <button class="mp-submit" type="submit" data-mp-submit>Notify me</button>
+          </div>
+          <p class="mp-error" id="mp-error" data-mp-error role="alert" hidden></p>
+        </form>
+      </div>
+
+      <div class="mp-panel mp-panel--done" data-mp-panel="done" hidden>
+        <picture class="mp-art">
+          <source srcset="/assets/brand-kit/other%20assets/worker-bees-constructing-.webp" type="image/webp" />
+          <img src="/assets/brand-kit/other%20assets/Worker-bees-constructing-.png"
+               alt="" width="320" height="220" decoding="async" />
+        </picture>
+
+        <h2 class="mp-title" data-mp-done-title>You're on the list</h2>
+        <p class="mp-body" data-mp-done-body>
+          We'll email you the moment the Hive Manifesto 2.0 is live. Nothing else, no noise.
+        </p>
+        <a class="mp-follow" href="https://x.com/LuzoraHQ" target="_blank" rel="noopener noreferrer">
+          Follow @LuzoraHQ for updates
+        </a>
+      </div>
+
+    </div>
+  </div>
+
   <script src="/js/main.js?v=20260721-email-copy"></script>
   <script src="/js/manifesto.js?v=20260727-manifesto-action"></script>
+  <script src="/js/manifesto-paused.js?v=20260807-paused"></script>
 </body>
 </html>
