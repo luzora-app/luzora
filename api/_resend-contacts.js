@@ -11,9 +11,23 @@
 const RESEND_API_URL = "https://api.resend.com";
 const USER_AGENT = "luzora-website/1.0";
 
+// Resend keys carry a permission level. A "Sending access" key can send mail
+// but cannot manage contacts, which fails here with "This API key is
+// restricted to only send emails".
+//
+// RESEND_API_KEY is used by every route that sends mail, so widening it to
+// full access to fix this would widen the blast radius of that one key
+// everywhere. Prefer a separate full access key used only for contacts, and
+// fall back to the main key for anyone who would rather run one.
+function contactsApiKey() {
+  return process.env.RESEND_CONTACTS_API_KEY || process.env.RESEND_API_KEY;
+}
+
 async function callResend(path, options) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) throw new Error("RESEND_API_KEY is not configured.");
+  const apiKey = contactsApiKey();
+  if (!apiKey) {
+    throw new Error("RESEND_CONTACTS_API_KEY or RESEND_API_KEY must be configured.");
+  }
 
   const response = await fetch(RESEND_API_URL + path, {
     method: options.method,
@@ -31,6 +45,19 @@ async function callResend(path, options) {
   } catch (error) {}
 
   return { ok: response.ok, status: response.status, data };
+}
+
+// Resend's own wording is accurate but does not say what to do about it.
+function describeResendError(message) {
+  const text = String(message || "Resend contact sync failed.");
+  if (/restricted to only send/i.test(text)) {
+    return (
+      text +
+      " — contact management needs a Resend key with full access. Set " +
+      "RESEND_CONTACTS_API_KEY to one, or widen RESEND_API_KEY."
+    );
+  }
+  return text;
 }
 
 // Returns { contactId, topicId, duplicate, topicWarning }.
@@ -85,7 +112,7 @@ async function syncResendContact(options) {
   if (createResult.status !== 409) {
     const message =
       createResult.data && (createResult.data.message || createResult.data.name || createResult.data.error);
-    throw new Error(message || "Resend contact sync failed.");
+    throw new Error(describeResendError(message || "Resend contact sync failed."));
   }
 
   // 409 means the address is already a contact. Someone who subscribed to the
@@ -103,7 +130,7 @@ async function syncResendContact(options) {
   if (!topicResult.ok) {
     const topicMessage =
       topicResult.data && (topicResult.data.message || topicResult.data.name || topicResult.data.error);
-    throw new Error(topicMessage || "Resend topic sync failed.");
+    throw new Error(describeResendError(topicMessage || "Resend topic sync failed."));
   }
 
   return {
