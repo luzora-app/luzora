@@ -175,6 +175,34 @@
 
 .mp-panel[hidden] { display: none; }
 
+/* The only exit. Everything else on the page, nav included, is inert behind
+   the veil, so without this the page is a dead end. */
+.mp-home {
+  display: inline-block;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--welcome-line, #e8e7e2);
+  width: 100%;
+  font-family: var(--font-body, "DM Sans", sans-serif);
+  font-size: 14px;
+  color: var(--color-body, #38362e);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.mp-home::before {
+  content: "\2190";
+  margin-right: 6px;
+}
+
+.mp-home:hover { color: var(--color-ink, #151411); }
+
+.mp-home:focus-visible {
+  outline: 2px solid var(--color-btn-border, #b5971f);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 @media (max-width: 480px) {
   .mp-veil { padding: 16px; align-items: flex-start; }
   .mp-window { padding: 24px 20px; border-radius: 24px; }
