@@ -1,4 +1,5 @@
 const { luzoraEmail } = require("./_email.js");
+const { syncResendContact: sharedSyncResendContact } = require("./_resend-contacts.js");
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY || "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
@@ -72,77 +73,15 @@ async function callResend(path, options) {
   return { ok: response.ok, status: response.status, data };
 }
 
+// Delegates to the shared helper so this route and the Manifesto flow cannot
+// drift. The helper also prefers RESEND_CONTACTS_API_KEY, which matters:
+// managing contacts needs more than a sending key can do.
 async function syncResendContact(email, source, pageUrl) {
-  var topicId = process.env.RESEND_NEWSLETTER_TOPIC_ID || process.env.RESEND_TOPIC_ID;
-  var hasTopic = Boolean(topicId);
-
-  var topics = hasTopic ? [{ id: topicId, subscription: "opt_in" }] : [];
-  var createResult = await callResend("/contacts", {
-    method: "POST",
-    body: {
-      email,
-      unsubscribed: false,
-      topics: hasTopic ? topics : undefined,
-      properties: {
-        source,
-        page_url: pageUrl || ""
-      }
-    }
+  return sharedSyncResendContact({
+    email: email,
+    topicId: process.env.RESEND_NEWSLETTER_TOPIC_ID || process.env.RESEND_TOPIC_ID || null,
+    properties: { source: source, page_url: pageUrl || "" }
   });
-
-  if (createResult.ok) {
-    return {
-      duplicate: false,
-      contactId: createResult.data && createResult.data.id,
-      topicId
-    };
-  }
-
-  if (createResult.status !== 409 && hasTopic) {
-    var fallbackResult = await callResend("/contacts", {
-      method: "POST",
-      body: {
-        email,
-        unsubscribed: false,
-        properties: {
-          source,
-          page_url: pageUrl || ""
-        }
-      }
-    });
-
-    if (fallbackResult.ok) {
-      return {
-        duplicate: false,
-        contactId: fallbackResult.data && fallbackResult.data.id,
-        topicId: null,
-        topicWarning: true
-      };
-    }
-  }
-
-  if (createResult.status !== 409) {
-    var message =
-      createResult.data && (createResult.data.message || createResult.data.name || createResult.data.error);
-    throw new Error(message || "Resend contact sync failed.");
-  }
-
-  var topicResult = await callResend("/contacts/" + encodeURIComponent(email) + "/topics", {
-    method: "PATCH",
-    body: topics
-  });
-
-  if (!topicResult.ok) {
-    var topicMessage =
-      topicResult.data && (topicResult.data.message || topicResult.data.name || topicResult.data.error);
-    throw new Error(topicMessage || "Resend topic sync failed.");
-  }
-
-  return {
-    duplicate: true,
-    contactId: topicResult.data && topicResult.data.id,
-    topicId
-  };
 }
 
 async function postSupabase(payload) {
