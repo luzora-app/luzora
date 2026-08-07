@@ -113,6 +113,8 @@ module.exports = async function handler(req, res) {
     const topicId = manifestoTopicId();
     let synced = 0;
     let failed = 0;
+    let withoutTopic = 0;
+    let withoutProperties = 0;
     const failures = [];
 
     for (const row of rows) {
@@ -129,6 +131,8 @@ module.exports = async function handler(req, res) {
           p_topic_id: sync.topicId || ""
         });
 
+        if (sync.topicWarning) withoutTopic += 1;
+        if (sync.propertiesWarning) withoutProperties += 1;
         synced += 1;
       } catch (error) {
         // Left unmarked, so the next run retries this signer.
@@ -144,6 +148,11 @@ module.exports = async function handler(req, res) {
       considered: rows.length,
       synced: synced,
       failed: failed,
+      // Contacts stored, but with a part Resend refused. Not a failure, and
+      // worth knowing: a wrong topic id means these people are not on the
+      // list you meant to build.
+      syncedWithoutTopic: withoutTopic,
+      syncedWithoutProperties: withoutProperties,
       failures: failures.slice(0, 10),
       more: rows.length === limit
     });

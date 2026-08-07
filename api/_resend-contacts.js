@@ -57,6 +57,13 @@ function describeResendError(message) {
       "RESEND_CONTACTS_API_KEY to one, or widen RESEND_API_KEY."
     );
   }
+  if (/properties do not exist/i.test(text)) {
+    return (
+      text +
+      " — a custom property must be defined on the Resend audience before a " +
+      "contact can carry it."
+    );
+  }
   return text;
 }
 
@@ -72,46 +79,63 @@ async function syncResendContact(options) {
 
   const hasTopic = Boolean(topicId);
   const topics = hasTopic ? [{ id: topicId, subscription: "opt_in" }] : [];
+  const hasProperties = Object.keys(properties).length > 0;
 
-  const createResult = await callResend("/contacts", {
-    method: "POST",
-    body: {
-      email,
-      unsubscribed: false,
-      topics: hasTopic ? topics : undefined,
-      properties
+  // Resend requires a custom property to be defined on the audience before a
+  // contact can carry it, and rejects the whole request otherwise. A topic id
+  // can be wrong too. Neither is worth losing the contact over, so try the
+  // full payload first and shed the optional parts if it is refused. The
+  // address is the part that matters; the rest is decoration.
+  const attempts = [];
+  if (hasTopic || hasProperties) attempts.push({ topics: hasTopic, props: hasProperties });
+  if (hasProperties && hasTopic) attempts.push({ topics: true, props: false });
+  if (hasProperties) attempts.push({ topics: false, props: false });
+  if (hasTopic && !hasProperties) attempts.push({ topics: false, props: false });
+  if (!attempts.length) attempts.push({ topics: false, props: false });
+
+  let createResult = null;
+  let usedTopics = false;
+  let usedProperties = false;
+  let droppedProperties = false;
+
+  for (const attempt of attempts) {
+    createResult = await callResend("/contacts", {
+      method: "POST",
+      body: {
+        email,
+        unsubscribed: false,
+        topics: attempt.topics ? topics : undefined,
+        properties: attempt.props ? properties : undefined
+      }
+    });
+
+    if (createResult.ok) {
+      usedTopics = attempt.topics;
+      usedProperties = attempt.props;
+      droppedProperties = hasProperties && !attempt.props;
+      break;
     }
-  });
 
-  if (createResult.ok) {
+    // An existing contact is not something a simpler payload fixes.
+    if (createResult.status === 409) break;
+  }
+
+  if (createResult && createResult.ok) {
     return {
       duplicate: false,
       contactId: createResult.data && createResult.data.id,
-      topicId
+      topicId: usedTopics ? topicId : null,
+      topicWarning: hasTopic && !usedTopics,
+      propertiesWarning: droppedProperties,
+      propertiesStored: usedProperties
     };
   }
 
-  // A bad topic id should not cost us the contact. Store them without it and
-  // report the warning so the misconfiguration is visible in logs.
-  if (createResult.status !== 409 && hasTopic) {
-    const fallback = await callResend("/contacts", {
-      method: "POST",
-      body: { email, unsubscribed: false, properties }
-    });
-
-    if (fallback.ok) {
-      return {
-        duplicate: false,
-        contactId: fallback.data && fallback.data.id,
-        topicId: null,
-        topicWarning: true
-      };
-    }
-  }
-
-  if (createResult.status !== 409) {
+  if (!createResult || createResult.status !== 409) {
     const message =
-      createResult.data && (createResult.data.message || createResult.data.name || createResult.data.error);
+      createResult &&
+      createResult.data &&
+      (createResult.data.message || createResult.data.name || createResult.data.error);
     throw new Error(describeResendError(message || "Resend contact sync failed."));
   }
 
