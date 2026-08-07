@@ -22,9 +22,10 @@ alter table public.manifesto_signatures
   add column if not exists resend_synced_at timestamptz;
 
 -- Finding unsynced signers is the backfill's hot path.
+drop index if exists manifesto_signatures_resend_pending_idx;
 create index if not exists manifesto_signatures_resend_pending_idx
   on public.manifesto_signatures (signed_at)
-  where email_verified_at is not null and resend_synced_at is null;
+  where resend_synced_at is null;
 
 -- Marks one signature as synced. Called after Resend confirms the contact.
 create or replace function public.mark_manifesto_resend_synced(
@@ -48,8 +49,21 @@ begin
 end;
 $$;
 
--- Everyone verified who has never been synced. Drives the backfill for signers
--- who came in before this existed.
+-- Signers who have never been synced and whose address we have reason to
+-- believe is real.
+--
+-- Two ways to qualify:
+--
+--   1. They confirmed their email, by code or by the old link.
+--   2. Their signing confirmation was accepted and sent with no error. The old
+--      flow never got anyone to click a verification link, so a strict
+--      verified-only rule would exclude every existing signer. A delivered
+--      confirmation is weaker evidence, but it is evidence: the address
+--      accepted mail, and the person typed it in deliberately to sign
+--      something.
+--
+-- A signature whose confirmation recorded an error is left out. That is the
+-- one group with positive evidence against the address.
 create or replace function public.manifesto_signers_pending_resend(p_limit integer default 100)
 returns table (public_id uuid, email text, username text, signed_at timestamptz)
 language sql
@@ -58,8 +72,11 @@ set search_path = public
 as $$
   select public_id, email, username, signed_at
   from public.manifesto_signatures
-  where email_verified_at is not null
-    and resend_synced_at is null
+  where resend_synced_at is null
+    and (
+      email_verified_at is not null
+      or (confirmation_email_sent_at is not null and confirmation_email_error is null)
+    )
   order by signed_at asc
   limit greatest(coalesce(p_limit, 100), 1);
 $$;
