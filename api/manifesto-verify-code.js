@@ -1,4 +1,5 @@
 const { hashCode, isSixDigits } = require("./_manifesto-code.js");
+const { syncResendContact, manifestoTopicId } = require("./_resend-contacts.js");
 
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const USER_AGENT = "luzora-website/1.0";
@@ -45,6 +46,34 @@ async function callRpc(name, payload) {
   return data;
 }
 
+async function addToResend(email, signature) {
+  try {
+    const sync = await syncResendContact({
+      email: email,
+      topicId: manifestoTopicId(),
+      properties: {
+        source: "manifesto",
+        username: signature.username || "",
+        signer_number: String(signature.signer_number || "")
+      }
+    });
+
+    if (sync.topicWarning) {
+      console.error("Luzora manifesto Resend topic sync warning: check RESEND_MANIFESTO_TOPIC_ID.");
+    }
+
+    await callRpc("mark_manifesto_resend_synced", {
+      p_public_id: signature.public_id,
+      p_contact_id: sync.contactId || "",
+      p_topic_id: sync.topicId || ""
+    });
+  } catch (error) {
+    // Left unmarked on purpose. manifesto_signers_pending_resend will return
+    // this signer, and the backfill picks them up on the next run.
+    console.error("Luzora manifesto Resend contact sync failed:", error);
+  }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -79,6 +108,13 @@ module.exports = async function handler(req, res) {
         payload.attemptsLeft = result.attempts_left;
       }
       return json(res, status, payload);
+    }
+
+    // The signature is real from here on. Adding them to Resend is a
+    // follow-on, so a Resend outage must never cost someone their signature:
+    // failures are logged and left for the backfill, not surfaced.
+    if (!result.already_verified) {
+      await addToResend(email, result);
     }
 
     return json(res, 200, {
