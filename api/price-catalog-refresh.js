@@ -28,19 +28,23 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-function authorized(req) {
-  const secret = process.env.PRICE_POLL_SECRET;
-  if (!secret) return false;
-
-  const header = String(req.headers.authorization || "");
-  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
-  if (token.length !== secret.length) return false;
-
+function matches(token, secret) {
+  if (!secret || token.length !== secret.length) return false;
   let diff = 0;
   for (let i = 0; i < secret.length; i += 1) {
     diff |= token.charCodeAt(i) ^ secret.charCodeAt(i);
   }
   return diff === 0;
+}
+
+// Vercel Cron sends Authorization: Bearer <CRON_SECRET> automatically. Accepting
+// either that or our own secret means the scheduler works without keeping two
+// identical values in step, and a manual run still works from a terminal.
+function authorized(req) {
+  const header = String(req.headers.authorization || "");
+  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
+  if (!token) return false;
+  return matches(token, process.env.PRICE_POLL_SECRET) || matches(token, process.env.CRON_SECRET);
 }
 
 async function callRpc(name, payload) {
