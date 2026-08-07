@@ -606,7 +606,7 @@
           listIntro: "Access to the private test will happen in these steps:",
           list: [
             "Sign the [Luzora manifesto](/manifesto).",
-            "Apply to join the [Luzora Discord](https://discord.gg/VJFFJnfHZ) and submit the application form.",
+            "Apply to join the [Luzora Discord](https://discord.gg/saVrVzeh3) and submit the application form.",
             "Wait for our review and email response.",
             "If approved, join the private test channel with the Founding bee badge."
           ],
