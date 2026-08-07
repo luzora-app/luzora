@@ -52,18 +52,21 @@ $$;
 -- Signers who have never been synced and whose address we have reason to
 -- believe is real.
 --
--- Two ways to qualify:
+-- This asks one question only: is there evidence mail reaches this address?
 --
---   1. They confirmed their email, by code or by the old link.
---   2. Their signing confirmation was accepted and sent with no error. The old
---      flow never got anyone to click a verification link, so a strict
---      verified-only rule would exclude every existing signer. A delivered
---      confirmation is weaker evidence, but it is evidence: the address
---      accepted mail, and the person typed it in deliberately to sign
---      something.
+-- It deliberately does not read email_verified_at. Grandfathering sets that
+-- column for every old signer, so it would answer "yes" for addresses we have
+-- never successfully sent anything to. Whether someone signed and whether
+-- their address works are different questions and are kept apart.
 --
--- A signature whose confirmation recorded an error is left out. That is the
--- one group with positive evidence against the address.
+--   * confirmation_email_sent_at  the old flow delivered their signing
+--                                 confirmation
+--   * verification_code_sent_at   the new flow sent a code, which they then
+--                                 entered, so the address demonstrably works
+--
+-- Anything with a recorded send error is excluded. That is the one group with
+-- evidence against the address, and adding it costs deliverability for
+-- everyone else on the list.
 create or replace function public.manifesto_signers_pending_resend(p_limit integer default 100)
 returns table (public_id uuid, email text, username text, signed_at timestamptz)
 language sql
@@ -73,9 +76,10 @@ as $$
   select public_id, email, username, signed_at
   from public.manifesto_signatures
   where resend_synced_at is null
+    and confirmation_email_error is null
     and (
-      email_verified_at is not null
-      or (confirmation_email_sent_at is not null and confirmation_email_error is null)
+      confirmation_email_sent_at is not null
+      or verification_code_sent_at is not null
     )
   order by signed_at asc
   limit greatest(coalesce(p_limit, 100), 1);
