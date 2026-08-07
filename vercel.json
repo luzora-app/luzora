@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/price-catalog-refresh",
+      "path": "/api/price-poll?job=catalog",
       "schedule": "0 4 * * 1"
     }
   ],
@@ -129,6 +129,26 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/manifesto-request-code",
+      "destination": "/api/manifesto-flow?action=request-code"
+    },
+    {
+      "source": "/api/manifesto-verify-code",
+      "destination": "/api/manifesto-flow?action=verify-code"
+    },
+    {
+      "source": "/api/manifesto-signer-page",
+      "destination": "/api/manifesto-flow?action=signer-page"
+    },
+    {
+      "source": "/api/manifesto-resend-backfill",
+      "destination": "/api/manifesto-flow?action=resend-backfill"
+    },
+    {
+      "source": "/api/price-catalog-refresh",
+      "destination": "/api/price-poll?job=catalog"
+    },
     {
       "source": "/download",
       "destination": "/download.html"

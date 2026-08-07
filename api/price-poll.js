@@ -114,6 +114,18 @@ async function fetchPrices(ids) {
 }
 
 module.exports = async function handler(req, res) {
+  // The Hobby plan allows 12 serverless functions per deployment, so the
+  // catalogue refresh is dispatched from here rather than owning a route of its
+  // own. It is still a separate file, and still a separate schedule.
+  let job = "";
+  try {
+    job = String(new URL(req.url, "http://localhost").searchParams.get("job") || "").trim();
+  } catch (error) {}
+
+  if (job === "catalog") {
+    return require("./_price-catalog-refresh.js")(req, res);
+  }
+
   if (req.method !== "POST" && req.method !== "GET") {
     res.setHeader("Allow", "POST, GET");
     return json(res, 405, { ok: false, message: "Method not allowed." });
