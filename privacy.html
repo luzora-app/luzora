@@ -35,7 +35,7 @@
     </div>
     <p class="legal-hero__meta" data-reveal style="--reveal-delay: 80ms">
       <span>Last updated:</span>
-      <span>August 6th, 2026</span>
+      <span>August 9th, 2026</span>
     </p>
   </section>
 
@@ -71,6 +71,33 @@
           <p>Luzora is for tasks, routines, and website follow-ups. Do not save passwords, API keys, private keys, seed phrases, card details, bank information, or other sensitive secrets in task titles, folders, notes, project names, or links.</p>
         </li>
       </ol>
+
+      <h3>2.6 Chrome extension data disclosure</h3>
+      <p>This section describes the current Luzora browser extension data flow in one place. It is intended to make clear what the extension handles, why it handles it, where it is stored, and which external providers receive it.</p>
+      <ol class="legal-list legal-list--clauses">
+        <li>
+          <h4>Data kept in your browser</h4>
+          <p>Luzora stores authentication session data, task drafts, a local task cache, folders, schedules, completion history, preferences, notification state, Auto Return state, language and shortcut settings, and analytics identifiers in browser storage. This local data is used to keep the extension working across popup closures and browser restarts.</p>
+        </li>
+        <li>
+          <h4>Data sent to Supabase</h4>
+          <p>Luzora sends your email address, authentication information, Luzora user identifier, profile settings, tasks, task titles, projects, folder names, saved URLs and domains, favicons, schedules, reminders, task versions, completion history, preferences, referral records, and limited usage metadata to Supabase. Supabase provides authentication, database storage, account management, Edge Functions, and cross-browser sync. Passwords are processed by Supabase Auth and are not stored in Luzora task or profile tables.</p>
+        </li>
+        <li>
+          <h4>Data sent to PostHog</h4>
+          <p>The extension sends PostHog a randomly generated analytics identifier, event names, event timestamps, extension version, current Luzora screen, time zone after login, feature activity, task count, project count, folder count, completion count, session status, sync status, and similar product-use measurements. After login, the analytics identifier is associated with the internal Luzora user identifier so activity across sessions can be measured.</p>
+          <p>The extension's analytics filter removes properties identified as email addresses, passwords, authentication tokens, secrets, API keys, private keys, task titles, task links, saved URLs, folder names, project names, website names, and domains before analytics events are sent. PostHog does not receive task content or saved browsing destinations through Luzora analytics.</p>
+        </li>
+        <li>
+          <h4>Data sent to Google's favicon service</h4>
+          <p>When Luzora generates an icon for a recognised website, the extension may request that icon from Google's favicon service. The request contains the website domain and may expose ordinary request information such as your IP address, browser information, and request time to Google. This service is used only to display the website icon beside a task or project.</p>
+        </li>
+        <li>
+          <h4>Data not sent by the extension to website analytics or email providers</h4>
+          <p>The extension does not send extension activity to Google Analytics, Vercel Web Analytics, or Resend. Google Analytics and Vercel Web Analytics are used on Luzora website pages. Resend is used by Luzora website and backend flows for verification, transactional, Manifesto, deletion, and subscription emails.</p>
+        </li>
+      </ol>
+      <p><strong>Chrome Web Store Limited Use:</strong> Luzora's use and transfer of information received from Chrome APIs complies with the Chrome Web Store User Data Policy, including the Limited Use requirements. Luzora uses Chrome API data only to provide or improve the extension's disclosed, user-facing task, reminder, page-capture, sync, and return features. We do not sell Chrome API data, use it for personalised advertising, use it for credit or lending decisions, or allow humans to read it except with the user's specific consent for support, when required for security, when required by law, or after the data has been aggregated and anonymised for internal operations.</p>
 
       <h3>3. Who this Policy applies to</h3>
       <p>This Policy applies to visitors, extension users, account holders, newsletter subscribers, referral users, people who contact support, and anyone who uses a Luzora page or service that links to this Policy.</p>
@@ -221,7 +248,7 @@
       </ol>
 
       <h3>11. Product analytics</h3>
-      <p>Luzora may use PostHog, Google Analytics, and Vercel Web Analytics for product and website analytics. Analytics help us understand how features are used, whether sync and reminders are reliable, which pages people visit, which screens need improvement, and how to make Luzora more useful.</p>
+      <p>The Luzora extension uses PostHog for product analytics. Luzora website pages use Google Analytics and Vercel Web Analytics. These services help us understand how features are used, whether sync and reminders are reliable, which website pages people visit, which screens need improvement, and how to make Luzora more useful. Extension activity is not sent to Google Analytics or Vercel Web Analytics.</p>
       <p>We design analytics to avoid sending sensitive task content. Our analytics wrapper filters property names and values that look like emails, passwords, tokens, secrets, API keys, private keys, task titles, task links, URLs, folder names, project names, website names, or domains. We may still collect event names, timestamps, extension version, screen names, page paths, feature usage, task counts, completion counts, settings changes, session duration, and sync status.</p>
       <p>There is currently no setting to turn product analytics off inside the extension. We would rather say so plainly than imply a choice that does not exist. If analytics matter to you, the filtering described above is what limits them: your task names, links, folders, project names and website addresses are removed before anything is sent, so what we receive describes how the product is used and not what you are using it for.</p>
       <p>If you contact us about analytics deletion or privacy choices, we will review your request based on the information available to us and the capabilities of our analytics provider.</p>
@@ -266,28 +293,28 @@
       <p>We do not sell your task data. We may share personal information in the limited circumstances below:</p>
       <ol class="legal-list legal-list--clauses">
         <li>
-          <h4>15.1 Service providers</h4>
-          <p>We use service providers to host, store, process, secure, analyze, and support Luzora. These providers may process personal information only as needed to provide services to us, subject to their terms and policies.</p>
+          <h4>15.1 Current service providers</h4>
+          <p>The current providers that receive Luzora user data are Supabase, PostHog, Google, Vercel, and Resend, as described below. We do not use an unnamed category of providers to receive extension user data. If we add or replace a provider that changes who receives personal information, we will update this Policy before the new sharing begins.</p>
         </li>
         <li>
           <h4>15.2 Supabase</h4>
-          <p>Supabase provides authentication, account management, database storage, password reset, Edge Functions, and sync infrastructure for Luzora.</p>
+          <p>Supabase provides authentication, account management, database storage, password reset, Edge Functions, website backend functions, and cross-browser sync. Supabase receives the account, profile, task, project, saved-link, schedule, completion, preference, referral, Manifesto, newsletter, deletion-request, and usage data described in this Policy when the relevant feature is used.</p>
         </li>
         <li>
           <h4>15.3 PostHog</h4>
-          <p>PostHog provides product analytics that help us understand feature usage and improve Luzora. We use filtering to reduce the chance that task content or sensitive information is included in analytics.</p>
+          <p>PostHog provides analytics for the browser extension. PostHog receives an analytics identifier, the internal Luzora user identifier after login, time zone, event names and timestamps, extension version, screen and feature activity, counts of tasks, projects, folders and completions, session status, sync status, and similar product-use measurements. Luzora filters task titles, links, URLs, website names, domains, folder names, project names, email addresses, passwords, tokens, secrets, API keys, and private keys from analytics event properties.</p>
         </li>
         <li>
           <h4>15.4 Google Analytics</h4>
-          <p>Google Analytics may provide website analytics that help us understand page views, traffic sources, browser information, approximate region, device type, and basic site usage. We do not use Google Analytics to intentionally collect task content, passwords, saved task links, or private form values.</p>
+          <p>Google Analytics provides analytics for Luzora website pages, not extension activity. It receives website page views, page paths, traffic sources, browser information, approximate region, device type, consent state, and basic website usage. We do not send task content, passwords, saved task links, or private form values to Google Analytics.</p>
         </li>
         <li>
           <h4>15.5 Vercel Web Analytics</h4>
-          <p>Vercel Web Analytics may provide privacy-focused website analytics for pages hosted on Vercel, including page views, referrers, device information, browser information, and approximate region. We do not use Vercel Web Analytics to intentionally collect task content, passwords, saved task links, or private form values.</p>
+          <p>Vercel hosts the Luzora website and provides website analytics. Vercel may receive page views, page paths, referrers, device and browser information, approximate region, request logs, IP-derived network information, and information submitted to Luzora website API routes. We do not send task content, passwords, saved task links, or private form values to Vercel Web Analytics.</p>
         </li>
         <li>
-          <h4>15.6 Resend or email providers</h4>
-          <p>We may use Resend or similar providers to send account-related emails, security emails, deletion confirmations, and other transactional messages.</p>
+          <h4>15.6 Resend</h4>
+          <p>Resend sends Luzora verification, transactional, Manifesto, deletion, newsletter, and subscription-related emails. Resend receives the recipient email address, message content and subject, sending and delivery identifiers, delivery status, subscription topic or audience information, and limited metadata needed to deliver, troubleshoot, suppress, and unsubscribe email. Extension activity and task data are not sent to Resend.</p>
         </li>
         <li>
           <h4>15.7 Browser vendors and extension stores</h4>
@@ -295,7 +322,7 @@
         </li>
         <li>
           <h4>15.8 Favicon and website icon services</h4>
-          <p>Luzora may display favicons or website icons, including through browser data, stored icon URLs, or services such as Google's favicon service. When an icon is loaded from a third-party service, that service may receive the icon request from your browser.</p>
+          <p>Luzora displays favicons supplied by the active browser tab and uses Google's favicon service to generate icons for recognised websites. A Google favicon request contains the requested website domain and can expose ordinary request information such as IP address, browser information, and request time to Google. The request is made only to display the relevant website icon.</p>
         </li>
         <li>
           <h4>15.9 Legal, safety, and enforcement</h4>
