@@ -3,6 +3,139 @@
 
   var ARTICLES = [
     {
+      slug: "luzora-v1-0-6-faster-safer-smarter",
+      title: "Luzora v1.0.6 is live: Faster, safer, and smarter",
+      dek: "A faster Home experience, Dynamic Context Preview, task search, safer bulk actions, stronger sync, and smarter capture make it easier to keep moving.",
+      metaDescription: "See what is new in Luzora v1.0.6, including Dynamic Context Preview, faster Home loading, task search, safe bulk deletion, stronger sync, smarter capture, and more reliable reminders.",
+      category: "Product update",
+      date: "August 11, 2026",
+      readTime: "8 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/brand-kit/social/luzora-v1-0-6-product-update.png",
+      socialImage: "/assets/brand-kit/social/open-graph/luzora-v1-0-6-product-update-og.png",
+      cardImageAlt: "A Luzora browser task interface surrounded by reminder, calendar, progress, and return symbols",
+      lead: [
+        "Luzora v1.0.6 is now live.",
+        "This release makes Luzora faster, safer, and easier to use when your task list grows or you move between browsers and sessions.",
+        "Home gets you to today's work sooner. Dynamic Context Preview shows what Luzora understands while you type. Search and bulk actions make a long task list easier to manage. Behind the interface, stronger sync and reminder systems protect the work you have already saved.",
+        "The result is a release built to help you capture what matters quickly, find it again easily, and trust that it will still be there when you return."
+      ],
+      sections: [
+        {
+          id: "home-gets-you-moving-faster",
+          title: "Home gets you moving faster",
+          body: [
+            "Opening Luzora should not make you wait for work that is not yet on screen. Version 1.0.6 changes the startup path so today's tasks render first while adjacent days prepare in the background.",
+            "Cached state can appear before slower browser capability checks finish, and the natural-language engine now loads only when Add Task, Edit Task, or Luzora Bolt actually needs it."
+          ],
+          listType: "ul",
+          listIntro: "That means:",
+          list: [
+            "Today's tasks appear before off-screen days finish loading",
+            "Add Task can paint immediately while language processing prepares",
+            "Date and time formatting work is reused instead of repeated",
+            "Draft changes are grouped into fewer storage writes"
+          ],
+          afterList: [
+            "The published extension remains compact at about 1.29 MiB, even with the new features and reliability work in this release."
+          ]
+        },
+        {
+          id: "dynamic-context-preview-shows-what-luzora-understands",
+          title: "Dynamic Context Preview shows what Luzora understands",
+          body: [
+            "Start typing a task and Luzora now reveals the details it captures as editable chips. The preview stays quiet until there is something useful to show, so an empty draft remains focused.",
+            "Attach stays fixed on the left for adding details, while captured folder, link, schedule, date, time, countdown, and reminder context appears beside it. Existing chips can still be edited or removed."
+          ],
+          afterList: [
+            "Full links and long reminder schedules now open in accessible tooltips anchored to the relevant chip, without clipping outside the popup."
+          ]
+        },
+        {
+          id: "find-and-manage-the-right-tasks",
+          title: "Find and manage the right tasks",
+          body: [
+            "A growing task list should become easier to use, not harder to scan. Version 1.0.6 adds a fixed search field to Task List and keeps matching results organised under Active Tasks and Ended Tasks."
+          ],
+          listType: "ul",
+          listIntro: "Search now covers:",
+          list: [
+            "Task names",
+            "Projects and folders",
+            "Schedule text",
+            "Active or ended status"
+          ],
+          afterList: [
+            "You can also select and delete several active or ended tasks at once. A clear confirmation step protects against accidental removal, and bulk deletion preserves completion history, consistency, and streaks."
+          ]
+        },
+        {
+          id: "sync-that-protects-a-growing-history",
+          title: "Sync that protects a growing history",
+          body: [
+            "The most important reliability work is often the work you should never have to notice. Luzora now retrieves large task histories in stable pages instead of stopping at an older row limit.",
+            "Account-specific caches preserve local-first work when you sign out and back in. Incomplete remote responses can no longer be treated as a complete account and used to remove locally cached tasks."
+          ],
+          listType: "ul",
+          listIntro: "The new sync path also:",
+          list: [
+            "Loads tasks, projects, completions, and versions in stable 1,000-row pages",
+            "Merges remote results without deleting work missing from a partial response",
+            "Replaces temporary local IDs as soon as remote creation succeeds",
+            "Orders storage writes so older state cannot overwrite newer work"
+          ]
+        },
+        {
+          id: "smarter-capture-with-more-control",
+          title: "Smarter capture with more control",
+          body: [
+            "Natural-language capture now handles more of the shorthand people use in real tasks. Year and month abbreviations are interpreted more carefully, incomplete reminder phrases stay undecided while you are still typing, and reminder clauses no longer hide useful project, link, date, or time context that follows them."
+          ],
+          listType: "ul",
+          listIntro: "Chip controls are more predictable too:",
+          list: [
+            "Removing an automatically captured chip dismisses only that value",
+            "The next eligible date, time, reminder, or platform can still be captured",
+            "Month shorthand such as 3 mons is understood without confusing Mon with Monday",
+            "Year shorthand works after digits or number words"
+          ],
+          afterList: [
+            "The deterministic one-million-description benchmark completed with 1,000,000 exact synthetic-context passes and zero failures."
+          ]
+        },
+        {
+          id: "reliable-navigation-and-reminders",
+          title: "Reliable navigation and reminders",
+          body: [
+            "Home day navigation now moves one day at a time immediately. From Today, the left arrow opens Yesterday and the right arrow opens Tomorrow, making the direction of travel predictable.",
+            "Reminder scheduling is more efficient as well. Exact alarms still deliver time-sensitive reminders, while recovery work now wakes Luzora near the next known event instead of polling every minute. Badge refresh follows the next local day boundary and still responds immediately to task or storage changes."
+          ],
+          afterList: [
+            "Notification recovery and background scheduling received additional reliability work so delayed browser wake-ups are handled more safely."
+          ]
+        },
+        {
+          id: "tested-before-publication",
+          title: "Tested before publication",
+          body: [
+            "Version 1.0.6 was validated before publication with 205 automated regression tests and the one-million-description natural-language benchmark.",
+            "The published Chrome Manifest V3 package contains 131 runtime files, supports English, Spanish, and Simplified Chinese, and adds no new required host permission. Website access remains optional."
+          ],
+          afterList: [
+            "Development-only files, test suites, package sources, and internal handoff documents are not included in the published extension."
+          ]
+        },
+        {
+          id: "keep-what-matters-in-sight",
+          title: "Keep what matters in sight",
+          body: [
+            "Luzora v1.0.6 improves the whole path from capturing a browser task to finding it again, syncing it safely, and receiving the reminder that brings you back.",
+            "Update to v1.0.6 and keep the things that matter in sight."
+          ]
+        }
+      ]
+    },
+    {
       slug: "luzora-v1-0-5-return-to-the-right-page",
       title: "Luzora v1.0.5: Return to the Right Page at the Right Time",
       dek: "Smart Return, Auto Return, richer reminders, live countdowns, and better natural-language scheduling make browser tasks far more precise.",
@@ -177,11 +310,7 @@
             "Luzora v1.0.5 turns a saved browser task into a more complete return experience.",
             "It can understand a richer instruction, remember more than the URL, warn you before the moment arrives, and bring you back without disrupting the page you are already using.",
             "Smart Return begins with TradingView. Auto Return begins with timed tasks. Both point toward the same future: a browser that helps you return with purpose, not just another collection of tabs you meant to revisit."
-          ],
-          cta: {
-            label: "Learn more about Luzora",
-            href: "/#hero"
-          }
+          ]
         }
       ]
     },
@@ -849,7 +978,7 @@
   function updateArticleMetadata(article) {
     var description = article.metaDescription || article.dek;
     var canonicalUrl = "https://www.luzora.app" + getArticleUrl(article);
-    var imageUrl = new URL(article.cardImage || CARD_IMAGE, "https://www.luzora.app").href;
+    var imageUrl = new URL(article.socialImage || article.cardImage || CARD_IMAGE, "https://www.luzora.app").href;
 
     function setMeta(selector, value) {
       var meta = document.querySelector(selector);

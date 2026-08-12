@@ -2,6 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "luzora-v1-0-6-faster-safer-smarter": {
+    title: "Luzora v1.0.6 is live: Faster, safer, and smarter",
+    description: "See what is new in Luzora v1.0.6, including Dynamic Context Preview, faster Home loading, task search, safe bulk deletion, stronger sync, smarter capture, and more reliable reminders.",
+    image: "https://www.luzora.app/assets/brand-kit/social/open-graph/luzora-v1-0-6-product-update-og.png",
+    datePublished: "2026-08-11T12:00:00+01:00",
+    dateModified: "2026-08-11T12:00:00+01:00"
+  },
   "luzora-v1-0-5-return-to-the-right-page": {
     title: "Luzora v1.0.5: Return to the Right Page at the Right Time",
     description: "See what is new in Luzora v1.0.5, including Smart Return, Auto Return, live countdowns, multiple reminders, improved scheduling, and more reliable browser tasks.",
