@@ -6,18 +6,33 @@
 // prefixed with an underscore so Vercel does not route to it directly.
 //
 // Old paths still work. vercel.json rewrites them onto this function, so
-// anything already calling /api/manifesto-verify-code keeps working.
+// anything already calling /api/manifesto-signer-page keeps working.
 //
-//   /api/manifesto-flow?action=request-code
-//   /api/manifesto-flow?action=verify-code
 //   /api/manifesto-flow?action=signer-page
 //   /api/manifesto-flow?action=resend-backfill
+//
+// Email verification has moved to The Hive.
+//
+// request-code and verify-code used to live here. No page on this site ever
+// called them, which is why not one signer was ever marked verified through
+// them, but request-code would send a code to any address already in the
+// signer list and verify-code would mark the signature verified without the
+// Hive knowing. The Hive now owns verification end to end, so leaving a
+// second unattended door onto the same records serves nothing.
+//
+// The handler files remain in the repository, unreferenced, so restoring
+// this is a matter of adding the two lines back rather than rewriting them.
 
 const handlers = {
-  "request-code": require("./_manifesto-request-code.js"),
-  "verify-code": require("./_manifesto-verify-code.js"),
   "signer-page": require("./_manifesto-signer-page.js"),
   "resend-backfill": require("./_manifesto-resend-backfill.js")
+};
+
+// Retired actions answer plainly rather than as an unknown action, so anything
+// still calling them reports something legible instead of looking like a typo.
+const retired = {
+  "request-code": "Email verification has moved to The Hive.",
+  "verify-code": "Email verification has moved to The Hive."
 };
 
 function json(res, status, body) {
@@ -32,6 +47,14 @@ module.exports = async function handler(req, res) {
   try {
     action = String(new URL(req.url, "http://localhost").searchParams.get("action") || "").trim();
   } catch (error) {}
+
+  if (Object.prototype.hasOwnProperty.call(retired, action)) {
+    return json(res, 410, {
+      ok: false,
+      reason: "moved_to_hive",
+      message: retired[action]
+    });
+  }
 
   const chosen = handlers[action];
   if (!chosen) {
