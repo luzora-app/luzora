@@ -2,7 +2,8 @@
 (function () {
   "use strict";
 
-  var NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
+  var NAME_RE = /^[A-Za-z0-9_]{3,16}$/;
+  var LEGACY_REFERRAL_NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
   var EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
   var X_HANDLE_RE = /^@?[A-Za-z0-9_]{1,15}$/;
   var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -33,7 +34,7 @@
 
   function normalizeReferralCode(value) {
     var code = String(value || "").trim().replace(/^@+/, "");
-    return NAME_RE.test(code) ? code.toLowerCase() : "";
+    return LEGACY_REFERRAL_NAME_RE.test(code) ? code.toLowerCase() : "";
   }
 
   function referralCodeFromLocation() {
@@ -219,7 +220,7 @@
   });
 
   function cleanName(value) {
-    return value.replace(/\s+/g, "").replace(/[^A-Za-z0-9_]/g, "").slice(0, 24);
+    return value.replace(/\s+/g, "").replace(/[^A-Za-z0-9_]/g, "").slice(0, 16);
   }
 
   function cleanHandle(value) {
@@ -382,7 +383,7 @@
       return;
     }
     if (!NAME_RE.test(name)) {
-      setNameStatus("unavailable", "Use 3 to 24 letters, numbers or underscores. No spaces.");
+      setNameStatus("unavailable", "Use 3 to 16 letters, numbers or underscores. No spaces.");
       return;
     }
     setNameStatus("idle", "Letters, numbers and underscores. This becomes your Hive name.");
@@ -603,7 +604,7 @@
         if (await recoverAndRedirectToPublicCard()) return;
       } else if (reason === "name_taken") returnToForm("That Hive name is already reserved. Try another.", true);
       else if (reason === "email_taken") returnToForm("That email has already signed the manifesto.", false);
-      else if (reason === "invalid_name") returnToForm("Use 3 to 24 letters, numbers or underscores. No spaces.", true);
+      else if (reason === "invalid_name") returnToForm("Use 3 to 16 letters, numbers or underscores. No spaces.", true);
       else if (reason === "invalid_email") returnToForm("Enter a valid email address.", false);
       else if (reason === "invalid_x_handle") returnToForm("Enter a valid X handle.", false);
       else if (reason === "social_tasks_incomplete") returnToForm("Complete the X tasks before signing the manifesto.", false);

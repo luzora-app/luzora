@@ -4,7 +4,7 @@ const { CODE_TTL_SECONDS, generateCode, hashCode } = require("./_manifesto-code.
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.supabase.co";
 const RESEND_API_URL = "https://api.resend.com";
 const USER_AGENT = "luzora-website/1.0";
-const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
+const NAME_RE = /^[A-Za-z0-9_]{3,16}$/;
 const EMAIL_RE = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 function json(res, status, body) {

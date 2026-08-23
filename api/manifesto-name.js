@@ -2,7 +2,7 @@ const SUPABASE_URL = process.env.SUPABASE_URL || "https://wtunedbjhpxnmlsvssiw.s
 const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY || "sb_publishable_z2T50qlQe_r07Ay1Gy7c5w_Hg3euo0W";
 const USER_AGENT = "luzora-website/1.0";
-const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
+const NAME_RE = /^[A-Za-z0-9_]{3,16}$/;
 
 function json(res, status, body) {
   res.statusCode = status;

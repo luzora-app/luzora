@@ -7,7 +7,8 @@ const RESEND_API_URL = "https://api.resend.com";
 const USER_AGENT = "luzora-website/1.0";
 const MANIFESTO_EMAIL_VERSION = "v3";
 const MANIFESTO_CARD_BASE_URL = "https://www.luzora.app/manifesto/s/";
-const NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
+const NAME_RE = /^[A-Za-z0-9_]{3,16}$/;
+const LEGACY_REFERRAL_NAME_RE = /^[A-Za-z0-9_]{3,24}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const UUID_FRAGMENT_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i;
@@ -63,7 +64,7 @@ function normalizeXHandle(value) {
 
 function normalizeReferralCode(value) {
   var code = String(value || "").trim().replace(/^@+/, "");
-  return NAME_RE.test(code) ? code.toLowerCase() : "";
+  return LEGACY_REFERRAL_NAME_RE.test(code) ? code.toLowerCase() : "";
 }
 
 function extractPublicId(signature) {
