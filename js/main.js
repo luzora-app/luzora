@@ -60,9 +60,9 @@
             '<a href="/manifesto">Manifesto</a>' +
             '<a href="/blog">Blog</a>' +
           '</nav>' +
-          '<a class="nav__cta" href="/manifesto">' +
-            '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
-            '<span>Sign the manifesto</span>' +
+          '<a class="nav__cta" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
+            '<span>Enter the Hive</span>' +
+            '<img src="/assets/icons/fi_arrow-right-black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
           '</a>' +
           '<button class="nav__toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">' +
             '<span class="nav__toggle-bar"></span>' +
@@ -75,9 +75,9 @@
           '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="/manifesto">Manifesto</a>' +
           '<a href="/blog">Blog</a>' +
-          '<a class="nav__cta nav__cta--menu" href="/manifesto">' +
-            '<img src="/assets/icons/fi_feather-Black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
-            '<span>Sign the manifesto</span>' +
+          '<a class="nav__cta nav__cta--menu" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
+            '<span>Enter the Hive</span>' +
+            '<img src="/assets/icons/fi_arrow-right-black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
           '</a>' +
         '</div>' +
       '</header>';
