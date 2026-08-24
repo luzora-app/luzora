@@ -3,6 +3,162 @@
 
   var ARTICLES = [
     {
+      slug: "meet-luzora-return-to-what-matters",
+      title: "Meet Luzora: The tool that brings you back to what matters",
+      dek: "Luzora turns intentions into actions by helping you return to the right place, with the right context, when it is time to follow through.",
+      metaDescription: "Meet Luzora, the tool that helps you return to the right place at the right time, follow through on what matters, and build consistency with The Hive.",
+      category: "Announcements",
+      date: "August 24, 2026",
+      readTime: "8 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/images/blog/introducing-luzora/cover.webp",
+      socialImage: "/assets/images/blog/introducing-luzora/cover.webp",
+      cardImageAlt: "Luzora, the hive of consistency",
+      coverImage: {
+        src: "/assets/images/blog/introducing-luzora/cover.webp",
+        alt: "Luzora, the hive of consistency",
+        width: 2000,
+        height: 1067
+      },
+      lead: [
+        "You open a page because something on it matters.",
+        "A course you want to finish. A portfolio you need to review. An invoice you should send. A market you want to check before making a decision.",
+        "Then life continues. Another tab opens. A message arrives. The page disappears into the rest of your browser, and the thing you meant to do becomes one more intention waiting for the right moment.",
+        "Luzora was built for that moment."
+      ],
+      sections: [
+        {
+          id: "what-luzora-is",
+          title: "What Luzora is",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/what-luzora-is.webp",
+            alt: "What you need to do, where you need to do it, and when you need to return",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Luzora is a tool that turns intentions into actions.",
+            "It helps you save what you need to do, where you need to do it, and when you need to return. When the time comes, Luzora brings the task and its context back into view so you can act instead of trying to reconstruct what you meant earlier.",
+            "That distinction matters. A reminder can tell you to review your portfolio. Luzora can bring you back to the portfolio you meant to review. A calendar can tell you to continue your course. Luzora can return you to the course page where you stopped.",
+            "Today, Luzora lives as a Chrome extension because so much of modern work already happens in the browser. Over time, we plan to bring that same experience to mobile and integrated desktop products. The form may change. The purpose will not."
+          ],
+          callout: "Save the place. Keep the intention. Return when it matters."
+        },
+        {
+          id: "luzora-for-finance",
+          title: "Luzora for finance",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/finance.webp",
+            alt: "A Luzora finance task to review an eToro portfolio every Friday",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Money rarely needs your attention every minute. It needs your attention at the right time.",
+            "You may want to review your portfolio every Friday, check a subscription before its trial ends, pay an invoice on a particular date, or return to a budgeting sheet at the end of the month. The intention is clear when you make it. The difficult part is arriving at the right page when the moment comes.",
+            "With Luzora, the task stays connected to its destination. When it is time to review, pay, cancel, or compare, you are not starting with a search. You are returning to the work."
+          ]
+        },
+        {
+          id: "luzora-for-study",
+          title: "Luzora for study",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/study.webp",
+            alt: "A Luzora study task to continue an Udemy course every weekday at 8am",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Most people do not abandon a course because they stopped caring about the subject. The course simply loses the fight for attention.",
+            "The lecture is in one tab. The reading list is somewhere else. The assignment portal has another login. By the time you remember, you have to find everything again, and that small amount of friction is enough to postpone the session.",
+            "Luzora gives study a place and a rhythm. Save the lecture, reading, research page, or practice platform. Choose when you want to return. Then let the next session begin where the last intention left off."
+          ]
+        },
+        {
+          id: "luzora-for-web3",
+          title: "Luzora for Web3",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/web3.webp",
+            alt: "A Luzora Web3 task connected to a Polymarket prediction market",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Web3 moves quickly, but useful participation is not the same as watching everything all day.",
+            "You may need to revisit a governance proposal before voting closes, check a position at a set time, return to a research thread, or review a prediction market before an event. These are time-sensitive actions attached to specific destinations.",
+            "Luzora helps you step away without losing the thread. Save the exact place, set the moment that matters, and return with the context intact."
+          ]
+        },
+        {
+          id: "luzora-for-administration",
+          title: "Luzora for administration",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/administration.webp",
+            alt: "A Luzora administration task to follow up on an email twice weekly",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Administration is full of small tasks that carry real consequences.",
+            "Follow up on an email. Send the invoice. Submit the form. Check whether the application changed. Review the document before Friday. None of these tasks is especially complicated. They are simply easy to miss while more urgent things are making noise.",
+            "Luzora keeps those promises visible and connected to the place where you can complete them.",
+            "The examples change from one person to another, but the pattern stays the same. A designer can return to a client board. A recruiter can revisit a candidate profile. A trader can review a chart. A student can continue a lesson. A founder can follow up on a proposal.",
+            "Luzora does not decide what matters for you. It helps you return to what you already decided matters."
+          ]
+        },
+        {
+          id: "meet-the-hive",
+          title: "Meet The Hive",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/meet-the-hive.webp",
+            alt: "Members of The Hive gathered around a Luzora podium",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Luzora is the tool. The Hive is the community growing around it.",
+            "The Hive is for people who are trying to become more consistent in whatever they care about. Not people pretending to have perfect routines. People who miss days, return, learn, and keep building.",
+            "We are creating Luzora with that community, not merely presenting a finished product to it. Members test ideas, share how they work, take part in activities, challenge one another, and help us understand where follow-through breaks down in real life.",
+            "The Hive is built on a simple belief: productivity should bring you back to the things that benefit you. It should not turn your life into an endless list of things to optimise."
+          ]
+        },
+        {
+          id: "what-are-hive-points",
+          title: "What are Hive Points?",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/hive-points.webp",
+            alt: "A Hive Point token and a reward of 100 HP",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Hive Points, or HP, are a measure of contribution inside The Hive.",
+            "They recognise three kinds of value: value to yourself, value to other people, and value to Luzora. Showing up for a challenge can create value for you. Helping another member can create value for someone else. Testing a feature or sharing useful feedback can create value for the product we are building together.",
+            "Hive Points are not money, and they are not a cryptocurrency. They are a visible record of participation, effort, and contribution in the community.",
+            "Before the official launch of Luzora, The Hive will run contests, conquests, and community activities that give members opportunities to earn HP and move up the leaderboard. Before launch, we will recognise and award the top members who helped make the community and the product stronger.",
+            "The leaderboard is not there to reward noise. It is there to make meaningful contribution visible."
+          ]
+        },
+        {
+          id: "return-to-what-matters",
+          title: "Return to what matters",
+          image: {
+            src: "/assets/images/blog/introducing-luzora/return-to-what-matters.webp",
+            alt: "The Luzora symbol on a yellow background",
+            width: 2000,
+            height: 1067
+          },
+          body: [
+            "Luzora begins with a practical problem. We mean to do things, but the right place and the right moment rarely meet on their own.",
+            "We are building the tool that brings them together.",
+            "For the course you want to finish. The money you want to manage better. The work you need to follow up on. The research you want to revisit. The habit you are tired of restarting from zero.",
+            "You already know what matters to you. Luzora helps you get back to it."
+          ],
+          callout: "Save the site. Show up on time."
+        }
+      ]
+    },
+    {
       slug: "luzora-v1-0-6-faster-safer-smarter",
       title: "Luzora v1.0.6 is live: Faster, safer, and smarter",
       dek: "A faster Home experience, Dynamic Context Preview, task search, safer bulk actions, stronger sync, and smarter capture make it easier to keep moving.",
@@ -952,12 +1108,21 @@
     render();
   }
 
+  function renderArticleImage(image, className, eager) {
+    if (!image || !image.src) return "";
+    var width = Number(image.width) || 2000;
+    var height = Number(image.height) || 1067;
+    var loading = eager ? ' loading="eager" fetchpriority="high"' : ' loading="lazy"';
+    return '<figure class="' + className + '"><img src="' + escapeHtml(image.src) + '" alt="' + escapeHtml(image.alt || "") + '" width="' + width + '" height="' + height + '" decoding="async"' + loading + ' /></figure>';
+  }
+
   function renderArticleBody(article) {
+    var cover = renderArticleImage(article.coverImage, "article-cover-image", true);
     var lead = article.lead ? '<div class="article-lead" data-article-section>' + article.lead.map(function (paragraph) {
       return "<p>" + renderInline(paragraph) + "</p>";
     }).join("") + "</div>" : "";
 
-    return lead + article.sections.map(function (section) {
+    return cover + lead + article.sections.map(function (section) {
       var paragraphs = section.body.map(function (paragraph) {
         return "<p>" + renderInline(paragraph) + "</p>";
       }).join("");
@@ -971,7 +1136,8 @@
       }).join("") : "";
       var cta = section.cta ? '<p class="article-cta"><a href="' + escapeHtml(section.cta.href) + '">' + escapeHtml(section.cta.label) + "</a></p>" : "";
       var callout = section.callout ? '<p class="article-callout">' + renderInline(section.callout) + "</p>" : "";
-      return '<section class="article-section" id="' + section.id + '" data-article-section><h2>' + escapeHtml(section.title) + "</h2>" + paragraphs + listIntro + list + afterList + cta + callout + "</section>";
+      var image = renderArticleImage(section.image, "article-section__image", false);
+      return '<section class="article-section" id="' + section.id + '" data-article-section>' + image + '<h2>' + escapeHtml(section.title) + "</h2>" + paragraphs + listIntro + list + afterList + cta + callout + "</section>";
     }).join("");
   }
 

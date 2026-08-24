@@ -592,6 +592,27 @@
   gap: 32px;
 }
 
+.article-cover-image,
+.article-section__image {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #f8f5e9;
+}
+
+.article-cover-image img,
+.article-section__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2000 / 1067;
+}
+
+.article-section__image {
+  margin-bottom: 8px;
+}
+
 .article-jump-button {
   box-sizing: border-box;
   position: fixed;

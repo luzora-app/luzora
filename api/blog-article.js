@@ -2,6 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "meet-luzora-return-to-what-matters": {
+    title: "Meet Luzora: The tool that brings you back to what matters",
+    description: "Meet Luzora, the tool that helps you return to the right place at the right time, follow through on what matters, and build consistency with The Hive.",
+    image: "https://www.luzora.app/assets/images/blog/introducing-luzora/cover.webp",
+    datePublished: "2026-08-24T12:00:00+01:00",
+    dateModified: "2026-08-24T12:00:00+01:00"
+  },
   "luzora-v1-0-6-faster-safer-smarter": {
     title: "Luzora v1.0.6 is live: Faster, safer, and smarter",
     description: "See what is new in Luzora v1.0.6, including Dynamic Context Preview, faster Home loading, task search, safe bulk deletion, stronger sync, smarter capture, and more reliable reminders.",
