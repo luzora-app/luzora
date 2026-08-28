@@ -443,7 +443,24 @@
     badge.setAttribute("google-add-preferred-source-btn", "");
     badge.setAttribute("data-theme", "light");
     wrapper.appendChild(badge);
+
+    var fallback = document.createElement("a");
+    fallback.className = "footer__preferred-source-fallback";
+    fallback.href = "https://www.google.com/preferences/source?q=www.luzora.app";
+    fallback.target = "_blank";
+    fallback.rel = "noopener noreferrer";
+    fallback.textContent = "Add Luzora as a preferred source";
+    wrapper.appendChild(fallback);
     footerBrand.appendChild(wrapper);
+
+    function syncPreferredSourcesBadge() {
+      var isRendered = badge.getAttribute("data-initialized") === "true" && badge.querySelector("iframe");
+      wrapper.classList.toggle("is-google-rendered", Boolean(isRendered));
+    }
+
+    var observer = new MutationObserver(syncPreferredSourcesBadge);
+    observer.observe(badge, { attributes: true, childList: true, subtree: true });
+    syncPreferredSourcesBadge();
 
     if (document.querySelector('script[src="https://news.google.com/swg/js/v1/publisher.js"]')) return;
 

@@ -2639,6 +2639,38 @@ img {
   align-items: center;
 }
 
+.footer__preferred-source > [google-add-preferred-source-btn] {
+  width: 100%;
+}
+
+.footer__preferred-source-fallback {
+  display: inline-flex;
+  min-height: 40px;
+  padding: 9px 14px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  background: #fff;
+  color: #202124;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.footer__preferred-source-fallback:hover,
+.footer__preferred-source-fallback:focus-visible {
+  border-color: #bdc1c6;
+  background: #f8f9fa;
+}
+
+.footer__preferred-source.is-google-rendered .footer__preferred-source-fallback {
+  display: none;
+}
+
 .footer__cols {
   display: flex;
   flex-direction: row;
