@@ -431,6 +431,28 @@
     document.head.appendChild(script);
   }
 
+  function initPreferredSourcesBadge() {
+    var footerBrand = document.querySelector(".footer__brand");
+    if (!footerBrand || document.querySelector("[google-add-preferred-source-btn]")) return;
+
+    var wrapper = document.createElement("div");
+    wrapper.className = "footer__preferred-source";
+    wrapper.setAttribute("aria-label", "Add Luzora as a preferred source on Google");
+
+    var badge = document.createElement("div");
+    badge.setAttribute("google-add-preferred-source-btn", "");
+    badge.setAttribute("data-theme", "light");
+    wrapper.appendChild(badge);
+    footerBrand.appendChild(wrapper);
+
+    if (document.querySelector('script[src="https://news.google.com/swg/js/v1/publisher.js"]')) return;
+
+    var script = document.createElement("script");
+    script.async = true;
+    script.src = "https://news.google.com/swg/js/v1/publisher.js";
+    document.head.appendChild(script);
+  }
+
   function initNav() {
     var nav = document.getElementById("nav");
     if (!nav) return;
@@ -1103,6 +1125,7 @@
     renderNav();
     initGoogleAnalytics();
     initVercelAnalytics();
+    initPreferredSourcesBadge();
 
     // Next frame so initial styles are committed before animating.
     requestAnimationFrame(function () {

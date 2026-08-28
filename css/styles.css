@@ -2632,6 +2632,13 @@ img {
   color: var(--color-body);
 }
 
+.footer__preferred-source {
+  display: inline-flex;
+  min-height: 40px;
+  margin-top: 8px;
+  align-items: center;
+}
+
 .footer__cols {
   display: flex;
   flex-direction: row;
