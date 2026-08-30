@@ -1,4 +1,7 @@
 # Luzora: https://www.luzora.app
+User-agent: OAI-SearchBot
+Allow: /
+
 User-agent: *
 Allow: /
 

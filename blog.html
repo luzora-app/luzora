@@ -55,6 +55,7 @@
         <div class="blog-toolbar">
           <div class="blog-categories" aria-label="Article categories">
             <button class="blog-category is-active" type="button" data-blog-filter="All">All</button>
+            <button class="blog-category" type="button" data-blog-filter="Guides">Guides</button>
             <button class="blog-category" type="button" data-blog-filter="Product update">Product update</button>
             <button class="blog-category" type="button" data-blog-filter="Announcements">Announcements</button>
           </div>
@@ -73,7 +74,22 @@
           <input id="blog-search-input" type="search" placeholder="Search articles" data-blog-search-input />
         </div>
 
-        <div class="blog-list" data-blog-list></div>
+        <div class="blog-list" data-blog-list>
+          <article class="blog-card is-visible" data-category="Guides">
+            <a class="blog-card__image blog-card__image--custom" href="/blog/how-to-get-work-done-when-you-have-too-much-to-do" aria-label="Read 4 Ways to Get Real Work Done When You Already Have Too Much to Do">
+              <img src="/assets/images/blog/overloaded-work/cover.png" alt="Overlapping browser tasks becoming four clear steps that lead to today's most important task" />
+            </a>
+            <div class="blog-card__body">
+              <span class="blog-pill">Guides</span>
+              <h3><a class="blog-card__title-link" href="/blog/how-to-get-work-done-when-you-have-too-much-to-do">4 Ways to Get Real Work Done When You Already Have Too Much to Do</a></h3>
+              <p>Four practical ways to stop reacting, decide what matters, and make meaningful progress without working yourself into the ground.</p>
+              <div class="blog-card__meta">
+                <span><img src="/assets/icons/Interface essential/Calendar-Black.svg" alt="" />August 30, 2026</span>
+                <span><img src="/assets/icons/fi_clock-Black.svg" alt="" />7 min</span>
+              </div>
+            </div>
+          </article>
+        </div>
         <p class="blog-empty" data-blog-empty hidden>No articles match that filter yet.</p>
       </div>
     </section>
@@ -114,6 +130,6 @@
   </footer>
 
   <script src="js/main.js?v=20260721-email-copy"></script>
-  <script src="js/blog.js?v=20260824-introducing-luzora"></script>
+  <script src="js/blog.js?v=20260830-overload-cover"></script>
 </body>
 </html>
