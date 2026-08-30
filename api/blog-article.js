@@ -6,7 +6,7 @@ const ARTICLES = {
     title: "4 Ways to Get Real Work Done When You Already Have Too Much to Do",
     description: "Discover four practical ways to get real work done when you have too much to do: reset the overload, start smaller, protect focus, and negotiate trade-offs.",
     dek: "Four practical ways to stop reacting, decide what matters, and make meaningful progress without working yourself into the ground.",
-    image: "https://www.luzora.app/assets/images/blog/overloaded-work/cover.png",
+    image: "https://www.luzora.app/assets/images/blog/overloaded-work/cover.png?v=20260830-textless",
     dateLabel: "August 30, 2026",
     readTime: "7 min read",
     datePublished: "2026-08-30T09:00:00+01:00",

@@ -11,8 +11,8 @@
       date: "August 30, 2026",
       readTime: "7 min read",
       author: "Luzora Team",
-      cardImage: "/assets/images/blog/overloaded-work/cover.png",
-      socialImage: "/assets/images/blog/overloaded-work/cover.png",
+      cardImage: "/assets/images/blog/overloaded-work/cover.png?v=20260830-textless",
+      socialImage: "/assets/images/blog/overloaded-work/cover.png?v=20260830-textless",
       cardImageAlt: "Overlapping browser tasks becoming four clear steps that lead to today's most important task",
       lead: [
         "It is 9:07 in the morning. You open your laptop with good intentions, see three messages marked urgent, remember the report you did not finish yesterday, and notice the tab for the course you promised yourself you would continue.",
