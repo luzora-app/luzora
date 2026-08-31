@@ -3,6 +3,159 @@
 
   var ARTICLES = [
     {
+      slug: "stop-doomscrolling-when-you-have-real-work-to-do",
+      title: "3 Tips to Stop Doomscrolling When You Have Real Work to Complete",
+      dek: "Three research-backed ways to escape the endless feed, make your phone less tempting, and return to the work that deserves your attention.",
+      metaDescription: "Learn three practical ways to stop doomscrolling when you need to work: add friction, create a stopping point, and make the real task easier to begin.",
+      category: "Guides",
+      date: "August 31, 2026",
+      readTime: "7 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/images/blog/doomscrolling/cover.png?v=20260831",
+      socialImage: "/assets/images/blog/doomscrolling/cover.png?v=20260831",
+      cardImageAlt: "An endless phone feed crossing three yellow stopping points before leading back to focused work on a laptop",
+      coverImage: {
+        src: "/assets/images/blog/doomscrolling/cover.png?v=20260831",
+        alt: "An endless phone feed crossing three yellow stopping points before leading back to focused work on a laptop",
+        width: 1731,
+        height: 909
+      },
+      lead: [
+        "It is 9:18 in the morning.",
+        "You sit down to finish a proposal that should have gone out yesterday. Before opening the document, you pick up your phone to check one message.",
+        "There is a worrying headline beneath it. You open the story. Then the comments. Someone links to another post with an even worse headline. A video starts playing. You scroll to see what happens next.",
+        "When you finally look at the time, it is 9:57.",
+        "The proposal has not moved. You feel less prepared to begin it than you did before—and now you are annoyed with yourself too.",
+        "If this happens to you, the obvious advice is to put your phone down and exercise more discipline. But that misses part of the story.",
+        "Sometimes you are not scrolling because the content is particularly enjoyable. You are scrolling because the work in front of you feels uncertain, difficult, or uncomfortable—and the phone offers somewhere easier to go.",
+        "To stop, you need more than willpower. You need to make scrolling less automatic, give it a clear ending, and make your real work easier to enter."
+      ],
+      sections: [
+        {
+          id: "quick-answer",
+          title: "The short answer",
+          body: [
+            "To stop doomscrolling when you need to work, add friction before you open the feed, decide how the scrolling session will end before it begins, and make the first step of your real task small enough to start immediately.",
+            "You do not have to give up your phone or stop following the news. The goal is to prevent an unplanned check from deciding how you spend the next hour."
+          ],
+          callout: "Make the scroll less convenient. Give it an ending. Make the work easier to enter."
+        },
+        {
+          id: "why-doomscrolling-is-difficult-to-stop",
+          title: "Why doomscrolling is so difficult to stop",
+          body: [
+            "Doomscrolling is the repeated consumption of negative or distressing news, even after the experience has stopped being useful and has started making you feel worse.",
+            "You may begin because you genuinely want information. Something important is happening, and knowing more feels like a way to become safer or more prepared. But there is always another update, opinion, warning, or prediction. The feed never says, 'You understand enough now.'",
+            "Research on problematic news consumption has found that some people become preoccupied with the news, struggle to reduce their consumption, and continue checking even when it interferes with the rest of their lives. Higher levels of this behaviour have also been associated with poorer mental and physical well-being. The research does not prove that scrolling caused every outcome, but it shows that the pattern can become genuinely disruptive. [Read the study](https://pubmed.ncbi.nlm.nih.gov/35999665/).",
+            "And when uncomfortable work is waiting nearby, the feed becomes even harder to leave. Facing a task with an uncertain outcome requires effort. Moving your thumb produces something new immediately. That is not a fair fight, so change the conditions."
+          ]
+        },
+        {
+          id: "add-friction-before-the-urge-arrives",
+          title: "1. Add friction before the urge arrives",
+          body: [
+            "Imagine putting a bowl of sweets on your desk and telling yourself not to notice it. You might resist for a while. But every time you see the bowl, you have to make the decision again.",
+            "Your phone can work the same way. A notification appears. You see an application badge. Your hand reaches for the device before you have consciously decided to stop working.",
+            "The solution is not to make the correct choice fifty times. It is to remove some of the unnecessary choices."
+          ],
+          listType: "ul",
+          listIntro: "Before beginning important work:",
+          list: [
+            "Turn off notifications that do not require an immediate response.",
+            "Move distracting applications away from your home screen.",
+            "Put your phone somewhere that requires you to stand up.",
+            "Use grayscale if colourful feeds keep pulling you back.",
+            "Block social media or mobile internet during one focused work period."
+          ],
+          afterList: [
+            "You do not need to apply all five. Choose the smallest change that creates a pause between the urge and the action.",
+            "A preregistered field experiment found that putting smartphones into grayscale produced an immediate reduction in objectively measured screen time. Self-imposed time limits also helped, although their effect was smaller and more gradual. The researchers did not find an immediate improvement in academic performance or well-being, so grayscale is not a magical productivity switch. It simply makes the phone a little less visually persuasive. [Read the study](https://doi.org/10.1089/cyber.2022.0027).",
+            "A larger randomized study blocked mobile internet on participants' phones for two weeks while still allowing calls and text messages. Participants showed improvements in sustained attention, mental health, and subjective well-being. [Read the study](https://doi.org/10.1093/pnasnexus/pgaf017).",
+            "You do not have to turn your smartphone into a basic phone for two weeks. Try it for 30 minutes. Put the phone across the room, block the two applications that most often take you away, and open only what your work requires. If 30 minutes feels unrealistic, begin with ten."
+          ],
+          callout: "Do not make your self-control fight the same battle every five minutes. Change the environment before the urge arrives."
+        },
+        {
+          id: "decide-where-the-scroll-ends",
+          title: "2. Decide where the scroll ends before you open it",
+          body: [
+            "'I'll quickly check the news' is not a complete plan. What does quickly mean? Which news? How will you know when you have seen enough? If those questions have no answers, the feed will answer them for you.",
+            "Before opening an application, decide your purpose, which source you will use, how long you will stay, and what action signals that you are finished.",
+            "A real plan might sound like this: 'After lunch, I will check these two trusted sources for ten minutes. When the timer rings, I will close the application and return to the report.' That is different from promising yourself that you will use social media less. It gives the session an edge.",
+            "In one experiment, 143 university students were assigned either to continue using social media normally or to limit Facebook, Instagram, and Snapchat to ten minutes per platform each day. After three weeks, the limited-use group showed reductions in loneliness and depression compared with the control group. The study involved a relatively small student sample and examined well-being rather than productivity, so 30 minutes should not be treated as a universal prescription. Its more useful lesson is that a specific limit is easier to act on than a vague intention. [Read the study](https://doi.org/10.1521/jscp.2018.37.10.751).",
+            "You can also replace the endless feed with a finite source. Instead of opening a homepage that refreshes forever, subscribe to one daily briefing. Save two publications you trust. Read the story you intended to read without entering the comments.",
+            "You are not trying to become uninformed. You are choosing a container for the information.",
+            "When the timer rings, do not negotiate for one more post. Close the application, place the phone down, and physically change your position. Stand up, take a breath, or get a glass of water. That small movement marks the end of one activity and the beginning of another."
+          ],
+          callout: "An endless feed will not tell you when you have seen enough. Bring your own stopping point."
+        },
+        {
+          id: "make-the-work-easier-to-enter",
+          title: "3. Make the work easier to enter",
+          body: [
+            "You have put the phone down. Now the proposal is still waiting.",
+            "This is the moment many productivity tips ignore. Removing the distraction does not automatically make the real task appealing.",
+            "Perhaps you do not know how the proposal should begin. Maybe you are worried that the client will reject it. Perhaps the project has grown so large that opening the document makes you feel behind before you have written a word. So your brain looks for relief. The phone happens to be the closest exit.",
+            "Research on procrastination has repeatedly connected delay with task aversiveness—how unpleasant, confusing, or intimidating a task feels. Procrastination can offer short-term mood relief, even when it creates a larger problem for your future self. [Read about task aversiveness](https://doi.org/10.1016/S0191-8869(99)00091-4) and [short-term mood repair](https://doi.org/10.1111/spc3.12011).",
+            "Before blaming yourself for scrolling, ask: 'What am I trying not to feel about this task?' The answer may be boredom, confusion, fear, resentment, or simple tiredness. Naming the feeling will not complete the work, but it can show you what kind of entrance you need.",
+            "If the task feels confusing, define the next visible action. If it feels too large, reduce the amount you are asking yourself to complete. If it feels intimidating, give yourself permission to produce a rough first attempt.",
+            "'Finish the proposal' is not an entrance. 'Open the proposal, read the last paragraph, add three section headings, and work on the first section for ten minutes' gives you somewhere to begin.",
+            "The goal of those ten minutes is not to finish. It is to cross the distance between avoiding the task and being inside it. Before your next break, leave yourself a return note such as, 'Next: add the price comparison beneath the second heading.' Returning will no longer require you to understand the entire project again."
+          ],
+          callout: "If the work feels too heavy to approach, do not wait for motivation. Make the entrance smaller."
+        },
+        {
+          id: "when-you-are-already-trapped",
+          title: "What to do when you are already trapped in the feed",
+          body: [
+            "Sometimes you notice the problem only after 40 minutes have disappeared. Do not spend the next ten minutes insulting yourself. That simply makes returning to work feel worse."
+          ],
+          listIntro: "Use this reset:",
+          list: [
+            "Close the application completely.",
+            "Put the phone beyond arm's reach.",
+            "Say what you intended to be doing.",
+            "Write down the smallest visible action.",
+            "Work on it for ten minutes."
+          ],
+          afterList: [
+            "For example: 'I intended to prepare tomorrow's presentation. The next action is to open the deck and name the first three slides.' Then begin before your mind starts another debate.",
+            "You are not trying to rescue the entire day in one dramatic burst. You are rescuing the next ten minutes."
+          ]
+        },
+        {
+          id: "build-a-boundary-that-fits-your-life",
+          title: "You do not need to become unreachable",
+          body: [
+            "Not everyone can turn off their phone for hours. You may care for someone who needs to reach you. Your team may rely on you. Your work may happen through the same device that distracts you.",
+            "Build a boundary that matches your actual life. Allow calls from important contacts while silencing application notifications. Block one feed rather than the entire internet. Work for 25 minutes instead of two hours. Tell your team when you will check messages again.",
+            "The best boundary is not the strictest one. It is the one you can trust yourself to use repeatedly."
+          ]
+        },
+        {
+          id: "a-better-way-to-measure-progress",
+          title: "A better way to measure progress",
+          body: [
+            "Do not ask whether you avoided every unnecessary scroll today. Ask whether you noticed when scrolling stopped being useful, created at least one protected period for real work, and returned to the task more quickly than you normally would.",
+            "The habit changes each time you interrupt the loop.",
+            "Some days, you will catch yourself before opening the application. Other days, you will catch yourself after half an hour. Both moments still offer the same choice: continue moving through a feed without an ending, or return to one small piece of work that can actually move your life forward.",
+            "Your phone does not have to disappear. It just should not decide what deserves your day."
+          ],
+          callout: "Make the scroll less convenient. Give it an ending. Make the work easier to enter."
+        },
+        {
+          id: "common-questions-about-doomscrolling",
+          title: "Common questions about doomscrolling",
+          body: [
+            "Why do I doomscroll when I have important work to do? Doomscrolling can provide immediate relief from work that feels difficult, uncertain, boring, or emotionally uncomfortable. The feed is easy to enter and offers continuous novelty, while the work may require effort before providing any reward.",
+            "How can I stop doomscrolling immediately? Close the application, place your phone out of reach, and define one small action you can complete in ten minutes. If you repeatedly reopen the application, temporarily block it or disable mobile internet during the work period.",
+            "Does turning my phone to grayscale reduce scrolling? Experimental research suggests that grayscale can reduce screen time by making the phone less visually attractive. It is best treated as a small piece of environmental friction, not a complete solution.",
+            "Should I stop following the news? Not necessarily. Choose a small number of trustworthy sources and check them during a planned window. The objective is intentional consumption rather than complete avoidance."
+          ]
+        }
+      ]
+    },
+    {
       slug: "how-to-get-work-done-when-you-have-too-much-to-do",
       title: "4 Ways to Get Real Work Done When You Already Have Too Much to Do",
       dek: "Four practical ways to stop reacting, decide what matters, and make meaningful progress without working yourself into the ground.",
