@@ -1,0 +1,78 @@
+/* Page adapters for the shared button model. Page CSS lives in landing-page;
+   the component owns its skin, while these rules preserve placement/state. */
+.lz-btn {
+  min-width: 0;
+  min-height: 0;
+  max-height: none;
+  opacity: 1;
+  filter: none;
+  transform: none;
+  text-shadow: none;
+}
+.lz-btn:not(.lz-btn--primary) { box-shadow: none; }
+.lz-btn > svg { fill: none; }
+.lz-btn > img { flex: none; object-fit: contain; }
+.lz-btn--sm > img, .lz-btn--md > img { width: 18px; height: 18px; }
+.lz-btn--lg > img { width: 24px; height: 24px; }
+.hero__cta-label { font: inherit; color: inherit; }
+.lz-btn[hidden], .article-jump-button.is-hidden { display: none; }
+.lz-btn[aria-disabled="true"] { pointer-events: none; }
+
+.nav__toggle.lz-btn { display: none; flex-direction: column; gap: 5px; padding: 0 10px; }
+.nav__cta--menu.lz-btn { width: 100%; }
+.article-jump-button.lz-btn { transform: translateX(-50%); }
+.footer__preferred-source-fallback.lz-btn { height: auto; min-height: 36px; white-space: normal; text-align: center; padding: 6px 12px; }
+.footer__preferred-source.is-google-rendered .footer__preferred-source-fallback { display: none; }
+.bee-toggle.lz-btn > .bee-toggle__bee { width: 47px; height: 47px; }
+.blog-category.lz-btn.is-active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-brand-soft); color: var(--lz-btn-ink); }
+.invite-copy.lz-btn.is-copied { background: #dff9e7; color: #2b7547; }
+
+/* The legacy manifesto changes action -> verify -> completed in place. */
+.m-task-button.lz-btn.is-confirmed {
+  background: #dff9e7;
+  color: #2b7547;
+  border-color: transparent;
+  box-shadow: none;
+  cursor: default;
+}
+.m-task-button.lz-btn.is-confirmed::after { background: #2b7547; }
+.m-task-button.lz-btn:is(.is-verify, .is-confirmed) > :is(svg, img) { display: none; }
+
+/* Existing scripts keep their labels and disabled guards; busy is semantic
+   and the spinner is CSS-only, so replacing textContent cannot remove it. */
+.lz-btn:is([aria-busy="true"], .is-busy, .is-loading) { cursor: progress; }
+.lz-btn:is([aria-busy="true"], .is-busy, .is-loading)::before {
+  content: "";
+  display: block;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: lz-button-spin 700ms linear infinite;
+}
+.lz-btn:is([aria-busy="true"], .is-busy, .is-loading) > :is(svg, img) { display: none; }
+@keyframes lz-button-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 860px) {
+  .nav__inner > .nav__cta.lz-btn { display: none; }
+  .nav__toggle.lz-btn { display: flex; }
+}
+@media (max-width: 720px) { .bee-toggle.lz-btn { display: none; } }
+@media (max-width: 640px) {
+  .hero__cta.lz-btn, .hero__sub-cta.lz-btn { width: 100%; }
+  .brand-submit > .lz-btn { width: 100%; }
+}
+@media (max-width: 880px) { .newsletter__btn.lz-btn { width: 100%; } }
+@media (max-width: 600px) {
+  .hero__sub-cta.lz-btn { white-space: normal; text-align: center; }
+  .m-sign-btn.lz-btn { max-width: 100%; height: auto; min-height: 56px; padding-block: 10px; white-space: normal; text-align: center; }
+}
+@media (max-width: 520px) {
+  .del-actions > .lz-btn, .welcome-actions > .lz-btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lz-btn:is([aria-busy="true"], .is-busy, .is-loading)::before { animation-duration: 1.4s; }
+}

@@ -408,6 +408,9 @@
     button.setAttribute("data-task-phase", phase);
     button.classList.toggle("is-action-waiting", phase === "waiting");
     button.classList.toggle("is-verify", phase === "verify" || phase === "verifying");
+    button.classList.toggle("lz-btn--mode-brand", phase === "verify" || phase === "verifying");
+    button.classList.toggle("lz-btn--mode-primary", phase !== "verify" && phase !== "verifying");
+    button.setAttribute("aria-busy", String(phase === "waiting" || phase === "verifying"));
     button.classList.toggle("is-loading", phase === "waiting" || phase === "verifying");
     button.classList.toggle("is-confirmed", phase === "confirmed");
     button.disabled = phase === "waiting" || phase === "verifying" || phase === "confirmed";
@@ -525,6 +528,7 @@
 
     setError(errorElement, "");
     submit.disabled = true;
+    submit.setAttribute("aria-busy", "true");
     overlay.setAttribute("data-state", "loading");
 
     var startedAt = Date.now();
@@ -540,6 +544,7 @@
         if (markName) setNameStatus("unavailable", message);
         else setError(errorElement, message);
         submit.disabled = false;
+        submit.setAttribute("aria-busy", "false");
         refreshControls();
       });
     }

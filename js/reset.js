@@ -195,6 +195,7 @@
 
     submit.disabled = true;
     submit.classList.add("is-busy");
+    submit.setAttribute("aria-busy", "true");
     submit.textContent = "Resetting...";
 
     try {
@@ -210,6 +211,7 @@
       }
       setError((err && err.message) || "Could not reset your password. Please try again.");
       submit.classList.remove("is-busy");
+      submit.setAttribute("aria-busy", "false");
       submit.textContent = "Reset Password";
       refreshSubmit();
     }

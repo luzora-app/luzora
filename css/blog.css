@@ -1,3 +1,4 @@
+@layer landing-page {
 .blog-page {
   background: #fffbea;
   color: #38362e;
@@ -1226,4 +1227,6 @@
     right: 8px;
     top: 104px;
   }
+}
+
 }

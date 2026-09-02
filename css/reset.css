@@ -1,4 +1,5 @@
-﻿/* ===================================================================
+@layer landing-page {
+/* ===================================================================
    Reset Password page  (uses tokens + shared nav/footer from styles.css)
    =================================================================== */
 
@@ -426,4 +427,6 @@
 @media (max-width: 520px) {
   .reset-hero { padding: 120px 16px 56px; }
   .reset-title { font-size: 32px; line-height: 40px; }
+}
+
 }

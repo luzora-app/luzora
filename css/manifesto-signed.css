@@ -1,3 +1,4 @@
+@layer landing-page {
 .signed-page {
   margin: 0;
   background: #fffbea;
@@ -514,4 +515,6 @@
   .signed-private-test__actions { gap: 12px; }
   .signed-private-test__join,
   .signed-private-test__learn { padding-inline: 13px; }
+}
+
 }

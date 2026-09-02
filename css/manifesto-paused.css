@@ -1,3 +1,4 @@
+@layer landing-page {
 /* Signing paused, pending Hive Manifesto 2.0.
    Temporary. Delete this file, its <link>, the .mp-veil block in
    manifesto.html and js/manifesto-paused.js when signing reopens. */
@@ -217,4 +218,6 @@
 @media (prefers-reduced-motion: reduce) {
   .mp-window { animation: none; }
   .mp-submit { transition: none; }
+}
+
 }

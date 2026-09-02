@@ -21,10 +21,12 @@
   <meta name="twitter:description" content="Luzora has been uninstalled. Tell us what happened so we can make it better." />
   <meta name="twitter:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
-  <link rel="stylesheet" href="/css/styles.css?v=20260721-email-copy" />
-  <link rel="stylesheet" href="/css/status.css" />
-  <link rel="stylesheet" href="/css/reset.css" />
-  <link rel="stylesheet" href="/css/uninstall.css" />
+  <link rel="stylesheet" href="/css/styles.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/status.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/reset.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/uninstall.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/buttons.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
 <body>
   <!-- ============ NAVBAR ============ -->
@@ -61,7 +63,7 @@
 
       <p class="uninstall-error" id="uninstall-error" role="alert" hidden></p>
 
-      <button class="uninstall-submit" id="uninstall-submit" type="submit">Send feedback</button>
+      <button class="uninstall-submit lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md lz-btn--block" id="uninstall-submit" type="submit">Send feedback</button>
     </form>
 
     <!-- Success popup (design-system overlay + modal, blurred background) -->
@@ -78,15 +80,15 @@
         </div>
 
         <div class="uninstall-modal-actions">
-          <a class="reset-modal__btn" href="/download">Reinstall Luzora</a>
-          <a class="reset-modal__btn reset-modal__btn--dark" href="/">Go home</a>
+          <a class="reset-modal__btn lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="/download">Reinstall Luzora</a>
+          <a class="reset-modal__btn reset-modal__btn--dark lz-btn lz-btn--primary lz-btn--mode-primary lz-btn--md" href="/">Go home</a>
         </div>
       </div>
     </div>
 
     <!-- Helpful next actions -->
     <div class="uninstall-actions">
-      <a class="uninstall-action uninstall-action--primary" href="/download">Reinstall Luzora</a>
+      <a class="uninstall-action uninstall-action--primary lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="/download">Reinstall Luzora</a>
       <a class="uninstall-action" href="/data-deletion">Delete my data</a>
       <a class="uninstall-action" href="mailto:hello@luzora.app">Contact us</a>
     </div>
@@ -149,7 +151,7 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=20260721-email-copy"></script>
-  <script src="/js/uninstall.js"></script>
+  <script src="/js/main.js?v=20260902-buttons"></script>
+  <script src="/js/uninstall.js?v=20260902-buttons"></script>
 </body>
 </html>

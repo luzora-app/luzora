@@ -1,3 +1,4 @@
+@layer landing-page {
 /* ===================================================================
    The Luzora Manifesto - paper declaration + sign flow
    =================================================================== */
@@ -853,4 +854,6 @@
   .m-step-pill.is-active { width: auto; }
   .m-step-pill strong { width: auto; }
   .m-task-row { gap: 12px; }
+}
+
 }

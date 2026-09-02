@@ -21,9 +21,11 @@
   <meta name="twitter:description" content="A friend invited you to Luzora. Save your recurring website routines and stay consistent, free." />
   <meta name="twitter:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
-  <link rel="stylesheet" href="/css/styles.css?v=20260721-email-copy" />
-  <link rel="stylesheet" href="/css/status.css" />
-  <link rel="stylesheet" href="/css/invite.css?v=20260728-private-test" />
+  <link rel="stylesheet" href="/css/styles.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/status.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/invite.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/buttons.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
 <body>
   <!-- ============ NAVBAR ============ -->
@@ -43,7 +45,7 @@
         <span class="invite-card__label">Invite code</span>
         <div class="invite-code-row">
           <code class="invite-code" id="invite-code">luzora</code>
-          <button class="invite-copy" id="invite-copy" type="button" aria-label="Copy invite code">Copy</button>
+          <button class="invite-copy lz-btn lz-btn--secondary lz-btn--mode-brand lz-btn--sm" id="invite-copy" type="button" aria-label="Copy invite code">Copy</button>
         </div>
         <p class="invite-card__hint">Enter this at sign-up so your friend gets the credit.</p>
       </div>
@@ -55,7 +57,7 @@
 
       <div class="hero__primary-action invite-manifesto-action">
         <span class="hero__cta-badge">For Beta Access</span>
-        <a class="hero__cta hero__cta--sign" id="invite-manifesto-link" href="/manifesto">
+        <a class="hero__cta hero__cta--sign lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" id="invite-manifesto-link" href="/manifesto">
           <img class="hero__cta-icon" src="/assets/icons/fi_feather-Black.svg" width="24" height="24" alt="" aria-hidden="true" />
           <span class="hero__cta-label">Sign the manifesto</span>
         </a>
@@ -120,7 +122,7 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=20260721-email-copy"></script>
+  <script src="/js/main.js?v=20260902-buttons"></script>
   <script src="/js/invite.js?v=20260728-manifesto-referral"></script>
 </body>
 </html>

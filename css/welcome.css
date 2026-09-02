@@ -1,3 +1,4 @@
+@layer landing-page {
 .welcome-page {
   --welcome-ink: #151411;
   --welcome-body: #555245;
@@ -689,4 +690,6 @@ body.welcome-modal-open {
   .welcome-success__backdrop {
     transition: none;
   }
+}
+
 }

@@ -31,8 +31,10 @@
     "inLanguage": "en-US"
   }
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=20260721-email-copy" />
-  <link rel="stylesheet" href="css/blog.css?v=20260830-responsive-grid" />
+  <link rel="stylesheet" href="css/styles.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="css/blog.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/buttons.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
 <body class="blog-page blog-index-page">
   <div data-site-nav></div>
@@ -54,16 +56,16 @@
         <h2 class="sr-only" id="blog-list-title">Latest articles</h2>
         <div class="blog-toolbar">
           <div class="blog-categories" aria-label="Article categories">
-            <button class="blog-category is-active" type="button" data-blog-filter="All">All</button>
-            <button class="blog-category" type="button" data-blog-filter="Guides">Guides</button>
-            <button class="blog-category" type="button" data-blog-filter="Product update">Product update</button>
-            <button class="blog-category" type="button" data-blog-filter="Announcements">Announcements</button>
+            <button class="blog-category is-active lz-btn lz-btn--secondary lz-btn--mode-primary lz-btn--sm" type="button" data-blog-filter="All">All</button>
+            <button class="blog-category lz-btn lz-btn--secondary lz-btn--mode-primary lz-btn--sm" type="button" data-blog-filter="Guides">Guides</button>
+            <button class="blog-category lz-btn lz-btn--secondary lz-btn--mode-primary lz-btn--sm" type="button" data-blog-filter="Product update">Product update</button>
+            <button class="blog-category lz-btn lz-btn--secondary lz-btn--mode-primary lz-btn--sm" type="button" data-blog-filter="Announcements">Announcements</button>
           </div>
           <div class="blog-tools">
-            <button class="blog-icon-button" type="button" aria-label="Search articles" data-blog-search-toggle>
+            <button class="blog-icon-button lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--md lz-btn--icon" type="button" aria-label="Search articles" data-blog-search-toggle>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35M10.8 18a7.2 7.2 0 1 1 0-14.4 7.2 7.2 0 0 1 0 14.4Z"/></svg>
             </button>
-            <button class="blog-icon-button" type="button" aria-label="Reset filters" data-blog-reset>
+            <button class="blog-icon-button lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--md lz-btn--icon" type="button" aria-label="Reset filters" data-blog-reset>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>
             </button>
           </div>
@@ -122,7 +124,7 @@
             </span>
             <input class="newsletter__input" type="email" name="email" placeholder="Email address" autocomplete="email" required />
           </label>
-          <button class="newsletter__btn" type="submit">Subscribe</button>
+          <button class="newsletter__btn lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" type="submit">Subscribe</button>
         </form>
         <p class="newsletter__note">Helpful updates only. Unsubscribe anytime.</p>
       </div>
@@ -143,7 +145,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260721-email-copy"></script>
-  <script src="js/blog.js?v=20260831-doomscrolling"></script>
+  <script src="js/main.js?v=20260902-buttons"></script>
+  <script src="js/blog.js?v=20260902-buttons"></script>
 </body>
 </html>

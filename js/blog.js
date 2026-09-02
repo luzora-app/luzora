@@ -1257,7 +1257,7 @@
           '<div class="blog-card__meta">' +
             '<span><img src="' + CALENDAR_ICON + '" alt="" />' + escapeHtml(article.date) + '</span>' +
             '<span><img src="' + CLOCK_ICON + '" alt="" />' + escapeHtml(article.readTime.replace(" read", "")) + '</span>' +
-            (compact ? "" : '<button class="blog-card__share" type="button" data-card-share data-share-url="' + articleUrl + '" data-share-title="' + escapeHtml(article.title) + '" data-share-text="' + escapeHtml(article.dek) + '" aria-label="Share ' + escapeHtml(article.title) + '"><img src="' + SHARE_ICON + '" alt="" aria-hidden="true" /><span class="blog-card__share-tip" role="tooltip">Share</span></button>') +
+            (compact ? "" : '<button class="blog-card__share lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--sm lz-btn--icon" type="button" data-card-share data-share-url="' + articleUrl + '" data-share-title="' + escapeHtml(article.title) + '" data-share-text="' + escapeHtml(article.dek) + '" aria-label="Share ' + escapeHtml(article.title) + '"><img src="' + SHARE_ICON + '" alt="" aria-hidden="true" /><span class="blog-card__share-tip" role="tooltip">Share</span></button>') +
           '</div>' +
         '</div>' +
       '</article>'
@@ -1402,7 +1402,7 @@
       var afterList = section.afterList ? section.afterList.map(function (paragraph) {
         return "<p>" + renderInline(paragraph) + "</p>";
       }).join("") : "";
-      var cta = section.cta ? '<p class="article-cta"><a href="' + escapeHtml(section.cta.href) + '">' + escapeHtml(section.cta.label) + "</a></p>" : "";
+      var cta = section.cta ? '<p class="article-cta"><a class="article-cta-button lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="' + escapeHtml(section.cta.href) + '">' + escapeHtml(section.cta.label) + "</a></p>" : "";
       var callout = section.callout ? '<p class="article-callout">' + renderInline(section.callout) + "</p>" : "";
       var image = renderArticleImage(section.image, "article-section__image", false);
       return '<section class="article-section" id="' + section.id + '" data-article-section>' + image + '<h2>' + escapeHtml(section.title) + "</h2>" + paragraphs + listIntro + list + afterList + cta + callout + "</section>";

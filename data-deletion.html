@@ -21,9 +21,11 @@
   <meta name="twitter:description" content="Request deletion of your Luzora account and data." />
   <meta name="twitter:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
-  <link rel="stylesheet" href="css/styles.css?v=20260721-email-copy" />
-  <link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/deletion.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="css/reset.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="css/deletion.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/buttons.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
 <body>
   <!-- ============ NAVBAR ============ -->
@@ -90,7 +92,7 @@
         </label>
       </div>
 
-      <button class="del-submit" id="del-submit" type="submit" disabled>Delete Data</button>
+      <button class="del-submit lz-btn lz-btn--primary lz-btn--mode-destructive lz-btn--md lz-btn--block" id="del-submit" type="submit" disabled>Delete Data</button>
     </form>
 
     <!-- ---- VERIFY REQUEST MODAL (reuses reset-modal styles) ---- -->
@@ -105,7 +107,7 @@
           <h2 class="reset-modal__title" id="del-modal-title">Verify your request.</h2>
           <p class="reset-modal__text">We've sent an email for you to verify that this action is from you. Tap the &quot;Verify Delete&quot; button in that email to continue.</p>
         </div>
-        <a class="reset-modal__btn" href="/">Go Home</a>
+        <a class="reset-modal__btn lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="/">Go Home</a>
       </div>
     </div>
   </section>
@@ -163,7 +165,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20260721-email-copy"></script>
-  <script src="js/deletion.js"></script>
+  <script src="js/main.js?v=20260902-buttons"></script>
+  <script src="js/deletion.js?v=20260902-buttons"></script>
 </body>
 </html>

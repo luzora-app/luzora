@@ -60,11 +60,11 @@
             '<a href="/manifesto">Manifesto</a>' +
             '<a href="/blog">Blog</a>' +
           '</nav>' +
-          '<a class="nav__cta" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
+          '<a class="nav__cta lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
             '<span>Enter the Hive</span>' +
             '<img src="/assets/icons/fi_arrow-right-black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
           '</a>' +
-          '<button class="nav__toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">' +
+          '<button class="nav__toggle lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--md lz-btn--icon" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">' +
             '<span class="nav__toggle-bar"></span>' +
             '<span class="nav__toggle-bar"></span>' +
             '<span class="nav__toggle-bar"></span>' +
@@ -75,7 +75,7 @@
           '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="/manifesto">Manifesto</a>' +
           '<a href="/blog">Blog</a>' +
-          '<a class="nav__cta nav__cta--menu" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
+          '<a class="nav__cta nav__cta--menu lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
             '<span>Enter the Hive</span>' +
             '<img src="/assets/icons/fi_arrow-right-black.svg" width="20" height="20" alt="" aria-hidden="true" />' +
           '</a>' +
@@ -197,7 +197,7 @@
       wrapper.className = "email-link-with-copy";
 
       var button = document.createElement("button");
-      button.className = "faq__copy email-copy-button";
+      button.className = "faq__copy email-copy-button lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--sm lz-btn--icon";
       button.type = "button";
       button.setAttribute("data-copy", email);
       button.setAttribute("aria-label", "Copy " + email);
@@ -225,6 +225,7 @@
     function setLoading(isLoading) {
       if (!button) return;
       button.disabled = isLoading;
+      button.setAttribute("aria-busy", String(isLoading));
       button.textContent = isLoading ? "Subscribing..." : "Subscribe";
     }
 
@@ -311,7 +312,7 @@
     modal.innerHTML =
       '<div class="install-modal__backdrop" data-install-modal-close></div>' +
       '<div class="install-modal__panel" role="document">' +
-        '<button class="install-modal__close" type="button" aria-label="Close" data-install-modal-close>' +
+        '<button class="install-modal__close lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--md lz-btn--icon" type="button" aria-label="Close" data-install-modal-close>' +
           '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
         '</button>' +
         '<span class="install-modal__badge" aria-hidden="true">' +
@@ -323,8 +324,8 @@
           '<p class="install-modal__text">Want a note the moment it is live? <a class="install-modal__link" href="#newsletter" data-install-subscribe>Subscribe</a> to the newsletter and we will let you know first.</p>' +
         '</div>' +
         '<div class="install-modal__actions">' +
-          '<a class="install-modal__primary" href="#newsletter" data-install-subscribe>Subscribe</a>' +
-          '<button class="install-modal__secondary" type="button" data-install-modal-close>Not now</button>' +
+          '<a class="install-modal__primary lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="#newsletter" data-install-subscribe>Subscribe</a>' +
+          '<button class="install-modal__secondary lz-btn lz-btn--secondary lz-btn--mode-primary lz-btn--md" type="button" data-install-modal-close>Not now</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(modal);
@@ -445,7 +446,7 @@
     wrapper.appendChild(badge);
 
     var fallback = document.createElement("a");
-    fallback.className = "footer__preferred-source-fallback";
+    fallback.className = "footer__preferred-source-fallback lz-btn lz-btn--secondary lz-btn--mode-white lz-btn--sm";
     fallback.href = "https://www.google.com/preferences/source?q=www.luzora.app";
     fallback.target = "_blank";
     fallback.rel = "noopener noreferrer";
@@ -972,7 +973,7 @@
     var isOn = readBeeCursorPreference();
     var button = document.createElement("button");
     button.type = "button";
-    button.className = "bee-toggle";
+    button.className = "bee-toggle lz-btn lz-btn--secondary lz-btn--mode-white lz-btn--md lz-btn--icon";
     button.setAttribute("data-bee-toggle", "");
 
     var icon = document.createElement("img");

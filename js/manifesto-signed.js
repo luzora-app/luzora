@@ -315,6 +315,7 @@
   async function copyReferralLink(successMessage) {
     if (!signer) return;
     if (copyButton) copyButton.disabled = true;
+    if (copyButton) copyButton.setAttribute("aria-busy", "true");
     try {
       if (!navigator.clipboard) throw new Error("clipboard_unavailable");
       await navigator.clipboard.writeText(signer.referralUrl);
@@ -323,12 +324,14 @@
       setStatus("The link could not be copied. Please try again.");
     } finally {
       if (copyButton) copyButton.disabled = false;
+      if (copyButton) copyButton.setAttribute("aria-busy", "false");
     }
   }
 
   async function shareReferralLink() {
     if (!signer) return;
     shareButton.disabled = true;
+    shareButton.setAttribute("aria-busy", "true");
     try {
       var blob = cachedCardBlob || await prepareCardExport();
       var file = new File([blob], getCardFileName(), { type: "image/png" });
@@ -362,6 +365,7 @@
       }
     } finally {
       shareButton.disabled = false;
+      shareButton.setAttribute("aria-busy", "false");
     }
   }
 

@@ -1,4 +1,5 @@
-﻿/* ===================================================================
+@layer landing-page {
+/* ===================================================================
    Data Deletion + Delete-confirmed pages
    (data-deletion.html also loads reset.css to reuse the verify modal)
    =================================================================== */
@@ -399,4 +400,6 @@
   #del-modal .reset-modal__btn:active {
     transform: none;
   }
+}
+
 }

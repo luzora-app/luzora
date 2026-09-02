@@ -1,3 +1,4 @@
+@layer landing-page {
 .brand-page {
   background: #fffbea;
   color: #38362e;
@@ -603,4 +604,6 @@
   .mascot-card__download,
   .visual-card a,
   .other-card a { opacity: 1; transform: none; }
+}
+
 }

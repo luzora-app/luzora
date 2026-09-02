@@ -1,0 +1,425 @@
+/* Luzora button system.
+ *
+ * One sheet, mirroring the Figma component's own axes so a design note reads
+ * straight across into markup:
+ *
+ *   Type=Primary  Size=md  Mode=Brand  Full button=On   State=Hover
+ *   .lz-btn .lz-btn--primary .lz-btn--md .lz-btn--mode-brand        :hover
+ *
+ * "Full button=Off" in Figma is the icon-only square, not a width mode, so it
+ * is .lz-btn--icon here. Width is a separate concern: buttons hug their content
+ * by default and only fill their container when a design asks for it, which is
+ * .lz-btn--block.
+ *
+ * States are real CSS states - :hover, :active, :disabled - so nothing has to
+ * be toggled from script.
+ */
+
+:root {
+  /* Neutral */
+  --lz-btn-ink: #38362E;
+  --lz-btn-ink-hover: #555245;
+  --lz-btn-mute: #8D8873;
+  --lz-btn-mute-soft: #BAB7AA;
+  --lz-btn-line: #DAD9D2;
+  --lz-btn-fill: #F3F3F1;
+  --lz-btn-fill-hover: #E8E7E2;
+  --lz-btn-white-hover: #FAF9F8;
+
+  /* Brand */
+  --lz-btn-brand: #FFD52B;
+  --lz-btn-brand-hover: #FFDD55;
+  --lz-btn-brand-press: #E8C227;
+  --lz-btn-brand-soft: #FFEC9D;
+  --lz-btn-brand-softer: #FFF2BD;
+  --lz-btn-brand-tint: #FFFDF5;
+  --lz-btn-brand-ink: #85752B;
+  --lz-btn-brand-edge: #E99536;
+
+  /* Destructive */
+  --lz-btn-danger: #DE5242;
+  --lz-btn-danger-hover: #E8786B;
+  --lz-btn-danger-press: #C83E2D;
+  --lz-btn-danger-edge: #852A1F;
+  --lz-btn-danger-soft: #FAE5E2;
+  --lz-btn-danger-softer: #F6CFCA;
+  --lz-btn-danger-tint: #F0A59E;
+}
+
+/* ---------------------------------------------------------------- base --- */
+
+.lz-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  /* Hugging is the default. Nothing stretches unless it is asked to. */
+  width: auto;
+  flex: none;
+
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color 120ms ease, color 120ms ease,
+    border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.lz-btn:focus-visible {
+  outline: 2px solid var(--lz-btn-ink);
+  outline-offset: 2px;
+}
+
+/* The icon takes the label's colour, so a mode only has to be stated once. */
+.lz-btn > svg,
+.lz-btn > .lz-btn-icon {
+  flex: none;
+  display: block;
+  fill: currentColor;
+  color: inherit;
+}
+
+.lz-btn:disabled,
+.lz-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* Fill the container. Opt-in, because a design has to ask for it. */
+.lz-btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------- sizes --- */
+
+.lz-btn--sm {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.lz-btn--md {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+}
+
+.lz-btn--lg {
+  height: 56px;
+  padding: 0 24px;
+  border-radius: 16px;
+  font-size: 20px;
+  line-height: 32px;
+  letter-spacing: normal;
+}
+
+.lz-btn--sm > svg, .lz-btn--sm > .lz-btn-icon,
+.lz-btn--md > svg, .lz-btn--md > .lz-btn-icon { width: 18px; height: 18px; }
+.lz-btn--lg > svg, .lz-btn--lg > .lz-btn-icon { width: 20px; height: 20px; }
+
+/* Icon only: a square of the size's own height, so a row of mixed buttons
+   still lines up. */
+.lz-btn--icon { padding: 0; }
+.lz-btn--icon.lz-btn--sm { width: 36px; }
+.lz-btn--icon.lz-btn--md { width: 44px; }
+.lz-btn--icon.lz-btn--lg { width: 56px; }
+
+/* Figma's geometry is variant-specific in a few places. Keep those values
+   explicit instead of forcing every type through the generic size radius. */
+.lz-btn--secondary.lz-btn--mode-destructive.lz-btn--sm,
+.lz-btn--tertiary.lz-btn--mode-brand.lz-btn--sm,
+.lz-btn--tertiary.lz-btn--mode-white.lz-btn--sm,
+.lz-btn--tertiary.lz-btn--mode-destructive.lz-btn--sm,
+.lz-btn--tertiary.lz-btn--mode-brand.lz-btn--md,
+.lz-btn--tertiary.lz-btn--mode-white.lz-btn--md {
+  border-radius: 8px;
+}
+
+/* Brand and white large buttons use the 24px icon from the component; the
+   primary and destructive modes retain the generic 20px large icon. */
+.lz-btn--primary.lz-btn--mode-brand.lz-btn--lg > svg,
+.lz-btn--primary.lz-btn--mode-brand.lz-btn--lg > .lz-btn-icon,
+.lz-btn--primary.lz-btn--mode-white.lz-btn--lg > svg,
+.lz-btn--primary.lz-btn--mode-white.lz-btn--lg > .lz-btn-icon,
+.lz-btn--secondary.lz-btn--mode-brand.lz-btn--lg > svg,
+.lz-btn--secondary.lz-btn--mode-brand.lz-btn--lg > .lz-btn-icon,
+.lz-btn--secondary.lz-btn--mode-white.lz-btn--lg > svg,
+.lz-btn--secondary.lz-btn--mode-white.lz-btn--lg > .lz-btn-icon,
+.lz-btn--tertiary.lz-btn--mode-brand.lz-btn--lg > svg,
+.lz-btn--tertiary.lz-btn--mode-brand.lz-btn--lg > .lz-btn-icon,
+.lz-btn--tertiary.lz-btn--mode-white.lz-btn--lg > svg,
+.lz-btn--tertiary.lz-btn--mode-white.lz-btn--lg > .lz-btn-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* The compact brand and white primary icon buttons use a 20px glyph while
+   interactive, and the muted 18px glyph in their disabled variants. */
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--md > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--md > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--md > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--md > .lz-btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm:disabled > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm:disabled > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--md:disabled > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--md:disabled > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm:disabled > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm:disabled > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--md:disabled > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--md:disabled > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm[aria-disabled="true"] > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm[aria-disabled="true"] > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--md[aria-disabled="true"] > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--md[aria-disabled="true"] > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm[aria-disabled="true"] > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm[aria-disabled="true"] > .lz-btn-icon,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--md[aria-disabled="true"] > svg,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--md[aria-disabled="true"] > .lz-btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ------------------------------------------------ Type=Primary (raised) --- */
+/* The only type with a border and an inset bottom edge. Pressing removes the
+   edge, which is what makes it read as going down. */
+
+.lz-btn--primary { border-width: 1px; border-style: solid; }
+
+/* Figma's dark icon-only primary is borderless. White icon-only buttons use
+   a slightly stronger resting outline than their labelled counterpart. */
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-primary { border-width: 0; }
+
+.lz-btn--primary.lz-btn--mode-primary {
+  background: var(--lz-btn-ink);
+  color: #FFFFFF;
+  border-color: #000000;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.78);
+}
+.lz-btn--primary.lz-btn--mode-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-ink-hover);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.66);
+}
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: none;
+}
+.lz-btn--primary.lz-btn--mode-primary:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-ink);
+  box-shadow: none;
+}
+.lz-btn--primary.lz-btn--mode-primary:disabled,
+.lz-btn--primary.lz-btn--mode-primary[aria-disabled="true"] {
+  background: var(--lz-btn-line);
+  color: var(--lz-btn-mute);
+}
+
+.lz-btn--primary.lz-btn--mode-brand {
+  background: var(--lz-btn-brand);
+  color: #000000;
+  border-color: var(--lz-btn-brand-edge);
+  box-shadow: inset 0 -4px 0 var(--lz-btn-brand-edge);
+}
+.lz-btn--primary.lz-btn--mode-brand:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-brand-hover);
+}
+.lz-btn--primary.lz-btn--mode-brand:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-brand);
+  box-shadow: none;
+}
+.lz-btn--primary.lz-btn--mode-brand:disabled,
+.lz-btn--primary.lz-btn--mode-brand[aria-disabled="true"] {
+  background: var(--lz-btn-brand-softer);
+  color: var(--lz-btn-mute-soft);
+}
+
+.lz-btn--primary.lz-btn--mode-white {
+  background: #FFFFFF;
+  color: #000000;
+  border-color: var(--lz-btn-line);
+  box-shadow: inset 0 -4px 0 var(--lz-btn-line);
+}
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white {
+  border-color: var(--lz-btn-mute-soft);
+  box-shadow: inset 0 -4px 0 var(--lz-btn-mute-soft);
+}
+.lz-btn--primary.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-white-hover);
+}
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]),
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white:active:not(:disabled):not([aria-disabled="true"]) {
+  border-color: var(--lz-btn-line);
+}
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]) {
+  box-shadow: inset 0 -4px 0 var(--lz-btn-line);
+}
+.lz-btn--primary.lz-btn--mode-white:active:not(:disabled):not([aria-disabled="true"]) {
+  background: #FFFFFF;
+  box-shadow: none;
+}
+.lz-btn--primary.lz-btn--mode-white:disabled,
+.lz-btn--primary.lz-btn--mode-white[aria-disabled="true"] {
+  background: #FFFFFF;
+  color: var(--lz-btn-mute-soft);
+}
+
+.lz-btn--primary.lz-btn--mode-destructive {
+  background: var(--lz-btn-danger);
+  color: #FFFFFF;
+  border-color: var(--lz-btn-danger-edge);
+  box-shadow: inset 0 -4px 0 var(--lz-btn-danger-press);
+}
+.lz-btn--primary.lz-btn--mode-destructive:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-danger-hover);
+  box-shadow: inset 0 -4px 0 var(--lz-btn-danger);
+}
+.lz-btn--primary.lz-btn--mode-destructive:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--lz-btn-danger-press);
+  box-shadow: none;
+}
+.lz-btn--primary.lz-btn--mode-destructive:disabled,
+.lz-btn--primary.lz-btn--mode-destructive[aria-disabled="true"] {
+  background: var(--lz-btn-danger-soft);
+  color: var(--lz-btn-mute-soft);
+}
+
+/* Disabled has no raised edge and no border in any mode. This has to outrank
+   the mode rules above it (.lz-btn--primary.lz-btn--mode-x is two classes), so
+   it is scoped to the type rather than written on .lz-btn, where it lost the
+   cascade and left disabled buttons still looking pressable. */
+.lz-btn--primary:disabled,
+.lz-btn--primary[aria-disabled="true"] {
+  box-shadow: none;
+  border-color: transparent;
+  border-width: 0;
+}
+
+/* These three state/shape cells are distinct in the source component. */
+.lz-btn--secondary.lz-btn--mode-primary.lz-btn--lg:active { border-radius: 12px; }
+.lz-btn--secondary.lz-btn--mode-primary.lz-btn--lg.lz-btn--icon:active { border-radius: 16px; }
+.lz-btn--primary.lz-btn--mode-brand.lz-btn--lg:disabled,
+.lz-btn--primary.lz-btn--mode-brand.lz-btn--lg[aria-disabled="true"],
+.lz-btn--primary.lz-btn--mode-white.lz-btn--lg:disabled,
+.lz-btn--primary.lz-btn--mode-white.lz-btn--lg[aria-disabled="true"] { border-radius: 12px; }
+.lz-btn--primary.lz-btn--mode-brand.lz-btn--lg.lz-btn--icon:disabled,
+.lz-btn--primary.lz-btn--mode-brand.lz-btn--lg.lz-btn--icon[aria-disabled="true"],
+.lz-btn--primary.lz-btn--mode-white.lz-btn--lg.lz-btn--icon:disabled,
+.lz-btn--primary.lz-btn--mode-white.lz-btn--lg.lz-btn--icon[aria-disabled="true"] { border-radius: 16px; }
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-brand.lz-btn--sm:active,
+.lz-btn--primary.lz-btn--icon.lz-btn--mode-white.lz-btn--sm:active { border-radius: 12px; }
+
+/* ---------------------------------------------- Type=Secondary (filled) --- */
+/* Filled, never bordered, never raised. */
+
+.lz-btn--secondary.lz-btn--mode-primary { background: var(--lz-btn-fill); color: var(--lz-btn-ink); }
+.lz-btn--secondary.lz-btn--mode-primary:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-fill-hover); }
+.lz-btn--secondary.lz-btn--mode-primary:active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-mute-soft); }
+.lz-btn--secondary.lz-btn--mode-primary:disabled,
+.lz-btn--secondary.lz-btn--mode-primary[aria-disabled="true"] { background: var(--lz-btn-fill); color: var(--lz-btn-mute-soft); }
+
+.lz-btn--secondary.lz-btn--mode-brand { background: var(--lz-btn-brand-soft); color: var(--lz-btn-ink); }
+.lz-btn--secondary.lz-btn--icon.lz-btn--mode-brand { background: var(--lz-btn-brand-softer); }
+.lz-btn--secondary.lz-btn--mode-brand:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-brand-hover); }
+.lz-btn--secondary.lz-btn--mode-brand:active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-brand-press); }
+.lz-btn--secondary.lz-btn--mode-brand:disabled,
+.lz-btn--secondary.lz-btn--mode-brand[aria-disabled="true"] { background: var(--lz-btn-brand-softer); color: var(--lz-btn-mute-soft); }
+
+.lz-btn--secondary.lz-btn--mode-white { background: #FFFFFF; color: var(--lz-btn-ink); }
+.lz-btn--secondary.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-fill); }
+.lz-btn--secondary.lz-btn--mode-white:active:not(:disabled):not([aria-disabled="true"]) { background: #FFFFFF; }
+.lz-btn--secondary.lz-btn--mode-white:disabled,
+.lz-btn--secondary.lz-btn--mode-white[aria-disabled="true"] { background: #FFFFFF; color: var(--lz-btn-mute-soft); }
+
+.lz-btn--secondary.lz-btn--mode-destructive { background: var(--lz-btn-danger-soft); color: var(--lz-btn-danger); }
+.lz-btn--secondary.lz-btn--mode-destructive:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-danger-softer); }
+.lz-btn--secondary.lz-btn--mode-destructive:active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-danger-tint); }
+.lz-btn--secondary.lz-btn--mode-destructive:disabled,
+.lz-btn--secondary.lz-btn--mode-destructive[aria-disabled="true"] { background: var(--lz-btn-danger-soft); color: var(--lz-btn-danger-tint); }
+
+/* ----------------------------------------------- Type=Tertiary (quiet) --- */
+/* Transparent until touched. */
+
+.lz-btn--tertiary { background: transparent; }
+
+.lz-btn--tertiary.lz-btn--mode-primary { color: var(--lz-btn-ink); }
+.lz-btn--tertiary.lz-btn--mode-primary:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-fill-hover); }
+.lz-btn--tertiary.lz-btn--mode-primary:active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-line); }
+.lz-btn--tertiary.lz-btn--mode-primary:disabled,
+.lz-btn--tertiary.lz-btn--mode-primary[aria-disabled="true"] { background: transparent; color: var(--lz-btn-mute); }
+
+.lz-btn--tertiary.lz-btn--mode-brand { color: var(--lz-btn-brand-ink); }
+.lz-btn--tertiary.lz-btn--mode-brand:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-brand-softer); }
+.lz-btn--tertiary.lz-btn--mode-brand:active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-brand-tint); }
+.lz-btn--tertiary.lz-btn--mode-brand:disabled,
+.lz-btn--tertiary.lz-btn--mode-brand[aria-disabled="true"] { background: transparent; color: var(--lz-btn-line); }
+
+.lz-btn--tertiary.lz-btn--mode-white { color: var(--lz-btn-ink-hover); }
+.lz-btn--tertiary.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-fill); }
+.lz-btn--tertiary.lz-btn--mode-white:active:not(:disabled):not([aria-disabled="true"]) { background: transparent; }
+.lz-btn--tertiary.lz-btn--mode-white:disabled,
+.lz-btn--tertiary.lz-btn--mode-white[aria-disabled="true"] { background: transparent; color: var(--lz-btn-line); }
+
+.lz-btn--tertiary.lz-btn--mode-destructive { color: var(--lz-btn-danger); }
+.lz-btn--tertiary.lz-btn--mode-destructive:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-danger-soft); }
+.lz-btn--tertiary.lz-btn--mode-destructive:active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-danger-softer); }
+.lz-btn--tertiary.lz-btn--mode-destructive:disabled,
+.lz-btn--tertiary.lz-btn--mode-destructive[aria-disabled="true"] { background: transparent; color: var(--lz-btn-danger-tint); }
+
+/* --------------------------------------------------- Type=Link (inline) --- */
+/* No box at all: no padding, no radius, no fill. Its height is the line box
+   rather than a control height. Underlines on hover and only on hover. There
+   is no White mode for links. */
+
+.lz-btn--link {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  width: auto;
+}
+.lz-btn--link.lz-btn--sm,
+.lz-btn--link.lz-btn--md { height: 24px; }
+.lz-btn--link.lz-btn--lg { height: 32px; gap: 12px; }
+
+.lz-btn--link:hover:not(:disabled):not([aria-disabled="true"]) { text-decoration: underline; }
+.lz-btn--link:active:not(:disabled):not([aria-disabled="true"]) { text-decoration: none; }
+.lz-btn--link:disabled,
+.lz-btn--link[aria-disabled="true"] { text-decoration: none; }
+
+.lz-btn--link.lz-btn--mode-primary { color: var(--lz-btn-ink); }
+.lz-btn--link.lz-btn--mode-primary:disabled,
+.lz-btn--link.lz-btn--mode-primary[aria-disabled="true"] { color: var(--lz-btn-mute); }
+
+.lz-btn--link.lz-btn--mode-brand { color: var(--lz-btn-brand-ink); }
+.lz-btn--link.lz-btn--mode-brand:disabled,
+.lz-btn--link.lz-btn--mode-brand[aria-disabled="true"] { color: var(--lz-btn-line); }
+
+.lz-btn--link.lz-btn--mode-destructive { color: var(--lz-btn-danger); }
+.lz-btn--link.lz-btn--mode-destructive:disabled,
+.lz-btn--link.lz-btn--mode-destructive[aria-disabled="true"] { color: var(--lz-btn-danger-tint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lz-btn { transition: none; }
+}
+

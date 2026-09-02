@@ -89,6 +89,7 @@
     sending = state;
     if (!submit) return;
     submit.disabled = state;
+    submit.setAttribute("aria-busy", String(state));
     submit.textContent = state ? "Adding you…" : "Notify me";
   }
 

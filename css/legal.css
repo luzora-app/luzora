@@ -1,4 +1,5 @@
-﻿/* ===================================================================
+@layer landing-page {
+/* ===================================================================
    Legal pages (Privacy Policy / Terms of Service)
    uses tokens + shared nav/footer from styles.css
    =================================================================== */
@@ -164,4 +165,6 @@
   .legal-card { padding: 24px 0; }
   .legal-list--clauses { padding-left: 10px; }
   .legal-list--clauses > li { padding-left: 12px; }
+}
+
 }

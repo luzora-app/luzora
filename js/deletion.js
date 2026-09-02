@@ -98,6 +98,7 @@
 
     submit.disabled = true;
     submit.classList.add("is-busy");
+    submit.setAttribute("aria-busy", "true");
     submit.textContent = "Sending...";
     error.textContent = "";
 
@@ -123,6 +124,7 @@
       error.textContent = err && err.message ? err.message : "Could not send the verification email.";
     } finally {
       submit.classList.remove("is-busy");
+      submit.setAttribute("aria-busy", "false");
       submit.textContent = "Delete Data";
       refresh();
     }

@@ -21,9 +21,11 @@
   <meta name="twitter:description" content="We believe consistency beats everything. Sign the manifesto and reserve your name." />
   <meta name="twitter:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
-  <link rel="stylesheet" href="/css/styles.css?v=20260721-email-copy" />
-  <link rel="stylesheet" href="/css/manifesto.css?v=20260727-manifesto-action" />
-  <link rel="stylesheet" href="/css/manifesto-paused.css?v=20260807-paused" />
+  <link rel="stylesheet" href="/css/styles.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/manifesto.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/manifesto-paused.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/buttons.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
 <body>
   <div data-site-nav></div>
@@ -100,7 +102,7 @@
     <div class="m-join-slot" data-manifesto-action-slot>
       <div class="m-join" data-manifesto-action>
         <p class="m-join-text">To join the Beta Access...</p>
-        <button class="m-sign-btn" type="button" data-sign-open>
+        <button class="m-sign-btn lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" type="button" data-sign-open>
           <img src="/assets/icons/fi_feather-Black.svg" width="18" height="18" alt="" aria-hidden="true" />
           <span>Proceed to sign the manifesto</span>
         </button>
@@ -115,7 +117,7 @@
       <span class="m-anchor m-anchor--tr" aria-hidden="true"></span>
       <span class="m-anchor m-anchor--bl" aria-hidden="true"></span>
       <span class="m-anchor m-anchor--br" aria-hidden="true"></span>
-      <button class="m-note-close" type="button" data-sign-close aria-label="Close">
+      <button class="m-note-close lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--md lz-btn--icon" type="button" data-sign-close aria-label="Close">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="#555245" stroke-width="2.2" stroke-linecap="round"/></svg>
       </button>
 
@@ -151,14 +153,14 @@
 
             <p class="m-form-error" id="m-step-one-error" role="alert" hidden></p>
 
-            <button class="m-submit" id="m-proceed" type="button" disabled>Proceed</button>
+            <button class="m-submit lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md lz-btn--block" id="m-proceed" type="button" disabled>Proceed</button>
           </section>
 
           <section class="m-step-panel" data-step-panel="2" hidden>
             <div class="m-task-list">
               <div class="m-task-row">
                 <span class="m-task-label">Follow Luzora on X</span>
-                <button class="m-task-button" type="button" data-social-task="follow" data-task-phase="action" aria-pressed="false">
+                <button class="m-task-button lz-btn lz-btn--primary lz-btn--mode-primary lz-btn--md" type="button" data-social-task="follow" data-task-phase="action" aria-pressed="false">
                   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8-9.2L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z" fill="currentColor"/></svg>
                   <span>Follow</span>
                 </button>
@@ -166,7 +168,7 @@
 
               <div class="m-task-row">
                 <span class="m-task-label">Retweet this post</span>
-                <button class="m-task-button" type="button" data-social-task="retweet" data-task-phase="action" aria-pressed="false">
+                <button class="m-task-button lz-btn lz-btn--primary lz-btn--mode-primary lz-btn--md" type="button" data-social-task="retweet" data-task-phase="action" aria-pressed="false">
                   <img src="/assets/icons/garden_arrow-retweet-stroke-12.svg" width="16" height="16" alt="" aria-hidden="true" />
                   <span>Retweet</span>
                 </button>
@@ -174,7 +176,7 @@
 
               <div class="m-task-row">
                 <span class="m-task-label">Quote this post</span>
-                <button class="m-task-button" type="button" data-social-task="quote" data-task-phase="action" aria-pressed="false">
+                <button class="m-task-button lz-btn lz-btn--primary lz-btn--mode-primary lz-btn--md" type="button" data-social-task="quote" data-task-phase="action" aria-pressed="false">
                   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8-9.2L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z" fill="currentColor"/></svg>
                   <span>Quote tweet</span>
                 </button>
@@ -182,7 +184,7 @@
 
               <div class="m-task-row">
                 <span class="m-task-label">Comment on this post</span>
-                <button class="m-task-button" type="button" data-social-task="comment" data-task-phase="action" aria-pressed="false">
+                <button class="m-task-button lz-btn lz-btn--primary lz-btn--mode-primary lz-btn--md" type="button" data-social-task="comment" data-task-phase="action" aria-pressed="false">
                   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23.3 22h-6.9l-5.4-7-6.2 7H1.7l8-9.2L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z" fill="currentColor"/></svg>
                   <span>Comment</span>
                 </button>
@@ -197,7 +199,7 @@
 
             <p class="m-form-error" id="m-form-error" role="alert" hidden></p>
 
-            <button class="m-submit" id="m-submit" type="submit" disabled>Sign Manifesto</button>
+            <button class="m-submit lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md lz-btn--block" id="m-submit" type="submit" disabled>Sign Manifesto</button>
           </section>
         </form>
       </div>
@@ -295,7 +297,7 @@
             <input class="mp-input" id="mp-email" name="email" type="email" inputmode="email"
                    autocomplete="email" placeholder="you@example.com" required
                    aria-describedby="mp-error" />
-            <button class="mp-submit" type="submit" data-mp-submit>Notify me</button>
+            <button class="mp-submit lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" type="submit" data-mp-submit>Notify me</button>
           </div>
           <p class="mp-error" id="mp-error" data-mp-error role="alert" hidden></p>
         </form>
@@ -324,8 +326,8 @@
     </div>
   </div>
 
-  <script src="/js/main.js?v=20260721-email-copy"></script>
-  <script src="/js/manifesto.js?v=20260727-manifesto-action"></script>
-  <script src="/js/manifesto-paused.js?v=20260807-paused"></script>
+  <script src="/js/main.js?v=20260902-buttons"></script>
+  <script src="/js/manifesto.js?v=20260902-buttons"></script>
+  <script src="/js/manifesto-paused.js?v=20260902-buttons"></script>
 </body>
 </html>

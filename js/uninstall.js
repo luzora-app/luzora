@@ -69,6 +69,7 @@
     }
     setError("");
     submit.disabled = true;
+    submit.setAttribute("aria-busy", "true");
     submit.textContent = "Sending...";
 
     try {
@@ -83,6 +84,7 @@
       if (window.scrollTo) window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       submit.disabled = false;
+      submit.setAttribute("aria-busy", "false");
       submit.textContent = "Send feedback";
       setError("Could not send your feedback. Please check your connection and try again.");
     }
