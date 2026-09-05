@@ -2583,9 +2583,10 @@ img {
   transform: translateY(1px);
 }
 
-.newsletter__social-link svg {
-  width: 18px;
-  height: 18px;
+.newsletter__social-link img {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
 /* ===================================================================
@@ -2642,6 +2643,7 @@ img {
 
 .footer__preferred-source > [google-add-preferred-source-btn] {
   width: 100%;
+  display: none;
 }
 
 .footer__preferred-source-fallback {

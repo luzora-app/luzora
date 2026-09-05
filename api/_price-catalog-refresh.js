@@ -117,7 +117,13 @@ async function fetchCoins() {
         id: row.id,
         symbol: row.symbol,
         name: row.name,
-        market_cap_rank: row.market_cap_rank || null
+        market_cap_rank: row.market_cap_rank || null,
+        // Carried in the same response as the rank, so it costs nothing extra.
+        // The picker needs a price to show and the alert needs one to work out
+        // its direction from, and the poller only ever fetches coins somebody
+        // already watches — so without this seed no coin is ever selectable and
+        // no first alert can be created.
+        current_price: typeof row.current_price === "number" ? row.current_price : null
       });
     }
 
@@ -147,10 +153,47 @@ module.exports = async function handler(req, res) {
 
     const stored = await callRpc("replace_coin_catalog", { p_coins: coins });
 
+    // Seed a price for every coin the catalogue knows about. record_coin_quotes
+    // also fires anything these prices have satisfied, which is correct: they
+    // are real prices, read moments ago, and an alert the catalogue refresh
+    // happens to notice first is still an alert that has happened.
+    // record_coin_quotes only accepts plain decimal digits, so anything
+    // JavaScript renders in exponent form is silently skipped. String() switches
+    // to exponents below 1e-6, which is where a large share of the catalogue
+    // lives — those coins would have kept reporting no price at all, and stayed
+    // unusable, with nothing to show for it. toFixed(18) keeps every value in
+    // the notation the check expects.
+    // Only the exponent cases need rewriting. Running every price through
+    // toFixed would turn 184.2 into 184.199999999999988631, trading a silent
+    // drop for silent float noise.
+    const plainDecimal = (value) => {
+      const text = String(value);
+      if (!/e/i.test(text)) return text;
+      return value.toFixed(18).replace(/0+$/, "").replace(/\.$/, "");
+    };
+    const quotes = {};
+    for (const coin of coins) {
+      if (coin.current_price !== null && coin.current_price > 0) {
+        quotes[coin.id] = plainDecimal(coin.current_price);
+      }
+    }
+    let seeded = 0;
+    if (Object.keys(quotes).length) {
+      try {
+        await callRpc("record_coin_quotes", { p_quotes: quotes });
+        seeded = Object.keys(quotes).length;
+      } catch (error) {
+        // The catalogue is the job here. Losing the price seed is a degraded
+        // picker, not a failed refresh, so it is reported rather than thrown.
+        console.error("Luzora coin quote seed failed:", error);
+      }
+    }
+
     return json(res, 200, {
       ok: true,
       fetched: coins.length,
       stored: typeof stored === "number" ? stored : null,
+      seeded,
       calls: Math.ceil(coins.length / 250),
       tookMs: Date.now() - startedAt
     });

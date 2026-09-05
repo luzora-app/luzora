@@ -57,7 +57,6 @@
           '<nav class="nav__links" aria-label="Primary">' +
             '<a href="' + featuresHref + '">Features</a>' +
             '<a href="' + faqHref + '">FAQs</a>' +
-            '<a href="/manifesto">Manifesto</a>' +
             '<a href="/blog">Blog</a>' +
           '</nav>' +
           '<a class="nav__cta lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
@@ -73,7 +72,6 @@
         '<div class="nav__menu" id="nav-menu">' +
           '<a href="' + featuresHref + '">Features</a>' +
           '<a href="' + faqHref + '">FAQs</a>' +
-          '<a href="/manifesto">Manifesto</a>' +
           '<a href="/blog">Blog</a>' +
           '<a class="nav__cta nav__cta--menu lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--md" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
             '<span>Enter the Hive</span>' +

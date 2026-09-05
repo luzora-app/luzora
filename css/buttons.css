@@ -34,7 +34,7 @@
   --lz-btn-brand-softer: #FFF2BD;
   --lz-btn-brand-tint: #FFFDF5;
   --lz-btn-brand-ink: #85752B;
-  --lz-btn-brand-edge: #E99536;
+  --lz-btn-brand-edge: #F97316;
 
   /* Destructive */
   --lz-btn-danger: #DE5242;
@@ -422,4 +422,3 @@
 @media (prefers-reduced-motion: reduce) {
   .lz-btn { transition: none; }
 }
-
