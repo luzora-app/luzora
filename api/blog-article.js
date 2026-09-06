@@ -2,6 +2,96 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "out-of-sight-out-of-mind": {
+    title: "Out of Sight, Out of Mind: Your Productivity Tool Should Bring the Task Back to You",
+    description: "See how Luzora and Auto Return bring forgotten browser tasks and their context back into view at the right time.",
+    dek: "When an important action disappears with a closed tab, remembering is not enough. The right system should bring the task and its context back into view.",
+    image: "https://www.luzora.app/assets/images/blog/out-of-sight/og.webp",
+    dateLabel: "September 6, 2026",
+    readTime: "7 min read",
+    datePublished: "2026-09-06T09:00:00+01:00",
+    dateModified: "2026-09-06T09:00:00+01:00",
+    articleSection: "Productivity",
+    keywords: ["out of sight out of mind", "forgotten tasks", "visual reminders", "browser productivity", "Auto Return", "ADHD object permanence"],
+    bodyHtml: `
+      <figure class="article-cover-image"><img src="/assets/images/blog/out-of-sight/cover.webp" alt="A saved browser task returning to the front of faded tabs along a glowing yellow path" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+      <div class="article-lead is-revealed" data-article-section>
+        <p>You open an email that needs a thoughtful reply.</p>
+        <p>You find a course you want to continue, a form you need to complete, or a document you should review before Friday.</p>
+        <p>The intention is real. You mean to return.</p>
+        <p>Then another tab opens. A message arrives. The browser moves on, and the action quietly disappears with the page.</p>
+        <p>Hours or days later, you may remember that something needed your attention, but not what it was, where it was, or what you planned to do next.</p>
+        <p>The task did not become less important. It simply left your field of view.</p>
+      </div>
+      <section class="article-section is-revealed" id="when-an-action-disappears-from-awareness" data-article-section>
+        <h2>When an action disappears from awareness</h2>
+        <p>Within ADHD communities, people sometimes use the phrase “object permanence” to describe an “out of sight, out of mind” experience.</p>
+        <p>This is not object permanence in its clinical, developmental meaning. Adults do not suddenly believe that a hidden email, document, or responsibility has stopped existing. Instead, the phrase is commonly used as a metaphor for the difficulty of keeping something present in your awareness without a visible cue.</p>
+        <p>A more accurate description is that some people find it harder to recall or prioritise tasks once those tasks are no longer visible. External cues and reminders can help bring them back into awareness. <a href="https://www.simplypsychology.org/object-permanence-and-adhd.html" target="_blank" rel="noopener noreferrer">Simply Psychology explains this distinction</a>, while <a href="https://lifeskillsadvocate.com/blog/object-permanence-adhd-workarounds/" target="_blank" rel="noopener noreferrer">Life Skills Advocate outlines visibility and context-based reminders as practical workarounds</a>.</p>
+        <p>This experience is not limited to any single group. A closed tab, buried notification, crowded inbox, or forgotten bookmark can make an intention disappear for almost anyone.</p>
+      </section>
+      <section class="article-section is-revealed" id="the-hidden-problem-with-productivity-tools" data-article-section>
+        <h2>The hidden problem with productivity tools</h2>
+        <p>Most productivity tools ask you to do something surprisingly difficult: remember to open the tool that contains the things you are already struggling to remember.</p>
+        <p>You must remember the original action. Then you must remember which app contains it. Then you must open that app, find the task, locate the original page, and reconstruct what you intended to do.</p>
+        <p>The tool may have stored the task perfectly, but it still depends on you returning to the tool before it can help.</p>
+        <p>That creates a structural problem. A productivity system hidden behind an icon can become another thing that is out of sight.</p>
+        <p>The task is saved, but the action remains forgotten.</p>
+      </section>
+      <section class="article-section is-revealed" id="visibility-is-part-of-the-system" data-article-section>
+        <h2>Visibility is part of the system</h2>
+        <p>Good reminders do more than preserve information. They make the right information visible at a useful moment.</p>
+        <p>This is why people place important items near the door, keep notes where they naturally look, or set reminders for ordinary actions, not only major appointments. The environment carries part of the responsibility for remembering.</p>
+        <p>Digital tools should be able to do the same.</p>
+        <p>Instead of expecting you to repeatedly check another list, the system should meet you where the intention was created and bring that intention back when it is time to act.</p>
+        <p>That is the idea behind Luzora.</p>
+        <p class="article-callout">The system should not only save the task. It should help the task become visible again.</p>
+      </section>
+      <section class="article-section is-revealed" id="luzora-begins-where-the-intention-is-formed" data-article-section>
+        <h2>Luzora begins where the intention is formed</h2>
+        <p>Luzora lives in the browser because that is where many intentions begin.</p>
+        <p>You are already looking at the email, application, article, course, chart, document, or website that requires an action. You can capture the task while the page and your reason for returning are still clear.</p>
+        <p>Rather than saving only a sentence such as “Reply tomorrow,” Luzora can keep the task connected to the page where the reply needs to happen.</p>
+        <p>You decide what you need to do, where you need to do it, and when you want to return.</p>
+        <p>The task no longer has to survive as a loose thought. Luzora preserves both the intention and its destination.</p>
+      </section>
+      <section class="article-section is-revealed" id="auto-return-brings-forgotten-actions-back-into-view" data-article-section>
+        <h2>Auto Return brings forgotten actions back into view</h2>
+        <p>A normal reminder can tell you that it is time to do something.</p>
+        <p>Auto Return goes a step further by helping the place where the action happens reappear.</p>
+        <p>Imagine opening an important email and creating the task “Reply to this email tomorrow at 10:00 AM.”</p>
+        <p>When the task becomes due, Auto Return can bring you back to that email instead of leaving you with a notification and expecting you to find it again.</p>
+        <p>The same structure can work for a course lesson, an application deadline, a document awaiting approval, an invoice follow-up, an article you want to read, or a saved chart you need to review.</p>
+        <p>Before returning, Luzora displays a short countdown on the page you are currently viewing. You can go immediately, cancel the automatic return, or dismiss the visual warning.</p>
+        <p>If the destination is already open, Luzora can focus the matching tab without unnecessarily reloading it. If it is not open, Luzora can create a new tab instead of replacing the unrelated page you are using.</p>
+        <p>Auto Return is optional and remains under the user’s control. It must be enabled, applies to eligible timed tasks with saved destinations, and depends on the browser being open when the task becomes due.</p>
+        <p class="article-callout">A reminder tells you what to do. Auto Return can bring back the place where you can do it.</p>
+      </section>
+      <section class="article-section is-revealed" id="a-reminder-tells-you-a-return-restores-the-context" data-article-section>
+        <h2>A reminder tells you. A return restores the context.</h2>
+        <p>“Continue your course” may be accurate, but it still leaves questions: Which course? Which lesson? Where did you stop?</p>
+        <p>“Review the document” can create the same friction: Which document? Where is it? What needed reviewing?</p>
+        <p>Every missing step gives the action another opportunity to be postponed.</p>
+        <p>Luzora reduces that gap by reconnecting the reminder to the place where the intention began. When the page returns, more of the original context returns with it.</p>
+        <p>You are not being asked to remember the entire chain. You can continue from the place you previously chose.</p>
+        <p>That is the structural difference. Luzora does not only wait inside a task list. It sits closer to the moment an intention is created and reappears at the moment of return.</p>
+      </section>
+      <section class="article-section is-revealed" id="support-not-treatment" data-article-section>
+        <h2>Support, not treatment</h2>
+        <p>Luzora is not a diagnostic tool or a treatment for ADHD. It does not decide why someone forgets an action, and it cannot replace personalised support from a qualified professional.</p>
+        <p>What it can provide is a practical mechanism: externalise an intention, keep it connected to its context, and make it visible again at a chosen time.</p>
+        <p>People should not have to blame themselves every time a hidden task falls out of awareness. Sometimes the system is asking too much of memory.</p>
+        <p>A better system can carry more of that load.</p>
+      </section>
+      <section class="article-section is-revealed" id="what-did-you-mean-to-return-to" data-article-section>
+        <h2>What did you mean to return to?</h2>
+        <p>Think about the tabs you closed this week.</p>
+        <p>Was there an email you intended to answer? A form you planned to complete? A lesson, proposal, article, or application you genuinely wanted to revisit?</p>
+        <p>Choose one action. Save the place where it needs to happen. Decide when you want it brought back into view.</p>
+        <p>Then let Luzora help you return to what matters.</p>
+        <p class="article-callout">Save the place. Keep the intention. Return when it matters.</p>
+      </section>`
+  },
   "stop-gaming-from-taking-over-your-life": {
     "title": "4 Practical Ways to Stop Gaming From Taking Over Your Life",
     "description": "Four practical ways to regain control of gaming: recognise harmful patterns, meet your needs, set boundaries, and make real-world progress visible.",
