@@ -14,7 +14,7 @@ const ARTICLES = {
     articleSection: "Productivity",
     keywords: ["out of sight out of mind", "forgotten tasks", "visual reminders", "browser productivity", "Auto Return", "ADHD object permanence"],
     bodyHtml: `
-      <figure class="article-cover-image"><img src="/assets/images/blog/out-of-sight/cover.webp" alt="A saved browser task returning to the front of faded tabs along a glowing yellow path" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+      <figure class="article-cover-image"><img src="/assets/images/blog/out-of-sight/cover.webp" alt="A saved email task returning through a glowing yellow Auto Return portal" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
       <div class="article-lead is-revealed" data-article-section>
         <p>You open an email that needs a thoughtful reply.</p>
         <p>You find a course you want to continue, a form you need to complete, or a document you should review before Friday.</p>

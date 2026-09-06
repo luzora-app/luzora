@@ -13,10 +13,10 @@
       author: "Luzora Team",
       cardImage: "/assets/images/blog/out-of-sight/cover.webp",
       socialImage: "/assets/images/blog/out-of-sight/og.webp",
-      cardImageAlt: "A saved browser task returning to the front of faded tabs along a glowing yellow path",
+      cardImageAlt: "A saved email task returning through a glowing yellow Auto Return portal",
       coverImage: {
         src: "/assets/images/blog/out-of-sight/cover.webp",
-        alt: "A saved browser task returning to the front of faded tabs along a glowing yellow path",
+        alt: "A saved email task returning through a glowing yellow Auto Return portal",
         width: 1536,
         height: 1024
       },
