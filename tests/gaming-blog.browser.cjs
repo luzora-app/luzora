@@ -27,10 +27,15 @@ const server = http.createServer((req,res) => {
 });
 (async()=>{
   const cover=path.join(root,'assets/images/blog/gaming/cover.webp');
+  const og=path.join(root,'assets/images/blog/gaming/og.webp');
   assert.equal((await sharp(cover).metadata()).hasAlpha,true);
   const stats=await sharp(cover).stats();
   assert.equal(stats.channels[3].min,0);assert.equal(stats.channels[3].max,255);
   assert(fs.statSync(cover).size<150000);
+  const ogMetadata=await sharp(og).metadata();
+  assert.equal(ogMetadata.hasAlpha,false);
+  assert.deepEqual([ogMetadata.width,ogMetadata.height],[1200,630]);
+  assert(fs.statSync(og).size<100000);
   assert(fs.statSync(path.join(root,'assets/images/blog/doomscrolling/cover.webp')).size<100000);
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   const origin=`http://127.0.0.1:${server.address().port}`;
@@ -50,7 +55,7 @@ const server = http.createServer((req,res) => {
         assert.equal(await page.locator('[data-article-body] h2').count(),6);
         assert.equal(await page.locator('[data-article-body] a').count(),4);
         assert.equal(await page.locator('link[rel=canonical]').getAttribute('href'),'https://www.luzora.app/blog/'+slug);
-        assert.match(await page.locator('meta[property="og:image"]').getAttribute('content'),/gaming\/cover.webp$/);
+        assert.match(await page.locator('meta[property="og:image"]').getAttribute('content'),/gaming\/og.webp$/);
         const graph=JSON.parse(await page.locator('script[type="application/ld+json"]').last().textContent());
         assert(graph['@graph'].some(x=>x['@type']==='BlogPosting'&&x.headline===title&&x.articleBody.includes('Set a final-match time.')));
         assert(await page.locator('.article-cover-image img').evaluate(img=>img.complete&&img.naturalWidth===1731));

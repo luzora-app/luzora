@@ -96,7 +96,7 @@ const ARTICLES = {
     "title": "4 Practical Ways to Stop Gaming From Taking Over Your Life",
     "description": "Four practical ways to regain control of gaming: recognise harmful patterns, meet your needs, set boundaries, and make real-world progress visible.",
     "dek": "Four practical ways to regain control of gaming: recognise harmful patterns, meet your needs, set boundaries, and make real-world progress visible.",
-    "image": "https://www.luzora.app/assets/images/blog/gaming/cover.webp",
+    "image": "https://www.luzora.app/assets/images/blog/gaming/og.webp",
     "dateLabel": "September 3, 2026",
     "readTime": "6 min read",
     "datePublished": "2026-09-03T22:00:00+01:00",
