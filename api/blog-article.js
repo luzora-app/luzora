@@ -2,6 +2,112 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "finish-online-course-on-time": {
+    title: "Found a New Course? 5 Ways to Stay on Track and Finish It on Time",
+    description: "Learn how to finish an online course on time by defining the outcome, scheduling realistic sessions, reducing return friction, studying actively, and planning for missed days.",
+    dek: "A practical, research-backed system for turning a new online course into scheduled sessions, useful learning, and a finish line you can actually reach.",
+    image: "https://www.luzora.app/assets/images/blog/course-completion/og.webp",
+    dateLabel: "September 8, 2026",
+    readTime: "7 min read",
+    datePublished: "2026-09-08T09:00:00+01:00",
+    dateModified: "2026-09-08T09:00:00+01:00",
+    articleSection: "Guides",
+    keywords: ["finish online course", "online course completion", "online learning", "study schedule", "self-regulated learning", "course motivation", "Luzora"],
+    faqs: [
+      { question: "How can I finish an online course without losing motivation?", answer: "Do not make motivation responsible for the entire course. Define the result you want, schedule realistic sessions, record exactly where to return and use a recovery rule whenever you miss a session." },
+      { question: "How many times a week should I study an online course?", answer: "Choose a schedule you can maintain during a normal week. Two or three focused sessions are often more realistic than promising to study every day and abandoning the plan when life becomes busy." },
+      { question: "What should I do when I fall behind?", answer: "Return during your next available session, even if you can only study for 15 minutes. Continue from the next clear action, adjust the deadline if necessary and avoid turning one missed day into a complete restart." }
+    ],
+    bodyHtml: `
+      <figure class="article-cover-image"><img src="/assets/images/blog/course-completion/cover.webp" alt="A laptop course connected to a weekly learning plan and seven steps leading to completion" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+      <div class="article-lead is-revealed" data-article-section>
+        <p>Buying a course can feel suspiciously similar to making progress.</p>
+        <p>You find the perfect course. You watch the introduction. Perhaps you complete the first lesson. For a few days, becoming better at the subject feels almost inevitable.</p>
+        <p>Then the course becomes another open tab.</p>
+        <p>Work gets busy. You miss one study session. Returning now requires finding the course, remembering your password, locating your last lesson and figuring out what you were learning.</p>
+        <p>Eventually, “I’m taking a course” quietly becomes “I bought a course.”</p>
+        <p>This usually is not a problem of intelligence or even motivation. Online courses give us flexibility, but flexibility means we must provide our own structure. Research into online learning repeatedly points to skills such as time management, effort regulation and monitoring your own understanding—not enthusiasm alone—as important parts of academic success. <a href="https://www.sciencedirect.com/science/article/pii/S1096751615000251" target="_blank" rel="noopener noreferrer">Read Broadbent and Poon’s systematic review</a>.</p>
+        <p>Here are five ways to create that structure.</p>
+      </div>
+      <section class="article-section is-revealed" id="1-decide-what-completing-the-course-means" data-article-section>
+        <h2>1. Decide what completing the course means</h2>
+        <p>Before watching another lesson, answer one question:</p>
+        <blockquote class="article-callout"><p>What should I be able to do when this course is over?</p></blockquote>
+        <p>“Learn graphic design” is too broad.</p><p>“Design a complete landing page for my business” gives the course a destination.</p>
+        <p>“Understand digital marketing” is vague.</p><p>“Create and launch my first advertising campaign” gives you something concrete to work toward.</p>
+        <p>Review the course curriculum and identify:</p>
+        <ul><li>The lessons you must complete</li><li>The exercises that matter</li><li>The project you want to produce</li><li>The date you want to finish</li></ul>
+        <p>Not every bonus lesson deserves the same attention. Your goal is not necessarily to consume every minute of video. Your goal is to gain and apply the skill you came for.</p>
+        <p>Write your finish line somewhere visible:</p>
+        <blockquote class="article-callout"><p>By October 30, I will complete this course and use it to create my first portfolio website.</p></blockquote>
+        <p>Now the course is connected to a real outcome.</p>
+      </section>
+      <section class="article-section is-revealed" id="2-turn-the-course-into-scheduled-sessions" data-article-section>
+        <h2>2. Turn the course into scheduled sessions</h2>
+        <p>“I’ll study when I have time” sounds reasonable, but it leaves every study session open to negotiation.</p>
+        <p>A better plan specifies when and where the work will happen:</p>
+        <blockquote class="article-callout"><p>On Tuesday and Thursday at 7 p.m., I will complete one lesson at my desk.</p></blockquote>
+        <p>This resembles an implementation intention: a plan that connects a specific situation to a specific action. A meta-analysis of 94 independent tests found that these plans helped people translate intentions into action. <a href="https://doi.org/10.1016/S0065-2601%2806%2938002-1" target="_blank" rel="noopener noreferrer">Read the implementation-intentions research</a>.</p>
+        <p>You can create a realistic course schedule with a simple calculation:</p>
+        <ol><li>Count the lessons or modules.</li><li>Decide how many sessions you can genuinely complete each week.</li><li>Estimate your finish date.</li><li>Add an extra week for interruptions.</li></ol>
+        <p>If a course has 24 lessons and you can complete three each week, plan for eight weeks—then add some breathing room.</p>
+        <p>Avoid building the schedule around your most ambitious week. Build it around a normal week.</p>
+        <p>Two reliable sessions every week are more valuable than promising yourself two hours every day and disappearing after Wednesday.</p>
+      </section>
+      <section class="article-section is-revealed" id="3-make-returning-ridiculously-easy" data-article-section>
+        <h2>3. Make returning ridiculously easy</h2>
+        <p>Sometimes you are not avoiding the lesson itself. You are avoiding everything required to get back into it.</p>
+        <p>You need to find the platform, open the correct course, locate the last module and remember what you intended to do next. Each step is small, but together they create enough friction to make “later” attractive.</p>
+        <p>End every session by recording three things:</p>
+        <ul><li>Where you stopped</li><li>What you understood</li><li>What you need to do next</li></ul>
+        <p>For example:</p>
+        <blockquote class="article-callout"><p>Stopped at Module 4, Lesson 2. Learned how customer interviews expose weak assumptions. Next: write five interview questions before continuing.</p></blockquote>
+        <p>This is one of the problems Luzora is being built to solve.</p>
+        <p>Luzora helps connect an intention to the place where it needs to happen and the time you want to return. Instead of keeping “continue my course” as a vague promise, you can save the course page, describe the next action and choose when you want to come back.</p>
+        <p>When that moment arrives, you are not beginning with a search. You are returning to the work.</p>
+        <p>That distinction matters because consistency often breaks in the space between remembering something and actually getting started.</p>
+      </section>
+      <section class="article-section is-revealed" id="4-stop-measuring-learning-by-videos-watched" data-article-section>
+        <h2>4. Stop measuring learning by videos watched</h2>
+        <p>Finishing twelve videos does not necessarily mean you learned twelve lessons.</p>
+        <p>Watching can create a feeling of familiarity. The instructor’s explanation makes sense while it is playing, so it feels as though the knowledge is already yours. The real test comes when you try to explain or use it without the instructor.</p>
+        <p>After each lesson, close the video and ask:</p>
+        <ul><li>What were the three most important ideas?</li><li>Can I explain them without checking my notes?</li><li>Where could I apply this?</li><li>What question can I now answer?</li><li>What small thing can I create with what I learned?</li></ul>
+        <p>Research consistently supports retrieving information from memory and spreading practice across multiple sessions. Practice testing and distributed practice were among the highest-rated techniques in a major review of learning methods. <a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener noreferrer">Review the learning-techniques research</a>.</p>
+        <p>Retrieval does not require a formal examination. You could write questions for yourself, explain the lesson aloud, recreate an example without watching, teach the idea to someone, complete a small project, or review yesterday’s lesson before starting today’s.</p>
+        <p>Experiments have also found that retrieving information can produce stronger delayed retention than repeatedly studying the same material. <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x" target="_blank" rel="noopener noreferrer">Read the test-enhanced learning study</a>.</p>
+        <p>A completed course is useful. A skill you can remember and apply is better.</p>
+      </section>
+      <section class="article-section is-revealed" id="5-create-a-recovery-rule-before-you-fall-behind" data-article-section>
+        <h2>5. Create a recovery rule before you fall behind</h2>
+        <p>You will probably miss a session.</p>
+        <p>The dangerous part is not missing Tuesday. It is deciding that the week is ruined and waiting for the perfect Monday to start again.</p>
+        <p>Create your recovery rule in advance:</p>
+        <blockquote class="article-callout"><p>If I miss a study session, I will complete at least 15 minutes during my next available study period.</p></blockquote>
+        <p>That 15-minute session may not recover everything you missed. Its purpose is to prevent one interruption from becoming abandonment.</p>
+        <p>Do not punish yourself with a four-hour catch-up session. Return to the normal schedule and adjust the finish date if necessary.</p>
+        <p>Once a week, review:</p>
+        <ul><li>What did I complete?</li><li>What can I now explain or do?</li><li>Where am I getting stuck?</li><li>Is my schedule still realistic?</li><li>What is the next lesson or action?</li></ul>
+        <p>This is metacognition in practical language: paying attention to how well your learning system is working and changing it when necessary.</p>
+        <p>Consistency does not mean following the original plan perfectly. It means having a reliable way to return when the plan is interrupted.</p>
+      </section>
+      <section class="article-section is-revealed" id="your-course-completion-plan" data-article-section>
+        <h2>Your course completion plan</h2>
+        <p>Before leaving this page, write down:</p>
+        <ul><li><strong>My outcome:</strong> What will this course help me produce or do?</li><li><strong>My deadline:</strong> When do I intend to finish?</li><li><strong>My sessions:</strong> Which days and times will I study?</li><li><strong>My next lesson:</strong> Where exactly will I continue?</li><li><strong>My recovery rule:</strong> What will I do after missing a session?</li><li><strong>My proof of learning:</strong> How will I practise or test myself?</li></ul>
+        <p>A new course gives you information. A completion system gives that information somewhere to go.</p>
+        <p>Luzora is being built for that gap between deciding and doing: saving what matters, keeping it connected to the right place and helping you return when it is time to follow through.</p>
+        <p>Because the course sitting in your account cannot improve your life.</p>
+        <p>The part you return to, understand and apply can.</p>
+      </section>
+      <section class="article-section is-revealed" id="common-questions-about-completing-an-online-course" data-article-section>
+        <h2>Common questions about completing an online course</h2>
+        <p><strong>How can I finish an online course without losing motivation?</strong> Do not make motivation responsible for the entire course. Define the result you want, schedule realistic sessions, record exactly where to return and use a recovery rule whenever you miss a session.</p>
+        <p><strong>How many times a week should I study an online course?</strong> Choose a schedule you can maintain during a normal week. Two or three focused sessions are often more realistic than promising to study every day and abandoning the plan when life becomes busy.</p>
+        <p><strong>What should I do when I fall behind?</strong> Return during your next available session, even if you can only study for 15 minutes. Continue from the next clear action, adjust the deadline if necessary and avoid turning one missed day into a complete restart.</p>
+      </section>
+    `
+  },
   "out-of-sight-out-of-mind": {
     title: "Out of Sight, Out of Mind: Your Productivity Tool Should Bring the Task Back to You",
     description: "See how Luzora and Auto Return bring forgotten browser tasks and their context back into view at the right time.",
