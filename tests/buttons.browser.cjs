@@ -55,10 +55,11 @@ const server = http.createServer((req, res) => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(origin);
     const hero = page.locator('.hero__cta').first();
-    const styles = () => hero.evaluate(b => { const s = getComputedStyle(b); return { bg: s.backgroundColor, height: s.height, shadow: s.boxShadow }; });
+    const styles = () => hero.evaluate(b => { const s = getComputedStyle(b); return { bg: s.backgroundColor, border: s.borderColor, height: s.height, shadow: s.boxShadow }; });
     assert.equal((await styles()).bg, 'rgb(255, 213, 43)');
+    assert.equal((await styles()).border, 'rgb(234, 88, 12)');
     assert.equal((await styles()).height, '56px');
-    assert.match((await styles()).shadow, /inset/);
+    assert.equal((await styles()).shadow, 'rgb(234, 88, 12) 0px 4px 0px 0px');
     await hero.hover(); await page.waitForTimeout(160);
     assert.equal((await styles()).bg, 'rgb(255, 221, 85)');
     await hero.hover(); await page.mouse.down(); await page.waitForTimeout(200);

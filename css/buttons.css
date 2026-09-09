@@ -34,7 +34,7 @@
   --lz-btn-brand-softer: #FFF2BD;
   --lz-btn-brand-tint: #FFFDF5;
   --lz-btn-brand-ink: #85752B;
-  --lz-btn-brand-edge: #F97316;
+  --lz-btn-brand-edge: #EA580C;
 
   /* Destructive */
   --lz-btn-danger: #DE5242;
@@ -204,7 +204,7 @@
 }
 
 /* ------------------------------------------------ Type=Primary (raised) --- */
-/* The only type with a border and an inset bottom edge. Pressing removes the
+/* The only type with a border and an external bottom edge. Pressing removes the
    edge, which is what makes it read as going down. */
 
 .lz-btn--primary { border-width: 1px; border-style: solid; }
@@ -217,11 +217,11 @@
   background: var(--lz-btn-ink);
   color: #FFFFFF;
   border-color: #000000;
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.78);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.78);
 }
 .lz-btn--primary.lz-btn--mode-primary:hover:not(:disabled):not([aria-disabled="true"]) {
   background: var(--lz-btn-ink-hover);
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.66);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.66);
 }
 .lz-btn--primary.lz-btn--icon.lz-btn--mode-primary:hover:not(:disabled):not([aria-disabled="true"]) {
   box-shadow: none;
@@ -240,7 +240,7 @@
   background: var(--lz-btn-brand);
   color: #000000;
   border-color: var(--lz-btn-brand-edge);
-  box-shadow: inset 0 -4px 0 var(--lz-btn-brand-edge);
+  box-shadow: 0 4px 0 var(--lz-btn-brand-edge);
 }
 .lz-btn--primary.lz-btn--mode-brand:hover:not(:disabled):not([aria-disabled="true"]) {
   background: var(--lz-btn-brand-hover);
@@ -259,11 +259,11 @@
   background: #FFFFFF;
   color: #000000;
   border-color: var(--lz-btn-line);
-  box-shadow: inset 0 -4px 0 var(--lz-btn-line);
+  box-shadow: 0 4px 0 var(--lz-btn-line);
 }
 .lz-btn--primary.lz-btn--icon.lz-btn--mode-white {
   border-color: var(--lz-btn-mute-soft);
-  box-shadow: inset 0 -4px 0 var(--lz-btn-mute-soft);
+  box-shadow: 0 4px 0 var(--lz-btn-mute-soft);
 }
 .lz-btn--primary.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]) {
   background: var(--lz-btn-white-hover);
@@ -273,7 +273,7 @@
   border-color: var(--lz-btn-line);
 }
 .lz-btn--primary.lz-btn--icon.lz-btn--mode-white:hover:not(:disabled):not([aria-disabled="true"]) {
-  box-shadow: inset 0 -4px 0 var(--lz-btn-line);
+  box-shadow: 0 4px 0 var(--lz-btn-line);
 }
 .lz-btn--primary.lz-btn--mode-white:active:not(:disabled):not([aria-disabled="true"]) {
   background: #FFFFFF;
@@ -289,11 +289,11 @@
   background: var(--lz-btn-danger);
   color: #FFFFFF;
   border-color: var(--lz-btn-danger-edge);
-  box-shadow: inset 0 -4px 0 var(--lz-btn-danger-press);
+  box-shadow: 0 4px 0 var(--lz-btn-danger-press);
 }
 .lz-btn--primary.lz-btn--mode-destructive:hover:not(:disabled):not([aria-disabled="true"]) {
   background: var(--lz-btn-danger-hover);
-  box-shadow: inset 0 -4px 0 var(--lz-btn-danger);
+  box-shadow: 0 4px 0 var(--lz-btn-danger);
 }
 .lz-btn--primary.lz-btn--mode-destructive:active:not(:disabled):not([aria-disabled="true"]) {
   background: var(--lz-btn-danger-press);
