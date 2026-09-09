@@ -63,7 +63,8 @@ async function supabaseRequest(path, options) {
   }
 
   if (!response.ok) {
-    throw new Error(typeof data === "string" ? data : "Supabase request failed.");
+    var message = data && typeof data === "object" && (data.message || data.error_description || data.error);
+    throw new Error(typeof data === "string" ? data : message || "Supabase request failed.");
   }
 
   return data;
@@ -99,7 +100,7 @@ async function callResend(path, options) {
 async function notifyLuzora(request) {
   var from = "Luzora <hello@luzora.app>";
   var notifyTo = "hello@luzora.app";
-  var scopeLabel = request.scope === "account" ? "Account and data" : "Task data";
+  var scopeLabel = request.scope === "account" ? "Full Luzora account and data" : "Extension data only";
   var safeEmail = escapeHtml(request.email);
   var safeScope = escapeHtml(scopeLabel);
   var reasonLabel = request.reason || "No reason provided";
@@ -112,15 +113,15 @@ async function notifyLuzora(request) {
       from,
       to: [notifyTo],
       reply_to: request.email,
-      subject: "Verified Luzora data deletion request",
+      subject: "Completed Luzora data deletion request",
       html:
-        "<p>A user has verified a Luzora data deletion request.</p>" +
+        "<p>A verified Luzora data deletion request was completed automatically.</p>" +
         "<p><strong>Email:</strong> " + safeEmail + "</p>" +
         "<p><strong>Scope:</strong> " + safeScope + "</p>" +
         "<p><strong>Reason:</strong> " + safeReason + "</p>" +
         "<p><strong>Request ID:</strong> " + safeId + "</p>",
       text:
-        "A user has verified a Luzora data deletion request.\n\n" +
+        "A verified Luzora data deletion request was completed automatically.\n\n" +
         "Email: " + request.email + "\n" +
         "Scope: " + scopeLabel + "\n" +
         "Reason: " + reasonLabel + "\n" +
@@ -133,15 +134,20 @@ async function sendUserConfirmation(request) {
   var from = "Luzora <hello@luzora.app>";
   var replyTo = "hello@luzora.app";
   var branded = luzoraEmail({
-    preheader: "Your Luzora deletion request is confirmed.",
-    heading: "Your request is confirmed",
-    lines: [
-      "Your Luzora deletion request has been verified.",
-      "We aim to complete verified deletion requests promptly and no later than 30 days after verification. If additional time is legally permitted because your request is complex, we will notify you within the initial 30-day period."
-    ],
+    preheader: "Your Luzora deletion request is complete.",
+    heading: "Your deletion is complete",
+    lines: request.scope === "account"
+      ? [
+          "Your verified request has been completed. Your shared Luzora account and associated Extension and Hive data have been deleted.",
+          "Limited records may be retained only where required or permitted for legal, security, fraud prevention, dispute resolution, or backup purposes."
+        ]
+      : [
+          "Your verified request has been completed. Your Luzora extension profile, tasks, projects, reminders, preferences, and extension progress have been deleted.",
+          "Your shared sign-in and your Hive account, Hive Points, quests, referrals, and Hive progress were not deleted."
+        ],
     ctaLabel: "Go to Luzora",
     ctaUrl: "https://www.luzora.app",
-    footerNote: "You received this email because a deletion request was verified for this Luzora account."
+    footerNote: "You received this email because a verified deletion request was completed for this email address."
   });
 
   return callResend("/emails", {
@@ -150,7 +156,7 @@ async function sendUserConfirmation(request) {
       from,
       to: [request.email],
       reply_to: replyTo,
-      subject: "Your Luzora deletion request is confirmed",
+      subject: "Your Luzora deletion request is complete",
       html: branded.html,
       text: branded.text
     }
@@ -174,7 +180,7 @@ module.exports = async function handler(req, res) {
     var tokenHash = crypto.createHash("sha256").update(token).digest("hex");
     var rows = await supabaseRequest(
       "/rest/v1/data_deletion_requests?token_hash=eq." + encodeURIComponent(tokenHash) +
-        "&select=id,email,scope,reason,status,expires_at,verified_at",
+        "&select=id,email,scope,reason,status,expires_at,verified_at,processed_at",
       { method: "GET" }
     );
     var request = Array.isArray(rows) ? rows[0] : null;
@@ -183,11 +189,11 @@ module.exports = async function handler(req, res) {
       return json(res, 404, { ok: false, message: "This deletion link is invalid." });
     }
 
-    if (request.status === "confirmed" || request.verified_at) {
-      return json(res, 200, { ok: true, already_confirmed: true });
+    if (request.status === "processed" || request.processed_at) {
+      return json(res, 200, { ok: true, already_processed: true });
     }
 
-    if (request.expires_at && new Date(request.expires_at).getTime() < Date.now()) {
+    if (!request.verified_at && request.expires_at && new Date(request.expires_at).getTime() < Date.now()) {
       await supabaseRequest(
         "/rest/v1/data_deletion_requests?id=eq." + encodeURIComponent(request.id),
         { method: "PATCH", body: { status: "expired" }, prefer: "return=minimal" }
@@ -195,14 +201,51 @@ module.exports = async function handler(req, res) {
       return json(res, 410, { ok: false, message: "This deletion link has expired. Please submit a new request." });
     }
 
-    var verifiedAt = new Date().toISOString();
+    if (!request.verified_at) {
+      var verifiedAt = new Date().toISOString();
+      await supabaseRequest(
+        "/rest/v1/data_deletion_requests?id=eq." + encodeURIComponent(request.id),
+        { method: "PATCH", body: { status: "confirmed", verified_at: verifiedAt }, prefer: "return=minimal" }
+      );
+      request.status = "confirmed";
+      request.verified_at = verifiedAt;
+    }
+
+    var resolved = await supabaseRequest("/rest/v1/rpc/resolve_account_deletion_user_id", {
+      method: "POST",
+      body: { p_email: request.email }
+    });
+    var userId = typeof resolved === "string" ? resolved : null;
+
+    if (userId) {
+      if (request.scope === "account") {
+        await supabaseRequest("/auth/v1/admin/users/" + encodeURIComponent(userId), {
+          method: "DELETE",
+          prefer: "return=minimal"
+        });
+      } else {
+        await supabaseRequest("/rest/v1/rpc/delete_extension_account_data", {
+          method: "POST",
+          body: { p_user_id: userId }
+        });
+
+        var residue = await supabaseRequest("/rest/v1/rpc/audit_extension_account_residue", {
+          method: "POST",
+          body: { p_user_id: userId }
+        });
+        if (Array.isArray(residue) && residue.length) {
+          throw new Error("Extension deletion left data behind.");
+        }
+      }
+    }
+
+    var processedAt = new Date().toISOString();
     await supabaseRequest(
       "/rest/v1/data_deletion_requests?id=eq." + encodeURIComponent(request.id),
-      { method: "PATCH", body: { status: "confirmed", verified_at: verifiedAt }, prefer: "return=minimal" }
+      { method: "PATCH", body: { status: "processed", processed_at: processedAt }, prefer: "return=minimal" }
     );
-
-    request.status = "confirmed";
-    request.verified_at = verifiedAt;
+    request.status = "processed";
+    request.processed_at = processedAt;
 
     try {
       await notifyLuzora(request);
@@ -216,7 +259,7 @@ module.exports = async function handler(req, res) {
     console.error("Luzora data deletion confirmation failed:", error);
     return json(res, 500, {
       ok: false,
-      message: "Could not verify this deletion request. Please try again."
+      message: "Could not complete this deletion request. Please try again."
     });
   }
 };

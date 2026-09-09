@@ -97,7 +97,7 @@ async function insertDeletionRequest(payload) {
 async function sendVerificationEmail(email, verifyUrl, scope) {
   var from = "Luzora <hello@luzora.app>";
   var replyTo = "hello@luzora.app";
-  var scopeLabel = scope === "account" ? "account and data" : "task data";
+  var scopeLabel = scope === "account" ? "full account and all product data" : "extension data only";
   var branded = luzoraEmail({
     preheader: "Verify your Luzora data deletion request.",
     heading: "Verify your request",

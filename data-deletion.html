@@ -42,7 +42,7 @@
 
     <div class="del-head">
       <h1 class="del-title">Delete my Account &amp; Data</h1>
-      <p class="del-intro">You can request deletion of your Luzora account and data. Please make sure your request follows our <a href="/privacy#data-deletion-policy">Data Deletion policy</a>. This deletion does not include information we are required to keep for administrative, legal, security, fraud prevention, backup, or dispute resolution reasons. We aim to complete verified deletion requests promptly and no later than 30 days after verification. If additional time is legally permitted because a request is complex, we will notify you within the initial 30-day period.</p>
+      <p class="del-intro">Choose whether to delete only your browser-extension data or your entire Luzora account. Extension-only deletion preserves your Hive membership and progress. Full account deletion removes your shared sign-in and associated Extension and Hive data. Please review our <a href="/privacy#data-deletion-policy">Data Deletion policy</a>. Limited information may be retained where required or permitted for administrative, legal, security, fraud prevention, backup, or dispute-resolution purposes.</p>
     </div>
 
     <form class="del-form" id="del-form" novalidate>
@@ -68,8 +68,8 @@
             </button>
             <input type="hidden" name="scope" id="del-scope" />
             <div class="del-select__panel" role="listbox" aria-labelledby="del-scope-label">
-              <button type="button" class="del-select__option" role="option" data-value="data">Delete my Data (Tasks, projects, links, etc - Retains account)</button>
-              <button type="button" class="del-select__option" role="option" data-value="account">My Account &amp; Data</button>
+              <button type="button" class="del-select__option" role="option" data-value="data">Extension data only — keep my Hive account and progress</button>
+              <button type="button" class="del-select__option" role="option" data-value="account">Full Luzora account — delete Extension and Hive data</button>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
           <span class="del-terms__box" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4 4 10-10.5" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="del-terms__text">I understand that this action is irreversible and will permanently delete the selected account data, except information Luzora is legally allowed or required to retain.</span>
+          <span class="del-terms__text">I understand that this action is irreversible and will delete the scope I selected. Full account deletion includes both Extension and Hive data, except information Luzora is legally allowed or required to retain.</span>
         </label>
       </div>
 

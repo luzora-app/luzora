@@ -35,7 +35,7 @@
       return data;
     }
 
-    var message = data && data.message || "Could not verify this deletion request.";
+    var message = data && data.message || "Could not complete this deletion request.";
     throw new Error(message);
   }
 
@@ -51,23 +51,23 @@
       return;
     }
 
-    setCopy("Verifying your request", "Please wait while we confirm that this deletion request came from you.");
+    setCopy("Completing your request", "Please wait while we verify the link and delete the data you selected.");
     setActions(false);
 
     try {
       var result = await confirmRequest(token);
       setCopy(
-        result.already_confirmed ? "Data deletion request already confirmed" : "Data deletion request confirmed",
-        "Your request has been verified. We aim to complete your deletion request promptly and no later than 30 days after verification. Your account will remain active during this process, and any data you create after submitting this request will not be included. We will email you when the deletion is complete."
+        result.already_processed ? "Data was already deleted" : "Data deletion complete",
+        "Your verified request is complete. We have emailed a confirmation explaining the deletion scope you selected."
       );
-      setActions(true);
+      setActions(false);
 
       if (window.history && window.history.replaceState) {
         window.history.replaceState(null, "", window.location.pathname);
       }
     } catch (error) {
       setCopy(
-        "Could not verify this request",
+        "Could not complete this request",
         error && error.message ? error.message : "Please submit a new data deletion request."
       );
       setActions(false);
