@@ -2,6 +2,95 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "meet-the-hive-how-participation-and-value-work": {
+    title: "Meet the Hive: How Participation and Value Work",
+    description: "Meet the Luzora Hive and learn how quests, Hive Points, referrals, profiles, member Hives, public schedules, collaboration, and community value work.",
+    dek: "The Hive is where participation becomes visible: complete quests, create useful work, grow your reputation, build a community, and help Luzora move forward.",
+    image: "https://www.luzora.app/assets/images/blog/meet-the-hive/cover.webp",
+    dateLabel: "September 10, 2026",
+    readTime: "8 min read",
+    datePublished: "2026-09-10T09:00:00+01:00",
+    dateModified: "2026-09-10T09:00:00+01:00",
+    articleSection: "Announcements",
+    keywords: ["Luzora Hive", "Hive Points", "HP", "community participation", "Luzora quests", "member Hives", "public schedules", "Luzora marketplace"],
+    bodyHtml: `
+      <figure class="article-cover-image"><img src="/assets/images/blog/meet-the-hive/cover.webp" alt="A thriving community of bees completing quests, creating schedules and contributing to connected Hives" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+      <div class="article-lead is-revealed" data-article-section>
+        <p>Luzora helps people return to the things they intend to do. The Hive gives that follow-through a community.</p>
+        <p>It is being built as the home of participation across Luzora: a place to complete quests, join conquests, share knowledge, create useful work, build a visible reputation and contribute to victories that are larger than one person.</p>
+        <p>Inside the Hive, participation should not disappear into a feed. Useful actions should leave a record. Consistency should be visible. The people who teach, welcome, create, refer, test and advocate should be able to show how they helped the product and its community grow.</p>
+        <p>That is the role of the Hive—and this is how its main parts fit together.</p>
+      </div>
+      <section class="article-section is-revealed" id="a-home-for-participation-conquests-and-victory" data-article-section>
+        <h2>A home for participation, conquests and victory</h2>
+        <p>The Hive brings Luzora’s community activity into one connected system.</p>
+        <p>Members can take part in quests, learn about Luzora, support campaigns and compete for positions on the leaderboard. Some activities are individual. Others can become conquests in which people or Hives work toward a shared objective.</p>
+        <p>The leaderboard is not meant to reward noise. It is meant to make meaningful participation visible. A member who consistently completes useful activities, helps others and creates work the community can use should build a stronger record over time than someone who appears once, posts repeatedly and adds no real value.</p>
+        <p>This also makes competition more constructive. The goal is not simply to collect points. The goal is to give people clear ways to contribute, show what they have done and keep moving toward the next useful action.</p>
+      </section>
+      <section class="article-section is-revealed" id="your-profile-is-your-record" data-article-section>
+        <h2>Your profile is your record</h2>
+        <p>Every member has a Hive profile. Over time, that profile is intended to become a richer record of what the person does and how consistently they have shown up.</p>
+        <p>A profile can bring together participation such as:</p>
+        <ul><li>Quests and conquests completed</li><li>Hive Points earned</li><li>Referral and community-building activity</li><li>Content and other verified contributions</li><li>Schedules created for public use</li><li>Recognitions, rankings and community achievements</li></ul>
+        <p>This matters because a username tells people very little. A history of useful action tells them much more.</p>
+        <p>Someone may become known for writing excellent guides, creating reliable schedules, welcoming new members, producing strong videos or representing Luzora in public. The profile gives those contributions somewhere to accumulate instead of letting each one disappear after it happens.</p>
+      </section>
+      <section class="article-section is-revealed" id="how-hive-points-work" data-article-section>
+        <h2>How Hive Points work</h2>
+        <p>Hive Points, or HP, are Luzora’s measure of participation and contribution. They connect activity in the Hive with useful activity across the wider Luzora product.</p>
+        <p>Members can earn eligible Hive Points by:</p>
+        <ul><li>Completing tasks with the Luzora extension or future Luzora apps</li><li>Following through on eligible recurring activities</li><li>Completing Hive quests and taking part in conquests</li><li>Referring verified members to Luzora</li><li>Helping referrals become active Luzora users</li><li>Creating useful, verifiable content</li><li>Supporting other community members</li><li>Representing Luzora online or at physical events</li></ul>
+        <p>Task-completion rewards can vary by plan. Free members and Pro members may earn different amounts for eligible activity, with Pro participation receiving a higher rate where the applicable reward rules say so. Quest cards show the amount available before a member begins.</p>
+        <p>Not every action automatically earns HP. Some activities can be verified by the product, while others need evidence and a team or community review. Clear eligibility rules protect the system from spam and make the record more meaningful for everyone.</p>
+        <blockquote class="article-callout"><p>Hive Points are not money, a cryptocurrency or a promise of future cash value. They are a visible record used within Luzora’s participation and reward system.</p></blockquote>
+        <p>As the system grows, HP is also planned to unlock practical uses. One example is streak repair: a member who breaks an eligible streak may be able to spend Hive Points to restore it, subject to the rules shown at the time. More uses will be introduced carefully as the Hive develops.</p>
+      </section>
+      <section class="article-section is-revealed" id="creating-value-is-bigger-than-completing-a-quest" data-article-section>
+        <h2>Creating value is bigger than completing a quest</h2>
+        <p>Quests provide a clear starting point, but value is not limited to a button on a task card.</p>
+        <p>A member can create value by making something that helps another person understand, use or discover Luzora. That could be a thoughtful article, an educational thread, a useful video, a product demonstration, a translation, a community resource or constructive feedback that improves the experience.</p>
+        <p>Value can also be created through advocacy. A member might explain Luzora during an X Space, introduce it at a school or professional community, demonstrate it at an event or help someone set up the product in person. When that effort can be recorded and verified, it can form part of the member’s contribution history.</p>
+        <p>The same principle applies to referrals. Inviting a person is useful, but helping the right person discover Luzora and become an active user creates more lasting value. The system is therefore intended to recognise both the introduction and the quality of participation that follows it.</p>
+        <p>Good contribution is not measured only by reach. A clear answer that helps one new member can be more useful than a loud post that helps nobody. The Hive should make room for both visible creators and the quieter people who keep a community healthy.</p>
+      </section>
+      <section class="article-section is-revealed" id="building-your-own-hive" data-article-section>
+        <h2>Building your own Hive</h2>
+        <p>The Hive is not only a name for the entire Luzora community. It is also the model for smaller member-led communities inside it.</p>
+        <p>Today, referrals form the earliest version of these relationships. When someone joins through your referral, that person becomes part of your Hive network. The value created by active referrals can contribute to your own progress and, as the system expands, to the standing of your Hive.</p>
+        <p>The fuller member-Hive system is planned to let members create a Hive, invite others and compete on a shared Hive leaderboard. A person will belong to only one member Hive at a time, but they will not be trapped there. Members will be able to move when another community better matches the value, culture or support they need.</p>
+        <p>That creates a healthy responsibility for Hive leaders. Recruitment may bring someone in, but leadership must give them reasons to stay.</p>
+        <p>A strong Hive might provide:</p>
+        <ul><li>Useful guidance for new members</li><li>Shared goals and organised conquests</li><li>Accountability and encouragement</li><li>Education, resources and practical support</li><li>Recognition for members who contribute</li><li>A culture that makes participation worth returning to</li></ul>
+        <p>When members create value, they strengthen their own records. When a Hive consistently helps its members create value, the Hive itself can grow in standing. Individual progress and collective progress reinforce each other.</p>
+      </section>
+      <section class="article-section is-revealed" id="public-schedules-and-the-marketplace" data-article-section>
+        <h2>Public schedules and the marketplace</h2>
+        <p>Luzora is built around turning intentions into actions at the right place and time. Some of the best action plans should not have to be rebuilt by every person from scratch.</p>
+        <p>An upcoming part of the Hive will allow members to create schedules for public use. A creator might publish a revision plan, a job-search routine, a course-completion schedule, a fitness sequence or a structured way to follow an important online process.</p>
+        <p>Those schedules are intended to live in a Hive marketplace where other members can discover them, obtain them and import them into Luzora. The creator’s profile can show what they have published, while ratings, usage and review systems can help the community identify schedules that genuinely work.</p>
+        <p>This turns practical knowledge into something reusable. Instead of only telling someone to “be consistent,” a creator can give them a sequence they can actually follow.</p>
+        <p>Marketplace availability, purchasing methods, creator rewards and review rules will be explained when those features are released. Until then, references to the marketplace describe the direction of the product, not a currently available transaction or guaranteed earning opportunity.</p>
+      </section>
+      <section class="article-section is-revealed" id="a-place-for-partner-communities" data-article-section>
+        <h2>A place for partner communities</h2>
+        <p>The Hive is also being designed for collaboration beyond Luzora.</p>
+        <p>Projects may be able to bring educational activities, product tasks and community campaigns into the Hive. Luzora members can discover and participate in those activities, while partner communities can use the Hive to organise contributions and introduce their members to Luzora’s system.</p>
+        <p>Done well, this creates more than promotion. It can give members new things to learn, new problems to solve and new communities to meet. It can also give partner projects a clearer way to recognise genuine participation instead of relying only on impressions or follower counts.</p>
+        <p>Every collaboration will need transparent requirements, verification rules and rewards. Members should be able to understand what they are being asked to do, what evidence is required and what they can earn before taking part.</p>
+      </section>
+      <section class="article-section is-revealed" id="what-the-hive-is-building-toward" data-article-section>
+        <h2>What the Hive is building toward</h2>
+        <p>The Hive begins with a simple idea: useful participation deserves to be visible.</p>
+        <p>Quests make the next contribution clear. Profiles preserve the record. Hive Points help measure eligible participation. Referrals connect people. Member Hives will turn those relationships into communities. Public schedules will let members package knowledge into something others can use. The marketplace will help that work travel further. Conquests and partner activities will give individuals and Hives bigger goals to pursue together.</p>
+        <p>Some of these systems are available now. Others are being built in stages. As each one becomes live, its exact eligibility, verification, reward and participation rules will be shown in the product.</p>
+        <p>What will remain consistent is the principle beneath them:</p>
+        <blockquote class="article-callout"><p>Create value for yourself. Create value for another person. Create value for the community and the product we are building together.</p></blockquote>
+        <p>The Hive is where that work can be seen, remembered and carried forward.</p>
+        <p><a href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">Enter the Hive</a>, complete your next quest and begin building your record of contribution.</p>
+      </section>
+    `
+  },
   "finish-online-course-on-time": {
     title: "Found a New Course? 5 Ways to Stay on Track and Finish It on Time",
     description: "Learn how to finish an online course on time by defining the outcome, scheduling realistic sessions, reducing return friction, studying actively, and planning for missed days.",
