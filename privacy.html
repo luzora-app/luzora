@@ -37,7 +37,7 @@
     </div>
     <p class="legal-hero__meta" data-reveal style="--reveal-delay: 80ms">
       <span>Last updated:</span>
-      <span>September 8th, 2026</span>
+      <span>September 13th, 2026</span>
     </p>
   </section>
 
@@ -55,7 +55,7 @@
       <ol class="legal-list legal-list--clauses">
         <li>
           <h4>2.1 User action first</h4>
-          <p>Luzora inspects the current page only when you open the extension, use Add current website, trigger Luzora Bolt, save a page, or otherwise ask Luzora to work with the active page.</p>
+          <p>Luzora inspects the current page only when you open a current-page experience, start creating a task, use Add current website, trigger Luzora Bolt, save a page, or otherwise ask Luzora to work with the active page. This includes generating task suggestions after you open the Add Task screen.</p>
         </li>
         <li>
           <h4>2.2 No sensitive-field reading</h4>
@@ -67,7 +67,7 @@
         </li>
         <li>
           <h4>2.4 Purpose-limited browser data</h4>
-          <p>Data from browser permissions is used to provide user-facing Luzora features, such as saving the current page as a task, opening saved links, displaying reminders, syncing tasks, and improving reliability.</p>
+          <p>Data from browser permissions is used to provide user-facing Luzora features, such as suggesting actions for the current page, saving that page as a task, opening saved links, displaying reminders, syncing tasks, and improving reliability.</p>
         </li>
         <li>
           <h4>2.5 Do not store secrets in Luzora</h4>
@@ -160,7 +160,7 @@
       <ol class="legal-list legal-list--clauses">
         <li>
           <h4>5.1 Active tab</h4>
-          <p>Luzora uses active tab access when you interact with the extension or trigger Luzora Bolt. This helps Luzora detect the current page you are choosing to save or use as a task source.</p>
+          <p>Luzora uses active tab access after you interact with the extension, open Add Task, request current-page suggestions, select Add current website, or trigger Luzora Bolt. This helps Luzora identify the page you are actively choosing to use as a task source and keep the side panel aligned with the browser tab you are currently viewing.</p>
         </li>
         <li>
           <h4>5.2 What Luzora reads from the active tab</h4>
@@ -168,7 +168,7 @@
         </li>
         <li>
           <h4>5.3 Scripting</h4>
-          <p>When you use current-page features, Luzora may run a safe page-inspection script in the active tab. This can read limited page signals such as title, URL, favicon, metadata, headings, visible labels, and common page patterns to suggest a useful task. Luzora does not use this permission to read passwords, payment details, private form values, or hidden sensitive form values.</p>
+          <p>When you use current-page features, Luzora may run a safe page-inspection script in the active tab. This can read limited page signals such as title, URL, favicon, metadata, headings, visible labels, and common page patterns to suggest relevant task actions and attach the intended destination. Suggestions are generated from this limited context after a user action; the permission is not used for continuous background monitoring. Luzora does not use it to read passwords, payment details, private form values, or hidden sensitive form values.</p>
         </li>
         <li>
           <h4>5.4 Storage</h4>
@@ -184,9 +184,10 @@
         </li>
       </ol>
 
-      <h3>6. Luzora Bolt and page inspection</h3>
-      <p>Luzora Bolt helps create a task from the current page. It may use the active tab title, URL, favicon, page metadata, headings, visible labels, and known page patterns to suggest a task. This is intended to reduce manual copying and typing.</p>
-      <p>Page inspection happens for the page you are actively using with Luzora. Luzora does not use Bolt to build a full browsing history, run background surveillance of every website you visit, or sell web browsing activity. Saved links and page details are stored only when they become part of a task, project, or related Luzora record.</p>
+      <h3>6. Task suggestions, Luzora Bolt, and page inspection</h3>
+      <p>The Add Task suggestion feature and Luzora Bolt help create a task from the current page. They may use the active tab title, URL, favicon, page metadata, headings, visible labels, and known page patterns to suggest a small set of relevant actions. If you select a suggestion, its words are placed in the editable task description and Luzora may attach the current page address, recognised website name, and favicon to the draft. You can change, remove, close, or ignore suggestions and type your own task instead.</p>
+      <p>Page context is processed to produce the user-facing suggestion in the extension. Inspecting a page does not by itself save the page as a task. A destination URL, website name, favicon, and task description are stored or synced only when you choose to make them part of a draft, task, project, or related Luzora record.</p>
+      <p>In the side panel, Luzora can refresh this limited context after you change the active tab or complete navigation so that suggestions and Bolt use the page currently visible beside the panel. Luzora does not use these features to build a full browsing history, run background surveillance of every website you visit, sell web browsing activity, or send page content to analytics providers.</p>
 
       <h3>7. Auto Return</h3>
       <p>Auto Return brings you back to the page a task belongs to when that task falls due. It is switched off unless you turn it on, and turning it off withdraws everything described here.</p>
