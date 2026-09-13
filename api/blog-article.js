@@ -2,6 +2,84 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "luzora-v1-0-8-your-work-now-stays-beside-you": {
+    title: "Luzora v1.0.8 is live: Your work now stays beside you",
+    description: "See what is new in Luzora v1.0.8: a persistent browser side panel, reliable shortcut routing, improved Luzora Bolt, link dropping, Auto Return improvements, and stronger security.",
+    dek: "A complete side-panel workspace, shortcuts that choose one reliable destination, easier page capture, stronger Auto Return, and tighter security.",
+    image: "https://www.luzora.app/assets/images/blog/v1-0-8/og.webp",
+    dateLabel: "September 13, 2026",
+    readTime: "6 min read",
+    datePublished: "2026-09-13T19:00:00+01:00",
+    dateModified: "2026-09-13T19:00:00+01:00",
+    articleSection: "Product update",
+    keywords: ["Luzora v1.0.8", "Luzora side panel", "Luzora Bolt", "browser task manager", "Chrome side panel", "Auto Return"],
+    bodyHtml: `<figure class="article-cover-image"><img src="/assets/images/blog/v1-0-8/article.webp" alt="A browser workspace with a webpage and a persistent Luzora task panel working side by side" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+<div class="article-lead" data-article-section>
+<p>Luzora has always lived where your work happens: inside the browser.</p>
+<p>Version 1.0.8 takes that idea further by giving Luzora a place that can remain open beside the page you are using. Instead of reopening a small popup every time you want to check a task, create a reminder or use Luzora Bolt, you can now keep your workspace within reach in the browser’s side panel.</p>
+<p>This is a focused update, but it changes the rhythm of using Luzora. The product no longer needs to appear for a moment and disappear. It can stay with you while you work.</p>
+<p>Here is what changed.</p>
+</div>
+<section class="article-section" id="luzora-now-has-a-side-panel" data-article-section>
+<h2>Luzora now has a side panel</h2>
+<p>The toolbar popup is useful when you want to do something quickly. It opens, helps you act and gets out of the way. But some work needs more continuity.</p>
+<p>You may want to review today’s tasks while researching, create several reminders without losing sight of the page in front of you, or capture an intention the moment it appears.</p>
+<p>Version 1.0.8 introduces a complete side-panel experience for that kind of work. It carries the same Luzora experience as the popup, including Home, your task list, task creation, settings and Luzora Bolt. It remains available beside the current webpage, giving you more room without turning Luzora into a separate destination.</p>
+<p>From Settings, you can switch from the popup to the side panel. If you prefer the compact experience, you can switch back at any time. The choice belongs to you.</p>
+</section>
+<section class="article-section" id="shortcuts-understand-where-luzora-is-open" data-article-section>
+<h2>Your shortcuts now understand where Luzora is open</h2>
+<p>A persistent interface is only useful when it behaves predictably.</p>
+<p>Before version 1.0.8, a shortcut could not reliably tell whether Luzora was already active in the side panel. In some cases, the shortcut could address the panel and still open the popup, leaving two versions of Luzora on screen.</p>
+<p>That is now fixed at the routing level. When you use a shortcut, Luzora first checks whether an active side panel is available in the current browser window:</p>
+<ul><li>If the side panel confirms that it is active, Luzora uses that panel.</li><li>If no side panel responds, Luzora opens the toolbar popup.</li><li>It does not deliberately open both for the same action.</li></ul>
+<p>The same rule applies to Luzora Bolt. The live panel must acknowledge the request before the extension decides where the action belongs, so the behaviour remains dependable even after Chrome restarts the background service worker.</p>
+<blockquote class="article-callout"><p>One shortcut. One destination. One active Luzora experience.</p></blockquote>
+</section>
+<section class="article-section" id="bolt-feels-more-natural-in-the-panel" data-article-section>
+<h2>Luzora Bolt feels more natural in the panel</h2>
+<p>Luzora Bolt is designed to turn the page in front of you into an action you can return to.</p>
+<p>While the page remains visible, Bolt can prepare a task from its address, title, icon and page context without forcing you to leave the workspace you are using. You can edit the suggested action, add a date or recurrence, and save it while the original page remains beside Luzora.</p>
+<p>The panel also keeps up when you switch browser tabs. Bolt uses the page you are currently viewing rather than remaining attached to the tab where the panel was first opened.</p>
+<p>The page and the intention stay in view together.</p>
+</section>
+<section class="article-section" id="drop-a-link-turn-it-into-a-task" data-article-section>
+<h2>Drop a link. Turn it into a task.</h2>
+<p>You can now drag a web link into Luzora from a page, the address bar or another compatible browser surface. Luzora recognises the destination and opens a Bolt draft around it. From there, describe what you want to do and decide when you want to return.</p>
+<p>This is useful for articles you want to finish, dashboards you need to check, files you need to review, forms you need to submit or any browser destination that represents unfinished work.</p>
+<p>Link drops are handled carefully. Luzora accepts normal HTTP and HTTPS destinations while rejecting executable links, embedded data and addresses containing credentials.</p>
+</section>
+<section class="article-section" id="a-side-panel-that-respects-focus" data-article-section>
+<h2>A side panel that still respects focus</h2>
+<p>Moving the full interface into a taller, persistent space revealed small interactions that matter more on compact and touch-enabled screens.</p>
+<p>Version 1.0.8 improves how task fields retain focus and scroll position during editing. It also keeps confirmation sheets, including logout and unfinished-draft warnings, centred within the available panel rather than treating the interface like a fixed-size popup.</p>
+<p>The side panel is not merely a stretched copy of the old window. It is the same product adapting to a different way of working.</p>
+</section>
+<section class="article-section" id="auto-return-is-more-dependable" data-article-section>
+<h2>Auto Return is more dependable across browser themes</h2>
+<p>The Auto Return notice now resolves the browser’s colour preference when it appears and applies the appropriate presentation directly. This keeps the countdown readable and consistent in light and dark environments without relying on the host page to interpret its theme.</p>
+<p>Auto Return messages also reject communication that does not come from Luzora itself. The reminder remains isolated from the surrounding page while preserving the controls to cancel the return or go immediately.</p>
+</section>
+<section class="article-section" id="a-tighter-security-boundary" data-article-section>
+<h2>A tighter security boundary</h2>
+<p>Keeping Luzora open for longer makes clear boundaries even more important.</p>
+<p>Version 1.0.8 strengthens the extension’s Content Security Policy. Extension pages can connect only to the services Luzora uses for account sync and product analytics. Embedded objects and frames are blocked, base-page rewriting is blocked, and other pages cannot frame the extension.</p>
+<p>The side-panel messaging also validates the sending extension, the target browser window and a unique request identifier before treating a panel as active.</p>
+<p>These changes are mostly invisible, as good security work often is. Their purpose is to ensure that the convenience of a persistent workspace does not loosen the rules around what the extension accepts or communicates with.</p>
+</section>
+<section class="article-section" id="a-cleaner-release" data-article-section>
+<h2>A cleaner release</h2>
+<p>Version 1.0.8 removes assets and experimental files that are not used by the published extension. Even with the complete side-panel interface and its new controls, the final release package is smaller than the previous package.</p>
+<p>We also replaced the old Reddit shortcut in About Luzora with Telegram, making it easier to reach the active Luzora community.</p>
+</section>
+<section class="article-section" id="choose-how-luzora-works-with-you" data-article-section>
+<h2>Choose how Luzora works with you</h2>
+<p>Version 1.0.7 improved the beginning of the Luzora journey. Version 1.0.8 improves what it feels like to keep Luzora with you after that beginning.</p>
+<p>Use the popup for a quick check. Use the side panel when you want your tasks and the page in front of you to share the same workspace. Move between them when your work changes, and let the shortcuts follow that choice without opening two interfaces at once.</p>
+<p>Luzora is still a tool for remembering what to do, where to do it and when to return.</p>
+<blockquote class="article-callout"><p>Now it can stay beside you while you do it.</p></blockquote>
+</section>`
+  },
   "luzora-v1-0-7-better-beginning-smoother-return": {
     title: "Luzora v1.0.7 is live: A better beginning and a smoother return",
     description: "See what is new in Luzora v1.0.7, including personalised onboarding, guided setup, improved Google and X sign-in, smarter page capture, Luzora Bolt, and Auto Return controls.",
