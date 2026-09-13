@@ -2,6 +2,106 @@ const fs = require("fs");
 const path = require("path");
 
 const ARTICLES = {
+  "luzora-v1-0-7-better-beginning-smoother-return": {
+    title: "Luzora v1.0.7 is live: A better beginning and a smoother return",
+    description: "See what is new in Luzora v1.0.7, including personalised onboarding, guided setup, improved Google and X sign-in, smarter page capture, Luzora Bolt, and Auto Return controls.",
+    dek: "Personal onboarding, safer sign-in, a guided first routine, smarter page capture, clearer Bolt suggestions, and a more dependable Auto Return experience.",
+    image: "https://www.luzora.app/assets/images/blog/v1-0-7/og.webp",
+    dateLabel: "September 13, 2026",
+    readTime: "8 min read",
+    datePublished: "2026-09-13T09:00:00+01:00",
+    dateModified: "2026-09-13T09:00:00+01:00",
+    articleSection: "Product update",
+    keywords: ["Luzora v1.0.7", "Luzora onboarding", "Luzora Bolt", "Auto Return", "browser task manager", "Google sign-in", "X sign-in"],
+    bodyHtml: `<figure class="article-cover-image"><img src="/assets/images/blog/v1-0-7/article.webp" alt="A Luzora task interface connecting account setup, webpage context, completed tasks, security, and a timed return" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+<div class="article-lead" data-article-section>
+<p>Luzora v1.0.7 is now live.</p>
+<p>Our previous release made Luzora faster, safer and more reliable. Version 1.0.7 focuses on what happens when someone first meets Luzora, and how easily they can turn that first interaction into useful work.</p>
+<p>New members now receive a more personal introduction. Signing in is safer and clearer. Creating the first task feels more guided. Luzora also understands the page behind a task more accurately, particularly when you are working with email.</p>
+<p>Here is what changed.</p>
+</div>
+<section class="article-section" id="onboarding-now-begins-with-you" data-article-section>
+<h2>Onboarding now begins with you</h2>
+<p>A productivity tool should not assume everyone works the same way.</p>
+<p>When someone joins Luzora, the new onboarding experience asks about the kind of work they do, the websites they regularly use and the activities they want to complete on those websites.</p>
+<p>Luzora uses those answers to help create a practical starting routine.</p>
+<p>A student might want to return to an online course three evenings each week. A creator might need to publish on YouTube and respond to comments. A job seeker may want to check new opportunities and follow up on applications.</p>
+<p>Instead of giving everyone the same empty task list, Luzora helps each person begin with something relevant to their life.</p>
+<p>The experience also:</p>
+<ul><li>Shows one focused question at a time</li><li>Suggests websites based on the member’s work</li><li>Provides three practical activity ideas for supported websites</li><li>Lets members describe activities in their own words</li><li>Turns selected activities into actual Luzora tasks</li><li>Keeps answers safe if the extension closes midway</li><li>Allows onboarding to be skipped without creating unwanted tasks</li></ul>
+<p>If someone decides to leave and start again, Luzora now asks before removing their progress.</p>
+</section>
+<section class="article-section" id="your-first-routine-is-ready" data-article-section>
+<h2>Your first routine is ready before you enter Home</h2>
+<p>The new onboarding process does more than collect answers.</p>
+<p>Before account creation, Luzora prepares the chosen activities as a routine. Members can review what will be created, make sure it reflects what they want and continue when they are ready.</p>
+<p>Those tasks are only committed after the account is properly established. Refreshing an authorization window or retrying a sign-in cannot create the same onboarding tasks twice.</p>
+<p>This gives new members a useful Home screen without risking duplicate or incorrectly owned tasks.</p>
+</section>
+<section class="article-section" id="a-guided-tour-helps-you-find-your-way" data-article-section>
+<h2>A guided tour helps you find your way</h2>
+<p>After setup, Luzora now offers a short, interactive tour.</p>
+<p>The tour introduces the parts of the extension by showing them in context:</p>
+<ul><li>Today’s tasks and folders</li><li>The complete task list</li><li>Luzora Bolt</li><li>The Add New Task button</li><li>The task description field</li><li>Auto Return</li></ul>
+<p>The guide does not simply describe these features from a separate help page. It leads members to the actual controls they will use.</p>
+<p>After the first task is created, Luzora also explains Auto Return and gives the member a clear opportunity to activate it.</p>
+<p>The goal is simple: a new user should not have to explore every screen alone before understanding how Luzora can help.</p>
+</section>
+<section class="article-section" id="google-and-x-sign-in-return-to-the-extension" data-article-section>
+<h2>Google and X sign-in now return to the extension</h2>
+<p>Signing into the extension should not accidentally take someone into the Hive.</p>
+<p>Version 1.0.7 separates the extension authentication journey from the Hive experience. When members choose Google or X, the authorization window now returns the completed session to the extension.</p>
+<p>Google sign-in also lets the user choose which Google account to continue with instead of silently selecting an account already open in the browser.</p>
+<p>Email sign-in received smaller but important improvements too:</p>
+<ul><li>Saved email suggestions wait until the email field is deliberately selected</li><li>New members receive validation messages that fit account creation</li><li>Members who skipped onboarding receive neutral, task-free signup messaging</li><li>Returning members are taken into the appropriate password flow</li><li>Verification and resend states are clearer</li><li>Passwords are never written into saved extension state</li></ul>
+</section>
+<section class="article-section" id="luzora-understands-the-page-behind-your-words" data-article-section>
+<h2>Luzora understands the page behind your words</h2>
+<p>A task is more useful when it remembers where the work needs to happen.</p>
+<p>Luzora now recognises more ways people naturally refer to the page they are viewing. Phrases such as “reply to this email,” “finish this article,” or “continue this course” can connect the task to a compatible open page.</p>
+<p>Email received special attention.</p>
+<p>When you create a task such as “reply to this email tomorrow” while viewing a message in Gmail or another supported webmail service, Luzora can retain the exact message address, not merely the general inbox.</p>
+<p>It also follows clear safeguards:</p>
+<ul><li>“This email” will not attach an unrelated webpage</li><li>General mentions of email will not automatically capture the open message</li><li>A link you explicitly provide takes priority</li><li>A manually selected destination will not be overwritten later</li><li>Subtasks can keep destinations separate from their parent task</li></ul>
+<p>This makes returning more precise. When the task comes back, Luzora has a better chance of bringing back the actual place where the action began.</p>
+</section>
+<section class="article-section" id="luzora-bolt-gives-you-a-clearer-starting-point" data-article-section>
+<h2>Luzora Bolt gives you a clearer starting point</h2>
+<p>Luzora Bolt now presents the page it detected before you create the task.</p>
+<p>The suggested action remains editable, but the original page stays attached even if you replace the suggested description with your own words.</p>
+<p>This makes Bolt feel less like a generic task shortcut and more like what it was created to be: a quick bridge between the page you are viewing and the action you want to remember.</p>
+</section>
+<section class="article-section" id="auto-return-is-easier-to-understand-and-control" data-article-section>
+<h2>Auto Return is easier to understand and control</h2>
+<p>Auto Return has a redesigned on-page notification.</p>
+<p>The new presentation clearly shows:</p>
+<ul><li>Where Luzora is preparing to return</li><li>The task connected to that destination</li><li>How much time remains</li><li>The option to cancel</li><li>The option to go immediately</li></ul>
+<p>Members can now choose a countdown of 10, 20, 30 or 60 seconds.</p>
+<p>The notification adapts to light and dark browser environments, remains compact and gives people enough information to understand what is happening before the page changes.</p>
+<p>Auto Return remains optional. Website access is still requested only when the member decides to enable it.</p>
+</section>
+<section class="article-section" id="a-more-consistent-interface" data-article-section>
+<h2>A more consistent interface</h2>
+<p>Version 1.0.7 brings the extension’s major actions into the updated Luzora button system.</p>
+<p>Primary, secondary, tertiary and text actions now share consistent sizing, colours, pressed states, disabled states and loading behaviour.</p>
+<p>We also improved several surrounding details:</p>
+<ul><li>Calendar month labels are visible and aligned</li><li>Add Task warns before an unfinished draft is discarded</li><li>The warning can be disabled and restored from Preferences</li><li>Projectless tasks receive clearer visual identities</li><li>Settings, privacy and account controls are better organised</li><li>Username conflicts are handled more safely across sign-in methods</li><li>Onboarding progress moves smoothly instead of snapping between steps</li><li>Motion respects reduced-motion preferences</li></ul>
+<p>These changes are individually small, but together they make the extension feel more predictable.</p>
+</section>
+<section class="article-section" id="what-is-not-included-in-v1-0-7" data-article-section>
+<h2>What is not included in v1.0.7</h2>
+<p>Price alerts are not part of this release.</p>
+<p>Some supporting work exists in development, but the feature remains deliberately hidden. Version 1.0.7 should not be presented as monitoring cryptocurrency prices or notifying members when a target price is reached.</p>
+<p>This release is about onboarding, authentication, context capture, guidance and a more polished task experience.</p>
+</section>
+<section class="article-section" id="start-with-something-that-matters" data-article-section>
+<h2>Start with something that matters</h2>
+<p>Luzora v1.0.7 makes the first few minutes more useful.</p>
+<p>It learns enough to help you begin. It guides you through the important controls. It keeps sign-in inside the extension. It connects your words to the right page more carefully. And when it is time to return, it gives you more control over how that return happens.</p>
+<p>Open Luzora, create one task connected to something you genuinely want to complete, and choose when you want to see it again.</p>
+<blockquote class="article-callout"><p>That is where consistency begins.</p></blockquote>
+</section>`
+  },
   "meet-the-hive-how-participation-and-value-work": {
     title: "Meet the Hive: How Participation and Value Work",
     description: "Meet the Luzora Hive and learn how quests, Hive Points, referrals, profiles, member Hives, public schedules, collaboration, and community value work.",
