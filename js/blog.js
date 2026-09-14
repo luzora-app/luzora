@@ -3,6 +3,88 @@
 
   var ARTICLES = [
     {
+      slug: "luzora-v1-0-9-from-page-to-task-in-a-few-taps",
+      title: "Luzora v1.0.9 is live: From the page in front of you to a task in a few taps",
+      dek: "Page-aware task suggestions, a faster Action–When–Time flow, live side-panel context, visible streaks, better keyboard navigation, and clearer account deletion.",
+      metaDescription: "See what is new in Luzora v1.0.9: page-aware task suggestions, faster scheduling, live side-panel context, visible streaks, keyboard navigation, and clearer extension data deletion.",
+      category: "Product update",
+      date: "September 14, 2026",
+      readTime: "7 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/images/blog/v1-0-9/preview.webp",
+      socialImage: "/assets/images/blog/v1-0-9/og.webp",
+      cardImageAlt: "A golden bee guiding webpage context through action, calendar, and time choices into a Luzora task",
+      bodyHtml: `<figure class="article-cover-image"><img src="/assets/images/blog/v1-0-9/article.webp" alt="A golden bee turning a webpage into a scheduled task through action, date, and time suggestions" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+<div class="article-lead" data-article-section>
+<p>Luzora works best when the distance between noticing something and deciding what to do about it is almost invisible.</p>
+<p>Version 1.0.9 makes that distance much shorter. The Add Task experience can now suggest useful actions based on the page you are viewing, guide you through when the task should happen and help you choose a time.</p>
+<p>This release also makes the side panel more aware of where you are, puts your current streak somewhere you can appreciate it every day, improves keyboard navigation and draws a clearer boundary between extension data and your wider Luzora and Hive identity.</p>
+<p>Here is what changed.</p>
+</div>
+<section class="article-section" id="a-useful-place-to-begin" data-article-section>
+<h2>Task creation now gives you a useful place to begin</h2>
+<p>An empty description field can create unnecessary work. You may know that you want to return to the page in front of you but still need to decide what the action should be.</p>
+<p>After Add Task opens, Luzora briefly studies the available page context and presents a small set of actions that make sense for that destination. A social post may suggest reviewing its performance or following up. A trading page may suggest checking a position or completing an exchange. An article may suggest reading, reviewing or continuing it.</p>
+<p>These are starting points, not commands. You can ignore them and type your own task at any time.</p>
+</section>
+<section class="article-section" id="one-decision-at-a-time" data-article-section>
+<h2>Build the task one decision at a time</h2>
+<p>The suggestion experience follows three questions: What do you want to do? When should it happen? What time should Luzora bring you back?</p>
+<p>Selecting an Action writes it directly into the description. Luzora then moves to When, where choices such as Today, Tomorrow, Twice weekly, Every weekday, Weekends and Monthly can be added. The Time step provides a compact hour selector and an animated AM or PM control.</p>
+<p>Every choice becomes readable text in the description. You can see the task taking shape, continue typing and edit it at any point. Moving backwards and choosing something different updates the relevant part instead of forcing you to begin again.</p>
+<p>Luzora Bolt follows the same principle. Its proposed action appears selected, but you can replace it immediately when another action fits better.</p>
+</section>
+<section class="article-section" id="the-description-remains-yours" data-article-section>
+<h2>The description remains yours</h2>
+<p>The description keeps or regains focus after a suggestion is selected, and each inserted suggestion leaves a trailing space. Tap an option and continue typing naturally.</p>
+<p>Closing the suggestion card does not remove it permanently. A quiet light-bulb control remains near the lower-right corner of the composer and expands back into the card when you need help.</p>
+<p>The card enters gently and uses subtle directional motion between Action, When and Time. It responds softly to pointer movement without distracting from the draft.</p>
+</section>
+<section class="article-section" id="compact-suggestions" data-article-section>
+<h2>Suggestions stay compact, even when there are more choices</h2>
+<p>Action and When options remain within two rows. When more choices are available, they continue horizontally instead of increasing the card's height. You can scroll or drag sideways, while soft edge fades show when more content is available.</p>
+<p>Extra space beneath the draft also lets subtasks and the centred Add sub task control scroll fully above the suggestion card. This works in both the toolbar popup and the taller side panel.</p>
+</section>
+<section class="article-section" id="the-current-page-stays-attached" data-article-section>
+<h2>The page you are viewing stays attached</h2>
+<p>When you choose an Action suggestion, Luzora captures the live page address at that moment. It also carries the recognised website name and icon into the Project field.</p>
+<p>This matters most in the side panel, which can remain open while the browser page changes. Version 1.0.9 listens for tab changes and completed navigation, then refreshes the available context. New suggestions come from the page you are currently viewing—not the page that happened to be open when the panel started.</p>
+<p>Older page scans cannot overwrite a newer result. If two checks finish out of order, Luzora keeps the context from the most recent page.</p>
+</section>
+<section class="article-section" id="bolt-uses-the-live-tab" data-article-section>
+<h2>Luzora Bolt now uses the live tab from the side panel</h2>
+<p>In some side-panel sessions, pressing Bolt could prepare a task for a browser New Tab page rather than the webpage beside the panel. Bolt now resolves the live active tab before capturing the destination.</p>
+<blockquote class="article-callout"><p>This page. This intention. The right place to return.</p></blockquote>
+</section>
+<section class="article-section" id="daily-streak-at-a-glance" data-article-section>
+<h2>Your daily streak is now visible at a glance</h2>
+<p>The signed-in header now includes a compact streak pill showing your current daily streak from Luzora's existing consistency system. It uses the same completion history that powers the consistency view, so it is not a separate counter.</p>
+<p>Hovering over the pill reveals a gentle Streak tooltip beneath it after a short delay. Consistency is now something you can appreciate whenever you open Luzora, not something you have to look up.</p>
+</section>
+<section class="article-section" id="keyboard-navigation" data-article-section>
+<h2>Keyboard navigation feels more complete</h2>
+<p>On screens with a back action, Escape now returns to the previous Luzora screen. From Profile, for example, Escape returns to Home.</p>
+<p>Confirmation experiences respect the keyboard too. In the logout confirmation, Escape cancels and Enter confirms Logout. These shortcuts make navigation faster while keeping destructive actions behind a clear confirmation.</p>
+</section>
+<section class="article-section" id="clearer-deletion-boundary" data-article-section>
+<h2>Extension deletion no longer means deleting your Hive identity</h2>
+<p>Luzora and the Hive are connected, but deleting extension data and requesting complete account deletion are different actions.</p>
+<p>Delete extension data removes extension tasks, projects, folders, completion history, preferences and local extension account state. It does not silently erase the member's Hive identity, Hive Points, quests, referrals or wider Hive progress.</p>
+<p>A complete deletion across Luzora remains a separate request through the Data Deletion page. The clearer boundary reduces the risk of someone removing more than they intended.</p>
+</section>
+<section class="article-section" id="small-details" data-article-section>
+<h2>Small details make the extension feel calmer</h2>
+<ul><li>The BETA tag has a quieter neutral background</li><li>The Home Bolt button no longer carries an unnecessary raised shadow</li><li>Recovery guidance has more breathing room</li><li>The streak tooltip appears beneath its control with a softer entrance</li><li>Suggestion spacing, edge fades and scrolling behave consistently across layouts</li><li>Task controls preserve their intended focus and typing flow across updates</li></ul>
+<p>Price alerts are not included in v1.0.9. Supporting work may exist in development, but cryptocurrency target-price monitoring remains unavailable in the published extension.</p>
+</section>
+<section class="article-section" id="open-choose-decide" data-article-section>
+<h2>Open the page. Choose the action. Decide when.</h2>
+<p>Version 1.0.8 gave Luzora a persistent place beside your work. Version 1.0.9 makes that space more helpful.</p>
+<p>Open Add Task on the page you want to return to. Choose an action that matches your intention, decide when it belongs and set a time if you need one. Edit as much or as little as you want, then let Luzora keep the page and the promise together.</p>
+<blockquote class="article-callout"><p>The task still belongs to you. Luzora simply makes it easier to begin.</p></blockquote>
+</section>`
+    },
+    {
       slug: "luzora-v1-0-8-your-work-now-stays-beside-you",
       title: "Luzora v1.0.8 is live: Your work now stays beside you",
       dek: "A complete side-panel workspace, shortcuts that choose one reliable destination, easier page capture, stronger Auto Return, and tighter security.",
