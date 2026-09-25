@@ -43,11 +43,6 @@
   ],
   "redirects": [
     {
-      "source": "/r/:code",
-      "destination": "/manifesto?ref=:code",
-      "permanent": false
-    },
-    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
@@ -216,6 +211,10 @@
     {
       "source": "/r-invite/:code",
       "destination": "/r.html"
+    },
+    {
+      "source": "/r/:code",
+      "destination": "/r.html?ref=:code"
     }
   ]
 }
