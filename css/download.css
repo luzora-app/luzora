@@ -110,6 +110,13 @@
   color: var(--color-body);
 }
 
+.dl-store__action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .dl-store__btn {
   display: inline-flex;
   align-items: center;
@@ -131,7 +138,7 @@
   transition: background 0.15s ease;
 }
 
-.dl-store__btn:hover { background: #E8E7E2; }
+.dl-store__btn:hover:not(:disabled) { background: #E8E7E2; }
 .dl-store__btn img { width: 18px; height: 18px; flex: none; }
 
 /* ---------- Start in 3 steps ---------- */

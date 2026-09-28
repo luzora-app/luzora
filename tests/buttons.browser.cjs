@@ -96,11 +96,26 @@ const server = http.createServer((req, res) => {
     await page.waitForTimeout(1600);
     await page.screenshot({ path: path.join(root, 'outputs/button-qa/home-desktop.png'), animations: 'disabled' });
     await page.goto(`${origin}/download.html`);
-    await page.locator('[data-install-coming-soon]').first().click();
-    assert.equal(await page.locator('.install-modal').getAttribute('aria-hidden'), 'false');
-    await page.screenshot({ path: path.join(root, 'outputs/button-qa/install-modal.png'), animations: 'disabled' });
-    await page.locator('.install-modal__secondary').click();
-    assert.equal(await page.locator('.install-modal').getAttribute('aria-hidden'), 'true');
+    const chromeStore = 'https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif';
+    for (const link of [page.locator('.dl-hero__content > a'), page.locator('.dl-store').first().locator('a')]) {
+      assert.equal(await link.getAttribute('href'), chromeStore);
+      assert.equal(await link.getAttribute('target'), '_blank');
+      assert.match(await link.getAttribute('rel'), /noopener/);
+      assert.equal(await link.isVisible(), true);
+    }
+    for (const card of [page.locator('.dl-store').nth(1), page.locator('.dl-store').nth(2)]) {
+      const button = card.locator('button');
+      assert.equal(await button.isDisabled(), true);
+      assert.equal(await card.locator('.dl-store__note').innerText(), 'Coming soon');
+      assert.equal(await button.getAttribute('aria-describedby'), await card.locator('.dl-store__note').getAttribute('id'));
+      assert.equal(await button.evaluate(element => getComputedStyle(element).cursor), 'not-allowed');
+      assert.equal(await button.evaluate(element => getComputedStyle(element).backgroundColor), 'rgb(243, 243, 241)');
+    }
+    assert.equal(await page.locator('[data-install-coming-soon]').count(), 0);
+    await page.screenshot({ path: path.join(root, 'outputs/button-qa/download-desktop.png'), animations: 'disabled' });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.screenshot({ path: path.join(root, 'outputs/button-qa/download-mobile.png'), animations: 'disabled', fullPage: true });
+    await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(`${origin}/blog.html`);
     await page.locator('.blog-category').nth(1).click();
     assert.equal(await page.locator('.blog-category').nth(1).evaluate(b => b.classList.contains('is-active')), true);
@@ -110,6 +125,6 @@ const server = http.createServer((req, res) => {
     await page.goto(`${origin}/brand.html`);
     await page.locator('.asset-download').first().click();
     assert.equal(await page.locator('[data-download-menu]').first().isVisible(), true);
-    console.log('PASS: appearance, hover, pressed, disabled, keyboard focus, loading isolation, navigation and modal actions');
+    console.log('PASS: appearance, hover, pressed, disabled, keyboard focus, loading isolation, navigation and download actions');
   } finally { await browser.close(); server.close(); }
 })().catch(error => { console.error(error); server.close(); process.exitCode = 1; });

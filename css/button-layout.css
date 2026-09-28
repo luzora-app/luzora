@@ -27,6 +27,16 @@
 .blog-category.lz-btn.is-active:not(:disabled):not([aria-disabled="true"]) { background: var(--lz-btn-brand-soft); color: var(--lz-btn-ink); }
 .invite-copy.lz-btn.is-copied { background: #dff9e7; color: #2b7547; }
 
+/* Download store buttons stay legible as controls while unavailable. */
+.dl-store .dl-store__btn:disabled {
+  background: #F3F3F1;
+  border-color: #DAD9D2;
+  color: #8D8873;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.dl-store .dl-store__btn:disabled > img { filter: grayscale(1); opacity: .55; }
+
 /* The legacy manifesto changes action -> verify -> completed in place. */
 .m-task-button.lz-btn.is-confirmed {
   background: #dff9e7;
