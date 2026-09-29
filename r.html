@@ -6,11 +6,11 @@
   <meta name="robots" content="noindex" />
   <title>You're invited to Luzora</title>
   <link rel="icon" href="/assets/icons/Logo Icon.svg" type="image/svg+xml" />
-  <meta name="description" content="A friend invited you to Luzora. Save your recurring website routines and stay consistent, free." />
+  <meta name="description" content="A friend invited you to try Luzora. Turn the websites you revisit into recurring tasks and stay consistent from your browser." />
   <meta name="keywords" content="luzora, recurring tasks, task management, browser extension, productivity, reminders, natural language processing, task scheduling, task tracking, task organization" />
   <meta name="author" content="Luzora" />
   <meta property="og:title" content="You're invited to Luzora" />
-  <meta property="og:description" content="A friend invited you to Luzora. Save your recurring website routines and stay consistent, free." />
+  <meta property="og:description" content="A friend invited you to try Luzora. Turn the websites you revisit into recurring tasks and stay consistent from your browser." />
   <meta property="og:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -18,13 +18,13 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="You're invited to Luzora" />
-  <meta name="twitter:description" content="A friend invited you to Luzora. Save your recurring website routines and stay consistent, free." />
+  <meta name="twitter:description" content="A friend invited you to try Luzora. Turn the websites you revisit into recurring tasks and stay consistent from your browser." />
   <meta name="twitter:image" content="https://www.luzora.app/assets/images/og-image.png" />
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css?v=20260902-buttons" />
   <link rel="stylesheet" href="/css/status.css?v=20260902-buttons" />
-  <link rel="stylesheet" href="/css/invite.css?v=20260902-buttons" />
-  <link rel="stylesheet" href="/css/buttons.css?v=20260902-buttons" />
+  <link rel="stylesheet" href="/css/invite.css?v=20260929-referral-page" />
+  <link rel="stylesheet" href="/css/buttons.css?v=20260929-primary" />
   <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
 <body>
@@ -32,38 +32,20 @@
   <div data-site-nav></div>
 
   <!-- ============ HERO ============ -->
-  <section class="status-hero invite-hero">
-    <img class="invite-bee" src="/assets/images/elite-bee.avif" width="332" height="202" alt="A friendly Luzora bee waving hello" />
-
-    <div class="status-copy status-copy--sm">
-      <div class="status-head">
-        <h1 class="status-title"><span id="invite-from">A friend</span> invited you to Luzora</h1>
-        <p class="status-text">Save the things you keep doing on the same websites and actually stay consistent, from a tiny browser extension. Free for everyone.</p>
-      </div>
-
-      <div class="invite-card" id="invite-card">
-        <span class="invite-card__label">Invite code</span>
-        <div class="invite-code-row">
-          <code class="invite-code" id="invite-code">luzora</code>
-          <button class="invite-copy lz-btn lz-btn--secondary lz-btn--mode-brand lz-btn--sm" id="invite-copy" type="button" aria-label="Copy invite code">Copy</button>
-        </div>
-        <p class="invite-card__hint">Enter this at sign-up so your friend gets the credit.</p>
-      </div>
-
-      <div class="invite-private-test">
-        <strong class="invite-private-test__title">Luzora is currently in Private Test.</strong>
-        <p class="invite-private-test__text">To be informed when Beta Access goes live, sign the Manifesto and reserve your Bee Name.</p>
-      </div>
-
-      <div class="hero__primary-action invite-manifesto-action">
-        <span class="hero__cta-badge">For Beta Access</span>
-        <a class="hero__cta hero__cta--sign lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" id="invite-manifesto-link" href="/manifesto">
-          <img class="hero__cta-icon" src="/assets/icons/fi_feather-Black.svg" width="24" height="24" alt="" aria-hidden="true" />
-          <span class="hero__cta-label">Sign the manifesto</span>
+  <main class="invite-hero">
+    <div class="invite-content">
+      <span class="invite-referrer" id="invite-from">A friend</span>
+      <h1 class="invite-title">invited you to try Luzora</h1>
+      <p class="invite-description">Turn any webpage into a structured task using natural language, flexible schedules and browser reminders.</p>
+      <div class="invite-action-wrap">
+        <span class="invite-reward" aria-label="Earn 50 HP">+50 HP</span>
+        <a class="invite-install lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" id="invite-download-link" href="https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/icons/Google%20Chrome.svg" width="24" height="24" alt="" aria-hidden="true" />
+          <span>Install Luzora</span>
         </a>
       </div>
     </div>
-  </section>
+  </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
@@ -80,9 +62,8 @@
           <div class="footer__col">
             <h3 class="footer__heading">Product</h3>
             <a class="footer__link" href="/#hero">Home</a>
-            <a class="footer__link" href="/manifesto">Manifesto</a>
+            <a class="footer__link" href="/download">Install / Download</a>
             <a class="footer__link" href="/#faq">FAQs</a>
-            <a class="footer__link" href="/brand">Brand Assets</a>
             <a class="footer__link" href="mailto:hello@luzora.app">Contact Us</a>
           </div>
 
@@ -122,7 +103,7 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=20260902-buttons"></script>
-  <script src="/js/invite.js?v=20260728-manifesto-referral"></script>
+  <script src="/js/main.js?v=20260929-install-cta"></script>
+  <script src="/js/invite.js?v=20260929-install-handoff"></script>
 </body>
 </html>

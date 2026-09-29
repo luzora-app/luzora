@@ -34,7 +34,7 @@
   --lz-btn-brand-softer: #FFF2BD;
   --lz-btn-brand-tint: #FFFDF5;
   --lz-btn-brand-ink: #85752B;
-  --lz-btn-brand-edge: #EA580C;
+  --lz-btn-brand-edge: #B5971F;
 
   /* Destructive */
   --lz-btn-danger: #DE5242;
@@ -237,16 +237,16 @@
 }
 
 .lz-btn--primary.lz-btn--mode-brand {
-  background: var(--lz-btn-brand);
+  background: linear-gradient(180deg, #FFE065 0%, var(--lz-btn-brand) 100%);
   color: #000000;
   border-color: var(--lz-btn-brand-edge);
-  box-shadow: 0 4px 0 var(--lz-btn-brand-edge);
+  box-shadow: inset 2px 4px 0 rgba(255, 255, 255, 0.55), inset -1px -4px 0 var(--lz-btn-brand-edge);
 }
 .lz-btn--primary.lz-btn--mode-brand:hover:not(:disabled):not([aria-disabled="true"]) {
-  background: var(--lz-btn-brand-hover);
+  background: linear-gradient(180deg, #FFE991 0%, var(--lz-btn-brand-hover) 100%);
 }
 .lz-btn--primary.lz-btn--mode-brand:active:not(:disabled):not([aria-disabled="true"]) {
-  background: var(--lz-btn-brand);
+  background: linear-gradient(180deg, var(--lz-btn-brand) 0%, var(--lz-btn-brand-press) 100%);
   box-shadow: none;
 }
 .lz-btn--primary.lz-btn--mode-brand:disabled,

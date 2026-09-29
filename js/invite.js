@@ -17,52 +17,28 @@
       // keep raw value if it isn't valid percent-encoding
     }
     // Usernames are 3-24 chars of letters, numbers, underscores (see Supabase).
-    return fromPath.trim().toLowerCase().replace(/[^a-z0-9_]/g, "").slice(0, 24);
+    var normalized = fromPath.trim().toLowerCase();
+    return /^[a-z0-9_]{3,24}$/.test(normalized) ? normalized : "";
   }
 
   var code = readCode();
   var hero = document.querySelector(".invite-hero");
   var fromEl = document.getElementById("invite-from");
-  var codeEl = document.getElementById("invite-code");
-  var copyBtn = document.getElementById("invite-copy");
-  var manifestoLink = document.getElementById("invite-manifesto-link");
+  var downloadLink = document.getElementById("invite-download-link");
 
   if (code && code.length >= 3) {
-    if (codeEl) codeEl.textContent = code;
     if (fromEl) fromEl.textContent = "@" + code;
-    if (manifestoLink) manifestoLink.href = "/manifesto?ref=" + encodeURIComponent(code);
+    // A first-party cookie survives the Chrome Web Store round-trip and is
+    // readable on both the apex and www install-welcome pages. The extension
+    // reads it there; visitors never have to transcribe a code.
+    document.cookie = "luzora_extension_ref=" + encodeURIComponent(code)
+      + "; Domain=luzora.app; Path=/; Max-Age=2592000; SameSite=Lax; Secure";
+    if (downloadLink) downloadLink.href = "https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif";
     document.title = "@" + code + " invited you to Luzora";
   } else {
-    // No valid code: show a generic invite and hide the code card.
+    // No valid code: keep the page welcoming without showing a referrer pill.
     if (hero) hero.classList.add("is-generic");
-    if (fromEl) fromEl.textContent = "You're";
     document.title = "You're invited to Luzora";
   }
 
-  if (copyBtn && codeEl) {
-    copyBtn.addEventListener("click", function () {
-      var value = codeEl.textContent || "";
-      var done = function () {
-        var original = copyBtn.dataset.label || copyBtn.textContent;
-        copyBtn.dataset.label = original;
-        copyBtn.textContent = "Copied";
-        copyBtn.classList.add("is-copied");
-        window.setTimeout(function () {
-          copyBtn.textContent = original;
-          copyBtn.classList.remove("is-copied");
-        }, 1600);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(value).then(done, done);
-      } else {
-        var input = document.createElement("input");
-        input.value = value;
-        document.body.appendChild(input);
-        input.select();
-        try { document.execCommand("copy"); } catch (error) {}
-        document.body.removeChild(input);
-        done();
-      }
-    });
-  }
 })();
