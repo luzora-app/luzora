@@ -58,7 +58,6 @@
             '<a href="' + featuresHref + '">Features</a>' +
             '<a href="' + faqHref + '">FAQs</a>' +
             '<a href="/blog">Blog</a>' +
-            '<a href="/pricing">Pricing</a>' +
           '</nav>' +
           '<a class="nav__cta lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
             '<span>Enter the Hive</span>' +
@@ -74,7 +73,6 @@
           '<a href="' + featuresHref + '">Features</a>' +
           '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="/blog">Blog</a>' +
-          '<a href="/pricing">Pricing</a>' +
           '<a class="nav__cta nav__cta--menu lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
             '<span>Enter the Hive</span>' +
             '<img src="/assets/icons/fi_arrow-right-black.svg" width="24" height="24" alt="" aria-hidden="true" />' +
