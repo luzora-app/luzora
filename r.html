@@ -23,7 +23,7 @@
   <meta name="twitter:image:alt" content="Luzora browser extension preview" />
   <link rel="stylesheet" href="/css/styles.css?v=20260902-buttons" />
   <link rel="stylesheet" href="/css/status.css?v=20260902-buttons" />
-  <link rel="stylesheet" href="/css/invite.css?v=20260929-referral-page" />
+  <link rel="stylesheet" href="/css/invite.css?v=20261001-referral-choice" />
   <link rel="stylesheet" href="/css/buttons.css?v=20260929-primary-shadow" />
   <link rel="stylesheet" href="/css/button-layout.css?v=20260902-buttons" />
 </head>
@@ -37,13 +37,35 @@
       <span class="invite-referrer" id="invite-from">A friend</span>
       <h1 class="invite-title">invited you to try Luzora</h1>
       <p class="invite-description">Turn any webpage into a structured task using natural language, flexible schedules and browser reminders.</p>
-      <div class="invite-action-wrap">
-        <span class="invite-reward" aria-label="Earn 300 HP">+300 HP</span>
+      <section class="invite-consent-wrap" id="invite-consent-wrap" aria-labelledby="invite-consent-title">
+        <div class="invite-consent-card" id="invite-consent-card">
+          <div class="invite-consent-heading">
+            <h2 id="invite-consent-title">Keep your invite connected?</h2>
+            <button class="invite-help" id="invite-help" type="button" aria-label="More information about referral tracking" aria-expanded="false" aria-controls="invite-consent-details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.35 2.35 0 1 1 3.85 1.8c-.95.76-1.55 1.15-1.55 2.7M12 16.9h.01"/></svg>
+            </button>
+          </div>
+          <p class="invite-consent-intro">Luzora can remember who invited you while you install and sign up. Accepting earns you and your referrer sign-up bonuses.</p>
+          <p class="invite-consent-details" id="invite-consent-details" hidden>Referral tracking uses a cookie for up to 30 days and a pseudonymous browser identifier for up to one year to credit invites and prevent abuse. Luzora does not use them for ads or to track the websites you visit.</p>
+          <div class="invite-consent-actions" role="group" aria-label="Choose referral tracking preference">
+            <button class="invite-consent-button invite-consent-button--accept" type="button" data-referral-choice="accepted">Accept referral tracking</button>
+            <button class="invite-consent-button invite-consent-button--decline" type="button" data-referral-choice="declined">Continue without tracking</button>
+          </div>
+        </div>
+        <a class="invite-privacy-link" href="/privacy">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.75h8l4 4v12.5H6z"/><path d="M14 3.75v4h4M9 12h6M9 15.5h6"/></svg>
+          <span>Privacy Policy</span>
+        </a>
+      </section>
+      <div class="invite-action-wrap" id="invite-action-wrap" hidden>
+        <span class="invite-reward" id="invite-reward" aria-label="Earn 300 HP" hidden>+300 HP</span>
         <a class="invite-install lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" id="invite-download-link" href="https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif" target="_blank" rel="noopener noreferrer">
           <img src="/assets/icons/Google%20Chrome.svg" width="24" height="24" alt="" aria-hidden="true" />
           <span>Install Luzora</span>
         </a>
       </div>
+      <button class="invite-choice-change" id="invite-choice-change" type="button" hidden>Change referral choice</button>
+      <p class="invite-consent-status" id="invite-consent-status" role="status" aria-live="polite"></p>
     </div>
   </main>
 
@@ -104,6 +126,6 @@
   </footer>
 
   <script src="/js/main.js?v=20260929-install-cta"></script>
-  <script src="/js/invite.js?v=20260929-install-handoff"></script>
+  <script src="/js/invite.js?v=20261001-referral-choice"></script>
 </body>
 </html>

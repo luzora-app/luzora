@@ -37,7 +37,7 @@
     </div>
     <p class="legal-hero__meta" data-reveal style="--reveal-delay: 80ms">
       <span>Last updated:</span>
-      <span>September 13th, 2026</span>
+      <span>October 1st, 2026</span>
     </p>
   </section>
 
@@ -182,6 +182,10 @@
           <h4>5.6 Optional access to websites</h4>
           <p>Auto Return is the only feature that asks for access to websites, and it is switched off until you turn it on. Luzora does not request this access when you install the extension. It is requested at the moment you enable Auto Return, and it is withdrawn from Luzora when you turn the feature off. Section 7 explains what the access is used for.</p>
         </li>
+        <li>
+          <h4>5.7 Luzora referral and welcome pages</h4>
+          <p>On Luzora's own secure welcome and referral pages, and only after you accept referral tracking, a content script may read a referral code from the page address or a Luzora referral cookie and pass it to the extension. It may also synchronize a pseudonymous browser identifier using the <code>luzora_referral_browser</code> cookie so an accepted referral can be carried through extension installation. The extension stores a pending referral code and browser identifier locally; it does not use this page-specific access to inspect other websites. If you decline, Luzora clears the referral cookies and does not hand referral data to the extension. If you later sign in or join through an accepted referral, Luzora may record the referral relationship as described in Section 8.6.</p>
+        </li>
       </ol>
 
       <h3>6. Task suggestions, Luzora Bolt, and page inspection</h3>
@@ -240,7 +244,7 @@
         </li>
         <li>
           <h4>8.6 Referrals, milestones, and check-ins</h4>
-          <p>If you use a referral link, we record the relationship needed to attribute the referral and detect self-referrals, duplicate accounts, automation, or other abuse. We also record milestones and daily check-ins where those features are available. We do not sell referral relationships or use them to advertise to the people you invite.</p>
+          <p>If you accept referral tracking on an invite page, Luzora stores the referral code in a cookie for up to 30 days and may use a pseudonymous browser identifier cookie for up to one year to carry the referral through installation and help prevent duplicate or abusive referrals. The extension also stores the accepted referral code and identifier locally. If you decline, referral cookies are cleared and the referral is not carried through installation. When you join or sign in through an accepted referral, we record the relationship needed to attribute it and detect self-referrals, duplicate accounts, automation, or other abuse. We also record milestones and daily check-ins where those features are available. We do not sell referral relationships or use them to advertise to the people you invite.</p>
         </li>
         <li>
           <h4>8.7 Administrative access and decisions</h4>
@@ -288,7 +292,7 @@
       <p>If you contact us about analytics deletion or privacy choices, we will review your request based on the information available to us and the capabilities of our analytics provider.</p>
 
       <h3>12. Cookies and similar technologies</h3>
-      <p>The Luzora website may use cookies, local storage, or similar technologies for essential functionality, authentication, security, analytics, and preferences. The browser extension also uses browser storage for extension functionality. Where applicable law requires consent for a non-essential technology, we will request consent before using it. You can withdraw consent through any consent control we provide and can also control cookies and storage through your browser settings, although disabling essential storage may affect website, Hive, or extension features.</p>
+      <p>The Luzora website may use cookies, local storage, or similar technologies for essential functionality, authentication, security, analytics, preferences, and referral attribution. On referral pages, we ask before setting referral-tracking cookies. Your accepted or declined choice is remembered for up to one year in the <code>luzora_referral_consent</code> cookie. If you accept, the <code>luzora_extension_ref</code> cookie stores a referral code for up to 30 days, and the <code>luzora_referral_browser</code> cookie may store a pseudonymous browser identifier for up to one year to carry an accepted referral through installation and help prevent abuse. If you decline, the referral cookies are cleared and the referral is not carried through installation. The browser extension also uses browser storage for extension functionality, including an accepted pending referral code that expires after 30 days and a pseudonymous browser identifier. You can change your referral choice from the invite page. The website may use other cookies or similar technologies for purposes described in this Policy; where applicable law requires consent for a non-essential technology, we will ask before using it. You can also control cookies and storage through your browser settings, although disabling essential storage may affect website, Hive, or extension features.</p>
 
       <h3>13. How we use personal information</h3>
       <p>We use personal information for the following purposes:</p>
