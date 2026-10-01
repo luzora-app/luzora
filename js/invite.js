@@ -33,7 +33,7 @@
     // reads it there; visitors never have to transcribe a code.
     document.cookie = "luzora_extension_ref=" + encodeURIComponent(code)
       + "; Domain=luzora.app; Path=/; Max-Age=2592000; SameSite=Lax; Secure";
-    if (downloadLink) downloadLink.href = "https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif";
+    if (downloadLink) downloadLink.href = "/download?ref=" + encodeURIComponent(code);
     document.title = "@" + code + " invited you to Luzora";
   } else {
     // No valid code: keep the page welcoming without showing a referrer pill.
