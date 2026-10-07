@@ -45,8 +45,6 @@
     var path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
     var isHome = path === "" || path === "/index.html";
     var homeHref = isHome ? "#hero" : "/#hero";
-    var featuresHref = isHome ? "#features" : "/#features";
-    var faqHref = isHome ? "#faq" : "/#faq";
 
     mount.outerHTML =
       '<header class="nav" id="nav">' +
@@ -55,13 +53,13 @@
             '<img src="/assets/icons/Logo.svg" height="40" alt="Luzora" />' +
           '</a>' +
           '<nav class="nav__links" aria-label="Primary">' +
-            '<a href="' + featuresHref + '">Features</a>' +
-            '<a href="' + faqHref + '">FAQs</a>' +
             '<a href="/blog">Blog</a>' +
+            '<a href="/download">Download</a>' +
+            '<a class="nav__external" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">The Hive<img src="/assets/icons/External-link-Black.svg" width="16" height="16" alt="" aria-hidden="true" /></a>' +
           '</nav>' +
-          '<a class="nav__cta lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
-            '<span>Enter the Hive</span>' +
-            '<img src="/assets/icons/fi_arrow-right-black.svg" width="24" height="24" alt="" aria-hidden="true" />' +
+          '<a class="nav__cta lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif" target="_blank" rel="noopener noreferrer">' +
+            '<img src="/assets/icons/Chrome-Black.svg" width="24" height="24" alt="" aria-hidden="true" />' +
+            '<span>Install Luzora</span>' +
           '</a>' +
           '<button class="nav__toggle lz-btn lz-btn--tertiary lz-btn--mode-primary lz-btn--md lz-btn--icon" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">' +
             '<span class="nav__toggle-bar"></span>' +
@@ -70,12 +68,12 @@
           '</button>' +
         '</div>' +
         '<div class="nav__menu" id="nav-menu">' +
-          '<a href="' + featuresHref + '">Features</a>' +
-          '<a href="' + faqHref + '">FAQs</a>' +
           '<a href="/blog">Blog</a>' +
-          '<a class="nav__cta nav__cta--menu lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">' +
-            '<span>Enter the Hive</span>' +
-            '<img src="/assets/icons/fi_arrow-right-black.svg" width="24" height="24" alt="" aria-hidden="true" />' +
+          '<a href="/download">Download</a>' +
+          '<a class="nav__external" href="https://hive.luzora.app/" target="_blank" rel="noopener noreferrer">The Hive<img src="/assets/icons/External-link-Black.svg" width="16" height="16" alt="" aria-hidden="true" /></a>' +
+          '<a class="nav__cta nav__cta--menu lz-btn lz-btn--primary lz-btn--mode-brand lz-btn--lg" href="https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif" target="_blank" rel="noopener noreferrer">' +
+            '<img src="/assets/icons/Chrome-Black.svg" width="24" height="24" alt="" aria-hidden="true" />' +
+            '<span>Install Luzora</span>' +
           '</a>' +
         '</div>' +
       '</header>';
