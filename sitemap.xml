@@ -20,8 +20,14 @@
   </url>
   <url>
     <loc>https://www.luzora.app/blog</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.luzora.app/blog/do-these-5-things-today-to-curb-distractions</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>

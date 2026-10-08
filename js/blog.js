@@ -3,6 +3,69 @@
 
   var ARTICLES = [
     {
+      slug: "do-these-5-things-today-to-curb-distractions",
+      title: "Do These 5 Things Today to Curb Distractions",
+      dek: "Five small changes to quiet messages, tame open tabs, and return to the work that matters.",
+      metaDescription: "Five practical changes to reduce browser distractions today: choose one outcome, batch messages, save later tabs as tasks, add friction, and make a return plan.",
+      category: "Guides",
+      date: "October 9, 2026",
+      readTime: "6 min read",
+      author: "Luzora Team",
+      cardImage: "/assets/images/blog/curb-distractions/preview.webp",
+      socialImage: "/assets/images/blog/curb-distractions/og.webp",
+      cardImageAlt: "One focused browser task surrounded by messages, feeds, tabs, and videos, with five numbered steps",
+      bodyHtml: `<figure class="article-cover-image"><img src="/assets/images/blog/curb-distractions/intro.webp" alt="A browser task kept in focus while distracting messages, feeds, tabs, and videos sit outside it" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+<div class="article-lead" data-article-section>
+<p>You open your laptop to finish one piece of work. An email arrives. You check it, notice a link you meant to read, and open another tab. Twenty minutes later, you have more pages open but no progress on the work you came to do.</p>
+<p>That pattern is familiar in <a href="https://www.reddit.com/r/productivity/comments/1q1yp9h/i_lose_half_my_day_to_context_switching_between/" target="_blank" rel="noopener noreferrer">a Reddit discussion about context switching</a>: the writer described moving from an email notification to a new tab, then losing track of the original task. In <a href="https://www.reddit.com/r/productivity/comments/1kt55d2" target="_blank" rel="noopener noreferrer">another discussion</a>, someone said that even the tabs they kept open so they would not forget them became visual distractions.</p>
+<p>There is a reason this feels tiring. The <a href="https://www.apa.org/research/action/multitask" target="_blank" rel="noopener noreferrer">American Psychological Association&#39;s overview of task-switching research</a> explains that repeatedly changing tasks carries a mental cost, especially when the work is complex. You cannot remove every interruption from a normal day. You can make it easier to stay with one task and easier to return when you drift.</p>
+<p>Try these five changes today.</p>
+</div>
+<section class="article-section" id="1-decide-what-this-work-session-is-for" data-article-section>
+<h2>1. Decide what this work session is for</h2>
+<p>Before opening another tab, write down one result you want from the next work session. Make it small enough to recognize when you have done it.</p>
+<p>“Work on my business” is too broad. “Send the draft proposal to Amara” is clearer. If that still feels large, write the first visible move: “Open the proposal and fix the pricing section.”</p>
+<p>Put that sentence where you can see it. Keep the pages required for that task open. When you catch yourself switching elsewhere, ask whether the new page helps you finish that sentence. If it does not, leave it for later.</p>
+<p><strong>Do it now:</strong> Write one outcome and one first action. Give that action 25 minutes on your calendar. The 25 minutes are a starting point, not a rule; use a shorter block if that helps you begin.</p>
+</section>
+<section class="article-section" id="2-give-messages-a-time-to-be-checked" data-article-section>
+<h2>2. Give messages a time to be checked</h2>
+<p>An alert can interrupt you even if you decide not to reply. And turning every notification off indefinitely may leave you worried about missing something important.</p>
+<p>Try a more workable middle ground: silence non-urgent alerts during one focus block, keep the people or channels that truly need an immediate response available, and choose when you will check the rest. For example, finish your 25-minute block, then check messages for five minutes.</p>
+<p>In a <a href="https://doi.org/10.1016/j.chb.2019.07.016" target="_blank" rel="noopener noreferrer">randomized field experiment with 237 people</a>, batching smartphone notifications into predictable deliveries was associated with better self-reported attention, productivity, mood and sense of control than receiving them continuously. Completely switching alerts off caused more anxiety and fear of missing out for some participants. The lesson is to choose your interruptions deliberately, not to pretend you never need messages.</p>
+<p><strong>Do it now:</strong> Turn on your device&#39;s focus or Do Not Disturb mode for one work block. Set the exceptions you genuinely need, and decide when you will check your inbox.</p>
+</section>
+<section class="article-section" id="3-stop-asking-open-tabs-to-remember-for-you" data-article-section>
+<h2>3. Stop asking open tabs to remember for you</h2>
+<p>Some tabs stay open because you need them now. Others stay open because closing them feels like losing a promise to yourself: apply for that job, read that article, compare those products, revisit that idea.</p>
+<p>People describe this directly in <a href="https://www.reddit.com/r/productivity/comments/1q9bn8e/i_closed_my_browser_with_500_open_tabs_and/" target="_blank" rel="noopener noreferrer">a tab-overload discussion</a>. Several were afraid they would forget why they had opened a page once it disappeared from view. A page address alone does not preserve the intention behind it.</p>
+<p>In a <a href="https://news.ycombinator.com/item?id=27157225" target="_blank" rel="noopener noreferrer">Hacker News discussion about tab overload</a>, a reader described moving tabs that represented unfinished work into a task manager. It is a small distinction with a large practical effect: a tab is a place, while a task says what you intend to do there.</p>
+<p>For each page you do not need in the current session, record three things: the link, the action, and when you want to return. “Read this article” is better than an unexplained bookmark. “Read this article on Friday before planning the newsletter” is better still. Then close the tab you no longer need in front of you.</p>
+<p>This is one place <a href="https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif" target="_blank" rel="noopener noreferrer">Luzora</a> can help. From a page in your browser, make a task that keeps the page attached to a specific action and schedule. A recurring website task can come back on the days you actually need it. Luzora helps you return to the page; it does not block distractions for you.</p>
+<p><strong>Do it now:</strong> Choose three tabs you have kept open “for later.” Turn each into an action with a return time, then close them.</p>
+</section>
+<section class="article-section" id="4-put-one-obstacle-between-you-and-your-usual-detour" data-article-section>
+<h2>4. Put one obstacle between you and your usual detour</h2>
+<p>You may know exactly where you go when a task gets uncomfortable: a video site, social feed, shopping tab, news page or game. Relying on willpower means making the same decision every time the urge appears.</p>
+<p>Change the route instead. Sign out of the site during work hours. Remove its pinned tab. Move your phone beyond arm&#39;s reach. If you repeatedly bypass those steps, use a site blocker for a defined work period.</p>
+<p>A <a href="https://doi.org/10.1093/pnasnexus/pgaf017" target="_blank" rel="noopener noreferrer">preregistered randomized trial</a> found improvements in sustained attention and well-being when participants blocked mobile internet on their smartphones for two weeks. That is a much stronger intervention than most people need today, and it does not mean every distracting site should be blocked forever. It does show that changing access can matter.</p>
+<p><strong>Do it now:</strong> Pick your most common detour and add one obstacle before your next focus block. Make the useful page easier to reach than the distracting one.</p>
+</section>
+<section class="article-section" id="5-make-a-plan-for-the-moment-you-slip" data-article-section>
+<h2>5. Make a plan for the moment you slip</h2>
+<p>You will probably get distracted again. The useful question is what you will do when you notice.</p>
+<p>Write a short if–then plan: “If I open a social feed while working, then I will close it, look at my one-sentence task, and do the next action for two minutes.” Or: “If a new idea sends me to another tab, then I will save the link and return to the document.”</p>
+<p>This works better than a vague promise to “focus harder” because it names both the trigger and the response. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8149892/" target="_blank" rel="noopener noreferrer">Research on implementation intentions</a> finds that these specific if–then plans can help people translate goals into action, though the effect varies by setting and person.</p>
+<p>Do not use the plan to punish yourself. Notice the detour, return to the next small action, and keep going.</p>
+<p><strong>Do it now:</strong> Write one if–then sentence for the distraction that most often catches you. Put it beside your work.</p>
+</section>
+<section class="article-section" id="a-quieter-browser-starts-with-one-block" data-article-section>
+<h2>A quieter browser starts with one block</h2>
+<p>You do not need a complete productivity system by tonight. Choose one outcome, quiet the messages that can wait, give your later tabs a place to return, add friction to one detour, and decide how you will recover when your attention wanders.</p>
+<p>If the pages you mean to revisit keep getting lost among the pages you need right now, <a href="https://chromewebstore.google.com/detail/luzora/fllkdopncjmakhohbepbhnnmgoodjhif" target="_blank" rel="noopener noreferrer">try Luzora in your browser</a>. Save the page with the action you intend to take and choose when it should come back into view.</p>
+</section>`
+    },
+    {
       slug: "luzora-v1-0-9-from-page-to-task-in-a-few-taps",
       title: "Luzora v1.0.9 is live: From the page in front of you to a task in a few taps",
       dek: "Page-aware task suggestions, a faster Action–When–Time flow, live side-panel context, visible streaks, better keyboard navigation, and clearer account deletion.",
