@@ -14,7 +14,7 @@
       cardImage: "/assets/images/blog/curb-distractions/preview.webp",
       socialImage: "/assets/images/blog/curb-distractions/og.webp",
       cardImageAlt: "One focused browser task surrounded by messages, feeds, tabs, and videos, with five numbered steps",
-      bodyHtml: `<figure class="article-cover-image"><img src="/assets/images/blog/curb-distractions/intro.webp" alt="A browser task kept in focus while distracting messages, feeds, tabs, and videos sit outside it" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
+      bodyHtml: `<figure class="article-cover-image"><img src="/assets/images/blog/curb-distractions/intro.webp?v=20261009-white" alt="A browser task kept in focus while distracting messages, feeds, tabs, and videos sit outside it" width="1536" height="1024" decoding="async" loading="eager" fetchpriority="high" /></figure>
 <div class="article-lead" data-article-section>
 <p>You open your laptop to finish one piece of work. An email arrives. You check it, notice a link you meant to read, and open another tab. Twenty minutes later, you have more pages open but no progress on the work you came to do.</p>
 <p>That pattern is familiar in <a href="https://www.reddit.com/r/productivity/comments/1q1yp9h/i_lose_half_my_day_to_context_switching_between/" target="_blank" rel="noopener noreferrer">a Reddit discussion about context switching</a>: the writer described moving from an email notification to a new tab, then losing track of the original task. In <a href="https://www.reddit.com/r/productivity/comments/1kt55d2" target="_blank" rel="noopener noreferrer">another discussion</a>, someone said that even the tabs they kept open so they would not forget them became visual distractions.</p>
